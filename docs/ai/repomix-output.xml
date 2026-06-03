@@ -189,92 +189,6 @@ tools/utils.py
 <files>
 This section contains the contents of the repository's files.
 
-<file path="agentic/prompts/extract-figma-context.md">
- 1: # Prompt: Extract Figma Context
- 2: 
- 3: This prompt is used to extract Figma tree nodes, variables, styles, and metadata into a stable node bundle.
- 4: 
- 5: ## Instructions for Agent
- 6: 
- 7: 1. **Do NOT generate HTML.** This phase is purely for data extraction.
- 8: 2. **Do NOT choose final CSS classes.** Class resolution occurs in a downstream phase.
- 9: 3. **Do NOT call Webflow MCP tools.** Webflow operations are forbidden during extraction.
-10: 4. **Output Location**: All outputs must go to `workspace/figma/` directory.
-11: 
-12: ## Large Frame Policy
-13: 
-14: If the target frame is extremely large and contains complex sections:
-15: 1. Extract top-level metadata first to identify section boundaries.
-16: 2. Slice the frame by top-level sections.
-17: 3. Re-run node extraction context for each section.
-18: 4. Merge section bundles into a single cohesive `figma.node-bundle.json`.
-19: 
-20: ## Expected Output Files
-21: 
-22: - `workspace/figma/figma.node-bundle.json`: Raw node JSON tree and styles.
-23: - `workspace/figma/metadata.json`: Frame name, dimensions, file version hash, and timestamp.
-24: - `workspace/figma/variable-defs.json`: Figma variable collection definitions.
-25: - `workspace/figma/screenshot.png` (optional): Visual screenshot of the frame.
-26: - `workspace/figma/extract-run.log`: Execution log of the extractor.
-</file>
-
-<file path="scripts/gates/validate_figma_node_bundle.py">
- 1: import os
- 2: import sys
- 3: import json
- 4: 
- 5: def main():
- 6:     root_dir = os.path.abspath(os.path.join(os.path.dirname(__file__), "..", ".."))
- 7:     figma_dir = os.path.join(root_dir, "workspace", "figma")
- 8:     print(f"Validating Figma Node Bundle in: {figma_dir}")
- 9:     
-10:     errors = []
-11:     
-12:     node_bundle = os.path.join(figma_dir, "figma.node-bundle.json")
-13:     metadata_file = os.path.join(figma_dir, "metadata.json")
-14:     variable_defs = os.path.join(figma_dir, "variable-defs.json")
-15:     run_log = os.path.join(figma_dir, "extract-run.log")
-16:     
-17:     files_to_check = {
-18:         "figma.node-bundle.json": node_bundle,
-19:         "metadata.json": metadata_file,
-20:         "variable-defs.json": variable_defs,
-21:         "extract-run.log": run_log
-22:     }
-23:     
-24:     for fname, path in files_to_check.items():
-25:         if not os.path.exists(path):
-26:             errors.append(f"Missing file in figma workspace: {fname}")
-27:             continue
-28:             
-29:         try:
-30:             with open(path, "r", encoding="utf-8") as f:
-31:                 data = json.load(f)
-32:                 
-33:             if fname == "figma.node-bundle.json":
-34:                 for prop in ["node_id", "name", "tree", "styles", "metadata"]:
-35:                     if prop not in data:
-36:                         errors.append(f"Property '{prop}' is missing from figma.node-bundle.json")
-37:             elif fname == "extract-run.log":
-38:                 for prop in ["timestamp", "status", "duration_seconds", "errors", "steps"]:
-39:                     if prop not in data:
-40:                         errors.append(f"Property '{prop}' is missing from extract-run.log")
-41:         except Exception as e:
-42:             errors.append(f"Failed to parse '{fname}' as valid JSON: {e}")
-43:             
-44:     if errors:
-45:         print("\n--- FIGMA NODE BUNDLE VALIDATION FAILED ---")
-46:         for err in errors:
-47:             print(f"ERROR: {err}")
-48:         sys.exit(1)
-49:     else:
-50:         print("\n--- FIGMA NODE BUNDLE VALIDATION PASSED ---")
-51:         sys.exit(0)
-52: 
-53: if __name__ == "__main__":
-54:     main()
-</file>
-
 <file path="agentic/evals/golden-tasks/README.md">
 1: # Golden Tasks
 2: 
@@ -1210,6 +1124,35 @@ This section contains the contents of the repository's files.
 11: Every tool and MCP server must include `risk_class`, approval policy, auth requirements, allowed agents, and validation.
 </file>
 
+<file path="agentic/prompts/extract-figma-context.md">
+ 1: # Prompt: Extract Figma Context
+ 2: 
+ 3: This prompt is used to extract Figma tree nodes, variables, styles, and metadata into a stable node bundle.
+ 4: 
+ 5: ## Instructions for Agent
+ 6: 
+ 7: 1. **Do NOT generate HTML.** This phase is purely for data extraction.
+ 8: 2. **Do NOT choose final CSS classes.** Class resolution occurs in a downstream phase.
+ 9: 3. **Do NOT call Webflow MCP tools.** Webflow operations are forbidden during extraction.
+10: 4. **Output Location**: All outputs must go to `workspace/figma/` directory.
+11: 
+12: ## Large Frame Policy
+13: 
+14: If the target frame is extremely large and contains complex sections:
+15: 1. Extract top-level metadata first to identify section boundaries.
+16: 2. Slice the frame by top-level sections.
+17: 3. Re-run node extraction context for each section.
+18: 4. Merge section bundles into a single cohesive `figma.node-bundle.json`.
+19: 
+20: ## Expected Output Files
+21: 
+22: - `workspace/figma/figma.node-bundle.json`: Raw node JSON tree and styles.
+23: - `workspace/figma/metadata.json`: Frame name, dimensions, file version hash, and timestamp.
+24: - `workspace/figma/variable-defs.json`: Figma variable collection definitions.
+25: - `workspace/figma/screenshot.png` (optional): Visual screenshot of the frame.
+26: - `workspace/figma/extract-run.log`: Execution log of the extractor.
+</file>
+
 <file path="agentic/prompts/generate-cf-library.md">
   1: # Prompt: Generate Client-First Library from Figma Variables
   2: 
@@ -1754,96 +1697,6 @@ This section contains the contents of the repository's files.
 18:     "additionalProperties": true
 19:   }
 20: }
-</file>
-
-<file path="agentic/schemas/figma-extract-run-log.schema.json">
- 1: {
- 2:   "$schema": "http://json-schema.org/draft-07/schema#",
- 3:   "title": "Figma Extract Run Log Schema",
- 4:   "type": "object",
- 5:   "required": ["timestamp", "status", "duration_seconds", "errors", "steps"],
- 6:   "properties": {
- 7:     "timestamp": {
- 8:       "type": "string",
- 9:       "format": "date-time"
-10:     },
-11:     "status": {
-12:       "type": "string",
-13:       "enum": ["success", "failed"]
-14:     },
-15:     "duration_seconds": {
-16:       "type": "number"
-17:     },
-18:     "errors": {
-19:       "type": "array",
-20:       "items": { "type": "string" }
-21:     },
-22:     "steps": {
-23:       "type": "array",
-24:       "items": {
-25:         "type": "object",
-26:         "required": ["name", "timestamp", "status"],
-27:         "properties": {
-28:           "name": { "type": "string" },
-29:           "timestamp": { "type": "string", "format": "date-time" },
-30:           "status": { "type": "string" },
-31:           "details": { "type": "string" }
-32:         }
-33:       }
-34:     }
-35:   }
-36: }
-</file>
-
-<file path="agentic/schemas/figma-node-bundle.schema.json">
- 1: {
- 2:   "$schema": "http://json-schema.org/draft-07/schema#",
- 3:   "title": "Figma Node Bundle Schema",
- 4:   "type": "object",
- 5:   "required": ["node_id", "name", "tree", "styles", "metadata"],
- 6:   "properties": {
- 7:     "node_id": {
- 8:       "type": "string"
- 9:     },
-10:     "name": {
-11:       "type": "string"
-12:     },
-13:     "tree": {
-14:       "type": "object",
-15:       "properties": {
-16:         "id": { "type": "string" },
-17:         "name": { "type": "string" },
-18:         "type": { "type": "string" },
-19:         "children": { "type": "array" }
-20:       },
-21:       "required": ["id", "name", "type"]
-22:     },
-23:     "styles": {
-24:       "type": "object",
-25:       "properties": {
-26:         "colors": { "type": "array" },
-27:         "typography": { "type": "array" },
-28:         "spacing": { "type": "array" }
-29:       }
-30:     },
-31:     "metadata": {
-32:       "type": "object",
-33:       "required": ["extracted_at", "figma_file_version", "extractor_user"],
-34:       "properties": {
-35:         "extracted_at": {
-36:           "type": "string",
-37:           "format": "date-time"
-38:         },
-39:         "figma_file_version": {
-40:           "type": "string"
-41:         },
-42:         "extractor_user": {
-43:           "type": "string"
-44:         }
-45:       }
-46:     }
-47:   }
-48: }
 </file>
 
 <file path="agentic/schemas/figma-normalization-report.schema.json">
@@ -44606,6 +44459,63 @@ This section contains the contents of the repository's files.
 43:     main()
 </file>
 
+<file path="scripts/gates/validate_figma_node_bundle.py">
+ 1: import os
+ 2: import sys
+ 3: import json
+ 4: 
+ 5: def main():
+ 6:     root_dir = os.path.abspath(os.path.join(os.path.dirname(__file__), "..", ".."))
+ 7:     figma_dir = os.path.join(root_dir, "workspace", "figma")
+ 8:     print(f"Validating Figma Node Bundle in: {figma_dir}")
+ 9:     
+10:     errors = []
+11:     
+12:     node_bundle = os.path.join(figma_dir, "figma.node-bundle.json")
+13:     metadata_file = os.path.join(figma_dir, "metadata.json")
+14:     variable_defs = os.path.join(figma_dir, "variable-defs.json")
+15:     run_log = os.path.join(figma_dir, "extract-run.log")
+16:     
+17:     files_to_check = {
+18:         "figma.node-bundle.json": node_bundle,
+19:         "metadata.json": metadata_file,
+20:         "variable-defs.json": variable_defs,
+21:         "extract-run.log": run_log
+22:     }
+23:     
+24:     for fname, path in files_to_check.items():
+25:         if not os.path.exists(path):
+26:             errors.append(f"Missing file in figma workspace: {fname}")
+27:             continue
+28:             
+29:         try:
+30:             with open(path, "r", encoding="utf-8") as f:
+31:                 data = json.load(f)
+32:                 
+33:             if fname == "figma.node-bundle.json":
+34:                 for prop in ["node_id", "name", "tree", "styles", "metadata"]:
+35:                     if prop not in data:
+36:                         errors.append(f"Property '{prop}' is missing from figma.node-bundle.json")
+37:             elif fname == "extract-run.log":
+38:                 for prop in ["timestamp", "status", "duration_seconds", "errors", "steps"]:
+39:                     if prop not in data:
+40:                         errors.append(f"Property '{prop}' is missing from extract-run.log")
+41:         except Exception as e:
+42:             errors.append(f"Failed to parse '{fname}' as valid JSON: {e}")
+43:             
+44:     if errors:
+45:         print("\n--- FIGMA NODE BUNDLE VALIDATION FAILED ---")
+46:         for err in errors:
+47:             print(f"ERROR: {err}")
+48:         sys.exit(1)
+49:     else:
+50:         print("\n--- FIGMA NODE BUNDLE VALIDATION PASSED ---")
+51:         sys.exit(0)
+52: 
+53: if __name__ == "__main__":
+54:     main()
+</file>
+
 <file path="scripts/gates/validate_phase_state.py">
  1: #!/usr/bin/env python3
  2: """Validate MAS phase transitions when runtime state exists."""
@@ -52331,6 +52241,96 @@ This section contains the contents of the repository's files.
 227: - `knowledge-base/libraries/{site_id}/client-first-library.json` — project token classes
 228: - `knowledge-base/client-first-class-map.json` — global CF utility catalog
 229: - `workspace/design-system.json` — project-specific REM scale
+</file>
+
+<file path="agentic/schemas/figma-extract-run-log.schema.json">
+ 1: {
+ 2:   "$schema": "http://json-schema.org/draft-07/schema#",
+ 3:   "title": "Figma Extract Run Log Schema",
+ 4:   "type": "object",
+ 5:   "required": ["timestamp", "status", "duration_seconds", "errors", "steps"],
+ 6:   "properties": {
+ 7:     "timestamp": {
+ 8:       "type": "string",
+ 9:       "format": "date-time"
+10:     },
+11:     "status": {
+12:       "type": "string",
+13:       "enum": ["success", "failed"]
+14:     },
+15:     "duration_seconds": {
+16:       "type": "number"
+17:     },
+18:     "errors": {
+19:       "type": "array",
+20:       "items": { "type": "string" }
+21:     },
+22:     "steps": {
+23:       "type": "array",
+24:       "items": {
+25:         "type": "object",
+26:         "required": ["name", "timestamp", "status"],
+27:         "properties": {
+28:           "name": { "type": "string" },
+29:           "timestamp": { "type": "string", "format": "date-time" },
+30:           "status": { "type": "string" },
+31:           "details": { "type": "string" }
+32:         }
+33:       }
+34:     }
+35:   }
+36: }
+</file>
+
+<file path="agentic/schemas/figma-node-bundle.schema.json">
+ 1: {
+ 2:   "$schema": "http://json-schema.org/draft-07/schema#",
+ 3:   "title": "Figma Node Bundle Schema",
+ 4:   "type": "object",
+ 5:   "required": ["node_id", "name", "tree", "styles", "metadata"],
+ 6:   "properties": {
+ 7:     "node_id": {
+ 8:       "type": "string"
+ 9:     },
+10:     "name": {
+11:       "type": "string"
+12:     },
+13:     "tree": {
+14:       "type": "object",
+15:       "properties": {
+16:         "id": { "type": "string" },
+17:         "name": { "type": "string" },
+18:         "type": { "type": "string" },
+19:         "children": { "type": "array" }
+20:       },
+21:       "required": ["id", "name", "type"]
+22:     },
+23:     "styles": {
+24:       "type": "object",
+25:       "properties": {
+26:         "colors": { "type": "array" },
+27:         "typography": { "type": "array" },
+28:         "spacing": { "type": "array" }
+29:       }
+30:     },
+31:     "metadata": {
+32:       "type": "object",
+33:       "required": ["extracted_at", "figma_file_version", "extractor_user"],
+34:       "properties": {
+35:         "extracted_at": {
+36:           "type": "string",
+37:           "format": "date-time"
+38:         },
+39:         "figma_file_version": {
+40:           "type": "string"
+41:         },
+42:         "extractor_user": {
+43:           "type": "string"
+44:         }
+45:       }
+46:     }
+47:   }
+48: }
 </file>
 
 <file path="agentic/specs/workspace-artifact-schemas.md">
