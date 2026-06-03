@@ -92,6 +92,7 @@ agentic/specs/figma-to-client-first-mapping.md
 agentic/specs/scaffold-file-plan.md
 agentic/specs/visual-qa-evidence-contract.md
 agentic/specs/workspace-artifact-schemas.md
+AGENTS.md
 CLAUDE.md
 knowledge-base/client-first-class-map.json
 knowledge-base/client-first-theory.md
@@ -141,6 +142,7 @@ This section contains the contents of the repository's files.
 10: *.tmp
 11: .DS_Store
 12: Thumbs.db
+13: .claude/settings.json
 </file>
 
 <file path="agentic/evals/golden-tasks/README.md">
@@ -3446,6 +3448,41 @@ This section contains the contents of the repository's files.
 50: Do not overwrite artifacts. Create a new blueprint filename or append a new state entry when a phase repeats.
 </file>
 
+<file path="AGENTS.md">
+ 1: <!-- gitnexus:start -->
+ 2: # GitNexus — Code Intelligence
+ 3: 
+ 4: This project is indexed by GitNexus as **MAS-Figma-Webflow-khang**. Use the GitNexus MCP tools to understand code, assess impact, and navigate safely.
+ 5: 
+ 6: > Index stale? Run `node .gitnexus/run.cjs analyze` from the project root — it auto-selects an available runner. No `.gitnexus/run.cjs` yet? `npx gitnexus analyze` (npm 11 crash → `npm i -g gitnexus`; #1939).
+ 7: 
+ 8: ## Always Do
+ 9: 
+10: - **MUST run impact analysis before editing any symbol.** Before modifying a function, class, or method, run `gitnexus_impact({target: "symbolName", direction: "upstream"})` and report the blast radius (direct callers, affected processes, risk level) to the user.
+11: - **MUST run `gitnexus_detect_changes()` before committing** to verify your changes only affect expected symbols and execution flows.
+12: - **MUST warn the user** if impact analysis returns HIGH or CRITICAL risk before proceeding with edits.
+13: - When exploring unfamiliar code, use `gitnexus_query({query: "concept"})` to find execution flows instead of grepping. It returns process-grouped results ranked by relevance.
+14: - When you need full context on a specific symbol — callers, callees, which execution flows it participates in — use `gitnexus_context({name: "symbolName"})`.
+15: 
+16: ## Never Do
+17: 
+18: - NEVER edit a function, class, or method without first running `gitnexus_impact` on it.
+19: - NEVER ignore HIGH or CRITICAL risk warnings from impact analysis.
+20: - NEVER rename symbols with find-and-replace — use `gitnexus_rename` which understands the call graph.
+21: - NEVER commit changes without running `gitnexus_detect_changes()` to check affected scope.
+22: 
+23: ## Resources
+24: 
+25: | Resource | Use for |
+26: |----------|---------|
+27: | `gitnexus://repo/MAS-Figma-Webflow-khang/context` | Codebase overview, check index freshness |
+28: | `gitnexus://repo/MAS-Figma-Webflow-khang/clusters` | All functional areas |
+29: | `gitnexus://repo/MAS-Figma-Webflow-khang/processes` | All execution flows |
+30: | `gitnexus://repo/MAS-Figma-Webflow-khang/process/{name}` | Step-by-step execution trace |
+31: 
+32: <!-- gitnexus:end -->
+</file>
+
 <file path="CLAUDE.md">
  1: # CLAUDE.md
  2: 
@@ -3507,6 +3544,39 @@ This section contains the contents of the repository's files.
 58: 6. `@gatekeeper` or `@architect` runs reflection review on risky artifacts.
 59: 7. `@architect` runs QA against actual Webflow state and records fixes.
 60: 8. `@pm` updates `agentic/memory/session-handoff.md` and reports evidence-backed completion.
+61: 
+62: <!-- gitnexus:start -->
+63: # GitNexus — Code Intelligence
+64: 
+65: This project is indexed by GitNexus as **MAS-Figma-Webflow-khang**. Use the GitNexus MCP tools to understand code, assess impact, and navigate safely.
+66: 
+67: > Index stale? Run `node .gitnexus/run.cjs analyze` from the project root — it auto-selects an available runner. No `.gitnexus/run.cjs` yet? `npx gitnexus analyze` (npm 11 crash → `npm i -g gitnexus`; #1939).
+68: 
+69: ## Always Do
+70: 
+71: - **MUST run impact analysis before editing any symbol.** Before modifying a function, class, or method, run `gitnexus_impact({target: "symbolName", direction: "upstream"})` and report the blast radius (direct callers, affected processes, risk level) to the user.
+72: - **MUST run `gitnexus_detect_changes()` before committing** to verify your changes only affect expected symbols and execution flows.
+73: - **MUST warn the user** if impact analysis returns HIGH or CRITICAL risk before proceeding with edits.
+74: - When exploring unfamiliar code, use `gitnexus_query({query: "concept"})` to find execution flows instead of grepping. It returns process-grouped results ranked by relevance.
+75: - When you need full context on a specific symbol — callers, callees, which execution flows it participates in — use `gitnexus_context({name: "symbolName"})`.
+76: 
+77: ## Never Do
+78: 
+79: - NEVER edit a function, class, or method without first running `gitnexus_impact` on it.
+80: - NEVER ignore HIGH or CRITICAL risk warnings from impact analysis.
+81: - NEVER rename symbols with find-and-replace — use `gitnexus_rename` which understands the call graph.
+82: - NEVER commit changes without running `gitnexus_detect_changes()` to check affected scope.
+83: 
+84: ## Resources
+85: 
+86: | Resource | Use for |
+87: |----------|---------|
+88: | `gitnexus://repo/MAS-Figma-Webflow-khang/context` | Codebase overview, check index freshness |
+89: | `gitnexus://repo/MAS-Figma-Webflow-khang/clusters` | All functional areas |
+90: | `gitnexus://repo/MAS-Figma-Webflow-khang/processes` | All execution flows |
+91: | `gitnexus://repo/MAS-Figma-Webflow-khang/process/{name}` | Step-by-step execution trace |
+92: 
+93: <!-- gitnexus:end -->
 </file>
 
 <file path="knowledge-base/client-first-class-map.json">
