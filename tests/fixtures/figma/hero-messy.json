@@ -1,0 +1,50 @@
+{
+  "node_id": "11:1",
+  "name": "Frame 102",
+  "tree": {
+    "id": "11:1",
+    "name": "Frame 102",
+    "type": "FRAME",
+    "classes": [],
+    "styles": {
+      "background-color": "#010101",
+      "padding": "82px 24px"
+    },
+    "children": [
+      {
+        "id": "11:2",
+        "name": "Frame 103",
+        "type": "FRAME",
+        "classes": [],
+        "children": [
+          {
+            "id": "11:3",
+            "name": "Frame 104",
+            "type": "TEXT",
+            "classes": ["heading-style-h1"],
+            "children": []
+          },
+          {
+            "id": "11:4",
+            "name": "Rectangle 10",
+            "type": "RECTANGLE",
+            "styles": {
+              "background-color": "#fffffe"
+            },
+            "children": []
+          }
+        ]
+      }
+    ]
+  },
+  "styles": {
+    "colors": [],
+    "typography": [],
+    "spacing": []
+  },
+  "metadata": {
+    "extracted_at": "2026-06-03T12:00:00Z",
+    "figma_file_version": "1.0",
+    "extractor_user": "test-agent"
+  }
+}

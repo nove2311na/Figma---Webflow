@@ -116,23 +116,23 @@ Update `knowledge-base/client-first-class-map.json`:
 `validate_css_contract.py` fails if:
 
 ```text
-[ ] contract missing
-[ ] CSS hash missing
-[ ] allowed_classes empty
-[ ] allowed_variables empty
-[ ] known classes missing: button, padding-global, container-large, heading-style-h1, text-size-medium, form_input, nav_component, grid-2-col
-[ ] known variables missing: --_layout---spacing--medium, --_layout---spacing--global-padding, --_theme---text-color--primary
-[ ] fs-styleguide_* not marked styleguide-only
-[ ] .w-* not marked native/reserved
+[x] contract missing
+[x] CSS hash missing
+[x] allowed_classes empty
+[x] allowed_variables empty
+[x] known classes missing: button, padding-global, container-large, heading-style-h1, text-size-medium, form_input, nav_component, grid-2-col
+[x] known variables missing: --_layout---spacing--medium, --_layout---spacing--global-padding, --_theme---text-color--primary
+[x] fs-styleguide_* not marked styleguide-only
+[x] .w-* not marked native/reserved
 ```
 
 ## 10. Done checklist
 
 ```text
-[ ] CSS indexer tool exists.
-[ ] Contract generated.
-[ ] CSS indexes generated.
-[ ] Contract gate passes.
-[ ] Class-selection rules reference contract.
-[ ] Curated map no longer source of truth.
+[x] CSS indexer tool exists.
+[x] Contract generated.
+[x] CSS indexes generated.
+[x] Contract gate passes.
+[x] Class-selection rules reference contract.
+[x] Curated map no longer source of truth.
 ```

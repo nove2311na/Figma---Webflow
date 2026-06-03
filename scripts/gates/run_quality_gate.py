@@ -89,12 +89,58 @@ def validate(root: Path) -> list[str]:
     return failures
 
 
+def run_sub_gate(gate_script: str) -> list[str]:
+    import subprocess
+    res = subprocess.run(
+        [sys.executable, f"scripts/gates/{gate_script}" if "/" not in gate_script else gate_script],
+        capture_output=True,
+        text=True,
+        encoding="utf-8"
+    )
+    if res.returncode != 0:
+        return [f"Gate {gate_script} failed: {res.stderr.strip() or res.stdout.strip()}"]
+    return []
+
 def main(argv: list[str] | None = None) -> int:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--target", default=".", help="Folder to validate")
+    parser.add_argument("--profile", default=None, help="Validation profile (e.g. html-first)")
     args = parser.parse_args(argv)
 
-    failures = validate(Path(args.target).resolve())
+    root = Path(args.target).resolve()
+    
+    if args.profile == "html-first":
+        print("Running HTML-first compiler validation profile...")
+        failures = []
+        
+        # List of gates to execute sequentially
+        gates = [
+            "validate_agentic_structure.py",
+            "validate_workspace_artifacts.py",
+            "validate_css_contract.py",
+            "validate_css_index.py",
+            "validate_figma_normalization.py",
+            "validate_semantic_ir.py",
+            "validate_html_blueprint.py",
+            "validate_asset_policy.py",
+            "scripts/validate_html_chunks.py",
+            "validate_resolver_benchmark.py",
+            "validate_native_build_plan.py"
+        ]
+        
+        for gate in gates:
+            print(f"Executing gate: {gate}...")
+            failures.extend(run_sub_gate(gate))
+            
+        if failures:
+            print("\nquality gate [html-first]: FAIL")
+            for failure in failures:
+                print(f"  - {failure}")
+            return 1
+        print("\nquality gate [html-first]: PASS")
+        return 0
+
+    failures = validate(root)
     if failures:
         print("quality gate: fail")
         for failure in failures:

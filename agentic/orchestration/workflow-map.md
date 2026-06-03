@@ -1,85 +1,49 @@
 # Workflow Map
 
-## Phase 0: Setup and Audit
+## Phase 0: Safety & Audit
+- **Trigger**: New compile run or page transition.
+- **Steps**: Verify archive cleanup, check target details, validate folder boundaries.
 
-Trigger: new project, resumed session, or page transition.
+## Phase 1: CSS Contract & Library
+- **Trigger**: Safety gate passed.
+- **Steps**: Compile CSS Library Contract from normalize/webflow/client-first CSS sources.
 
-Steps:
+## Phase 2: Figma Extraction
+- **Trigger**: Library contract established.
+- **Steps**: Extract raw Figma context and serialize into a stable node bundle.
 
-1. PM reads `agentic/memory/session-handoff.md`, `agentic/orchestration/sop.md`, and `agentic/policies/runtime-instructions.md`.
-2. Workspace steward checks `workspace/` and archive status.
-3. Operator scans target Webflow page when configured.
-4. PM records phase status and blockers.
+## Phase 3: Design-System Sync
+- **Trigger**: Node bundle saved.
+- **Steps**: Sync figma color/typography/spacing tokens against the CSS contract.
 
-Output:
+## Phase 4: Component Registry & Signatures
+- **Trigger**: Design-system synced.
+- **Steps**: Match elements against known components and structure topologies.
 
-- workspace audit,
-- updated handoff,
-- target IDs or documented missing auth.
+## Phase 5: Figma Normalization
+- **Trigger**: Component matching done.
+- **Steps**: Recover generic names, auto-layouts, and snap raw colors.
 
-Stop conditions:
+## Phase 6: Semantic IR Resolution
+- **Trigger**: Normalization tree ready.
+- **Steps**: Resolve tag intents and Client-First class choices strictly.
 
-- unarchived workspace data,
-- missing target Figma/Webflow details,
-- missing approval for external reads.
+## Phase 7: HTML Blueprint & Render QA
+- **Trigger**: Semantic IR tree ready.
+- **Steps**: Generate logical blueprint, render physical HTML, and run quality gates.
 
-## Phase 1: Blueprint Establishment
+## Phase 8: Asset & Alt policy
+- **Trigger**: HTML compiled.
+- **Steps**: Create asset manifest and enforce accessibility alt rules.
 
-Trigger: Figma target confirmed.
+## Phase 9: Chunk Slicing & Golden Benchmarks
+- **Trigger**: Alt policy verified.
+- **Steps**: Slice page HTML into section chunks and benchmark accuracy against fixtures.
 
-Steps:
+## Phase 10: Webflow Native Plan
+- **Trigger**: Benchmarks passed.
+- **Steps**: Compile section chunks into serialized native build plans.
 
-1. Operator extracts raw Figma data.
-2. Operator writes content JSON.
-3. Architect creates Client-First blueprint.
-4. PM presents blueprint to user.
-
-Output:
-
-- `workspace/rawdata/*.json`,
-- `workspace/contents/*.json`,
-- `workspace/blueprints/*.json`,
-- user approval request.
-
-Stop condition:
-
-- wait for user `Approved` or `Agree`.
-
-## Phase 2: Webflow Execution
-
-Trigger: user approves blueprint.
-
-Steps:
-
-1. Operator confirms Webflow site/page.
-2. Operator takes pre-build state/snapshot.
-3. Operator builds with MCP-352.
-4. Operator logs state.
-
-Output:
-
-- Webflow changes,
-- `workspace/state.json`.
-
-Stop conditions:
-
-- verification boundary,
-- tool failure,
-- QA required.
-
-## Phase 3: QA Loop
-
-Trigger: build or fix complete.
-
-Steps:
-
-1. Architect inspects actual Webflow state/snapshot.
-2. Architect compares against blueprint and Figma.
-3. Architect returns `[APPROVED]` or `[FIX]`.
-4. PM routes fixes or reports completion.
-
-Output:
-
-- QA verdict,
-- `workspace/error-logs.json`,
-- updated `agentic/memory/session-handoff.md`.
+## Phase 11: Approval & Deployment
+- **Trigger**: Plan validated.
+- **Steps**: Present plan to user, wait for approval, and execute branch mutations sequentially with audit logging.

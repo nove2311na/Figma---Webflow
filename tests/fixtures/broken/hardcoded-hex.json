@@ -1,0 +1,23 @@
+{
+  "node_id": "99:7",
+  "name": "Hardcoded Hex Node",
+  "tree": {
+    "id": "99:7",
+    "name": "Colored Node",
+    "type": "FRAME",
+    "styles": {
+      "background-color": "#e0ab12"
+    },
+    "children": []
+  },
+  "styles": {
+    "colors": [],
+    "typography": [],
+    "spacing": []
+  },
+  "metadata": {
+    "extracted_at": "2026-06-03T12:00:00Z",
+    "figma_file_version": "1.0",
+    "extractor_user": "test-agent"
+  }
+}

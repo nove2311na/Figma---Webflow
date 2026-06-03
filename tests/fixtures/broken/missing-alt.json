@@ -1,0 +1,22 @@
+{
+  "node_id": "99:5",
+  "name": "Image with missing alt",
+  "tree": {
+    "id": "99:5",
+    "name": "Content Image",
+    "type": "RECTANGLE",
+    "ambiguous_media": true,
+    "media_kind": "image",
+    "children": []
+  },
+  "styles": {
+    "colors": [],
+    "typography": [],
+    "spacing": []
+  },
+  "metadata": {
+    "extracted_at": "2026-06-03T12:00:00Z",
+    "figma_file_version": "1.0",
+    "extractor_user": "test-agent"
+  }
+}

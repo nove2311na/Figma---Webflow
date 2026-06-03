@@ -1,6 +1,26 @@
 {
   "$schema": "http://json-schema.org/draft-07/schema#",
-  "title": "Webflow Section Task",
+  "title": "Webflow Section Task Schema",
   "type": "object",
-  "properties": {}
+  "required": ["task_id", "section_name", "branch", "preflight_passed", "steps"],
+  "properties": {
+    "task_id": { "type": "string" },
+    "section_name": { "type": "string" },
+    "branch": { "type": "string" },
+    "preflight_passed": { "type": "boolean" },
+    "steps": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["step_index", "description", "status"],
+        "properties": {
+          "step_index": { "type": "integer" },
+          "description": { "type": "string" },
+          "ops_count": { "type": "integer" },
+          "status": { "type": "string", "enum": ["pending", "in_progress", "completed", "failed"] }
+        }
+      }
+    },
+    "completed_at": { "type": "string", "format": "date-time" }
+  }
 }

@@ -1,6 +1,23 @@
 {
   "$schema": "http://json-schema.org/draft-07/schema#",
-  "title": "Alt Policy",
+  "title": "Alt Policy Schema",
   "type": "object",
-  "properties": {}
+  "required": ["policy_name", "rules"],
+  "properties": {
+    "policy_name": { "type": "string" },
+    "rules": {
+      "type": "object",
+      "required": ["informative_needs_alt", "decorative_needs_empty_alt", "decorative_needs_aria_hidden", "functional_needs_accessible_name", "forbidden_generic_alts"],
+      "properties": {
+        "informative_needs_alt": { "type": "boolean" },
+        "decorative_needs_empty_alt": { "type": "boolean" },
+        "decorative_needs_aria_hidden": { "type": "boolean" },
+        "functional_needs_accessible_name": { "type": "boolean" },
+        "forbidden_generic_alts": {
+          "type": "array",
+          "items": { "type": "string" }
+        }
+      }
+    }
+  }
 }

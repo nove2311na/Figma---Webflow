@@ -1,6 +1,57 @@
 {
   "$schema": "http://json-schema.org/draft-07/schema#",
-  "title": "Html Blueprint",
+  "title": "HTML Blueprint Schema",
   "type": "object",
-  "properties": {}
+  "required": ["version", "page_title", "head_elements", "body", "metadata"],
+  "properties": {
+    "version": { "type": "string" },
+    "page_title": { "type": "string" },
+    "head_elements": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["tag"],
+        "properties": {
+          "tag": { "type": "string" },
+          "attributes": {
+            "type": "object",
+            "additionalProperties": { "type": "string" }
+          }
+        }
+      }
+    },
+    "body": {
+      "$ref": "#/definitions/BlueprintNode"
+    },
+    "metadata": {
+      "type": "object",
+      "required": ["compiled_at", "source_semantic_tree"],
+      "properties": {
+        "compiled_at": { "type": "string", "format": "date-time" },
+        "source_semantic_tree": { "type": "string" }
+      }
+    }
+  },
+  "definitions": {
+    "BlueprintNode": {
+      "type": "object",
+      "required": ["tag", "classes", "attributes"],
+      "properties": {
+        "tag": { "type": "string" },
+        "classes": {
+          "type": "array",
+          "items": { "type": "string" }
+        },
+        "attributes": {
+          "type": "object",
+          "additionalProperties": { "type": "string" }
+        },
+        "text": { "type": "string" },
+        "children": {
+          "type": "array",
+          "items": { "$ref": "#/definitions/BlueprintNode" }
+        }
+      }
+    }
+  }
 }

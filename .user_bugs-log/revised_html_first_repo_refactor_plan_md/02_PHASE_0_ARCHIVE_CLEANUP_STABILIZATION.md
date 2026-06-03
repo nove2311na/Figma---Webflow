@@ -120,23 +120,23 @@ scripts/gates/validate_archive_cleanup.py
 
 Checks:
 ```text
-[ ] archive/README.md exists.
-[ ] archive/MIGRATION_LOG.md exists.
-[ ] old paths no longer exist.
-[ ] moved files exist under archive.
-[ ] active repo no longer references old script names.
-[ ] active repo no longer references old site IDs except archive.
-[ ] README/CLAUDE no longer instruct old blueprint-first commands.
+[x] archive/README.md exists.
+[x] archive/MIGRATION_LOG.md exists.
+[x] old paths no longer exist.
+[x] moved files exist under archive.
+[x] active repo no longer references old script names.
+[x] active repo no longer references old site IDs except archive.
+[x] README/CLAUDE no longer instruct old blueprint-first commands.
 ```
 
 ## 7. Done checklist
 
 ```text
-[ ] Archive folders created.
-[ ] Old run files moved.
-[ ] Old scripts moved.
-[ ] Old site libraries moved.
-[ ] Old broad prompt archived.
-[ ] Active references updated.
-[ ] validate_archive_cleanup.py passes.
+[x] Archive folders created.
+[x] Old run files moved.
+[x] Old scripts moved.
+[x] Old site libraries moved.
+[x] Old broad prompt archived.
+[x] Active references updated.
+[x] validate_archive_cleanup.py passes.
 ```

@@ -170,22 +170,22 @@ scripts/gates/validate_agentic_structure.py
 
 Checks:
 ```text
-[ ] folders exist
-[ ] specs exist
-[ ] rules exist
-[ ] schemas parse as JSON
-[ ] workspace spec updated
-[ ] pyproject dependencies documented
+[x] folders exist
+[x] specs exist
+[x] rules exist
+[x] schemas parse as JSON
+[x] workspace spec updated
+[x] pyproject dependencies documented
 ```
 
 ## 9. Done checklist
 
 ```text
-[ ] New folders exist.
-[ ] Specs created.
-[ ] Rules created.
-[ ] Schemas created.
-[ ] Workspace spec updated.
-[ ] Dependencies updated/documented.
-[ ] validate_agentic_structure.py passes.
+[x] New folders exist.
+[x] Specs created.
+[x] Rules created.
+[x] Schemas created.
+[x] Workspace spec updated.
+[x] Dependencies updated/documented.
+[x] validate_agentic_structure.py passes.
 ```

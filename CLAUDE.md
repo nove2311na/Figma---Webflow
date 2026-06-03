@@ -14,15 +14,26 @@ This folder is a Claude Code-native agentic workspace for the MAS V3 Figma-to-We
 ## Common Commands
 
 ```cmd
-python scripts\init_workspace.py --project "Project Name" --figma "https://www.figma.com/design/file"
-python scripts\gates\validate_agentic_structure.py --target .
-python scripts\gates\run_quality_gate.py --target .
-python scripts\gates\scan_secrets.py --target .
-python scripts\gates\validate_agent_system_spec.py --target .
-python scripts\gates\validate_skills.py --target .
-python scripts\gates\validate_workspace_artifacts.py --target .
-python scripts\gates\validate_phase_state.py --target .
-python scripts\gates\validate_relative_paths.py --target .
+# 1. Parse CSS library to build contract
+python scripts\index_css_library.py --normalize source-css\normalize.css --webflow source-css\webflow.css --client-first source-css\client-first-v2-2.webflow.css --out knowledge-base\generated
+
+# 2. Normalize Figma nodes
+python scripts\normalize_figma_nodes.py --input workspace\figma\figma.node-bundle.json
+
+# 3. Resolve semantic roles and classes
+python scripts\resolve_semantic_ir.py
+
+# 4. Render HTML from blueprint
+python scripts\render_html_from_blueprint.py
+
+# 5. Slice page HTML into section chunks
+python scripts\slice_html_into_chunks.py
+
+# 6. Compile native ops plan
+python scripts\compile_native_ops_from_html.py
+
+# 7. Unified quality gate validation
+python scripts\gates\run_quality_gate.py --profile html-first
 ```
 
 Workspace lifecycle:
@@ -35,29 +46,26 @@ python scripts\restore_workspace.py 0
 
 ## Operating Rules
 
+- **CSS Contract is Binding**: Allowed CSS variables/classes defined by the generated CSS library contract (`client-first-library-contract.json`) are the binding source of truth.
+- **Strict Class Selection**: Final HTML cannot use a class unless it exists in the contract, Webflow native classes, or approved structural conventions. Proposing or inventing new classes in strict mode blocks compilation.
+- **Branch-First Deployments**: All mutations to Webflow must operate on a temporary site branch, never directly on main/master setups.
+- **Single-Threaded Writes**: Webflow writes must be serialized to avoid database lockups. Concurrency policy enforces serial writes.
+- **Audit Trails**: Every Webflow mutation must write to `write-audit-log.jsonl` containing payloads and response codes.
+- **Auto-Publish Forbidden**: Auto-publish is strictly forbidden from the build pipeline. Publishing is manually triggered or gated separately.
 - Never silently overwrite existing files.
-- Never delete or restore `workspace/` unless the archive/restore safety gates pass.
-- Never proceed from Blueprint to Webflow build until the user approves.
-- Never use `whtml_builder`; build with Webflow native element operations and MCP-352.
+- Never use `whtml_builder`; build with Webflow native element operations.
 - Always use REM units for spacing, sizes, and typography.
-- Always record evidence in workspace JSON files before reporting progress.
-- Always record Webflow actions with reason, action, observation, and next decision.
-- Always run QA from real Webflow state or snapshots; do not guess visual parity.
-- Treat `agentic/evals/standalone-architecture-baseline.md` as the local architecture baseline.
-- Use `knowledge-base/client-first-class-map.json` before mapping Figma properties to Webflow classes.
-- Use Python as the project automation language.
 - Keep local filesystem references relative inside this folder.
 
 ## Workflow Summary
 
 1. `@pm` receives the user request and checks `agentic/memory/session-handoff.md`, `agentic/orchestration/sop.md`, and workspace state.
-2. `@operator` extracts Figma/raw data into `workspace/rawdata/` and `workspace/contents/`.
-3. `@architect` produces Client-First blueprints in `workspace/blueprints/`.
-4. `@pm` presents the blueprint and stops for approval.
-5. `@operator` builds in Webflow using MCP-352.
-6. `@gatekeeper` or `@architect` runs reflection review on risky artifacts.
-7. `@architect` runs QA against actual Webflow state and records fixes.
-8. `@pm` updates `agentic/memory/session-handoff.md` and reports evidence-backed completion.
+2. `@operator` extracts Figma/raw data into `workspace/figma/` and `workspace/reports/`.
+3. `@architect` normalizes nodes, resolves semantic roles/tags/classes, renders logical HTML blueprints, and slices chunks.
+4. `@pm` presents the logical build plan and stops for approval.
+5. `@operator` compiles native operations and builds in Webflow using serialization and branching rules.
+6. `@gatekeeper` runs quality gates and checks audit logs.
+7. `@pm` updates `agentic/memory/session-handoff.md` and reports evidence-backed completion.
 
 <!-- gitnexus:start -->
 # GitNexus — Code Intelligence

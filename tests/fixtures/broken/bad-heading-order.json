@@ -1,0 +1,36 @@
+{
+  "node_id": "99:2",
+  "name": "Bad Heading Order",
+  "tree": {
+    "id": "99:2",
+    "name": "Bad Headings Wrapper",
+    "type": "FRAME",
+    "classes": ["page-wrapper"],
+    "children": [
+      {
+        "id": "99:3",
+        "name": "Heading Level 4",
+        "type": "TEXT",
+        "classes": ["heading-style-h4"],
+        "children": []
+      },
+      {
+        "id": "99:4",
+        "name": "Heading Level 1",
+        "type": "TEXT",
+        "classes": ["heading-style-h1"],
+        "children": []
+      }
+    ]
+  },
+  "styles": {
+    "colors": [],
+    "typography": [],
+    "spacing": []
+  },
+  "metadata": {
+    "extracted_at": "2026-06-03T12:00:00Z",
+    "figma_file_version": "1.0",
+    "extractor_user": "test-agent"
+  }
+}

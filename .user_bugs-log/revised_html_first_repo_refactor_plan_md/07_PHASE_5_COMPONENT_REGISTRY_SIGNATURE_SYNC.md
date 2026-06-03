@@ -63,9 +63,9 @@ Fail if:
 ## Done checklist
 
 ```text
-[ ] Files created/updated.
-[ ] References stabilized.
-[ ] Gate added/updated.
-[ ] Strict behavior documented.
-[ ] Phase output path documented.
+[x] Files created/updated.
+[x] References stabilized.
+[x] Gate added/updated.
+[x] Strict behavior documented.
+[x] Phase output path documented.
 ```

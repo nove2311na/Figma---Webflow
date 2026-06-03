@@ -1,137 +1,70 @@
-# MAS Figma to Webflow for Claude Code
+# MAS HTML-First Figma to Webflow Compiler
 
-This folder is a Claude Code-native, Python-first agentic workflow for converting Figma designs into Webflow pages with Finsweet Client-First V2 quality.
+This folder is a Claude Code-native, Python-first agentic compiler framework for converting Figma design files into Webflow pages with strict Finsweet Client-First V2 conformance.
 
-It now carries its own standalone architecture baseline, agent-system contract, gates, schemas, and Client-First class library so it can be used as an independent repo.
+Unlike previous build architectures, this framework compiles Figma extract bundles into local HTML pages first. It validates class existence, accessibility alts, and Client-First structural wrappers locally, before generating serialized Webflow branch build plans.
 
 ## Runtime
 
-- Primary agent CLI: Claude Code.
-- Primary automation language: Python.
-- External execution: Webflow MCP and Figma connector only when explicitly approved.
+- **Primary Agent CLI**: Claude Code.
+- **Automation Language**: Python 3.10+.
+- **External Connectors**: Webflow MCP and Figma MCP are only engaged under branch-first, approved operations.
 
-## Agent Team
-
-| Agent | Role |
-|---|---|
-| `pm` | User-facing orchestrator. Reads the request, controls SOP phases, delegates to specialists, reports evidence. |
-| `client-first-architect` | Designs Client-First blueprints and performs QA rejection/approval. |
-| `figma-webflow-operator` | Extracts Figma data and executes approved Webflow builds. |
-| `workspace-steward` | Protects workspace lifecycle, archive, restore, and handoff state. |
-| `qa-gatekeeper` | Runs deterministic gates and standalone readiness checks. |
-
-Agent definitions live in `.claude/agents/`.
-
-## Core Workflow
-
-```mermaid
-sequenceDiagram
-    autonumber
-    User->>PM: Request Figma to Webflow build
-    PM->>PM: Read CLAUDE.md and agentic runtime docs
-    PM->>Steward: Check workspace and handoff
-    PM->>Operator: Extract Figma raw data and content
-    Operator-->>PM: Write workspace/rawdata and workspace/contents
-    PM->>Architect: Create Client-First blueprint
-    Architect-->>PM: Write workspace/blueprints and page_structure.json
-    PM->>User: Present blueprint and stop for approval
-    User->>PM: Approved
-    PM->>Operator: Build in Webflow with MCP-352
-    Operator-->>PM: Write ReAct entries to workspace/state.json
-    PM->>Gatekeeper: Reflection review
-    Gatekeeper-->>PM: Pass, revise, or block
-    PM->>Architect: Run QA against real Webflow state
-    Architect-->>PM: APPROVED or FIX with evidence
-    PM->>Gatekeeper: Run local gates
-    Gatekeeper-->>PM: Readiness report
-    PM->>User: Evidence-backed completion report
-```
-
-## Folder Map
+## Core Compiler Pipeline
 
 ```text
-CLAUDE.md
-.claude/
-  agents/
-  skills/
-.user_versions/
-  VERSION_HISTORY.md
-.user_bugs-log/
-.user_guides/
-agentic/
-  specs/
-  schemas/
-  knowledge/
-  memory/
-  policies/
-  orchestration/
-  evals/
-  memory/team-memory.md
-  memory/session-handoff.md
-  orchestration/sop.md
-  policies/runtime-instructions.md
-scripts/
-  init_workspace.py
-  archive_workspace.py
-  restore_workspace.py
-  gates/
-tools/
-  utils.py
-knowledge-base/
-  client-first-theory.md
-workspace/       # generated runtime state, gitignored
-archives/        # generated backups, gitignored
+Figma MCP + CSS Contract
+→ Client-First Library Contract
+→ Figma Extraction Bundle
+→ Design-System Sync
+→ Component Registry + Signature Matcher
+→ Figma Normalized Tree
+→ Semantic IR
+→ Tag & Class Resolvers
+→ Logical HTML Blueprint
+→ Local HTML + QA
+→ Asset Alt Policy Manifest
+→ Sliced Section Chunks
+→ Golden Fixtures Benchmarking
+→ Webflow Native Build Plan
+→ User Approval
+→ Webflow Branch Deploys & Audit Logs
 ```
 
-## Setup
+## Setup & Execution
 
 Use Python 3.10 or newer.
 
 ```cmd
-python scripts\init_workspace.py --project "Project Name" --figma "https://www.figma.com/design/file"
-python scripts\gates\validate_agentic_structure.py --target .
-python scripts\gates\run_quality_gate.py --target .
-python scripts\gates\scan_secrets.py --target .
-python scripts\gates\validate_agent_system_spec.py --target .
-python scripts\gates\validate_skills.py --target .
-python scripts\gates\validate_workspace_artifacts.py --target .
-python scripts\gates\validate_phase_state.py --target .
-python scripts\gates\validate_relative_paths.py --target .
-python scripts\gates\validate_client_first_library.py --target .
+# 1. Parse CSS library and build contract
+python scripts\index_css_library.py --normalize source-css\normalize.css --webflow source-css\webflow.css --client-first source-css\client-first-v2-2.webflow.css --out knowledge-base\generated
+
+# 2. Normalize raw Figma bundle
+python scripts\normalize_figma_nodes.py --input workspace\figma\figma.node-bundle.json
+
+# 3. Resolve Semantic IR tree
+python scripts\resolve_semantic_ir.py
+
+# 4. Render local HTML
+python scripts\render_html_from_blueprint.py
+
+# 5. Slice page into section chunks
+python scripts\slice_html_into_chunks.py
+
+# 6. Compile Webflow build plan
+python scripts\compile_native_ops_from_html.py
+
+# 7. Unify gates validation
+python scripts\gates\run_quality_gate.py --profile html-first
 ```
 
-Workspace lifecycle:
+## Non-Negotiable Operating Rules
 
-```cmd
-python scripts\archive_workspace.py
-python scripts\restore_workspace.py
-python scripts\restore_workspace.py 0
-```
-
-## Hard Rules
-
-- Claude Code is the only intended agent runtime.
-- Python scripts are the active automation path.
-- The PM must stop after blueprint and wait for user approval.
-- Webflow writes require target site/page confirmation and approval.
-- Operator must use native Webflow element operations and MCP-352.
-- `whtml_builder` is prohibited.
-- REM units are mandatory.
-- Figma properties must be mapped through `knowledge-base/client-first-class-map.json` before class decisions are written into a blueprint.
-- Workspace JSON evidence is mandatory for reports.
-- Webflow action logs must include reason, action, observation, and next decision.
-- Reflection review is required before risky phase closeout.
-- QA approval requires actual Webflow state or snapshot evidence.
-- No silent overwrite.
-- Secrets must not be committed.
-- Local filesystem paths in this folder must stay relative.
-
-## Standalone Readiness
-
-The generated system spec is at `agentic/specs/agent-system-spec.md`.
-
-Validation targets:
-
-- Structure profile: standard pass.
-- V3 quality target: 4.7.
-- Hard gates: all pass.
+1. **Contract Binding**: Allowed CSS variables and classes defined by the CSS contract (`client-first-library-contract.json`) are the binding source of truth. Proposing or creating new classes in strict mode blocks compilation.
+2. **Local HTML First**: No Webflow writes may occur directly from Figma designs. Elements must compile and pass local HTML gates first.
+3. **No whtml_builder**: Webflow structures must be built using native element operations. Injecting raw HTML blocks is prohibited.
+4. **Branch-First Mutations**: All Webflow mutations must target temporary site branches. Direct production builds are forbidden.
+5. **Serialized Writes**: Concurrency policy serializes Webflow write processes to prevent database lockups.
+6. **Audit Trails**: Every Webflow mutation must log payload and status to `write-audit-log.jsonl`.
+7. **No Auto-Publish**: Auto-publish is strictly forbidden from the build pipeline. Publishing is manually triggered or gated separately.
+8. **REM Units**: Spacing, sizing, and typography must use REM units.

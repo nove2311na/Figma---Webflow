@@ -1,0 +1,21 @@
+{
+  "node_id": "99:1",
+  "name": "Missing Class Element",
+  "tree": {
+    "id": "99:1",
+    "name": "Bad Element",
+    "type": "FRAME",
+    "classes": ["non-existent-class-name-12345"],
+    "children": []
+  },
+  "styles": {
+    "colors": [],
+    "typography": [],
+    "spacing": []
+  },
+  "metadata": {
+    "extracted_at": "2026-06-03T12:00:00Z",
+    "figma_file_version": "1.0",
+    "extractor_user": "test-agent"
+  }
+}

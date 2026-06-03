@@ -1,10 +1,18 @@
-# MCP Risk and Auth Map
+# MCP Risk and Authorization Map
 
-| Connector | Purpose | risk_class | Auth | Allowed Agents | Policy |
-|---|---|---|---|---|---|
-| Webflow MCP | Inspect and mutate Webflow site/page. | R3 | Webflow OAuth/session | operator, architect read/QA | Writes require approved blueprint and PM approval. |
-| Figma connector | Extract design data. | R2 | Figma token/OAuth | operator | Read scope must be limited to target file/nodes. |
-| Filesystem MCP | Read/write local workspace. | R0/R1 | none | all agents by role | Writes follow no-overwrite policy. |
-| Local command runner | Run local Python scripts and gates. | R0/R4 | none | PM, steward, gatekeeper | Destructive scripts require explicit approval. |
+This policy maps risk categories for external MCP servers (Figma, Webflow, Notion) and enforces authorization constraints.
 
-`agentic/policies/mcp-config.example.json` is an example only. Configure the live Claude Code Webflow MCP command after auth is approved, and keep credentials outside committed files.
+## Risk Categories
+
+- **R0 (No Risk)**: Reading local files, syntax compilation.
+- **R1 (Low Risk)**: Reading remote Figma variables/nodes (readonly).
+- **R2 (Medium Risk)**: Writing local blueprints, normalized trees, or build plans.
+- **R3 (High Risk)**: Writing elements/styles to temporary Webflow site branches.
+- **R4 (Critical Risk)**: Writing elements/styles to production Webflow pages, publishing sites, deleting elements.
+
+## Authorization & Guardrails
+
+1. **Production Writes**: Direct mutations to production pages or master branches are forbidden.
+2. **Branching Enforcement**: All mutations must target temporary site branches.
+3. **Rollback Requirement**: High-risk modifications must compile a rollback plan showing parent IDs and original elements before starting mutations.
+4. **Approval Step**: Any write mutation (Risk R3/R4) requires explicit user approval of the compiled `native-build-plan.json` first.

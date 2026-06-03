@@ -1,14 +1,16 @@
 # Approval Gates
 
-| Action | Gate |
-|---|---|
-| Create new scaffold file | Confirm path is inside this folder and write mode is create-only. |
-| Edit existing file | Read current file and preserve unrelated changes. |
-| Archive workspace | Confirm archive file exists and has non-zero size before deleting workspace. |
-| Restore workspace | Confirm target workspace is empty. |
-| Blueprint completion | PM presents blueprint and waits for user approval. |
-| Webflow external write | Confirm site ID, page ID, approved blueprint, payload summary, and rollback/QA plan. |
-| Figma external read | Confirm Figma URL/node scope and record extraction path. |
-| Secret access | Require explicit need and never commit secret values. |
-| Final completion | Run structure, quality, secret, and QA gates. |
+This policy defines target gates and check parameters for operations inside the compiler workflow.
 
+| Action | Gate | Verification Criteria |
+|---|---|---|
+| Create/Scaffold File | Paths must be relative and write mode is create-only. | Folder limits respected. |
+| CSS Contract Generation | Contract built from source stylesheets. | Hash computed and index files written. |
+| Figma Extraction | Node bundle written under `workspace/figma/`. | Node bundle schema validation passes. |
+| Figma Normalization | Normalized tree and report written. | Success is true and blockers count is 0. |
+| Semantic Resolution | Resolved tags/classes verified against contract. | Confidence >= 0.60, missing classes = 0. |
+| HTML Rendering |logical blueprint rendered to physical HTML. | Wrapper elements (`page-wrapper`, `main-wrapper`) exist. |
+| Alt Policy Manifest | Asset manifest Alt rules validated. | Informative assets have alts, decorative use empty alts. |
+| Slicing chunks | Section chunks sliced correctly. | Manifest tags matched and tags balanced. |
+| Native build plan | serialized plan written. | No destructive element deletions. Target branch isn't main. |
+| Webflow writes | Target branch set. Preflight check run. | Serialized writes. logs saved. User approved plan. |
