@@ -12,4 +12,5 @@ This folder records MAS agentic-folder improvements by version. Each entry lists
 - `v0.5.0-figma-html-optimization.md` records Figma→HTML contract deep optimization.
 - `v0.6.0-cf-v2.2-ground-truth-sync.md` records 100% sync of repo knowledge base to live Client-First V2.2 Webflow site.
 - `v0.7.0-html-first-compiler-start.md` records Phase 0 to 3 of the strict HTML-first compiler structure refactor.
+- `v0.8.0-component-registry-signature-sync.md` records Phase 4 and Phase 5 implementing Design System Sync and Component Registry signature matching.
 - `REPO_CREATION_RUNBOOK.md` explains how to create another standalone Claude Code agentic repo from this pattern.

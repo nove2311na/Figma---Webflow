@@ -140,6 +140,8 @@ AGENTS.md
 CLAUDE.md
 knowledge-base/client-first-class-map.json
 knowledge-base/client-first-theory.md
+knowledge-base/component-registry.json
+knowledge-base/component-signatures.json
 knowledge-base/design-system-contract.json
 knowledge-base/generated/client-first-library-contract.json
 knowledge-base/generated/css-breakpoint-index.json
@@ -162,6 +164,7 @@ scripts/gates/validate_agentic_structure.py
 scripts/gates/validate_archive_cleanup.py
 scripts/gates/validate_build_contract.py
 scripts/gates/validate_client_first_library.py
+scripts/gates/validate_component_matching.py
 scripts/gates/validate_css_contract.py
 scripts/gates/validate_css_index.py
 scripts/gates/validate_design_system_sync.py
@@ -174,6 +177,7 @@ scripts/gates/validate_workspace_artifacts.py
 scripts/hooks/build-discipline-guard.js
 scripts/index_css_library.py
 scripts/init_workspace.py
+scripts/match_components.py
 scripts/restore_workspace.py
 scripts/sync_library_to_webflow.py
 scripts/update_library_from_figma.py
@@ -181,6 +185,7 @@ source-css/client-first-v2-2.webflow.css
 source-css/normalize.css
 source-css/README.md
 source-css/webflow.css
+tests/fixtures/figma/mock-figma-node-bundle.json
 tools/__init__.py
 tools/css_indexer/classifier.py
 tools/css_indexer/contract_builder.py
@@ -192,115 +197,855 @@ tools/utils.py
 <files>
 This section contains the contents of the repository's files.
 
-<file path="agentic/prompts/sync-design-system-from-figma.md">
- 1: # Prompt: Sync Design System from Figma
- 2: 
- 3: This prompt describes how to validate and synchronize the Figma variable collections and styles against the Client-First CSS contract.
- 4: 
- 5: ## Context
- 6: 
- 7: This phase runs after the Figma extraction node bundle is saved. You must read from the extraction files directly (`workspace/figma/figma.node-bundle.json` and `workspace/figma/variable-defs.json`). Do NOT make live Figma MCP requests.
- 8: 
- 9: ## Strict Sync Rules
-10: 
-11: 1. **Strict Token Matching**: Every design system token (colors, spacing, font weight) used in the design frame must match a corresponding allowed variable in the Client-First Library Contract.
-12: 2. **Missing Token = Blocker**: If a Figma variable or theme alias cannot be resolved to an allowed CSS variable, flag it as a `blocker` and stop the pipeline.
-13: 3. **No Automatic Class Proposals**: If a styling value is missing or untokenized, the sync tool must NOT propose new classes or variables.
-14: 4. **No Hardcoded Hex/Rem Values**: All properties must resolve to variable-backed Client-First classes. Hardcoded spacing or color values on elements are blockers.
-15: 
-16: ## Sync Report Output
-17: 
-18: Write the sync report to `workspace/reports/design-system-sync-report.json` with the following structure:
-19: - `timestamp`: Sync runtime.
-20: - `matched_tokens`: Mapped variable names and target CSS variables.
-21: - `missing_tokens`: List of Figma variables that are missing in the CSS contract (leads to failure).
-22: - `unmapped_styles`: List of style guides or styles not mapped.
-23: - `hardcoded_values`: List of layers containing raw color/spacing overrides.
-24: - `blockers`: List of blocker errors.
-25: - `status`: `"pass"` | `"failed"` (fails if any blockers or missing tokens exist).
-</file>
-
-<file path="knowledge-base/design-system-contract.json">
+<file path="knowledge-base/component-registry.json">
  1: {
- 2:   "version": "1.0.0",
- 3:   "collections": {
- 4:     "base": {
- 5:       "required_variables": [
- 6:         "--font-family--primary",
- 7:         "--font-weight--light",
- 8:         "--font-weight--normal",
- 9:         "--font-weight--medium",
-10:         "--font-weight--semibold",
-11:         "--font-weight--bold"
-12:       ]
-13:     },
-14:     "theme": {
-15:       "required_variables": [
-16:         "--_theme---text-color--primary",
-17:         "--_theme---background-color--primary",
-18:         "--_theme---border-color--primary"
-19:       ]
+ 2:   "components": [
+ 3:     {
+ 4:       "id": "button",
+ 5:       "name": "Button",
+ 6:       "category": "primitives",
+ 7:       "description": "Standard interactive call-to-action button element",
+ 8:       "required_classes": ["button"],
+ 9:       "required_variables": [],
+10:       "signatures": ["sig_button_standard", "sig_button_icon", "sig_button_secondary"]
+11:     },
+12:     {
+13:       "id": "button_group",
+14:       "name": "Button Group",
+15:       "category": "layout",
+16:       "description": "Container wrapping multiple buttons in a structured layout",
+17:       "required_classes": ["button-group"],
+18:       "required_variables": [],
+19:       "signatures": ["sig_button_group_standard"]
 20:     },
-21:     "layout": {
-22:       "required_variables": [
-23:         "--_layout---spacing--medium",
-24:         "--_layout---spacing--global-padding"
-25:       ]
-26:     }
-27:   }
-28: }
+21:     {
+22:       "id": "card",
+23:       "name": "Card",
+24:       "category": "structure",
+25:       "description": "A self-contained UI card containing an image, heading, paragraph, and optional CTA",
+26:       "required_classes": [],
+27:       "required_variables": [],
+28:       "signatures": ["sig_card_standard"]
+29:     },
+30:     {
+31:       "id": "nav",
+32:       "name": "Navigation Bar",
+33:       "category": "structure",
+34:       "description": "Header navigation bar containing brand logo, links, and action buttons",
+35:       "required_classes": ["nav_component"],
+36:       "required_variables": [],
+37:       "signatures": ["sig_nav_standard"]
+38:     },
+39:     {
+40:       "id": "footer",
+41:       "name": "Footer",
+42:       "category": "structure",
+43:       "description": "Page footer with copyright, links, and branding",
+44:       "required_classes": [],
+45:       "required_variables": [],
+46:       "signatures": ["sig_footer_standard"]
+47:     },
+48:     {
+49:       "id": "form_field",
+50:       "name": "Form Fields",
+51:       "category": "forms",
+52:       "description": "Input, label, text area, checkbox, or radio button within a form",
+53:       "required_classes": ["form_input"],
+54:       "required_variables": [],
+55:       "signatures": ["sig_form_input_standard"]
+56:     },
+57:     {
+58:       "id": "rich_text",
+59:       "name": "Rich Text Block",
+60:       "category": "typography",
+61:       "description": "A styled rich text wrapper container for formatted CMS content",
+62:       "required_classes": ["text-rich-text"],
+63:       "required_variables": [],
+64:       "signatures": ["sig_rich_text_standard"]
+65:     },
+66:     {
+67:       "id": "image_figure",
+68:       "name": "Image or Figure",
+69:       "category": "media",
+70:       "description": "Media wrapper or standalone image elements",
+71:       "required_classes": [],
+72:       "required_variables": [],
+73:       "signatures": ["sig_image_standard"]
+74:     },
+75:     {
+76:       "id": "section",
+77:       "name": "Section Layout",
+78:       "category": "layout",
+79:       "description": "Full-width section wrapper with global structural padding",
+80:       "required_classes": [],
+81:       "required_variables": [],
+82:       "signatures": ["sig_section_standard"]
+83:     }
+84:   ]
+85: }
 </file>
 
-<file path="scripts/gates/validate_design_system_sync.py">
+<file path="knowledge-base/component-signatures.json">
+  1: {
+  2:   "signatures": [
+  3:     {
+  4:       "id": "sig_button_standard",
+  5:       "component_id": "button",
+  6:       "name_pattern": "^[Bb]utton$",
+  7:       "node_type": "INSTANCE",
+  8:       "layout_topology": {
+  9:         "min_children": 1,
+ 10:         "max_children": 2,
+ 11:         "children": [
+ 12:           {
+ 13:             "role": "text",
+ 14:             "node_types": ["TEXT"],
+ 15:             "name_pattern": ".*",
+ 16:             "min_count": 1,
+ 17:             "max_count": 1
+ 18:           }
+ 19:         ]
+ 20:       },
+ 21:       "token_cluster": {
+ 22:         "classes": ["button"],
+ 23:         "css_properties": ["background-color", "padding"]
+ 24:       },
+ 25:       "repeated_patterns": null,
+ 26:       "min_confidence": 0.95
+ 27:     },
+ 28:     {
+ 29:       "id": "sig_button_icon",
+ 30:       "component_id": "button",
+ 31:       "name_pattern": "^[Bb]utton.*[Ii]con.*",
+ 32:       "node_type": "INSTANCE",
+ 33:       "layout_topology": {
+ 34:         "min_children": 2,
+ 35:         "max_children": 3,
+ 36:         "children": [
+ 37:           {
+ 38:             "role": "icon",
+ 39:             "node_types": ["VECTOR", "INSTANCE", "FRAME"],
+ 40:             "name_pattern": ".*",
+ 41:             "min_count": 1,
+ 42:             "max_count": 1
+ 43:           },
+ 44:           {
+ 45:             "role": "text",
+ 46:             "node_types": ["TEXT"],
+ 47:             "name_pattern": ".*",
+ 48:             "min_count": 1,
+ 49:             "max_count": 1
+ 50:           }
+ 51:         ]
+ 52:       },
+ 53:       "token_cluster": {
+ 54:         "classes": ["button", "is-icon"],
+ 55:         "css_properties": ["background-color", "padding"]
+ 56:       },
+ 57:       "repeated_patterns": null,
+ 58:       "min_confidence": 0.95
+ 59:     },
+ 60:     {
+ 61:       "id": "sig_button_secondary",
+ 62:       "component_id": "button",
+ 63:       "name_pattern": "^[Bb]utton.*[Ss]econdary.*",
+ 64:       "node_type": "INSTANCE",
+ 65:       "layout_topology": {
+ 66:         "min_children": 1,
+ 67:         "max_children": 2,
+ 68:         "children": [
+ 69:           {
+ 70:             "role": "text",
+ 71:             "node_types": ["TEXT"],
+ 72:             "name_pattern": ".*",
+ 73:             "min_count": 1,
+ 74:             "max_count": 1
+ 75:           }
+ 76:         ]
+ 77:       },
+ 78:       "token_cluster": {
+ 79:         "classes": ["button", "is-secondary"],
+ 80:         "css_properties": ["background-color", "border-color"]
+ 81:       },
+ 82:       "repeated_patterns": null,
+ 83:       "min_confidence": 0.95
+ 84:     },
+ 85:     {
+ 86:       "id": "sig_button_group_standard",
+ 87:       "component_id": "button_group",
+ 88:       "name_pattern": "^[Bb]utton[-_ ]group$",
+ 89:       "node_type": "FRAME",
+ 90:       "layout_topology": {
+ 91:         "min_children": 1,
+ 92:         "max_children": 10,
+ 93:         "children": [
+ 94:           {
+ 95:             "role": "button",
+ 96:             "node_types": ["INSTANCE"],
+ 97:             "name_pattern": ".*",
+ 98:             "min_count": 1,
+ 99:             "max_count": 10
+100:           }
+101:         ]
+102:       },
+103:       "token_cluster": {
+104:         "classes": ["button-group"]
+105:       },
+106:       "repeated_patterns": {
+107:         "item_role": "button",
+108:         "exact_repetition": false
+109:       },
+110:       "min_confidence": 0.95
+111:     },
+112:     {
+113:       "id": "sig_card_standard",
+114:       "component_id": "card",
+115:       "name_pattern": ".*[Cc]ard.*",
+116:       "node_type": "FRAME",
+117:       "layout_topology": {
+118:         "min_children": 2,
+119:         "max_children": 10,
+120:         "children": [
+121:           {
+122:             "role": "image",
+123:             "node_types": ["RECTANGLE", "FRAME", "INSTANCE"],
+124:             "name_pattern": ".*(image|photo|pic).*",
+125:             "min_count": 0,
+126:             "max_count": 1
+127:           },
+128:           {
+129:             "role": "heading",
+130:             "node_types": ["TEXT"],
+131:             "name_pattern": ".*",
+132:             "min_count": 1,
+133:             "max_count": 1
+134:           },
+135:           {
+136:             "role": "paragraph",
+137:             "node_types": ["TEXT"],
+138:             "name_pattern": ".*",
+139:             "min_count": 1,
+140:             "max_count": 2
+141:           }
+142:         ]
+143:       },
+144:       "token_cluster": {
+145:         "classes": [],
+146:         "css_properties": ["padding", "background-color"]
+147:       },
+148:       "repeated_patterns": null,
+149:       "min_confidence": 0.85
+150:     },
+151:     {
+152:       "id": "sig_nav_standard",
+153:       "component_id": "nav",
+154:       "name_pattern": "^[Nn]av(bar)?$",
+155:       "node_type": "FRAME",
+156:       "layout_topology": {
+157:         "min_children": 2,
+158:         "max_children": 5,
+159:         "children": [
+160:           {
+161:             "role": "brand",
+162:             "node_types": ["FRAME", "INSTANCE"],
+163:             "name_pattern": ".*(logo|brand).*",
+164:             "min_count": 1,
+165:             "max_count": 1
+166:           },
+167:           {
+168:             "role": "menu",
+169:             "node_types": ["FRAME"],
+170:             "name_pattern": ".*(menu|links).*",
+171:             "min_count": 1,
+172:             "max_count": 1
+173:           }
+174:         ]
+175:       },
+176:       "token_cluster": {
+177:         "classes": ["nav_component"]
+178:       },
+179:       "repeated_patterns": null,
+180:       "min_confidence": 0.95
+181:     },
+182:     {
+183:       "id": "sig_footer_standard",
+184:       "component_id": "footer",
+185:       "name_pattern": "^[Ff]ooter$",
+186:       "node_type": "FRAME",
+187:       "layout_topology": {
+188:         "min_children": 1,
+189:         "max_children": 10,
+190:         "children": [
+191:           {
+192:             "role": "links",
+193:             "node_types": ["FRAME"],
+194:             "name_pattern": ".*",
+195:             "min_count": 0,
+196:             "max_count": 5
+197:           }
+198:         ]
+199:       },
+200:       "token_cluster": {
+201:         "classes": []
+202:       },
+203:       "repeated_patterns": null,
+204:       "min_confidence": 0.85
+205:     },
+206:     {
+207:       "id": "sig_form_input_standard",
+208:       "component_id": "form_field",
+209:       "name_pattern": ".*[Ii]nput.*",
+210:       "node_type": "FRAME",
+211:       "layout_topology": {
+212:         "min_children": 0,
+213:         "max_children": 2,
+214:         "children": [
+215:           {
+216:             "role": "placeholder",
+217:             "node_types": ["TEXT"],
+218:             "name_pattern": ".*",
+219:             "min_count": 0,
+220:             "max_count": 1
+221:           }
+222:         ]
+223:       },
+224:       "token_cluster": {
+225:         "classes": ["form_input"]
+226:       },
+227:       "repeated_patterns": null,
+228:       "min_confidence": 0.95
+229:     },
+230:     {
+231:       "id": "sig_rich_text_standard",
+232:       "component_id": "rich_text",
+233:       "name_pattern": ".*[Rr]ich[-_][Tt]ext.*",
+234:       "node_type": "FRAME",
+235:       "layout_topology": {
+236:         "min_children": 1,
+237:         "max_children": 20,
+238:         "children": [
+239:           {
+240:             "role": "paragraph",
+241:             "node_types": ["TEXT"],
+242:             "name_pattern": ".*",
+243:             "min_count": 1,
+244:             "max_count": 20
+245:           }
+246:         ]
+247:       },
+248:       "token_cluster": {
+249:         "classes": ["text-rich-text"]
+250:       },
+251:       "repeated_patterns": null,
+252:       "min_confidence": 0.95
+253:     },
+254:     {
+255:       "id": "sig_image_standard",
+256:       "component_id": "image_figure",
+257:       "name_pattern": "^[Ii]mage$|^[Pp]icture$",
+258:       "node_type": "RECTANGLE",
+259:       "layout_topology": {
+260:         "min_children": 0,
+261:         "max_children": 0,
+262:         "children": []
+263:       },
+264:       "token_cluster": {
+265:         "classes": []
+266:       },
+267:       "repeated_patterns": null,
+268:       "min_confidence": 0.95
+269:     },
+270:     {
+271:       "id": "sig_section_standard",
+272:       "component_id": "section",
+273:       "name_pattern": "^[Ss]ection.*",
+274:       "node_type": "FRAME",
+275:       "layout_topology": {
+276:         "min_children": 1,
+277:         "max_children": 5,
+278:         "children": [
+279:           {
+280:             "role": "container",
+281:             "node_types": ["FRAME"],
+282:             "name_pattern": ".*[Cc]ontainer.*",
+283:             "min_count": 1,
+284:             "max_count": 1
+285:           }
+286:         ]
+287:       },
+288:       "token_cluster": {
+289:         "classes": [],
+290:         "css_properties": ["padding"]
+291:       },
+292:       "repeated_patterns": null,
+293:       "min_confidence": 0.85
+294:     }
+295:   ]
+296: }
+</file>
+
+<file path="scripts/gates/validate_component_matching.py">
  1: import os
  2: import sys
  3: import json
  4: 
  5: def main():
  6:     root_dir = os.path.abspath(os.path.join(os.path.dirname(__file__), "..", ".."))
- 7:     report_path = os.path.join(root_dir, "workspace", "reports", "design-system-sync-report.json")
- 8:     print(f"Validating Design System Sync Report at: {report_path}")
+ 7:     match_report_path = os.path.join(root_dir, "workspace", "reports", "component-match-report.json")
+ 8:     sync_report_path = os.path.join(root_dir, "workspace", "reports", "component-sync-report.json")
  9:     
-10:     errors = []
+10:     print(f"Validating Component Matching Gate at:\n - {match_report_path}\n - {sync_report_path}")
 11:     
-12:     if not os.path.exists(report_path):
-13:         errors.append(f"Sync report is missing: design-system-sync-report.json. Run sync command first.")
-14:     else:
-15:         try:
-16:             with open(report_path, "r", encoding="utf-8") as f:
-17:                 report = json.load(f)
-18:                 
-19:             # Perform strict validation
-20:             for prop in ["timestamp", "matched_tokens", "missing_tokens", "unmapped_styles", "hardcoded_values", "blockers", "status"]:
-21:                 if prop not in report:
-22:                     errors.append(f"Property '{prop}' is missing from design-system-sync-report.json")
-23:                     
-24:             status = report.get("status", "")
-25:             if status != "pass":
-26:                 errors.append(f"Sync status is '{status}' (must be 'pass')")
-27:                 
-28:             blockers = report.get("blockers", [])
-29:             if blockers:
-30:                 errors.append(f"Sync report contains blockers: {blockers}")
-31:                 
-32:             missing_tokens = report.get("missing_tokens", [])
-33:             if missing_tokens:
-34:                 errors.append(f"Sync report contains missing tokens: {missing_tokens}")
-35:                 
-36:         except Exception as e:
-37:             errors.append(f"Failed to parse design-system-sync-report.json as valid JSON: {e}")
-38:             
-39:     if errors:
-40:         print("\n--- DESIGN SYSTEM SYNC VALIDATION FAILED ---")
-41:         for err in errors:
-42:             print(f"ERROR: {err}")
-43:         sys.exit(1)
-44:     else:
-45:         print("\n--- DESIGN SYSTEM SYNC VALIDATION PASSED ---")
-46:         sys.exit(0)
-47: 
-48: if __name__ == "__main__":
-49:     main()
+12:     errors = []
+13:     
+14:     # 1. Validate Component Match Report
+15:     if not os.path.exists(match_report_path):
+16:         errors.append(f"Component Match report is missing: {match_report_path}. Run matching script first.")
+17:     else:
+18:         try:
+19:             with open(match_report_path, "r", encoding="utf-8") as f:
+20:                 report = json.load(f)
+21:                 
+22:             # Perform strict validation of required fields
+23:             for prop in ["timestamp", "matched_instances", "unmatched_instances", "status", "blockers"]:
+24:                 if prop not in report:
+25:                     errors.append(f"Property '{prop}' is missing from component-match-report.json")
+26:                     
+27:             status = report.get("status", "")
+28:             if status != "pass":
+29:                 errors.append(f"Match status is '{status}' (must be 'pass')")
+30:                 
+31:             blockers = report.get("blockers", [])
+32:             if blockers:
+33:                 errors.append(f"Match report contains blockers: {blockers}")
+34:                 
+35:         except Exception as e:
+36:             errors.append(f"Failed to parse component-match-report.json as valid JSON: {e}")
+37: 
+38:     # 2. Validate Component Sync Report
+39:     if not os.path.exists(sync_report_path):
+40:         errors.append(f"Component Sync report is missing: {sync_report_path}. Run matching script first.")
+41:     else:
+42:         try:
+43:             with open(sync_report_path, "r", encoding="utf-8") as f:
+44:                 report = json.load(f)
+45:                 
+46:             # Perform strict validation of required fields
+47:             for prop in ["timestamp", "registry_version", "total_components", "synced_components", "out_of_sync_components", "status", "errors"]:
+48:                 if prop not in report:
+49:                     errors.append(f"Property '{prop}' is missing from component-sync-report.json")
+50:                     
+51:             status = report.get("status", "")
+52:             if status != "pass":
+53:                 errors.append(f"Sync status is '{status}' (must be 'pass')")
+54:                 
+55:             sync_errors = report.get("errors", [])
+56:             if sync_errors:
+57:                 errors.append(f"Sync report contains errors: {sync_errors}")
+58:                 
+59:         except Exception as e:
+60:             errors.append(f"Failed to parse component-sync-report.json as valid JSON: {e}")
+61:             
+62:     if errors:
+63:         print("\n--- COMPONENT MATCHING VALIDATION FAILED ---")
+64:         for err in errors:
+65:             print(f"ERROR: {err}")
+66:         sys.exit(1)
+67:     else:
+68:         print("\n--- COMPONENT MATCHING VALIDATION PASSED ---")
+69:         sys.exit(0)
+70: 
+71: if __name__ == "__main__":
+72:     main()
+</file>
+
+<file path="scripts/match_components.py">
+  1: #!/usr/bin/env python3
+  2: import os
+  3: import sys
+  4: import json
+  5: import re
+  6: import argparse
+  7: from datetime import datetime, timezone
+  8: 
+  9: # Add root folder to sys.path
+ 10: root_dir = os.path.abspath(os.path.join(os.path.dirname(__file__), ".."))
+ 11: sys.path.append(root_dir)
+ 12: 
+ 13: def load_json(path):
+ 14:     with open(path, "r", encoding="utf-8") as f:
+ 15:         return json.load(f)
+ 16: 
+ 17: def save_json(path, data):
+ 18:     os.makedirs(os.path.dirname(path), exist_ok=True)
+ 19:     with open(path, "w", encoding="utf-8") as f:
+ 20:         json.dump(data, f, indent=2, ensure_ascii=False)
+ 21: 
+ 22: def calculate_match(node, signature):
+ 23:     # Weights
+ 24:     w_name = 0.20
+ 25:     w_type = 0.10
+ 26:     w_topology = 0.50
+ 27:     w_tokens = 0.20
+ 28: 
+ 29:     # 1. Name Score
+ 30:     name = node.get("name", "")
+ 31:     name_pattern = signature.get("name_pattern", "")
+ 32:     s_name = 0.0
+ 33:     if name_pattern:
+ 34:         try:
+ 35:             if re.search(name_pattern, name, re.IGNORECASE):
+ 36:                 s_name = 1.0
+ 37:             elif re.search(signature.get("component_id", ""), name, re.IGNORECASE):
+ 38:                 s_name = 0.5
+ 39:         except Exception:
+ 40:             if signature.get("component_id", "").lower() in name.lower():
+ 41:                 s_name = 0.5
+ 42: 
+ 43:     # 2. Node Type Score
+ 44:     node_type = node.get("type", "")
+ 45:     sig_node_type = signature.get("node_type", "")
+ 46:     s_type = 1.0 if node_type == sig_node_type else 0.0
+ 47: 
+ 48:     # 3. Layout Topology Score
+ 49:     topology = signature.get("layout_topology", {})
+ 50:     children = node.get("children", [])
+ 51:     s_topology = 1.0
+ 52:     
+ 53:     if topology:
+ 54:         min_children = topology.get("min_children", 0)
+ 55:         max_children = topology.get("max_children", 999)
+ 56:         role_rules = topology.get("children", [])
+ 57:         
+ 58:         satisfied_roles = 0
+ 59:         total_roles = len(role_rules)
+ 60:         
+ 61:         # Track child assignments to avoid double-counting
+ 62:         used_child_ids = set()
+ 63:         
+ 64:         for rule in role_rules:
+ 65:             role_name_pattern = rule.get("name_pattern", ".*")
+ 66:             role_node_types = rule.get("node_types", [])
+ 67:             min_count = rule.get("min_count", 0)
+ 68:             max_count = rule.get("max_count", 999)
+ 69:             
+ 70:             matched_count = 0
+ 71:             for child in children:
+ 72:                 if matched_count >= max_count:
+ 73:                     break
+ 74:                 child_id = child.get("id")
+ 75:                 if child_id in used_child_ids:
+ 76:                     continue
+ 77:                 child_type = child.get("type", "")
+ 78:                 child_name = child.get("name", "")
+ 79:                 
+ 80:                 type_matches = not role_node_types or child_type in role_node_types
+ 81:                 name_matches = False
+ 82:                 try:
+ 83:                     name_matches = bool(re.search(role_name_pattern, child_name, re.IGNORECASE))
+ 84:                 except Exception:
+ 85:                     name_matches = True
+ 86:                     
+ 87:                 if type_matches and name_matches:
+ 88:                     matched_count += 1
+ 89:                     used_child_ids.add(child_id)
+ 90:             
+ 91:             if min_count <= matched_count <= max_count:
+ 92:                 satisfied_roles += 1
+ 93:         
+ 94:         if total_roles > 0:
+ 95:             s_topology = satisfied_roles / total_roles
+ 96:         else:
+ 97:             s_topology = 1.0
+ 98:             
+ 99:         # Penalize if child count is out of bounds
+100:         child_count = len(children)
+101:         if child_count < min_children or child_count > max_children:
+102:             s_topology *= 0.5
+103: 
+104:     # 4. Token Cluster Score
+105:     token_cluster = signature.get("token_cluster", {})
+106:     s_tokens = 1.0
+107:     if token_cluster:
+108:         classes = token_cluster.get("classes", [])
+109:         css_props = token_cluster.get("css_properties", [])
+110:         
+111:         matched_tokens = 0
+112:         total_tokens = len(classes) + len(css_props)
+113:         
+114:         if total_tokens > 0:
+115:             # Check classes
+116:             node_classes = node.get("classes", [])
+117:             # Also check if name contains class as fallback (slugified)
+118:             slugified_name = name.lower().replace(" ", "-").replace("_", "-")
+119:             for cls in classes:
+120:                 if cls in node_classes or cls in slugified_name or cls in name.lower():
+121:                     matched_tokens += 1
+122:             
+123:             # Check css properties from node styles if present
+124:             node_styles = node.get("styles", {})
+125:             for prop in css_props:
+126:                 # Mock styles might have keys or properties
+127:                 if prop in node_styles or prop in node.get("css_properties", []):
+128:                     matched_tokens += 1
+129:             
+130:             s_tokens = matched_tokens / total_tokens
+131: 
+132:     # Total Score
+133:     total_score = (w_name * s_name) + (w_type * s_type) + (w_topology * s_topology) + (w_tokens * s_tokens)
+134:     return total_score
+135: 
+136: def walk_and_match(node, signatures, matched_list, unmatched_list, blockers, is_strict=True):
+137:     node_type = node.get("type", "")
+138:     node_name = node.get("name", "")
+139:     node_id = node.get("id", "")
+140: 
+141:     # We evaluate frames, instances, or anything named with potential component triggers
+142:     is_candidate = (node_type == "INSTANCE") or (node_type == "FRAME" and any(
+143:         kw in node_name.lower() for kw in ["button", "card", "navbar", "nav", "footer", "form", "input", "group", "section"]
+144:     ))
+145: 
+146:     if is_candidate:
+147:         highest_score = 0.0
+148:         best_sig = None
+149:         
+150:         for sig in signatures:
+151:             score = calculate_match(node, sig)
+152:             if score > highest_score:
+153:                 highest_score = score
+154:                 best_sig = sig
+155:                 
+156:         if best_sig and highest_score >= 0.85:
+157:             matched_list.append({
+158:                 "figma_node_id": node_id,
+159:                 "figma_node_name": node_name,
+160:                 "component_id": best_sig["component_id"],
+161:                 "signature_id": best_sig["id"],
+162:                 "confidence": round(highest_score, 4),
+163:                 "matching_notes": f"Matched {best_sig['id']} with confidence {highest_score:.2f}"
+164:             })
+165:         else:
+166:             # Unmatched or candidate warning
+167:             highest_component = best_sig["component_id"] if best_sig else None
+168:             reason = f"No signature matched with usable confidence. Best match: {best_sig['id'] if best_sig else 'None'} ({highest_score:.2f})"
+169:             
+170:             unmatched_list.append({
+171:                 "figma_node_id": node_id,
+172:                 "figma_node_name": node_name,
+173:                 "highest_candidate_component": highest_component,
+174:                 "highest_confidence": round(highest_score, 4),
+175:                 "reason": reason
+176:             })
+177:             
+178:             if is_strict:
+179:                 blockers.append(f"Strict Mode Blocker: Node '{node_name}' ({node_id}) has no usable component match ({highest_score:.2f} < 0.85)")
+180: 
+181:     # Recurse children
+182:     for child in node.get("children", []):
+183:         walk_and_match(child, signatures, matched_list, unmatched_list, blockers, is_strict)
+184: 
+185: def main():
+186:     parser = argparse.ArgumentParser(description="Component Matching CLI")
+187:     parser.add_argument("--figma-bundle", required=True, help="Path to Figma node bundle JSON")
+188:     parser.add_argument("--registry", default="knowledge-base/component-registry.json", help="Path to component registry JSON")
+189:     parser.add_argument("--signatures", default="knowledge-base/component-signatures.json", help="Path to signatures JSON")
+190:     parser.add_argument("--out-match-report", default="workspace/reports/component-match-report.json", help="Output path for match report")
+191:     parser.add_argument("--out-sync-report", default="workspace/reports/component-sync-report.json", help="Output path for sync report")
+192:     parser.add_argument("--strict", action="store_true", default=True, help="Enable strict mode matching enforcement")
+193: 
+194:     args = parser.parse_args()
+195: 
+196:     # Resolve paths relative to root if they are relative
+197:     figma_path = args.figma_bundle if os.path.isabs(args.figma_bundle) else os.path.join(root_dir, args.figma_bundle)
+198:     registry_path = args.registry if os.path.isabs(args.registry) else os.path.join(root_dir, args.registry)
+199:     sigs_path = args.signatures if os.path.isabs(args.signatures) else os.path.join(root_dir, args.signatures)
+200:     out_match_path = args.out_match_report if os.path.isabs(args.out_match_report) else os.path.join(root_dir, args.out_match_report)
+201:     out_sync_path = args.out_sync_report if os.path.isabs(args.out_sync_report) else os.path.join(root_dir, args.out_sync_report)
+202: 
+203:     if not os.path.exists(figma_path):
+204:         print(f"Error: Figma bundle not found at {figma_path}")
+205:         sys.exit(1)
+206:     if not os.path.exists(registry_path):
+207:         print(f"Error: Registry not found at {registry_path}")
+208:         sys.exit(1)
+209:     if not os.path.exists(sigs_path):
+210:         print(f"Error: Signatures not found at {sigs_path}")
+211:         sys.exit(1)
+212: 
+213:     print(f"Loading Figma Bundle: {figma_path}")
+214:     bundle = load_json(figma_path)
+215:     registry = load_json(registry_path)
+216:     signatures = load_json(sigs_path).get("signatures", [])
+217: 
+218:     matched_instances = []
+219:     unmatched_instances = []
+220:     blockers = []
+221: 
+222:     # Run recursive matching from figma tree root
+223:     tree = bundle.get("tree", {})
+224:     if tree:
+225:         walk_and_match(tree, signatures, matched_instances, unmatched_instances, blockers, args.strict)
+226: 
+227:     status = "pass" if not blockers else "fail"
+228: 
+229:     # 1. Save Component Match Report
+230:     match_report = {
+231:       "timestamp": datetime.now(timezone.utc).isoformat().replace("+00:00", "Z"),
+232:       "matched_instances": matched_instances,
+233:       "unmatched_instances": unmatched_instances,
+234:       "status": status,
+235:       "blockers": blockers
+236:     }
+237:     save_json(out_match_path, match_report)
+238:     print(f"Saved Component Match Report to {out_match_path} (Status: {status})")
+239: 
+240:     # 2. Save Component Sync Report
+241:     synced_components = list(set(m["component_id"] for m in matched_instances))
+242:     
+243:     # Identify out of sync components
+244:     # A component is out of sync if there are active unmatched instances that matched it as highest candidate
+245:     out_of_sync = []
+246:     for unm in unmatched_instances:
+247:         cand = unm.get("highest_candidate_component")
+248:         if cand and cand not in [o["component_id"] for o in out_of_sync]:
+249:             out_of_sync.append({
+250:                 "component_id": cand,
+251:                 "reason": unm["reason"]
+252:             })
+253:             
+254:     sync_report = {
+255:       "timestamp": datetime.now(timezone.utc).isoformat().replace("+00:00", "Z"),
+256:       "registry_version": "1.0.0",
+257:       "total_components": len(registry.get("components", [])),
+258:       "synced_components": synced_components,
+259:       "out_of_sync_components": out_of_sync,
+260:       "status": status,
+261:       "errors": blockers
+262:     }
+263:     save_json(out_sync_path, sync_report)
+264:     print(f"Saved Component Sync Report to {out_sync_path} (Status: {status})")
+265: 
+266:     if blockers:
+267:         print(f"\nMatching failed with {len(blockers)} blocker(s):")
+268:         for blk in blockers:
+269:             print(f" - {blk}")
+270:         sys.exit(1)
+271:     else:
+272:         print("\nComponent matching completed successfully. All components synced.")
+273:         sys.exit(0)
+274: 
+275: if __name__ == "__main__":
+276:     main()
+</file>
+
+<file path="tests/fixtures/figma/mock-figma-node-bundle.json">
+  1: {
+  2:   "node_id": "0:1",
+  3:   "name": "Mock Page",
+  4:   "tree": {
+  5:     "id": "0:1",
+  6:     "name": "Mock Page",
+  7:     "type": "FRAME",
+  8:     "children": [
+  9:       {
+ 10:         "id": "1:2",
+ 11:         "name": "Button",
+ 12:         "type": "INSTANCE",
+ 13:         "classes": ["button"],
+ 14:         "styles": {
+ 15:           "background-color": "var(--brand--blue)",
+ 16:           "padding": "12px 24px"
+ 17:         },
+ 18:         "children": [
+ 19:           {
+ 20:             "id": "1:3",
+ 21:             "name": "Label",
+ 22:             "type": "TEXT"
+ 23:           }
+ 24:         ]
+ 25:       },
+ 26:       {
+ 27:         "id": "2:1",
+ 28:         "name": "Card Block",
+ 29:         "type": "FRAME",
+ 30:         "classes": [],
+ 31:         "styles": {
+ 32:           "padding": "24px",
+ 33:           "background-color": "#ffffff"
+ 34:         },
+ 35:         "children": [
+ 36:           {
+ 37:             "id": "2:2",
+ 38:             "name": "Card Image",
+ 39:             "type": "RECTANGLE"
+ 40:           },
+ 41:           {
+ 42:             "id": "2:3",
+ 43:             "name": "Card Title",
+ 44:             "type": "TEXT"
+ 45:           },
+ 46:           {
+ 47:             "id": "2:4",
+ 48:             "name": "Card Paragraph",
+ 49:             "type": "TEXT"
+ 50:           }
+ 51:         ]
+ 52:       },
+ 53:       {
+ 54:         "id": "3:1",
+ 55:         "name": "Button-Group",
+ 56:         "type": "FRAME",
+ 57:         "classes": ["button-group"],
+ 58:         "children": [
+ 59:           {
+ 60:             "id": "3:2",
+ 61:             "name": "Button",
+ 62:             "type": "INSTANCE",
+ 63:             "classes": ["button"],
+ 64:             "styles": {
+ 65:               "background-color": "var(--brand--blue)",
+ 66:               "padding": "12px 24px"
+ 67:             },
+ 68:             "children": [
+ 69:               {
+ 70:                 "id": "3:3",
+ 71:                 "name": "Label",
+ 72:                 "type": "TEXT"
+ 73:               }
+ 74:             ]
+ 75:           },
+ 76:           {
+ 77:             "id": "3:4",
+ 78:             "name": "Button Secondary",
+ 79:             "type": "INSTANCE",
+ 80:             "classes": ["button", "is-secondary"],
+ 81:             "styles": {
+ 82:               "background-color": "transparent",
+ 83:               "border-color": "var(--brand--blue)"
+ 84:             },
+ 85:             "children": [
+ 86:               {
+ 87:                 "id": "3:5",
+ 88:                 "name": "Label",
+ 89:                 "type": "TEXT"
+ 90:               }
+ 91:             ]
+ 92:           }
+ 93:         ]
+ 94:       }
+ 95:     ]
+ 96:   },
+ 97:   "styles": {
+ 98:     "colors": [],
+ 99:     "typography": [],
+100:     "spacing": []
+101:   },
+102:   "metadata": {
+103:     "extracted_at": "2026-06-03T12:00:00Z",
+104:     "figma_file_version": "1.0",
+105:     "extractor_user": "test-agent"
+106:   }
+107: }
 </file>
 
 <file path="agentic/evals/golden-tasks/README.md">
@@ -1440,6 +2185,34 @@ This section contains the contents of the repository's files.
 170: Gate must return exit 0 before proceeding to sync.
 </file>
 
+<file path="agentic/prompts/sync-design-system-from-figma.md">
+ 1: # Prompt: Sync Design System from Figma
+ 2: 
+ 3: This prompt describes how to validate and synchronize the Figma variable collections and styles against the Client-First CSS contract.
+ 4: 
+ 5: ## Context
+ 6: 
+ 7: This phase runs after the Figma extraction node bundle is saved. You must read from the extraction files directly (`workspace/figma/figma.node-bundle.json` and `workspace/figma/variable-defs.json`). Do NOT make live Figma MCP requests.
+ 8: 
+ 9: ## Strict Sync Rules
+10: 
+11: 1. **Strict Token Matching**: Every design system token (colors, spacing, font weight) used in the design frame must match a corresponding allowed variable in the Client-First Library Contract.
+12: 2. **Missing Token = Blocker**: If a Figma variable or theme alias cannot be resolved to an allowed CSS variable, flag it as a `blocker` and stop the pipeline.
+13: 3. **No Automatic Class Proposals**: If a styling value is missing or untokenized, the sync tool must NOT propose new classes or variables.
+14: 4. **No Hardcoded Hex/Rem Values**: All properties must resolve to variable-backed Client-First classes. Hardcoded spacing or color values on elements are blockers.
+15: 
+16: ## Sync Report Output
+17: 
+18: Write the sync report to `workspace/reports/design-system-sync-report.json` with the following structure:
+19: - `timestamp`: Sync runtime.
+20: - `matched_tokens`: Mapped variable names and target CSS variables.
+21: - `missing_tokens`: List of Figma variables that are missing in the CSS contract (leads to failure).
+22: - `unmapped_styles`: List of style guides or styles not mapped.
+23: - `hardcoded_values`: List of layers containing raw color/spacing overrides.
+24: - `blockers`: List of blocker errors.
+25: - `status`: `"pass"` | `"failed"` (fails if any blockers or missing tokens exist).
+</file>
+
 <file path="agentic/README.md">
  1: # Agentic System
  2: 
@@ -1746,108 +2519,288 @@ This section contains the contents of the repository's files.
 </file>
 
 <file path="agentic/schemas/component-match-report.schema.json">
-1: {
-2:   "$schema": "http://json-schema.org/draft-07/schema#",
-3:   "title": "Component Match Report",
-4:   "type": "object",
-5:   "properties": {}
-6: }
+ 1: {
+ 2:   "$schema": "http://json-schema.org/draft-07/schema#",
+ 3:   "title": "ComponentMatchReportSchema",
+ 4:   "type": "object",
+ 5:   "required": ["timestamp", "matched_instances", "unmatched_instances", "status", "blockers"],
+ 6:   "properties": {
+ 7:     "timestamp": {
+ 8:       "type": "string",
+ 9:       "format": "date-time"
+10:     },
+11:     "matched_instances": {
+12:       "type": "array",
+13:       "items": {
+14:         "type": "object",
+15:         "required": ["figma_node_id", "figma_node_name", "component_id", "signature_id", "confidence", "matching_notes"],
+16:         "properties": {
+17:           "figma_node_id": {
+18:             "type": "string"
+19:           },
+20:           "figma_node_name": {
+21:             "type": "string"
+22:           },
+23:           "component_id": {
+24:             "type": "string"
+25:           },
+26:           "signature_id": {
+27:             "type": "string"
+28:           },
+29:           "confidence": {
+30:             "type": "number"
+31:           },
+32:           "matching_notes": {
+33:             "type": "string"
+34:           }
+35:         }
+36:       }
+37:     },
+38:     "unmatched_instances": {
+39:       "type": "array",
+40:       "items": {
+41:         "type": "object",
+42:         "required": ["figma_node_id", "figma_node_name", "highest_candidate_component", "highest_confidence", "reason"],
+43:         "properties": {
+44:           "figma_node_id": {
+45:             "type": "string"
+46:           },
+47:           "figma_node_name": {
+48:             "type": "string"
+49:           },
+50:           "highest_candidate_component": {
+51:             "type": ["string", "null"]
+52:           },
+53:           "highest_confidence": {
+54:             "type": "number"
+55:           },
+56:           "reason": {
+57:             "type": "string"
+58:           }
+59:         }
+60:       }
+61:     },
+62:     "status": {
+63:       "type": "string",
+64:       "enum": ["pass", "fail"]
+65:     },
+66:     "blockers": {
+67:       "type": "array",
+68:       "items": {
+69:         "type": "string"
+70:       }
+71:     }
+72:   }
+73: }
 </file>
 
 <file path="agentic/schemas/component-registry.schema.json">
-1: {
-2:   "$schema": "http://json-schema.org/draft-07/schema#",
-3:   "title": "Component Registry",
-4:   "type": "object",
-5:   "properties": {}
-6: }
+ 1: {
+ 2:   "$schema": "http://json-schema.org/draft-07/schema#",
+ 3:   "title": "ComponentRegistrySchema",
+ 4:   "type": "object",
+ 5:   "required": ["components"],
+ 6:   "properties": {
+ 7:     "components": {
+ 8:       "type": "array",
+ 9:       "items": {
+10:         "type": "object",
+11:         "required": ["id", "name", "category", "description", "required_classes", "required_variables", "signatures"],
+12:         "properties": {
+13:           "id": {
+14:             "type": "string"
+15:           },
+16:           "name": {
+17:             "type": "string"
+18:           },
+19:           "category": {
+20:             "type": "string",
+21:             "enum": ["primitives", "layout", "structure", "forms", "typography", "media"]
+22:           },
+23:           "description": {
+24:             "type": "string"
+25:           },
+26:           "required_classes": {
+27:             "type": "array",
+28:             "items": {
+29:               "type": "string"
+30:             }
+31:           },
+32:           "required_variables": {
+33:             "type": "array",
+34:             "items": {
+35:               "type": "string"
+36:             }
+37:           },
+38:           "signatures": {
+39:             "type": "array",
+40:             "items": {
+41:               "type": "string"
+42:             }
+43:           }
+44:         }
+45:       }
+46:     }
+47:   }
+48: }
 </file>
 
 <file path="agentic/schemas/component-signature.schema.json">
-1: {
-2:   "$schema": "http://json-schema.org/draft-07/schema#",
-3:   "title": "Component Signature",
-4:   "type": "object",
-5:   "properties": {}
-6: }
+  1: {
+  2:   "$schema": "http://json-schema.org/draft-07/schema#",
+  3:   "title": "ComponentSignatureSchema",
+  4:   "type": "object",
+  5:   "required": ["signatures"],
+  6:   "properties": {
+  7:     "signatures": {
+  8:       "type": "array",
+  9:       "items": {
+ 10:         "type": "object",
+ 11:         "required": ["id", "component_id", "name_pattern", "node_type", "layout_topology", "token_cluster", "repeated_patterns", "min_confidence"],
+ 12:         "properties": {
+ 13:           "id": {
+ 14:             "type": "string"
+ 15:           },
+ 16:           "component_id": {
+ 17:             "type": "string"
+ 18:           },
+ 19:           "name_pattern": {
+ 20:             "type": "string"
+ 21:           },
+ 22:           "node_type": {
+ 23:             "type": "string",
+ 24:             "enum": ["INSTANCE", "FRAME", "TEXT", "RECTANGLE", "GROUP", "VECTOR"]
+ 25:           },
+ 26:           "layout_topology": {
+ 27:             "type": "object",
+ 28:             "required": ["min_children", "max_children", "children"],
+ 29:             "properties": {
+ 30:               "min_children": {
+ 31:                 "type": "integer"
+ 32:               },
+ 33:               "max_children": {
+ 34:                 "type": "integer"
+ 35:               },
+ 36:               "children": {
+ 37:                 "type": "array",
+ 38:                 "items": {
+ 39:                   "type": "object",
+ 40:                   "required": ["role", "node_types", "name_pattern", "min_count", "max_count"],
+ 41:                   "properties": {
+ 42:                     "role": {
+ 43:                       "type": "string"
+ 44:                     },
+ 45:                     "node_types": {
+ 46:                       "type": "array",
+ 47:                       "items": {
+ 48:                         "type": "string"
+ 49:                       }
+ 50:                     },
+ 51:                     "name_pattern": {
+ 52:                       "type": "string"
+ 53:                     },
+ 54:                     "min_count": {
+ 55:                       "type": "integer"
+ 56:                     },
+ 57:                     "max_count": {
+ 58:                       "type": "integer"
+ 59:                     }
+ 60:                   }
+ 61:                 }
+ 62:               }
+ 63:             }
+ 64:           },
+ 65:           "token_cluster": {
+ 66:             "type": "object",
+ 67:             "required": ["classes"],
+ 68:             "properties": {
+ 69:               "classes": {
+ 70:                 "type": "array",
+ 71:                 "items": {
+ 72:                   "type": "string"
+ 73:                 }
+ 74:               },
+ 75:               "css_properties": {
+ 76:                 "type": "array",
+ 77:                 "items": {
+ 78:                   "type": "string"
+ 79:                 }
+ 80:               }
+ 81:             }
+ 82:           },
+ 83:           "repeated_patterns": {
+ 84:             "type": ["object", "null"],
+ 85:             "properties": {
+ 86:               "item_role": {
+ 87:                 "type": "string"
+ 88:               },
+ 89:               "exact_repetition": {
+ 90:                 "type": "boolean"
+ 91:               }
+ 92:             }
+ 93:           },
+ 94:           "min_confidence": {
+ 95:             "type": "number",
+ 96:             "minimum": 0.0,
+ 97:             "maximum": 1.0
+ 98:           }
+ 99:         }
+100:       }
+101:     }
+102:   }
+103: }
 </file>
 
 <file path="agentic/schemas/component-sync-report.schema.json">
-1: {
-2:   "$schema": "http://json-schema.org/draft-07/schema#",
-3:   "title": "Component Sync Report",
-4:   "type": "object",
-5:   "properties": {}
-6: }
-</file>
-
-<file path="agentic/schemas/design-system-sync-report.schema.json">
  1: {
  2:   "$schema": "http://json-schema.org/draft-07/schema#",
- 3:   "title": "Design System Sync Report Schema",
+ 3:   "title": "ComponentSyncReportSchema",
  4:   "type": "object",
- 5:   "required": [
- 6:     "timestamp",
- 7:     "matched_tokens",
- 8:     "missing_tokens",
- 9:     "unmapped_styles",
-10:     "hardcoded_values",
-11:     "blockers",
-12:     "status"
-13:   ],
-14:   "properties": {
-15:     "timestamp": {
-16:       "type": "string",
-17:       "format": "date-time"
-18:     },
-19:     "matched_tokens": {
-20:       "type": "array",
-21:       "items": {
-22:         "type": "object",
-23:         "required": ["figma_token", "css_variable"],
-24:         "properties": {
-25:           "figma_token": { "type": "string" },
-26:           "css_variable": { "type": "string" }
-27:         }
-28:       }
-29:     },
-30:     "missing_tokens": {
-31:       "type": "array",
-32:       "items": {
-33:         "type": "object",
-34:         "required": ["figma_token", "severity"],
-35:         "properties": {
-36:           "figma_token": { "type": "string" },
-37:           "severity": { "type": "string", "enum": ["high", "medium", "low"] }
-38:         }
-39:       }
-40:     },
-41:     "unmapped_styles": {
-42:       "type": "array",
-43:       "items": { "type": "string" }
-44:     },
-45:     "hardcoded_values": {
-46:       "type": "array",
-47:       "items": {
-48:         "type": "object",
-49:         "required": ["layer_name", "property", "value"],
-50:         "properties": {
-51:           "layer_name": { "type": "string" },
-52:           "property": { "type": "string" },
-53:           "value": { "type": "string" }
-54:         }
-55:       }
-56:     },
-57:     "blockers": {
-58:       "type": "array",
-59:       "items": { "type": "string" }
-60:     },
-61:     "status": {
-62:       "type": "string",
-63:       "enum": ["pass", "failed"]
-64:     }
-65:   }
-66: }
+ 5:   "required": ["timestamp", "registry_version", "total_components", "synced_components", "out_of_sync_components", "status", "errors"],
+ 6:   "properties": {
+ 7:     "timestamp": {
+ 8:       "type": "string",
+ 9:       "format": "date-time"
+10:     },
+11:     "registry_version": {
+12:       "type": "string"
+13:     },
+14:     "total_components": {
+15:       "type": "integer"
+16:     },
+17:     "synced_components": {
+18:       "type": "array",
+19:       "items": {
+20:         "type": "string"
+21:       }
+22:     },
+23:     "out_of_sync_components": {
+24:       "type": "array",
+25:       "items": {
+26:         "type": "object",
+27:         "required": ["component_id", "reason"],
+28:         "properties": {
+29:           "component_id": {
+30:             "type": "string"
+31:           },
+32:           "reason": {
+33:             "type": "string"
+34:           }
+35:         }
+36:       }
+37:     },
+38:     "status": {
+39:       "type": "string",
+40:       "enum": ["pass", "fail"]
+41:     },
+42:     "errors": {
+43:       "type": "array",
+44:       "items": {
+45:         "type": "string"
+46:       }
+47:     }
+48:   }
+49: }
 </file>
 
 <file path="agentic/schemas/error-log.schema.json">
@@ -2549,27 +3502,102 @@ This section contains the contents of the repository's files.
 <file path="agentic/specs/component-registry-contract.md">
  1: # Component Registry Contract Specification
  2: 
- 3: ## Component Registry Rules
+ 3: The Component Registry guarantees that all UI components generated or manipulated in the Figma-to-Webflow pipeline adhere to a strictly registered definition. In **strict mode**, any component instance discovered in Figma that is not registered, or fails signature matching, blocks the pipeline immediately.
  4: 
- 5: - All components used must be registered in the Component Registry.
- 6: - A component entry in the registry defines:
- 7:   - Component Name and ID
- 8:   - Structure Signature (hierarchy of child slots and HTML tag layout)
- 9:   - Style Mappings (required variables and classes)
-10:   - Target Webflow Component ID (if mapping to an existing Webflow component)
-11: - This contract guarantees that components are matched strictly based on signature and metadata, rather than simple name string matching.
+ 5: ## Registry Database Structure
+ 6: 
+ 7: The registry database is located at `knowledge-base/component-registry.json` and must conform to the JSON schema defined in `agentic/schemas/component-registry.schema.json`.
+ 8: 
+ 9: Each component in the registry defines:
+10: - **`id`**: Unique alphanumeric identifier (e.g. `button`).
+11: - **`name`**: Descriptive human-readable name.
+12: - **`category`**: Category of the component (e.g., `primitives`, `layout`, `structure`, `forms`, `typography`, `media`).
+13: - **`description`**: Explanation of purpose and usage.
+14: - **`required_classes`**: Mandatory CSS classes from the Client-First contract that this component must utilize.
+15: - **`required_variables`**: Mandatory CSS variables from the CSS variable index that this component must utilize.
+16: - **`signatures`**: References to valid signature IDs in the component signatures database.
+17: 
+18: ## Registry Constraints
+19: 
+20: 1. **Mandatory Registry Enrollment**: Every component built in the final HTML code must correspond to an active component in the registry.
+21: 2. **Client-First Integration**: All classes specified in `required_classes` must exist inside the generated Client-First CSS contract (`knowledge-base/generated/client-first-library-contract.json`).
+22: 3. **No Dynamic Class Insertion**: The compiler is prohibited from injecting classes into components if they violate or bypass registry definitions.
+23: 4. **Validation Enforcements**: The validation gate `scripts/gates/validate_component_matching.py` verifies compliance. If a component uses an unauthorized class, the validation gate throws a blocker and exits with code 1.
 </file>
 
 <file path="agentic/specs/component-signature-matching.md">
-1: # Component Signature Matching Specification
-2: 
-3: ## Matching Levels
-4: 
-5: - Matching level definitions:
-6:   - **Exact Match**: The component's structure, styles, and names perfectly align with a registry signature. Map directly.
-7:   - **Usable Match**: Small discrepancies exist (e.g. slight text styling differences or spacing overrides) but structurally identical. Map with overrides.
-8:   - **Candidate Match**: Visual/structural similarities exist but requires review to decide if it's a new variant or should be normalized.
-9:   - **No Match**: A new component or a primitive layout. Recreate using default Client-First elements.
+ 1: # Component Signature Matching Specification
+ 2: 
+ 3: This document defines the rules, metrics, and algorithm used to match Figma node instances against registered component signatures.
+ 4: 
+ 5: ## Matching Levels
+ 6: 
+ 7: - **Exact Match** (Confidence $\ge 0.95$):
+ 8:   - Structurally, topologically, and name-wise identical.
+ 9:   - Maps directly with no overrides.
+10: - **Usable Match** ($0.85 \le$ Confidence $< 0.95$):
+11:   - Identical layout topology but contains minor spacing, font size, or design token overrides.
+12:   - Maps with style overrides.
+13: - **Candidate Match** ($0.60 \le$ Confidence $< 0.85$):
+14:   - Shares visual and naming similarities but exhibits structural discrepancies (e.g. missing child elements or extra unexpected layers).
+15:   - Triggers a compiler warning. Requires user intervention or manual matching override.
+16: - **No Match** (Confidence $< 0.60$):
+17:   - Does not match any known signatures. Treated as custom markup or layout primitives.
+18:   - In **strict mode**, any "No Match" on a known Figma component instance stops execution.
+19: 
+20: ## Signature Criteria
+21: 
+22: Each signature in `knowledge-base/component-signatures.json` defines matching criteria:
+23: 
+24: 1. **Name Matching (`name_pattern`)**:
+25:    - A regular expression checked against the Figma node name.
+26: 2. **Node Type (`node_type`)**:
+27:    - Matches the Figma element type (e.g., `INSTANCE`, `FRAME`, `TEXT`, `RECTANGLE`).
+28: 3. **Layout Topology (`layout_topology`)**:
+29:    - Specifies child element counts, order, and node types/roles.
+30:    - For example, a `Card` layout signature expects children matching image/text/button roles.
+31: 4. **Token Cluster (`token_cluster`)**:
+32:    - Key design tokens (padding, gap, borders, background, font-size) or class suffixes.
+33: 5. **Repeated Patterns (`repeated_patterns`)**:
+34:    - Identifies repeated grids/lists (e.g., a Button Group containing multiple buttons).
+35: 
+36: ## Scoring Algorithm
+37: 
+38: The match confidence is calculated as a weighted average of four scores:
+39: 
+40: $$S_{\text{total}} = w_1 S_{\text{name}} + w_2 S_{\text{type}} + w_3 S_{\text{topology}} + w_4 S_{\text{tokens}}$$
+41: 
+42: Recommended default weights:
+43: - $w_1$ (Name match): 0.20
+44: - $w_2$ (Node type match): 0.10
+45: - $w_3$ (Layout topology): 0.50
+46: - $w_4$ (Token/class cluster): 0.20
+47: 
+48: ### 1. Name Score ($S_{\text{name}}$)
+49: - $1.0$ if the name matches the regex exactly.
+50: - $0.5$ if the name contains the component name as a substring.
+51: - $0.0$ otherwise.
+52: 
+53: ### 2. Node Type Score ($S_{\text{type}}$)
+54: - $1.0$ if the node type matches.
+55: - $0.0$ otherwise.
+56: 
+57: ### 3. Layout Topology Score ($S_{\text{topology}}$)
+58: - Evaluates the child node constraints.
+59: - Score is calculated as:
+60:   $$S_{\text{topology}} = \frac{\text{Number of satisfied child role rules}}{\text{Total number of child role rules}}$$
+61: - Also takes into account minimum and maximum child bounds.
+62: 
+63: ### 4. Token Cluster Score ($S_{\text{tokens}}$)
+64: - Matches key CSS classes or styling property existence.
+65: - $1.0$ if all required styles/classes match.
+66: - Evaluates partial matches line-by-line.
+67: 
+68: ## Strict Mode Enforcement
+69: In **strict mode**:
+70: - If an instance matches a signature with confidence $< 0.85$, it is flagged as a blocker.
+71: - The matcher records all matching errors in `workspace/reports/component-match-report.json`.
+72: - The compilation step is aborted.
 </file>
 
 <file path="agentic/specs/figma-design-system-contract.md">
@@ -3073,6 +4101,37 @@ This section contains the contents of the repository's files.
 74:     - Colors -> Webflow Variables.
 75:     - Spacing (Gap, Padding) -> Spacing System (Utility or Variables).
 76: 4.  **Visual Fidelity:** Ensure Border-radius, Shadow, and Gradients are captured accurately 1:1 but applied using standard Classes.
+</file>
+
+<file path="knowledge-base/design-system-contract.json">
+ 1: {
+ 2:   "version": "1.0.0",
+ 3:   "collections": {
+ 4:     "base": {
+ 5:       "required_variables": [
+ 6:         "--font-family--primary",
+ 7:         "--font-weight--light",
+ 8:         "--font-weight--normal",
+ 9:         "--font-weight--medium",
+10:         "--font-weight--semibold",
+11:         "--font-weight--bold"
+12:       ]
+13:     },
+14:     "theme": {
+15:       "required_variables": [
+16:         "--_theme---text-color--primary",
+17:         "--_theme---background-color--primary",
+18:         "--_theme---border-color--primary"
+19:       ]
+20:     },
+21:     "layout": {
+22:       "required_variables": [
+23:         "--_layout---spacing--medium",
+24:         "--_layout---spacing--global-padding"
+25:       ]
+26:     }
+27:   }
+28: }
 </file>
 
 <file path="knowledge-base/generated/client-first-library-contract.json">
@@ -44633,6 +45692,58 @@ This section contains the contents of the repository's files.
 43:     main()
 </file>
 
+<file path="scripts/gates/validate_design_system_sync.py">
+ 1: import os
+ 2: import sys
+ 3: import json
+ 4: 
+ 5: def main():
+ 6:     root_dir = os.path.abspath(os.path.join(os.path.dirname(__file__), "..", ".."))
+ 7:     report_path = os.path.join(root_dir, "workspace", "reports", "design-system-sync-report.json")
+ 8:     print(f"Validating Design System Sync Report at: {report_path}")
+ 9:     
+10:     errors = []
+11:     
+12:     if not os.path.exists(report_path):
+13:         errors.append(f"Sync report is missing: design-system-sync-report.json. Run sync command first.")
+14:     else:
+15:         try:
+16:             with open(report_path, "r", encoding="utf-8") as f:
+17:                 report = json.load(f)
+18:                 
+19:             # Perform strict validation
+20:             for prop in ["timestamp", "matched_tokens", "missing_tokens", "unmapped_styles", "hardcoded_values", "blockers", "status"]:
+21:                 if prop not in report:
+22:                     errors.append(f"Property '{prop}' is missing from design-system-sync-report.json")
+23:                     
+24:             status = report.get("status", "")
+25:             if status != "pass":
+26:                 errors.append(f"Sync status is '{status}' (must be 'pass')")
+27:                 
+28:             blockers = report.get("blockers", [])
+29:             if blockers:
+30:                 errors.append(f"Sync report contains blockers: {blockers}")
+31:                 
+32:             missing_tokens = report.get("missing_tokens", [])
+33:             if missing_tokens:
+34:                 errors.append(f"Sync report contains missing tokens: {missing_tokens}")
+35:                 
+36:         except Exception as e:
+37:             errors.append(f"Failed to parse design-system-sync-report.json as valid JSON: {e}")
+38:             
+39:     if errors:
+40:         print("\n--- DESIGN SYSTEM SYNC VALIDATION FAILED ---")
+41:         for err in errors:
+42:             print(f"ERROR: {err}")
+43:         sys.exit(1)
+44:     else:
+45:         print("\n--- DESIGN SYSTEM SYNC VALIDATION PASSED ---")
+46:         sys.exit(0)
+47: 
+48: if __name__ == "__main__":
+49:     main()
+</file>
+
 <file path="scripts/gates/validate_figma_node_bundle.py">
  1: import os
  2: import sys
@@ -52415,6 +53526,75 @@ This section contains the contents of the repository's files.
 227: - `knowledge-base/libraries/{site_id}/client-first-library.json` — project token classes
 228: - `knowledge-base/client-first-class-map.json` — global CF utility catalog
 229: - `workspace/design-system.json` — project-specific REM scale
+</file>
+
+<file path="agentic/schemas/design-system-sync-report.schema.json">
+ 1: {
+ 2:   "$schema": "http://json-schema.org/draft-07/schema#",
+ 3:   "title": "Design System Sync Report Schema",
+ 4:   "type": "object",
+ 5:   "required": [
+ 6:     "timestamp",
+ 7:     "matched_tokens",
+ 8:     "missing_tokens",
+ 9:     "unmapped_styles",
+10:     "hardcoded_values",
+11:     "blockers",
+12:     "status"
+13:   ],
+14:   "properties": {
+15:     "timestamp": {
+16:       "type": "string",
+17:       "format": "date-time"
+18:     },
+19:     "matched_tokens": {
+20:       "type": "array",
+21:       "items": {
+22:         "type": "object",
+23:         "required": ["figma_token", "css_variable"],
+24:         "properties": {
+25:           "figma_token": { "type": "string" },
+26:           "css_variable": { "type": "string" }
+27:         }
+28:       }
+29:     },
+30:     "missing_tokens": {
+31:       "type": "array",
+32:       "items": {
+33:         "type": "object",
+34:         "required": ["figma_token", "severity"],
+35:         "properties": {
+36:           "figma_token": { "type": "string" },
+37:           "severity": { "type": "string", "enum": ["high", "medium", "low"] }
+38:         }
+39:       }
+40:     },
+41:     "unmapped_styles": {
+42:       "type": "array",
+43:       "items": { "type": "string" }
+44:     },
+45:     "hardcoded_values": {
+46:       "type": "array",
+47:       "items": {
+48:         "type": "object",
+49:         "required": ["layer_name", "property", "value"],
+50:         "properties": {
+51:           "layer_name": { "type": "string" },
+52:           "property": { "type": "string" },
+53:           "value": { "type": "string" }
+54:         }
+55:       }
+56:     },
+57:     "blockers": {
+58:       "type": "array",
+59:       "items": { "type": "string" }
+60:     },
+61:     "status": {
+62:       "type": "string",
+63:       "enum": ["pass", "failed"]
+64:     }
+65:   }
+66: }
 </file>
 
 <file path="agentic/schemas/figma-extract-run-log.schema.json">

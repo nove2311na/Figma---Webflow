@@ -1,0 +1,85 @@
+{
+  "components": [
+    {
+      "id": "button",
+      "name": "Button",
+      "category": "primitives",
+      "description": "Standard interactive call-to-action button element",
+      "required_classes": ["button"],
+      "required_variables": [],
+      "signatures": ["sig_button_standard", "sig_button_icon", "sig_button_secondary"]
+    },
+    {
+      "id": "button_group",
+      "name": "Button Group",
+      "category": "layout",
+      "description": "Container wrapping multiple buttons in a structured layout",
+      "required_classes": ["button-group"],
+      "required_variables": [],
+      "signatures": ["sig_button_group_standard"]
+    },
+    {
+      "id": "card",
+      "name": "Card",
+      "category": "structure",
+      "description": "A self-contained UI card containing an image, heading, paragraph, and optional CTA",
+      "required_classes": [],
+      "required_variables": [],
+      "signatures": ["sig_card_standard"]
+    },
+    {
+      "id": "nav",
+      "name": "Navigation Bar",
+      "category": "structure",
+      "description": "Header navigation bar containing brand logo, links, and action buttons",
+      "required_classes": ["nav_component"],
+      "required_variables": [],
+      "signatures": ["sig_nav_standard"]
+    },
+    {
+      "id": "footer",
+      "name": "Footer",
+      "category": "structure",
+      "description": "Page footer with copyright, links, and branding",
+      "required_classes": [],
+      "required_variables": [],
+      "signatures": ["sig_footer_standard"]
+    },
+    {
+      "id": "form_field",
+      "name": "Form Fields",
+      "category": "forms",
+      "description": "Input, label, text area, checkbox, or radio button within a form",
+      "required_classes": ["form_input"],
+      "required_variables": [],
+      "signatures": ["sig_form_input_standard"]
+    },
+    {
+      "id": "rich_text",
+      "name": "Rich Text Block",
+      "category": "typography",
+      "description": "A styled rich text wrapper container for formatted CMS content",
+      "required_classes": ["text-rich-text"],
+      "required_variables": [],
+      "signatures": ["sig_rich_text_standard"]
+    },
+    {
+      "id": "image_figure",
+      "name": "Image or Figure",
+      "category": "media",
+      "description": "Media wrapper or standalone image elements",
+      "required_classes": [],
+      "required_variables": [],
+      "signatures": ["sig_image_standard"]
+    },
+    {
+      "id": "section",
+      "name": "Section Layout",
+      "category": "layout",
+      "description": "Full-width section wrapper with global structural padding",
+      "required_classes": [],
+      "required_variables": [],
+      "signatures": ["sig_section_standard"]
+    }
+  ]
+}

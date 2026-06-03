@@ -1,0 +1,296 @@
+{
+  "signatures": [
+    {
+      "id": "sig_button_standard",
+      "component_id": "button",
+      "name_pattern": "^[Bb]utton$",
+      "node_type": "INSTANCE",
+      "layout_topology": {
+        "min_children": 1,
+        "max_children": 2,
+        "children": [
+          {
+            "role": "text",
+            "node_types": ["TEXT"],
+            "name_pattern": ".*",
+            "min_count": 1,
+            "max_count": 1
+          }
+        ]
+      },
+      "token_cluster": {
+        "classes": ["button"],
+        "css_properties": ["background-color", "padding"]
+      },
+      "repeated_patterns": null,
+      "min_confidence": 0.95
+    },
+    {
+      "id": "sig_button_icon",
+      "component_id": "button",
+      "name_pattern": "^[Bb]utton.*[Ii]con.*",
+      "node_type": "INSTANCE",
+      "layout_topology": {
+        "min_children": 2,
+        "max_children": 3,
+        "children": [
+          {
+            "role": "icon",
+            "node_types": ["VECTOR", "INSTANCE", "FRAME"],
+            "name_pattern": ".*",
+            "min_count": 1,
+            "max_count": 1
+          },
+          {
+            "role": "text",
+            "node_types": ["TEXT"],
+            "name_pattern": ".*",
+            "min_count": 1,
+            "max_count": 1
+          }
+        ]
+      },
+      "token_cluster": {
+        "classes": ["button", "is-icon"],
+        "css_properties": ["background-color", "padding"]
+      },
+      "repeated_patterns": null,
+      "min_confidence": 0.95
+    },
+    {
+      "id": "sig_button_secondary",
+      "component_id": "button",
+      "name_pattern": "^[Bb]utton.*[Ss]econdary.*",
+      "node_type": "INSTANCE",
+      "layout_topology": {
+        "min_children": 1,
+        "max_children": 2,
+        "children": [
+          {
+            "role": "text",
+            "node_types": ["TEXT"],
+            "name_pattern": ".*",
+            "min_count": 1,
+            "max_count": 1
+          }
+        ]
+      },
+      "token_cluster": {
+        "classes": ["button", "is-secondary"],
+        "css_properties": ["background-color", "border-color"]
+      },
+      "repeated_patterns": null,
+      "min_confidence": 0.95
+    },
+    {
+      "id": "sig_button_group_standard",
+      "component_id": "button_group",
+      "name_pattern": "^[Bb]utton[-_ ]group$",
+      "node_type": "FRAME",
+      "layout_topology": {
+        "min_children": 1,
+        "max_children": 10,
+        "children": [
+          {
+            "role": "button",
+            "node_types": ["INSTANCE"],
+            "name_pattern": ".*",
+            "min_count": 1,
+            "max_count": 10
+          }
+        ]
+      },
+      "token_cluster": {
+        "classes": ["button-group"]
+      },
+      "repeated_patterns": {
+        "item_role": "button",
+        "exact_repetition": false
+      },
+      "min_confidence": 0.95
+    },
+    {
+      "id": "sig_card_standard",
+      "component_id": "card",
+      "name_pattern": ".*[Cc]ard.*",
+      "node_type": "FRAME",
+      "layout_topology": {
+        "min_children": 2,
+        "max_children": 10,
+        "children": [
+          {
+            "role": "image",
+            "node_types": ["RECTANGLE", "FRAME", "INSTANCE"],
+            "name_pattern": ".*(image|photo|pic).*",
+            "min_count": 0,
+            "max_count": 1
+          },
+          {
+            "role": "heading",
+            "node_types": ["TEXT"],
+            "name_pattern": ".*",
+            "min_count": 1,
+            "max_count": 1
+          },
+          {
+            "role": "paragraph",
+            "node_types": ["TEXT"],
+            "name_pattern": ".*",
+            "min_count": 1,
+            "max_count": 2
+          }
+        ]
+      },
+      "token_cluster": {
+        "classes": [],
+        "css_properties": ["padding", "background-color"]
+      },
+      "repeated_patterns": null,
+      "min_confidence": 0.85
+    },
+    {
+      "id": "sig_nav_standard",
+      "component_id": "nav",
+      "name_pattern": "^[Nn]av(bar)?$",
+      "node_type": "FRAME",
+      "layout_topology": {
+        "min_children": 2,
+        "max_children": 5,
+        "children": [
+          {
+            "role": "brand",
+            "node_types": ["FRAME", "INSTANCE"],
+            "name_pattern": ".*(logo|brand).*",
+            "min_count": 1,
+            "max_count": 1
+          },
+          {
+            "role": "menu",
+            "node_types": ["FRAME"],
+            "name_pattern": ".*(menu|links).*",
+            "min_count": 1,
+            "max_count": 1
+          }
+        ]
+      },
+      "token_cluster": {
+        "classes": ["nav_component"]
+      },
+      "repeated_patterns": null,
+      "min_confidence": 0.95
+    },
+    {
+      "id": "sig_footer_standard",
+      "component_id": "footer",
+      "name_pattern": "^[Ff]ooter$",
+      "node_type": "FRAME",
+      "layout_topology": {
+        "min_children": 1,
+        "max_children": 10,
+        "children": [
+          {
+            "role": "links",
+            "node_types": ["FRAME"],
+            "name_pattern": ".*",
+            "min_count": 0,
+            "max_count": 5
+          }
+        ]
+      },
+      "token_cluster": {
+        "classes": []
+      },
+      "repeated_patterns": null,
+      "min_confidence": 0.85
+    },
+    {
+      "id": "sig_form_input_standard",
+      "component_id": "form_field",
+      "name_pattern": ".*[Ii]nput.*",
+      "node_type": "FRAME",
+      "layout_topology": {
+        "min_children": 0,
+        "max_children": 2,
+        "children": [
+          {
+            "role": "placeholder",
+            "node_types": ["TEXT"],
+            "name_pattern": ".*",
+            "min_count": 0,
+            "max_count": 1
+          }
+        ]
+      },
+      "token_cluster": {
+        "classes": ["form_input"]
+      },
+      "repeated_patterns": null,
+      "min_confidence": 0.95
+    },
+    {
+      "id": "sig_rich_text_standard",
+      "component_id": "rich_text",
+      "name_pattern": ".*[Rr]ich[-_][Tt]ext.*",
+      "node_type": "FRAME",
+      "layout_topology": {
+        "min_children": 1,
+        "max_children": 20,
+        "children": [
+          {
+            "role": "paragraph",
+            "node_types": ["TEXT"],
+            "name_pattern": ".*",
+            "min_count": 1,
+            "max_count": 20
+          }
+        ]
+      },
+      "token_cluster": {
+        "classes": ["text-rich-text"]
+      },
+      "repeated_patterns": null,
+      "min_confidence": 0.95
+    },
+    {
+      "id": "sig_image_standard",
+      "component_id": "image_figure",
+      "name_pattern": "^[Ii]mage$|^[Pp]icture$",
+      "node_type": "RECTANGLE",
+      "layout_topology": {
+        "min_children": 0,
+        "max_children": 0,
+        "children": []
+      },
+      "token_cluster": {
+        "classes": []
+      },
+      "repeated_patterns": null,
+      "min_confidence": 0.95
+    },
+    {
+      "id": "sig_section_standard",
+      "component_id": "section",
+      "name_pattern": "^[Ss]ection.*",
+      "node_type": "FRAME",
+      "layout_topology": {
+        "min_children": 1,
+        "max_children": 5,
+        "children": [
+          {
+            "role": "container",
+            "node_types": ["FRAME"],
+            "name_pattern": ".*[Cc]ontainer.*",
+            "min_count": 1,
+            "max_count": 1
+          }
+        ]
+      },
+      "token_cluster": {
+        "classes": [],
+        "css_properties": ["padding"]
+      },
+      "repeated_patterns": null,
+      "min_confidence": 0.85
+    }
+  ]
+}

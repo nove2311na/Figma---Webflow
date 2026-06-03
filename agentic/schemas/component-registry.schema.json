@@ -1,6 +1,48 @@
 {
   "$schema": "http://json-schema.org/draft-07/schema#",
-  "title": "Component Registry",
+  "title": "ComponentRegistrySchema",
   "type": "object",
-  "properties": {}
+  "required": ["components"],
+  "properties": {
+    "components": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["id", "name", "category", "description", "required_classes", "required_variables", "signatures"],
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "name": {
+            "type": "string"
+          },
+          "category": {
+            "type": "string",
+            "enum": ["primitives", "layout", "structure", "forms", "typography", "media"]
+          },
+          "description": {
+            "type": "string"
+          },
+          "required_classes": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "required_variables": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "signatures": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          }
+        }
+      }
+    }
+  }
 }
