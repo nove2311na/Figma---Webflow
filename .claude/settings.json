@@ -2,7 +2,7 @@
   "_comment": "Claude Code settings for the autoresearch workspace.",
   "env": {
     "ANTHROPIC_BASE_URL": "https://api.minimax.io/anthropic",
-    "ANTHROPIC_AUTH_TOKEN": "sk-cp-ErZlPCP--0lFrq4Rij4iwsigYHKx7B4dcl_7_HSch3yB_SAC3bC1wYkZcQjDggskjFyIGbRA2n4RxkZZr3Ncvg5PqJu7u6E2la4jIkisbzN4gdcYnOQuHKs",
+    "ANTHROPIC_AUTH_TOKEN": "",
     "API_TIMEOUT_MS": "3000000",
     "CLAUDE_CODE_DISABLE_NONESSENTIAL_TRAFFIC": "1",
     "ANTHROPIC_MODEL": "MiniMax-M3",
