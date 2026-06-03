@@ -1,0 +1,917 @@
+{
+  "version": "1.0.0",
+  "reserved_classes": [
+    "gm-style-iw",
+    "w--nav-dropdown-list-open",
+    "w--nav-dropdown-open",
+    "w--nav-dropdown-toggle-open",
+    "w--nav-link-open",
+    "w--tab-active",
+    "w-active",
+    "w-background-video",
+    "w-background-video--control",
+    "w-block",
+    "w-button",
+    "w-clearfix",
+    "w-code-block",
+    "w-col",
+    "w-col-1",
+    "w-col-10",
+    "w-col-11",
+    "w-col-12",
+    "w-col-2",
+    "w-col-3",
+    "w-col-4",
+    "w-col-5",
+    "w-col-6",
+    "w-col-7",
+    "w-col-8",
+    "w-col-9",
+    "w-col-medium-1",
+    "w-col-medium-10",
+    "w-col-medium-11",
+    "w-col-medium-12",
+    "w-col-medium-2",
+    "w-col-medium-3",
+    "w-col-medium-4",
+    "w-col-medium-5",
+    "w-col-medium-6",
+    "w-col-medium-7",
+    "w-col-medium-8",
+    "w-col-medium-9",
+    "w-col-small-1",
+    "w-col-small-10",
+    "w-col-small-11",
+    "w-col-small-12",
+    "w-col-small-2",
+    "w-col-small-3",
+    "w-col-small-4",
+    "w-col-small-5",
+    "w-col-small-6",
+    "w-col-small-7",
+    "w-col-small-8",
+    "w-col-small-9",
+    "w-col-stack",
+    "w-col-tiny-1",
+    "w-col-tiny-10",
+    "w-col-tiny-11",
+    "w-col-tiny-12",
+    "w-col-tiny-2",
+    "w-col-tiny-3",
+    "w-col-tiny-4",
+    "w-col-tiny-5",
+    "w-col-tiny-6",
+    "w-col-tiny-7",
+    "w-col-tiny-8",
+    "w-col-tiny-9",
+    "w-condition-invisible",
+    "w-container",
+    "w-dropdown",
+    "w-dropdown-btn",
+    "w-dropdown-link",
+    "w-dropdown-list",
+    "w-dropdown-toggle",
+    "w-dyn-bind-empty",
+    "w-dyn-empty",
+    "w-dyn-hide",
+    "w-embed",
+    "w-file-remove-link",
+    "w-file-upload",
+    "w-file-upload-default",
+    "w-file-upload-error",
+    "w-file-upload-error-msg",
+    "w-file-upload-file",
+    "w-file-upload-file-name",
+    "w-file-upload-info",
+    "w-file-upload-input",
+    "w-file-upload-label",
+    "w-file-upload-success",
+    "w-file-upload-uploading",
+    "w-file-upload-uploading-btn",
+    "w-form",
+    "w-form-done",
+    "w-form-fail",
+    "w-form-label",
+    "w-hidden",
+    "w-hidden-main",
+    "w-hidden-medium",
+    "w-hidden-small",
+    "w-hidden-tiny",
+    "w-icon-arrow-down",
+    "w-icon-dropdown-toggle",
+    "w-icon-file-upload-icon",
+    "w-icon-file-upload-remove",
+    "w-icon-file-upload-uploading",
+    "w-icon-nav-menu",
+    "w-icon-slider-left",
+    "w-icon-slider-right",
+    "w-inline-block",
+    "w-input",
+    "w-input-disabled",
+    "w-ix-emptyfix",
+    "w-layout-grid",
+    "w-lightbox-active",
+    "w-lightbox-backdrop",
+    "w-lightbox-caption",
+    "w-lightbox-close",
+    "w-lightbox-container",
+    "w-lightbox-content",
+    "w-lightbox-control",
+    "w-lightbox-embed",
+    "w-lightbox-figure",
+    "w-lightbox-frame",
+    "w-lightbox-group",
+    "w-lightbox-hide",
+    "w-lightbox-image",
+    "w-lightbox-img",
+    "w-lightbox-inactive",
+    "w-lightbox-item",
+    "w-lightbox-left",
+    "w-lightbox-noscroll",
+    "w-lightbox-right",
+    "w-lightbox-spinner",
+    "w-lightbox-strip",
+    "w-lightbox-tall",
+    "w-lightbox-thumbnail",
+    "w-lightbox-thumbnail-image",
+    "w-lightbox-view",
+    "w-lightbox-wide",
+    "w-list-unstyled",
+    "w-mod-touch",
+    "w-nav",
+    "w-nav-brand",
+    "w-nav-button",
+    "w-nav-link",
+    "w-nav-menu",
+    "w-nav-overlay",
+    "w-optimization",
+    "w-radio",
+    "w-radio-input",
+    "w-richtext",
+    "w-richtext-align-center",
+    "w-richtext-align-floatleft",
+    "w-richtext-align-floatright",
+    "w-richtext-align-fullwidth",
+    "w-richtext-align-normal",
+    "w-richtext-figcaption-placeholder",
+    "w-richtext-figure-selected",
+    "w-richtext-figure-type-image",
+    "w-richtext-figure-type-video",
+    "w-row",
+    "w-select",
+    "w-slide",
+    "w-slider",
+    "w-slider-aria-label",
+    "w-slider-arrow-left",
+    "w-slider-arrow-right",
+    "w-slider-dot",
+    "w-slider-force-show",
+    "w-slider-mask",
+    "w-slider-nav",
+    "w-slider-nav-invert",
+    "w-tab-content",
+    "w-tab-link",
+    "w-tab-menu",
+    "w-tab-pane",
+    "w-tabs",
+    "w-video",
+    "w-webflow-badge",
+    "w-widget",
+    "w-widget-map",
+    "w-widget-twitter",
+    "w-widget-twitter-count-clear",
+    "w-widget-twitter-count-inner",
+    "w-widget-twitter-count-shim",
+    "wf-layout-layout"
+  ],
+  "mappings": {
+    "gm-style-iw": {
+      "is_reserved": true,
+      "notes": "Webflow native engine structural class"
+    },
+    "w--nav-dropdown-list-open": {
+      "is_reserved": true,
+      "notes": "Webflow native engine structural class"
+    },
+    "w--nav-dropdown-open": {
+      "is_reserved": true,
+      "notes": "Webflow native engine structural class"
+    },
+    "w--nav-dropdown-toggle-open": {
+      "is_reserved": true,
+      "notes": "Webflow native engine structural class"
+    },
+    "w--nav-link-open": {
+      "is_reserved": true,
+      "notes": "Webflow native engine structural class"
+    },
+    "w--tab-active": {
+      "is_reserved": true,
+      "notes": "Webflow native engine structural class"
+    },
+    "w-active": {
+      "is_reserved": true,
+      "notes": "Webflow native engine structural class"
+    },
+    "w-background-video": {
+      "is_reserved": true,
+      "notes": "Webflow native engine structural class"
+    },
+    "w-background-video--control": {
+      "is_reserved": true,
+      "notes": "Webflow native engine structural class"
+    },
+    "w-block": {
+      "is_reserved": true,
+      "notes": "Webflow native engine structural class"
+    },
+    "w-button": {
+      "is_reserved": true,
+      "notes": "Webflow native engine structural class"
+    },
+    "w-clearfix": {
+      "is_reserved": true,
+      "notes": "Webflow native engine structural class"
+    },
+    "w-code-block": {
+      "is_reserved": true,
+      "notes": "Webflow native engine structural class"
+    },
+    "w-col": {
+      "is_reserved": true,
+      "notes": "Webflow native engine structural class"
+    },
+    "w-col-1": {
+      "is_reserved": true,
+      "notes": "Webflow native engine structural class"
+    },
+    "w-col-10": {
+      "is_reserved": true,
+      "notes": "Webflow native engine structural class"
+    },
+    "w-col-11": {
+      "is_reserved": true,
+      "notes": "Webflow native engine structural class"
+    },
+    "w-col-12": {
+      "is_reserved": true,
+      "notes": "Webflow native engine structural class"
+    },
+    "w-col-2": {
+      "is_reserved": true,
+      "notes": "Webflow native engine structural class"
+    },
+    "w-col-3": {
+      "is_reserved": true,
+      "notes": "Webflow native engine structural class"
+    },
+    "w-col-4": {
+      "is_reserved": true,
+      "notes": "Webflow native engine structural class"
+    },
+    "w-col-5": {
+      "is_reserved": true,
+      "notes": "Webflow native engine structural class"
+    },
+    "w-col-6": {
+      "is_reserved": true,
+      "notes": "Webflow native engine structural class"
+    },
+    "w-col-7": {
+      "is_reserved": true,
+      "notes": "Webflow native engine structural class"
+    },
+    "w-col-8": {
+      "is_reserved": true,
+      "notes": "Webflow native engine structural class"
+    },
+    "w-col-9": {
+      "is_reserved": true,
+      "notes": "Webflow native engine structural class"
+    },
+    "w-col-medium-1": {
+      "is_reserved": true,
+      "notes": "Webflow native engine structural class"
+    },
+    "w-col-medium-10": {
+      "is_reserved": true,
+      "notes": "Webflow native engine structural class"
+    },
+    "w-col-medium-11": {
+      "is_reserved": true,
+      "notes": "Webflow native engine structural class"
+    },
+    "w-col-medium-12": {
+      "is_reserved": true,
+      "notes": "Webflow native engine structural class"
+    },
+    "w-col-medium-2": {
+      "is_reserved": true,
+      "notes": "Webflow native engine structural class"
+    },
+    "w-col-medium-3": {
+      "is_reserved": true,
+      "notes": "Webflow native engine structural class"
+    },
+    "w-col-medium-4": {
+      "is_reserved": true,
+      "notes": "Webflow native engine structural class"
+    },
+    "w-col-medium-5": {
+      "is_reserved": true,
+      "notes": "Webflow native engine structural class"
+    },
+    "w-col-medium-6": {
+      "is_reserved": true,
+      "notes": "Webflow native engine structural class"
+    },
+    "w-col-medium-7": {
+      "is_reserved": true,
+      "notes": "Webflow native engine structural class"
+    },
+    "w-col-medium-8": {
+      "is_reserved": true,
+      "notes": "Webflow native engine structural class"
+    },
+    "w-col-medium-9": {
+      "is_reserved": true,
+      "notes": "Webflow native engine structural class"
+    },
+    "w-col-small-1": {
+      "is_reserved": true,
+      "notes": "Webflow native engine structural class"
+    },
+    "w-col-small-10": {
+      "is_reserved": true,
+      "notes": "Webflow native engine structural class"
+    },
+    "w-col-small-11": {
+      "is_reserved": true,
+      "notes": "Webflow native engine structural class"
+    },
+    "w-col-small-12": {
+      "is_reserved": true,
+      "notes": "Webflow native engine structural class"
+    },
+    "w-col-small-2": {
+      "is_reserved": true,
+      "notes": "Webflow native engine structural class"
+    },
+    "w-col-small-3": {
+      "is_reserved": true,
+      "notes": "Webflow native engine structural class"
+    },
+    "w-col-small-4": {
+      "is_reserved": true,
+      "notes": "Webflow native engine structural class"
+    },
+    "w-col-small-5": {
+      "is_reserved": true,
+      "notes": "Webflow native engine structural class"
+    },
+    "w-col-small-6": {
+      "is_reserved": true,
+      "notes": "Webflow native engine structural class"
+    },
+    "w-col-small-7": {
+      "is_reserved": true,
+      "notes": "Webflow native engine structural class"
+    },
+    "w-col-small-8": {
+      "is_reserved": true,
+      "notes": "Webflow native engine structural class"
+    },
+    "w-col-small-9": {
+      "is_reserved": true,
+      "notes": "Webflow native engine structural class"
+    },
+    "w-col-stack": {
+      "is_reserved": true,
+      "notes": "Webflow native engine structural class"
+    },
+    "w-col-tiny-1": {
+      "is_reserved": true,
+      "notes": "Webflow native engine structural class"
+    },
+    "w-col-tiny-10": {
+      "is_reserved": true,
+      "notes": "Webflow native engine structural class"
+    },
+    "w-col-tiny-11": {
+      "is_reserved": true,
+      "notes": "Webflow native engine structural class"
+    },
+    "w-col-tiny-12": {
+      "is_reserved": true,
+      "notes": "Webflow native engine structural class"
+    },
+    "w-col-tiny-2": {
+      "is_reserved": true,
+      "notes": "Webflow native engine structural class"
+    },
+    "w-col-tiny-3": {
+      "is_reserved": true,
+      "notes": "Webflow native engine structural class"
+    },
+    "w-col-tiny-4": {
+      "is_reserved": true,
+      "notes": "Webflow native engine structural class"
+    },
+    "w-col-tiny-5": {
+      "is_reserved": true,
+      "notes": "Webflow native engine structural class"
+    },
+    "w-col-tiny-6": {
+      "is_reserved": true,
+      "notes": "Webflow native engine structural class"
+    },
+    "w-col-tiny-7": {
+      "is_reserved": true,
+      "notes": "Webflow native engine structural class"
+    },
+    "w-col-tiny-8": {
+      "is_reserved": true,
+      "notes": "Webflow native engine structural class"
+    },
+    "w-col-tiny-9": {
+      "is_reserved": true,
+      "notes": "Webflow native engine structural class"
+    },
+    "w-condition-invisible": {
+      "is_reserved": true,
+      "notes": "Webflow native engine structural class"
+    },
+    "w-container": {
+      "is_reserved": true,
+      "notes": "Webflow native engine structural class"
+    },
+    "w-dropdown": {
+      "is_reserved": true,
+      "notes": "Webflow native engine structural class"
+    },
+    "w-dropdown-btn": {
+      "is_reserved": true,
+      "notes": "Webflow native engine structural class"
+    },
+    "w-dropdown-link": {
+      "is_reserved": true,
+      "notes": "Webflow native engine structural class"
+    },
+    "w-dropdown-list": {
+      "is_reserved": true,
+      "notes": "Webflow native engine structural class"
+    },
+    "w-dropdown-toggle": {
+      "is_reserved": true,
+      "notes": "Webflow native engine structural class"
+    },
+    "w-dyn-bind-empty": {
+      "is_reserved": true,
+      "notes": "Webflow native engine structural class"
+    },
+    "w-dyn-empty": {
+      "is_reserved": true,
+      "notes": "Webflow native engine structural class"
+    },
+    "w-dyn-hide": {
+      "is_reserved": true,
+      "notes": "Webflow native engine structural class"
+    },
+    "w-embed": {
+      "is_reserved": true,
+      "notes": "Webflow native engine structural class"
+    },
+    "w-file-remove-link": {
+      "is_reserved": true,
+      "notes": "Webflow native engine structural class"
+    },
+    "w-file-upload": {
+      "is_reserved": true,
+      "notes": "Webflow native engine structural class"
+    },
+    "w-file-upload-default": {
+      "is_reserved": true,
+      "notes": "Webflow native engine structural class"
+    },
+    "w-file-upload-error": {
+      "is_reserved": true,
+      "notes": "Webflow native engine structural class"
+    },
+    "w-file-upload-error-msg": {
+      "is_reserved": true,
+      "notes": "Webflow native engine structural class"
+    },
+    "w-file-upload-file": {
+      "is_reserved": true,
+      "notes": "Webflow native engine structural class"
+    },
+    "w-file-upload-file-name": {
+      "is_reserved": true,
+      "notes": "Webflow native engine structural class"
+    },
+    "w-file-upload-info": {
+      "is_reserved": true,
+      "notes": "Webflow native engine structural class"
+    },
+    "w-file-upload-input": {
+      "is_reserved": true,
+      "notes": "Webflow native engine structural class"
+    },
+    "w-file-upload-label": {
+      "is_reserved": true,
+      "notes": "Webflow native engine structural class"
+    },
+    "w-file-upload-success": {
+      "is_reserved": true,
+      "notes": "Webflow native engine structural class"
+    },
+    "w-file-upload-uploading": {
+      "is_reserved": true,
+      "notes": "Webflow native engine structural class"
+    },
+    "w-file-upload-uploading-btn": {
+      "is_reserved": true,
+      "notes": "Webflow native engine structural class"
+    },
+    "w-form": {
+      "is_reserved": true,
+      "notes": "Webflow native engine structural class"
+    },
+    "w-form-done": {
+      "is_reserved": true,
+      "notes": "Webflow native engine structural class"
+    },
+    "w-form-fail": {
+      "is_reserved": true,
+      "notes": "Webflow native engine structural class"
+    },
+    "w-form-label": {
+      "is_reserved": true,
+      "notes": "Webflow native engine structural class"
+    },
+    "w-hidden": {
+      "is_reserved": true,
+      "notes": "Webflow native engine structural class"
+    },
+    "w-hidden-main": {
+      "is_reserved": true,
+      "notes": "Webflow native engine structural class"
+    },
+    "w-hidden-medium": {
+      "is_reserved": true,
+      "notes": "Webflow native engine structural class"
+    },
+    "w-hidden-small": {
+      "is_reserved": true,
+      "notes": "Webflow native engine structural class"
+    },
+    "w-hidden-tiny": {
+      "is_reserved": true,
+      "notes": "Webflow native engine structural class"
+    },
+    "w-icon-arrow-down": {
+      "is_reserved": true,
+      "notes": "Webflow native engine structural class"
+    },
+    "w-icon-dropdown-toggle": {
+      "is_reserved": true,
+      "notes": "Webflow native engine structural class"
+    },
+    "w-icon-file-upload-icon": {
+      "is_reserved": true,
+      "notes": "Webflow native engine structural class"
+    },
+    "w-icon-file-upload-remove": {
+      "is_reserved": true,
+      "notes": "Webflow native engine structural class"
+    },
+    "w-icon-file-upload-uploading": {
+      "is_reserved": true,
+      "notes": "Webflow native engine structural class"
+    },
+    "w-icon-nav-menu": {
+      "is_reserved": true,
+      "notes": "Webflow native engine structural class"
+    },
+    "w-icon-slider-left": {
+      "is_reserved": true,
+      "notes": "Webflow native engine structural class"
+    },
+    "w-icon-slider-right": {
+      "is_reserved": true,
+      "notes": "Webflow native engine structural class"
+    },
+    "w-inline-block": {
+      "is_reserved": true,
+      "notes": "Webflow native engine structural class"
+    },
+    "w-input": {
+      "is_reserved": true,
+      "notes": "Webflow native engine structural class"
+    },
+    "w-input-disabled": {
+      "is_reserved": true,
+      "notes": "Webflow native engine structural class"
+    },
+    "w-ix-emptyfix": {
+      "is_reserved": true,
+      "notes": "Webflow native engine structural class"
+    },
+    "w-layout-grid": {
+      "is_reserved": true,
+      "notes": "Webflow native engine structural class"
+    },
+    "w-lightbox-active": {
+      "is_reserved": true,
+      "notes": "Webflow native engine structural class"
+    },
+    "w-lightbox-backdrop": {
+      "is_reserved": true,
+      "notes": "Webflow native engine structural class"
+    },
+    "w-lightbox-caption": {
+      "is_reserved": true,
+      "notes": "Webflow native engine structural class"
+    },
+    "w-lightbox-close": {
+      "is_reserved": true,
+      "notes": "Webflow native engine structural class"
+    },
+    "w-lightbox-container": {
+      "is_reserved": true,
+      "notes": "Webflow native engine structural class"
+    },
+    "w-lightbox-content": {
+      "is_reserved": true,
+      "notes": "Webflow native engine structural class"
+    },
+    "w-lightbox-control": {
+      "is_reserved": true,
+      "notes": "Webflow native engine structural class"
+    },
+    "w-lightbox-embed": {
+      "is_reserved": true,
+      "notes": "Webflow native engine structural class"
+    },
+    "w-lightbox-figure": {
+      "is_reserved": true,
+      "notes": "Webflow native engine structural class"
+    },
+    "w-lightbox-frame": {
+      "is_reserved": true,
+      "notes": "Webflow native engine structural class"
+    },
+    "w-lightbox-group": {
+      "is_reserved": true,
+      "notes": "Webflow native engine structural class"
+    },
+    "w-lightbox-hide": {
+      "is_reserved": true,
+      "notes": "Webflow native engine structural class"
+    },
+    "w-lightbox-image": {
+      "is_reserved": true,
+      "notes": "Webflow native engine structural class"
+    },
+    "w-lightbox-img": {
+      "is_reserved": true,
+      "notes": "Webflow native engine structural class"
+    },
+    "w-lightbox-inactive": {
+      "is_reserved": true,
+      "notes": "Webflow native engine structural class"
+    },
+    "w-lightbox-item": {
+      "is_reserved": true,
+      "notes": "Webflow native engine structural class"
+    },
+    "w-lightbox-left": {
+      "is_reserved": true,
+      "notes": "Webflow native engine structural class"
+    },
+    "w-lightbox-noscroll": {
+      "is_reserved": true,
+      "notes": "Webflow native engine structural class"
+    },
+    "w-lightbox-right": {
+      "is_reserved": true,
+      "notes": "Webflow native engine structural class"
+    },
+    "w-lightbox-spinner": {
+      "is_reserved": true,
+      "notes": "Webflow native engine structural class"
+    },
+    "w-lightbox-strip": {
+      "is_reserved": true,
+      "notes": "Webflow native engine structural class"
+    },
+    "w-lightbox-tall": {
+      "is_reserved": true,
+      "notes": "Webflow native engine structural class"
+    },
+    "w-lightbox-thumbnail": {
+      "is_reserved": true,
+      "notes": "Webflow native engine structural class"
+    },
+    "w-lightbox-thumbnail-image": {
+      "is_reserved": true,
+      "notes": "Webflow native engine structural class"
+    },
+    "w-lightbox-view": {
+      "is_reserved": true,
+      "notes": "Webflow native engine structural class"
+    },
+    "w-lightbox-wide": {
+      "is_reserved": true,
+      "notes": "Webflow native engine structural class"
+    },
+    "w-list-unstyled": {
+      "is_reserved": true,
+      "notes": "Webflow native engine structural class"
+    },
+    "w-mod-touch": {
+      "is_reserved": true,
+      "notes": "Webflow native engine structural class"
+    },
+    "w-nav": {
+      "is_reserved": true,
+      "notes": "Webflow native engine structural class"
+    },
+    "w-nav-brand": {
+      "is_reserved": true,
+      "notes": "Webflow native engine structural class"
+    },
+    "w-nav-button": {
+      "is_reserved": true,
+      "notes": "Webflow native engine structural class"
+    },
+    "w-nav-link": {
+      "is_reserved": true,
+      "notes": "Webflow native engine structural class"
+    },
+    "w-nav-menu": {
+      "is_reserved": true,
+      "notes": "Webflow native engine structural class"
+    },
+    "w-nav-overlay": {
+      "is_reserved": true,
+      "notes": "Webflow native engine structural class"
+    },
+    "w-optimization": {
+      "is_reserved": true,
+      "notes": "Webflow native engine structural class"
+    },
+    "w-radio": {
+      "is_reserved": true,
+      "notes": "Webflow native engine structural class"
+    },
+    "w-radio-input": {
+      "is_reserved": true,
+      "notes": "Webflow native engine structural class"
+    },
+    "w-richtext": {
+      "is_reserved": true,
+      "notes": "Webflow native engine structural class"
+    },
+    "w-richtext-align-center": {
+      "is_reserved": true,
+      "notes": "Webflow native engine structural class"
+    },
+    "w-richtext-align-floatleft": {
+      "is_reserved": true,
+      "notes": "Webflow native engine structural class"
+    },
+    "w-richtext-align-floatright": {
+      "is_reserved": true,
+      "notes": "Webflow native engine structural class"
+    },
+    "w-richtext-align-fullwidth": {
+      "is_reserved": true,
+      "notes": "Webflow native engine structural class"
+    },
+    "w-richtext-align-normal": {
+      "is_reserved": true,
+      "notes": "Webflow native engine structural class"
+    },
+    "w-richtext-figcaption-placeholder": {
+      "is_reserved": true,
+      "notes": "Webflow native engine structural class"
+    },
+    "w-richtext-figure-selected": {
+      "is_reserved": true,
+      "notes": "Webflow native engine structural class"
+    },
+    "w-richtext-figure-type-image": {
+      "is_reserved": true,
+      "notes": "Webflow native engine structural class"
+    },
+    "w-richtext-figure-type-video": {
+      "is_reserved": true,
+      "notes": "Webflow native engine structural class"
+    },
+    "w-row": {
+      "is_reserved": true,
+      "notes": "Webflow native engine structural class"
+    },
+    "w-select": {
+      "is_reserved": true,
+      "notes": "Webflow native engine structural class"
+    },
+    "w-slide": {
+      "is_reserved": true,
+      "notes": "Webflow native engine structural class"
+    },
+    "w-slider": {
+      "is_reserved": true,
+      "notes": "Webflow native engine structural class"
+    },
+    "w-slider-aria-label": {
+      "is_reserved": true,
+      "notes": "Webflow native engine structural class"
+    },
+    "w-slider-arrow-left": {
+      "is_reserved": true,
+      "notes": "Webflow native engine structural class"
+    },
+    "w-slider-arrow-right": {
+      "is_reserved": true,
+      "notes": "Webflow native engine structural class"
+    },
+    "w-slider-dot": {
+      "is_reserved": true,
+      "notes": "Webflow native engine structural class"
+    },
+    "w-slider-force-show": {
+      "is_reserved": true,
+      "notes": "Webflow native engine structural class"
+    },
+    "w-slider-mask": {
+      "is_reserved": true,
+      "notes": "Webflow native engine structural class"
+    },
+    "w-slider-nav": {
+      "is_reserved": true,
+      "notes": "Webflow native engine structural class"
+    },
+    "w-slider-nav-invert": {
+      "is_reserved": true,
+      "notes": "Webflow native engine structural class"
+    },
+    "w-tab-content": {
+      "is_reserved": true,
+      "notes": "Webflow native engine structural class"
+    },
+    "w-tab-link": {
+      "is_reserved": true,
+      "notes": "Webflow native engine structural class"
+    },
+    "w-tab-menu": {
+      "is_reserved": true,
+      "notes": "Webflow native engine structural class"
+    },
+    "w-tab-pane": {
+      "is_reserved": true,
+      "notes": "Webflow native engine structural class"
+    },
+    "w-tabs": {
+      "is_reserved": true,
+      "notes": "Webflow native engine structural class"
+    },
+    "w-video": {
+      "is_reserved": true,
+      "notes": "Webflow native engine structural class"
+    },
+    "w-webflow-badge": {
+      "is_reserved": true,
+      "notes": "Webflow native engine structural class"
+    },
+    "w-widget": {
+      "is_reserved": true,
+      "notes": "Webflow native engine structural class"
+    },
+    "w-widget-map": {
+      "is_reserved": true,
+      "notes": "Webflow native engine structural class"
+    },
+    "w-widget-twitter": {
+      "is_reserved": true,
+      "notes": "Webflow native engine structural class"
+    },
+    "w-widget-twitter-count-clear": {
+      "is_reserved": true,
+      "notes": "Webflow native engine structural class"
+    },
+    "w-widget-twitter-count-inner": {
+      "is_reserved": true,
+      "notes": "Webflow native engine structural class"
+    },
+    "w-widget-twitter-count-shim": {
+      "is_reserved": true,
+      "notes": "Webflow native engine structural class"
+    },
+    "wf-layout-layout": {
+      "is_reserved": true,
+      "notes": "Webflow native engine structural class"
+    }
+  }
+}

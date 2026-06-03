@@ -1,0 +1,1442 @@
+{
+  "--font-family--body": [
+    {
+      "value": "system-ui, -apple-system, BlinkMacSystemFont, \"Segoe UI\", Roboto, Oxygen, Ubuntu, Cantarell, \"Fira Sans\", \"Droid Sans\", \"Helvetica Neue\", sans-serif",
+      "media": null
+    }
+  ],
+  "--_theme---text-color--primary": [
+    {
+      "value": "var(--neutral--black)",
+      "media": null
+    }
+  ],
+  "--_typography---body--body-font-size": [
+    {
+      "value": "1rem",
+      "media": null
+    },
+    {
+      "value": "1rem",
+      "media": "screen and (max-width: 991px)"
+    },
+    {
+      "value": "1rem",
+      "media": "screen and (max-width: 767px)"
+    }
+  ],
+  "--_typography---body--body-line-height": [
+    {
+      "value": "var(--_typography---font-height--xlarge)",
+      "media": null
+    },
+    {
+      "value": "var(--_typography---font-height--xlarge)",
+      "media": "screen and (max-width: 991px)"
+    },
+    {
+      "value": "var(--_typography---font-height--xlarge)",
+      "media": "screen and (max-width: 767px)"
+    }
+  ],
+  "--font-weight--normal": [
+    {
+      "value": "400",
+      "media": null
+    }
+  ],
+  "--_typography---body--body-letter-spacing": [
+    {
+      "value": "var(--_typography---letter-spacing--default)",
+      "media": null
+    },
+    {
+      "value": "var(--_typography---letter-spacing--default)",
+      "media": "screen and (max-width: 991px)"
+    },
+    {
+      "value": "var(--_typography---letter-spacing--default)",
+      "media": "screen and (max-width: 767px)"
+    }
+  ],
+  "--font-family--heading": [
+    {
+      "value": "system-ui, -apple-system, BlinkMacSystemFont, \"Segoe UI\", Roboto, Oxygen, Ubuntu, Cantarell, \"Fira Sans\", \"Droid Sans\", \"Helvetica Neue\", sans-serif",
+      "media": null
+    }
+  ],
+  "--_typography---h1--h1-font-size": [
+    {
+      "value": "4rem",
+      "media": null
+    },
+    {
+      "value": "4rem",
+      "media": "screen and (max-width: 991px)"
+    },
+    {
+      "value": "2.5rem",
+      "media": "screen and (max-width: 767px)"
+    }
+  ],
+  "--_typography---h1--h1-line-height": [
+    {
+      "value": "var(--_typography---font-height--small)",
+      "media": null
+    },
+    {
+      "value": "var(--_typography---font-height--small)",
+      "media": "screen and (max-width: 991px)"
+    },
+    {
+      "value": "var(--_typography---font-height--small)",
+      "media": "screen and (max-width: 767px)"
+    }
+  ],
+  "--_typography---h1--h1-font-weight": [
+    {
+      "value": "var(--font-weight--bold)",
+      "media": null
+    },
+    {
+      "value": "var(--font-weight--bold)",
+      "media": "screen and (max-width: 991px)"
+    },
+    {
+      "value": "var(--font-weight--bold)",
+      "media": "screen and (max-width: 767px)"
+    }
+  ],
+  "--_typography---h1--h1-letter-spacing": [
+    {
+      "value": "var(--_typography---letter-spacing--default)",
+      "media": null
+    },
+    {
+      "value": "var(--_typography---letter-spacing--default)",
+      "media": "screen and (max-width: 991px)"
+    },
+    {
+      "value": "var(--_typography---letter-spacing--default)",
+      "media": "screen and (max-width: 767px)"
+    }
+  ],
+  "--_typography---h2--h2-font-size": [
+    {
+      "value": "3rem",
+      "media": null
+    },
+    {
+      "value": "3rem",
+      "media": "screen and (max-width: 991px)"
+    },
+    {
+      "value": "2rem",
+      "media": "screen and (max-width: 767px)"
+    }
+  ],
+  "--_typography---h2--h2-line-height": [
+    {
+      "value": "var(--_typography---font-height--medium)",
+      "media": null
+    },
+    {
+      "value": "var(--_typography---font-height--medium)",
+      "media": "screen and (max-width: 991px)"
+    },
+    {
+      "value": "var(--_typography---font-height--medium)",
+      "media": "screen and (max-width: 767px)"
+    }
+  ],
+  "--_typography---h2--h2-font-weight": [
+    {
+      "value": "var(--font-weight--bold)",
+      "media": null
+    },
+    {
+      "value": "var(--font-weight--bold)",
+      "media": "screen and (max-width: 991px)"
+    },
+    {
+      "value": "var(--font-weight--bold)",
+      "media": "screen and (max-width: 767px)"
+    }
+  ],
+  "--_typography---h2--h2-letter-spacing": [
+    {
+      "value": "var(--_typography---letter-spacing--default)",
+      "media": null
+    },
+    {
+      "value": "var(--_typography---letter-spacing--default)",
+      "media": "screen and (max-width: 991px)"
+    },
+    {
+      "value": "var(--_typography---letter-spacing--default)",
+      "media": "screen and (max-width: 767px)"
+    }
+  ],
+  "--_typography---h3--h3-font-size": [
+    {
+      "value": "2rem",
+      "media": null
+    },
+    {
+      "value": "2rem",
+      "media": "screen and (max-width: 991px)"
+    },
+    {
+      "value": "1.5rem",
+      "media": "screen and (max-width: 767px)"
+    }
+  ],
+  "--_typography---h3--h3-line-height": [
+    {
+      "value": "var(--_typography---font-height--medium)",
+      "media": null
+    },
+    {
+      "value": "var(--_typography---font-height--medium)",
+      "media": "screen and (max-width: 991px)"
+    },
+    {
+      "value": "var(--_typography---font-height--medium)",
+      "media": "screen and (max-width: 767px)"
+    }
+  ],
+  "--_typography---h3--h3-font-weight": [
+    {
+      "value": "var(--font-weight--bold)",
+      "media": null
+    },
+    {
+      "value": "var(--font-weight--bold)",
+      "media": "screen and (max-width: 991px)"
+    },
+    {
+      "value": "var(--font-weight--bold)",
+      "media": "screen and (max-width: 767px)"
+    }
+  ],
+  "--_typography---h3--h3-letter-spacing": [
+    {
+      "value": "var(--_typography---letter-spacing--default)",
+      "media": null
+    },
+    {
+      "value": "var(--_typography---letter-spacing--default)",
+      "media": "screen and (max-width: 991px)"
+    },
+    {
+      "value": "var(--_typography---letter-spacing--default)",
+      "media": "screen and (max-width: 767px)"
+    }
+  ],
+  "--_typography---h4--h4-font-size": [
+    {
+      "value": "1.5rem",
+      "media": null
+    },
+    {
+      "value": "1.5rem",
+      "media": "screen and (max-width: 991px)"
+    },
+    {
+      "value": "1.25rem",
+      "media": "screen and (max-width: 767px)"
+    }
+  ],
+  "--_typography---h4--h4-line-height": [
+    {
+      "value": "var(--_typography---font-height--large)",
+      "media": null
+    },
+    {
+      "value": "var(--_typography---font-height--large)",
+      "media": "screen and (max-width: 991px)"
+    },
+    {
+      "value": "var(--_typography---font-height--large)",
+      "media": "screen and (max-width: 767px)"
+    }
+  ],
+  "--_typography---h4--h4-font-weight": [
+    {
+      "value": "var(--font-weight--bold)",
+      "media": null
+    },
+    {
+      "value": "var(--font-weight--bold)",
+      "media": "screen and (max-width: 991px)"
+    },
+    {
+      "value": "var(--font-weight--bold)",
+      "media": "screen and (max-width: 767px)"
+    }
+  ],
+  "--_typography---h4--h4-letter-spacing": [
+    {
+      "value": "var(--_typography---letter-spacing--default)",
+      "media": null
+    },
+    {
+      "value": "var(--_typography---letter-spacing--default)",
+      "media": "screen and (max-width: 991px)"
+    },
+    {
+      "value": "var(--_typography---letter-spacing--default)",
+      "media": "screen and (max-width: 767px)"
+    }
+  ],
+  "--_typography---h5--h5-font-size": [
+    {
+      "value": "1.25rem",
+      "media": null
+    },
+    {
+      "value": "1.25rem",
+      "media": "screen and (max-width: 991px)"
+    },
+    {
+      "value": "1rem",
+      "media": "screen and (max-width: 767px)"
+    }
+  ],
+  "--_typography---h5--h5-line-height": [
+    {
+      "value": "var(--_typography---font-height--xlarge)",
+      "media": null
+    },
+    {
+      "value": "var(--_typography---font-height--xlarge)",
+      "media": "screen and (max-width: 991px)"
+    },
+    {
+      "value": "var(--_typography---font-height--xlarge)",
+      "media": "screen and (max-width: 767px)"
+    }
+  ],
+  "--_typography---h5--h5-font-weight": [
+    {
+      "value": "var(--font-weight--bold)",
+      "media": null
+    },
+    {
+      "value": "var(--font-weight--bold)",
+      "media": "screen and (max-width: 991px)"
+    },
+    {
+      "value": "var(--font-weight--bold)",
+      "media": "screen and (max-width: 767px)"
+    }
+  ],
+  "--_typography---h5--h5-letter-spacing": [
+    {
+      "value": "var(--_typography---letter-spacing--default)",
+      "media": null
+    },
+    {
+      "value": "var(--_typography---letter-spacing--default)",
+      "media": "screen and (max-width: 991px)"
+    },
+    {
+      "value": "var(--_typography---letter-spacing--default)",
+      "media": "screen and (max-width: 767px)"
+    }
+  ],
+  "--_typography---h6--h6-font-size": [
+    {
+      "value": ".875rem",
+      "media": null
+    },
+    {
+      "value": ".875rem",
+      "media": "screen and (max-width: 991px)"
+    },
+    {
+      "value": ".875rem",
+      "media": "screen and (max-width: 767px)"
+    }
+  ],
+  "--_typography---h6--h6-line-height": [
+    {
+      "value": "var(--_typography---font-height--xlarge)",
+      "media": null
+    },
+    {
+      "value": "var(--_typography---font-height--xlarge)",
+      "media": "screen and (max-width: 991px)"
+    },
+    {
+      "value": "var(--_typography---font-height--xlarge)",
+      "media": "screen and (max-width: 767px)"
+    }
+  ],
+  "--_typography---h6--h6-font-weight": [
+    {
+      "value": "var(--font-weight--bold)",
+      "media": null
+    },
+    {
+      "value": "var(--font-weight--bold)",
+      "media": "screen and (max-width: 991px)"
+    },
+    {
+      "value": "var(--font-weight--bold)",
+      "media": "screen and (max-width: 767px)"
+    }
+  ],
+  "--_typography---h6--h6-letter-spacing": [
+    {
+      "value": "var(--_typography---letter-spacing--default)",
+      "media": null
+    },
+    {
+      "value": "var(--_typography---letter-spacing--default)",
+      "media": "screen and (max-width: 991px)"
+    },
+    {
+      "value": "var(--_typography---letter-spacing--default)",
+      "media": "screen and (max-width: 767px)"
+    }
+  ],
+  "--_theme---link-color--primary": [
+    {
+      "value": "var(--brand--blue)",
+      "media": null
+    }
+  ],
+  "--_layout---spacing--xxsmall": [
+    {
+      "value": ".25rem",
+      "media": null
+    },
+    {
+      "value": ".25rem",
+      "media": "screen and (max-width: 991px)"
+    },
+    {
+      "value": ".25rem",
+      "media": "screen and (max-width: 767px)"
+    }
+  ],
+  "--_layout---spacing--xlarge": [
+    {
+      "value": "4rem",
+      "media": null
+    },
+    {
+      "value": "3rem",
+      "media": "screen and (max-width: 991px)"
+    },
+    {
+      "value": "2rem",
+      "media": "screen and (max-width: 767px)"
+    }
+  ],
+  "--_layout---spacing--xsmall": [
+    {
+      "value": ".5rem",
+      "media": null
+    },
+    {
+      "value": ".5rem",
+      "media": "screen and (max-width: 991px)"
+    },
+    {
+      "value": ".5rem",
+      "media": "screen and (max-width: 767px)"
+    }
+  ],
+  "--_layout---spacing--huge": [
+    {
+      "value": "6rem",
+      "media": null
+    },
+    {
+      "value": "5rem",
+      "media": "screen and (max-width: 991px)"
+    },
+    {
+      "value": "3.25rem",
+      "media": "screen and (max-width: 767px)"
+    }
+  ],
+  "--_layout---spacing--large": [
+    {
+      "value": "3rem",
+      "media": null
+    },
+    {
+      "value": "2.5rem",
+      "media": "screen and (max-width: 991px)"
+    },
+    {
+      "value": "1.5rem",
+      "media": "screen and (max-width: 767px)"
+    }
+  ],
+  "--_layout---spacing--xxlarge": [
+    {
+      "value": "5rem",
+      "media": null
+    },
+    {
+      "value": "4rem",
+      "media": "screen and (max-width: 991px)"
+    },
+    {
+      "value": "3rem",
+      "media": "screen and (max-width: 767px)"
+    }
+  ],
+  "--_layout---spacing--tiny": [
+    {
+      "value": ".125rem",
+      "media": null
+    },
+    {
+      "value": ".125rem",
+      "media": "screen and (max-width: 991px)"
+    },
+    {
+      "value": ".125rem",
+      "media": "screen and (max-width: 767px)"
+    }
+  ],
+  "--_layout---spacing--small": [
+    {
+      "value": "1rem",
+      "media": null
+    },
+    {
+      "value": "1rem",
+      "media": "screen and (max-width: 991px)"
+    },
+    {
+      "value": "1rem",
+      "media": "screen and (max-width: 767px)"
+    }
+  ],
+  "--_layout---spacing--medium": [
+    {
+      "value": "2rem",
+      "media": null
+    },
+    {
+      "value": "1.5rem",
+      "media": "screen and (max-width: 991px)"
+    },
+    {
+      "value": "1.25rem",
+      "media": "screen and (max-width: 767px)"
+    }
+  ],
+  "--font-weight--semi-bold": [
+    {
+      "value": "600",
+      "media": null
+    }
+  ],
+  "--_theme---background--primary": [
+    {
+      "value": "var(--neutral--black)",
+      "media": null
+    }
+  ],
+  "--_theme---text-color--alternate": [
+    {
+      "value": "var(--neutral--white)",
+      "media": null
+    }
+  ],
+  "--_theme---text-color--secondary": [
+    {
+      "value": "var(--neutral--neutral-darker)",
+      "media": null
+    }
+  ],
+  "--_theme---background--success": [
+    {
+      "value": "var(--_theme---system--success-background)",
+      "media": null
+    }
+  ],
+  "--_theme---text-color--success": [
+    {
+      "value": "var(--_theme---system--success-text)",
+      "media": null
+    }
+  ],
+  "--_sizes---container--small": [
+    {
+      "value": "48rem",
+      "media": null
+    }
+  ],
+  "--_layout---spacing--global-padding": [
+    {
+      "value": "2.5rem",
+      "media": null
+    },
+    {
+      "value": "2.5rem",
+      "media": "screen and (max-width: 991px)"
+    },
+    {
+      "value": "1.25rem",
+      "media": "screen and (max-width: 767px)"
+    }
+  ],
+  "--_layout---section-padding--small": [
+    {
+      "value": "3rem",
+      "media": null
+    },
+    {
+      "value": "3rem",
+      "media": "screen and (max-width: 991px)"
+    },
+    {
+      "value": "2rem",
+      "media": "screen and (max-width: 767px)"
+    }
+  ],
+  "--_sizes---max-width--small": [
+    {
+      "value": "20rem",
+      "media": null
+    }
+  ],
+  "--font-weight--medium": [
+    {
+      "value": "500",
+      "media": null
+    }
+  ],
+  "--_theme---border-color--primary": [
+    {
+      "value": "var(--neutral--neutral-lightest)",
+      "media": null
+    }
+  ],
+  "--_typography---font-size--tiny": [
+    {
+      "value": ".75rem",
+      "media": null
+    },
+    {
+      "value": ".75rem",
+      "media": "screen and (max-width: 991px)"
+    },
+    {
+      "value": ".75rem",
+      "media": "screen and (max-width: 767px)"
+    }
+  ],
+  "--_sizes---max-width--xxlarge": [
+    {
+      "value": "80rem",
+      "media": null
+    }
+  ],
+  "--font-weight--light": [
+    {
+      "value": "300",
+      "media": null
+    }
+  ],
+  "--_sizes---max-width--xsmall": [
+    {
+      "value": "16rem",
+      "media": null
+    }
+  ],
+  "--_typography---font-size--regular": [
+    {
+      "value": "1rem",
+      "media": null
+    },
+    {
+      "value": "1rem",
+      "media": "screen and (max-width: 991px)"
+    },
+    {
+      "value": "1rem",
+      "media": "screen and (max-width: 767px)"
+    }
+  ],
+  "--font-weight--xbold": [
+    {
+      "value": "800",
+      "media": null
+    }
+  ],
+  "--font-weight--bold": [
+    {
+      "value": "700",
+      "media": null
+    }
+  ],
+  "--_sizes---max-width--medium": [
+    {
+      "value": "32rem",
+      "media": null
+    }
+  ],
+  "--_sizes---max-width--large": [
+    {
+      "value": "48rem",
+      "media": null
+    }
+  ],
+  "--_theme---background--alternate": [
+    {
+      "value": "var(--neutral--white)",
+      "media": null
+    }
+  ],
+  "--_typography---font-size--small": [
+    {
+      "value": ".875rem",
+      "media": null
+    },
+    {
+      "value": ".875rem",
+      "media": "screen and (max-width: 991px)"
+    },
+    {
+      "value": ".875rem",
+      "media": "screen and (max-width: 767px)"
+    }
+  ],
+  "--_sizes---max-width--xlarge": [
+    {
+      "value": "64rem",
+      "media": null
+    }
+  ],
+  "--_theme---background--secondary": [
+    {
+      "value": "var(--brand--blue)",
+      "media": null
+    }
+  ],
+  "--_layout---section-padding--large": [
+    {
+      "value": "8rem",
+      "media": null
+    },
+    {
+      "value": "6rem",
+      "media": "screen and (max-width: 991px)"
+    },
+    {
+      "value": "4rem",
+      "media": "screen and (max-width: 767px)"
+    }
+  ],
+  "--_typography---font-size--large": [
+    {
+      "value": "1.5rem",
+      "media": null
+    },
+    {
+      "value": "1.5rem",
+      "media": "screen and (max-width: 991px)"
+    },
+    {
+      "value": "1.25rem",
+      "media": "screen and (max-width: 767px)"
+    }
+  ],
+  "--_theme---background--tertiary": [
+    {
+      "value": "var(--brand--pink)",
+      "media": null
+    }
+  ],
+  "--_sizes---container--large": [
+    {
+      "value": "80rem",
+      "media": null
+    }
+  ],
+  "--_theme---background--error": [
+    {
+      "value": "var(--_theme---system--error-background)",
+      "media": null
+    }
+  ],
+  "--_theme---text-color--error": [
+    {
+      "value": "var(--_theme---system--error-text)",
+      "media": null
+    }
+  ],
+  "--_sizes---max-width--xxsmall": [
+    {
+      "value": "12rem",
+      "media": null
+    }
+  ],
+  "--_sizes---border-radius--small": [
+    {
+      "value": ".25rem",
+      "media": null
+    }
+  ],
+  "--_theme---border-color--alternate": [
+    {
+      "value": "var(--neutral--neutral-darker)",
+      "media": null
+    }
+  ],
+  "--_typography---font-size--medium": [
+    {
+      "value": "1.25rem",
+      "media": null
+    },
+    {
+      "value": "1.25rem",
+      "media": "screen and (max-width: 991px)"
+    },
+    {
+      "value": "1.25rem",
+      "media": "screen and (max-width: 767px)"
+    }
+  ],
+  "--_layout---section-padding--medium": [
+    {
+      "value": "5rem",
+      "media": null
+    },
+    {
+      "value": "4rem",
+      "media": "screen and (max-width: 991px)"
+    },
+    {
+      "value": "3rem",
+      "media": "screen and (max-width: 767px)"
+    }
+  ],
+  "--_sizes---container--medium": [
+    {
+      "value": "64rem",
+      "media": null
+    }
+  ],
+  "--_theme---background--warning": [
+    {
+      "value": "var(--_theme---system--warning-background)",
+      "media": null
+    }
+  ],
+  "--_theme---text-color--warning": [
+    {
+      "value": "var(--_theme---system--warning-text)",
+      "media": null
+    }
+  ],
+  "--_layout---spacing--none": [
+    {
+      "value": "0rem",
+      "media": null
+    },
+    {
+      "value": "0rem",
+      "media": "screen and (max-width: 991px)"
+    },
+    {
+      "value": "0rem",
+      "media": "screen and (max-width: 767px)"
+    }
+  ],
+  "--_layout---spacing--xhuge": [
+    {
+      "value": "8rem",
+      "media": null
+    },
+    {
+      "value": "8rem",
+      "media": "screen and (max-width: 991px)"
+    },
+    {
+      "value": "8rem",
+      "media": "screen and (max-width: 767px)"
+    }
+  ],
+  "--_layout---spacing--xxhuge": [
+    {
+      "value": "12rem",
+      "media": null
+    },
+    {
+      "value": "8rem",
+      "media": "screen and (max-width: 991px)"
+    },
+    {
+      "value": "4.5rem",
+      "media": "screen and (max-width: 767px)"
+    }
+  ],
+  "--_typography---body--body-font-weight": [
+    {
+      "value": "var(--font-weight--normal)",
+      "media": null
+    },
+    {
+      "value": "var(--font-weight--normal)",
+      "media": "screen and (max-width: 991px)"
+    },
+    {
+      "value": "var(--font-weight--normal)",
+      "media": "screen and (max-width: 767px)"
+    }
+  ],
+  "--_typography---font-height--small": [
+    {
+      "value": "1.1",
+      "media": null
+    },
+    {
+      "value": "1.1",
+      "media": "screen and (max-width: 991px)"
+    },
+    {
+      "value": "1.1",
+      "media": "screen and (max-width: 767px)"
+    }
+  ],
+  "--_typography---font-height--medium": [
+    {
+      "value": "1.2",
+      "media": null
+    },
+    {
+      "value": "1.2",
+      "media": "screen and (max-width: 991px)"
+    },
+    {
+      "value": "1.2",
+      "media": "screen and (max-width: 767px)"
+    }
+  ],
+  "--_typography---font-height--large": [
+    {
+      "value": "1.4",
+      "media": null
+    },
+    {
+      "value": "1.4",
+      "media": "screen and (max-width: 991px)"
+    },
+    {
+      "value": "1.4",
+      "media": "screen and (max-width: 767px)"
+    }
+  ],
+  "--_typography---font-height--xlarge": [
+    {
+      "value": "1.5",
+      "media": null
+    },
+    {
+      "value": "1.5",
+      "media": "screen and (max-width: 991px)"
+    },
+    {
+      "value": "1.5",
+      "media": "screen and (max-width: 767px)"
+    }
+  ],
+  "--_typography---letter-spacing--tighter": [
+    {
+      "value": "-.25rem",
+      "media": null
+    },
+    {
+      "value": "-.25rem",
+      "media": "screen and (max-width: 991px)"
+    },
+    {
+      "value": "-.25rem",
+      "media": "screen and (max-width: 767px)"
+    }
+  ],
+  "--_typography---letter-spacing--tight": [
+    {
+      "value": "-.125rem",
+      "media": null
+    },
+    {
+      "value": "-.125rem",
+      "media": "screen and (max-width: 991px)"
+    },
+    {
+      "value": "-.125rem",
+      "media": "screen and (max-width: 767px)"
+    }
+  ],
+  "--_typography---letter-spacing--default": [
+    {
+      "value": "0rem",
+      "media": null
+    },
+    {
+      "value": "0rem",
+      "media": "screen and (max-width: 991px)"
+    },
+    {
+      "value": "0rem",
+      "media": "screen and (max-width: 767px)"
+    }
+  ],
+  "--_typography---letter-spacing--wide": [
+    {
+      "value": ".125rem",
+      "media": null
+    },
+    {
+      "value": ".125rem",
+      "media": "screen and (max-width: 991px)"
+    },
+    {
+      "value": ".125rem",
+      "media": "screen and (max-width: 767px)"
+    }
+  ],
+  "--_typography---letter-spacing--wider": [
+    {
+      "value": ".25rem",
+      "media": null
+    },
+    {
+      "value": ".25rem",
+      "media": "screen and (max-width: 991px)"
+    },
+    {
+      "value": ".25rem",
+      "media": "screen and (max-width: 767px)"
+    }
+  ],
+  "--brand--blue-light": [
+    {
+      "value": "#d9e5ff",
+      "media": null
+    }
+  ],
+  "--brand--blue": [
+    {
+      "value": "#2d62ff",
+      "media": null
+    }
+  ],
+  "--brand--blue-dark": [
+    {
+      "value": "#080331",
+      "media": null
+    }
+  ],
+  "--brand--pink-light": [
+    {
+      "value": "#ffaefe",
+      "media": null
+    }
+  ],
+  "--brand--pink": [
+    {
+      "value": "#dd23bb",
+      "media": null
+    }
+  ],
+  "--brand--pink-dark": [
+    {
+      "value": "#3c043b",
+      "media": null
+    }
+  ],
+  "--brand--green": [
+    {
+      "value": "#cef5ca",
+      "media": null
+    }
+  ],
+  "--brand--green-darker": [
+    {
+      "value": "#114e0b",
+      "media": null
+    }
+  ],
+  "--brand--yellow": [
+    {
+      "value": "#fcf8d8",
+      "media": null
+    }
+  ],
+  "--brand--yellow-darker": [
+    {
+      "value": "#5e5515",
+      "media": null
+    }
+  ],
+  "--brand--red": [
+    {
+      "value": "#f8e4e4",
+      "media": null
+    }
+  ],
+  "--brand--red-darker": [
+    {
+      "value": "#3b0b0b",
+      "media": null
+    }
+  ],
+  "--neutral--transparent": [
+    {
+      "value": "transparent",
+      "media": null
+    }
+  ],
+  "--neutral--black": [
+    {
+      "value": "#000",
+      "media": null
+    }
+  ],
+  "--neutral--white": [
+    {
+      "value": "#fff",
+      "media": null
+    }
+  ],
+  "--neutral--neutral-lightest": [
+    {
+      "value": "#eee",
+      "media": null
+    }
+  ],
+  "--neutral--neutral-lighter": [
+    {
+      "value": "#ccc",
+      "media": null
+    }
+  ],
+  "--neutral--neutral-light": [
+    {
+      "value": "#aaa",
+      "media": null
+    }
+  ],
+  "--neutral--neutral": [
+    {
+      "value": "#666",
+      "media": null
+    }
+  ],
+  "--neutral--neutral-dark": [
+    {
+      "value": "#444",
+      "media": null
+    }
+  ],
+  "--neutral--neutral-darker": [
+    {
+      "value": "#222",
+      "media": null
+    }
+  ],
+  "--neutral--neutral-darkest": [
+    {
+      "value": "#111",
+      "media": null
+    }
+  ],
+  "--font-weight--thin": [
+    {
+      "value": "100",
+      "media": null
+    }
+  ],
+  "--font-weight--xlight": [
+    {
+      "value": "200",
+      "media": null
+    }
+  ],
+  "--font-weight--black": [
+    {
+      "value": "900",
+      "media": null
+    }
+  ],
+  "--focus--width": [
+    {
+      "value": ".125rem",
+      "media": null
+    }
+  ],
+  "--focus--offset": [
+    {
+      "value": ".125rem",
+      "media": null
+    }
+  ],
+  "--_sizes---border-width--thin": [
+    {
+      "value": "1px",
+      "media": null
+    }
+  ],
+  "--_sizes---border-width--normal": [
+    {
+      "value": ".125rem",
+      "media": null
+    }
+  ],
+  "--_sizes---border-width--bold": [
+    {
+      "value": ".25rem",
+      "media": null
+    }
+  ],
+  "--_sizes---border-radius--medium": [
+    {
+      "value": ".5rem",
+      "media": null
+    }
+  ],
+  "--_sizes---border-radius--large": [
+    {
+      "value": "1rem",
+      "media": null
+    }
+  ],
+  "--_layout---grid-columns--default-count": [
+    {
+      "value": "8",
+      "media": null
+    },
+    {
+      "value": "8",
+      "media": "screen and (max-width: 991px)"
+    },
+    {
+      "value": "6",
+      "media": "screen and (max-width: 767px)"
+    }
+  ],
+  "--_layout---grid-columns--xsmall": [
+    {
+      "value": "15rem",
+      "media": null
+    },
+    {
+      "value": "15rem",
+      "media": "screen and (max-width: 991px)"
+    },
+    {
+      "value": "15rem",
+      "media": "screen and (max-width: 767px)"
+    }
+  ],
+  "--_layout---grid-columns--small": [
+    {
+      "value": "20rem",
+      "media": null
+    },
+    {
+      "value": "20rem",
+      "media": "screen and (max-width: 991px)"
+    },
+    {
+      "value": "20rem",
+      "media": "screen and (max-width: 767px)"
+    }
+  ],
+  "--_layout---grid-columns--medium": [
+    {
+      "value": "25rem",
+      "media": null
+    },
+    {
+      "value": "25rem",
+      "media": "screen and (max-width: 991px)"
+    },
+    {
+      "value": "25rem",
+      "media": "screen and (max-width: 767px)"
+    }
+  ],
+  "--_layout---grid-columns--large": [
+    {
+      "value": "30rem",
+      "media": null
+    },
+    {
+      "value": "30rem",
+      "media": "screen and (max-width: 991px)"
+    },
+    {
+      "value": "30rem",
+      "media": "screen and (max-width: 767px)"
+    }
+  ],
+  "--_layout---grid-columns--xlarge": [
+    {
+      "value": "35rem",
+      "media": null
+    },
+    {
+      "value": "35rem",
+      "media": "screen and (max-width: 991px)"
+    },
+    {
+      "value": "35rem",
+      "media": "screen and (max-width: 767px)"
+    }
+  ],
+  "--_layout---grid-columns--xxlarge": [
+    {
+      "value": "40rem",
+      "media": null
+    },
+    {
+      "value": "40rem",
+      "media": "screen and (max-width: 991px)"
+    },
+    {
+      "value": "40rem",
+      "media": "screen and (max-width: 767px)"
+    }
+  ],
+  "--_layout---gaps--small": [
+    {
+      "value": "1.5rem",
+      "media": null
+    },
+    {
+      "value": "1.5rem",
+      "media": "screen and (max-width: 991px)"
+    },
+    {
+      "value": "1.5rem",
+      "media": "screen and (max-width: 767px)"
+    }
+  ],
+  "--_layout---gaps--regular": [
+    {
+      "value": "2rem",
+      "media": null
+    },
+    {
+      "value": "2rem",
+      "media": "screen and (max-width: 991px)"
+    },
+    {
+      "value": "2rem",
+      "media": "screen and (max-width: 767px)"
+    }
+  ],
+  "--_layout---gaps--medium": [
+    {
+      "value": "3rem",
+      "media": null
+    },
+    {
+      "value": "3rem",
+      "media": "screen and (max-width: 991px)"
+    },
+    {
+      "value": "3rem",
+      "media": "screen and (max-width: 767px)"
+    }
+  ],
+  "--_layout---gaps--large": [
+    {
+      "value": "4rem",
+      "media": null
+    },
+    {
+      "value": "4rem",
+      "media": "screen and (max-width: 991px)"
+    },
+    {
+      "value": "4rem",
+      "media": "screen and (max-width: 767px)"
+    }
+  ],
+  "--_theme---border-color--secondary": [
+    {
+      "value": "var(--brand--blue)",
+      "media": null
+    }
+  ],
+  "--_theme---link-color--secondary": [
+    {
+      "value": "var(--neutral--black)",
+      "media": null
+    }
+  ],
+  "--_theme---link-color--alternate": [
+    {
+      "value": "var(--neutral--white)",
+      "media": null
+    }
+  ],
+  "--_theme---system--success-background": [
+    {
+      "value": "var(--brand--green)",
+      "media": null
+    }
+  ],
+  "--_theme---system--success-text": [
+    {
+      "value": "var(--brand--green-darker)",
+      "media": null
+    }
+  ],
+  "--_theme---system--warning-background": [
+    {
+      "value": "var(--brand--yellow)",
+      "media": null
+    }
+  ],
+  "--_theme---system--warning-text": [
+    {
+      "value": "var(--brand--yellow-darker)",
+      "media": null
+    }
+  ],
+  "--_theme---system--error-background": [
+    {
+      "value": "var(--brand--red)",
+      "media": null
+    }
+  ],
+  "--_theme---system--error-text": [
+    {
+      "value": "var(--brand--red-darker)",
+      "media": null
+    }
+  ],
+  "--_theme---system--focus-state": [
+    {
+      "value": "var(--brand--blue)",
+      "media": null
+    }
+  ],
+  "--_theme---system--selection-text": [
+    {
+      "value": "var(--neutral--white)",
+      "media": null
+    }
+  ],
+  "--_theme---system--selection-background": [
+    {
+      "value": "var(--brand--blue)",
+      "media": null
+    }
+  ]
+}
