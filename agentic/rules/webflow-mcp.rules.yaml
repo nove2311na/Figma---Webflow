@@ -1,0 +1,9 @@
+webflow_mcp_rules:
+  allow_variable_creation: true
+  allow_variable_deletion: false
+  allow_class_creation: true
+  allow_class_deletion: false
+  allow_symbol_unlinking: false
+  enforce_publish_approval: true
+  max_retries_on_rate_limit: 3
+  rate_limit_backoff_seconds: 5

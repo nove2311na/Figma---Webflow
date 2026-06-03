@@ -18,16 +18,24 @@ description: Produce Client-First V2 Webflow blueprints from Figma raw data usin
 3. Read `knowledge-base/libraries/{site_id}/client-first-library.json` (per-project token classes).
 4. Read `agentic/specs/figma-to-client-first-mapping.md`.
 5. **Read `archive/deprecated-workflows/write-html-contract.webflow-first.md`** — mandatory decision guide for utility vs custom class.
-6. Read Figma raw data and content files from `workspace/rawdata/` and `workspace/contents/`.
-7. **Run `agentic/prompts/read-figma-data.md` prompt** — produce `workspace/blueprints/[page-slug]_design-analysis.json`. Use the analysis as structured input before writing any HTML contract. Do not skip.
-8. Identify global components, sections, grids, flex layouts, variables, text styles, and assets.
-9. For each section, write `html_contract` using the 5-layer decision flowchart in `archive/deprecated-workflows/write-html-contract.webflow-first.md`.
-10. List every new custom class in the page-level `new_classes` array; each entry must cite Case number in `reason`.
-11. Generate blueprint JSON under `workspace/blueprints/` with `html_contract`, `cf_classes`, `new_classes`.
-12. Update `workspace/page_structure.json` with routing and section map only.
-13. Confirm REM conversion and Client-First naming.
-14. Run `python scripts/gates/validate_build_contract.py --site-id <id>` before returning to PM.
-15. Return blueprint summary to PM for user approval.
+6. Gather styling context JSON `workspace/figma/figma.raw-context.json` via Figma MCP Server.
+7. **Run raw styling parser**:
+   ```cmd
+   python scripts/pipeline/extract_raw_styling.py --input workspace/figma/figma.raw-context.json --output workspace/html/raw-inline.html
+   ```
+8. **Run Client-First resolver mapping**:
+   ```cmd
+   python scripts/pipeline/resolve_client_first.py --input workspace/figma/raw-layout-blueprint.json --contract knowledge-base/generated/client-first-library-contract.json
+   ```
+9. **Render final HTML**:
+   ```cmd
+   python scripts/pipeline/render_html_from_blueprint.py
+   ```
+10. Write blueprint JSON under `workspace/blueprints/` with `html_contract`, `cf_classes`, `new_classes`.
+11. Update `workspace/page_structure.json` with routing and section map only.
+12. Confirm REM conversion and Client-First naming.
+13. Run `python scripts/gates/validate_build_contract.py --site-id <id>` before returning to PM.
+14. Return blueprint summary to PM for user approval.
 
 ## Hard Rules
 

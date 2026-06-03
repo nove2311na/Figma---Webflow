@@ -1,55 +1,45 @@
-# Standard Operating Procedure - HTML-First Figma-to-Webflow Compiler
+# Standard Operating Procedure (SOP)
 
-This SOP governs the Claude Code-native, Python-first MAS HTML-first compiler workflow.
+This SOP details the operational steps for Agents building Webflow sites from Figma via the modern 3-phase MCP pipeline.
 
-## Phase 0: Setup and Audit
-- Steward validates/initializes workspace paths.
-- Ensure old files are archived.
-- Runs `python scripts/gates/validate_archive_cleanup.py`.
+## 1. Safety & Context Verification
+- Check that the `workspace/figma/` and `workspace/semantic/` folders exist.
+- Verify access to the **Figma MCP Server** and **Webflow MCP Server**.
 
-## Phase 1: CSS Contract Extraction
-- Compile `client-first-library-contract.json` from source stylesheets.
-- Run `python scripts/gates/validate_css_contract.py` and `validate_css_index.py`.
+## 2. Execution Flow
 
-## Phase 2: Figma Extraction
-- Fetch Figma nodes and output `figma.node-bundle.json`.
-- Run `python scripts/gates/validate_figma_node_bundle.py`.
+### Step A: Extract
+Run the extraction routine to pull raw context from Figma:
+```bash
+python scripts/pipeline/extract_raw_styling.py --input workspace/figma/figma.raw-context.json
+```
+- **Goal:** Ensure `raw-layout-blueprint.json` and `raw-inline.html` are correctly generated.
 
-## Phase 3: Design-System Sync
-- Sync Figma variable tokens with CSS Contract allowed variables.
-- Run `python scripts/gates/validate_design_system_sync.py`.
+### Step B: Translate
+Run the Client-First translation routine:
+```bash
+python scripts/pipeline/resolve_client_first.py --input workspace/figma/raw-layout-blueprint.json
+```
+- **Goal:** Generate the `figma.semantic-tree.json` output which maps inline styles to standardized Finsweet classes and variables.
 
-## Phase 4: Component Signature Sync
-- Match node layouts with known components in component registry.
-- Run `python scripts/gates/validate_component_matching.py`.
+### Step C: Audit
+Review the output of the translation logic.
+- Ensure the missing-mapping-report (`workspace/reports/missing-mapping-report.json`) is free of critical failures.
+- If unmapped styles or orphaned tokens exist, update `client-first-class-map.json` or consult the user.
 
-## Phase 5: Figma Tree Normalization
-- Recover generic names and auto-layouts; snap raw colors.
-- Run `python scripts/gates/validate_figma_normalization.py`.
+### Step D: Synchronize (Webflow MCP)
+Instruct the Webflow Sync Agent to read `figma.semantic-tree.json` and execute the push to Webflow using the MCP server.
+- The agent must strictly follow the rules in `agentic/rules/webflow-mcp.rules.yaml`.
+- The agent must use `agentic/knowledge/component-registry.json` to link recognized Symbols.
 
-## Phase 6: Semantic IR Resolution
-- Resolve tag intents and Client-First class choices strictly.
-- Run `python scripts/gates/validate_semantic_ir.py`.
+### Step E: Quality Gate
+Run the standard validation suite:
+```bash
+python scripts/gates/run_quality_gate.py --profile html-first
+```
+- **Goal:** All structural, CSS contract, and index tests must PASS.
 
-## Phase 7: HTML Blueprint Rendering & QA
-- Render logical blueprint and compile physical HTML.
-- Run `python scripts/gates/validate_html_blueprint.py`.
-
-## Phase 8: Asset Alt Policy Manifest
-- Generate `asset-manifest.json` and validate compliance.
-- Run `python scripts/gates/validate_asset_policy.py`.
-
-## Phase 9: Section Chunk Slicing & Benchmarks
-- Slice page HTML into section chunks.
-- Run `python scripts/validate_html_chunks.py` and benchmark accuracy using `validate_resolver_benchmark.py`.
-
-## Phase 10: Webflow Native Build Plan
-- Compile section chunks into serialized native operations plan.
-- Run `python scripts/gates/validate_native_build_plan.py`.
-
-## Phase 11: Deployment & Audit
-- Operator requests user approval of build plan.
-- Operator executes native mutations sequentially on target site branch.
-- Logs every write transaction to `write-audit-log.jsonl`.
-- Validates deployed DOM structures.
-- Unified quality checks: `python scripts/gates/run_quality_gate.py --profile html-first`.
+## 3. Deployment Approval
+Once Phase 1 through 3 are complete and Quality Gates pass:
+1. Provide the user with the Webflow Sync Report (`mcp-sync-report.json`).
+2. Ask for explicit approval before triggering the Webflow Site Publish action.

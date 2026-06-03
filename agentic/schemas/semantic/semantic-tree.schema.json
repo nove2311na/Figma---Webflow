@@ -1,0 +1,34 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "type": "object",
+  "properties": {
+    "node_id": { "type": "string" },
+    "name": { "type": "string" },
+    "semantic_tree": {
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "tag": { "type": "string" },
+        "classes": {
+          "type": "array",
+          "items": { "type": "string" }
+        },
+        "styles": { "type": "object" },
+        "symbol": { "type": "string" },
+        "children": {
+          "type": "array",
+          "items": { "$ref": "#/properties/semantic_tree" }
+        }
+      },
+      "required": ["tag", "classes", "children"]
+    },
+    "metadata": {
+      "type": "object",
+      "properties": {
+        "resolved_at": { "type": "string", "format": "date-time" },
+        "resolver_version": { "type": "string" }
+      }
+    }
+  },
+  "required": ["node_id", "semantic_tree", "metadata"]
+}

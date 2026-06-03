@@ -1,0 +1,87 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "WebflowDesignSystemContract",
+  "type": "object",
+  "required": ["meta", "variables", "styles"],
+  "properties": {
+    "meta": {
+      "type": "object",
+      "required": ["schemaVersion", "source", "baseline", "generatedAt"],
+      "properties": {
+        "schemaVersion": { "type": "string" },
+        "source": { "type": "string" },
+        "baseline": { "type": "string" },
+        "generatedAt": { "type": "string" }
+      }
+    },
+    "variables": {
+      "type": "object",
+      "additionalProperties": {
+        "type": "object",
+        "required": ["figmaName", "webflowName", "type", "value", "resolvedValue", "unit", "mode", "updatePolicy"],
+        "properties": {
+          "figmaName": { "type": "string" },
+          "webflowName": { "type": "string" },
+          "type": {
+            "type": "string",
+            "enum": ["color", "number", "string", "boolean", "size", "font-weight", "font-family", "letter-spacing"]
+          },
+          "value": { "type": ["string", "number", "boolean", "null"] },
+          "resolvedValue": { "type": ["string", "number", "boolean", "null"] },
+          "unit": { "type": ["string", "null"] },
+          "mode": { "type": "string" },
+          "updatePolicy": { "type": "string" }
+        }
+      }
+    },
+    "styles": {
+      "type": "object",
+      "additionalProperties": {
+        "type": "object",
+        "required": ["type", "figmaStyleName", "webflowClassName", "properties", "breakpoints", "matchPolicy"],
+        "properties": {
+          "type": { "type": "string", "enum": ["text-style"] },
+          "figmaStyleName": { "type": "string" },
+          "webflowClassName": { "type": "string" },
+          "properties": {
+            "type": "object",
+            "required": ["font-family", "font-size", "font-weight", "line-height"],
+            "properties": {
+              "font-family": { "type": "string" },
+              "font-size": { "type": "string" },
+              "font-weight": { "type": ["string", "number"] },
+              "line-height": { "type": "string" },
+              "letter-spacing": { "type": "string" }
+            }
+          },
+          "breakpoints": {
+            "type": "object",
+            "required": ["main", "medium", "small", "tiny"],
+            "properties": {
+              "main": { "type": "object" },
+              "medium": { "type": "object" },
+              "small": { "type": "object" },
+              "tiny": { "type": "object" }
+            }
+          },
+          "matchPolicy": {
+            "type": "object",
+            "required": ["strategy", "requiredProperties", "optionalProperties", "minimumConfidence"],
+            "properties": {
+              "strategy": { "type": "string", "enum": ["property_similarity"] },
+              "requiredProperties": {
+                "type": "array",
+                "items": { "type": "string" }
+              },
+              "optionalProperties": {
+                "type": "array",
+                "items": { "type": "string" }
+              },
+              "minimumConfidence": { "type": "number" }
+            }
+          }
+        }
+      }
+    }
+  }
+}

@@ -29,12 +29,13 @@ Use during SOP Phase 1 blueprint creation and Phase 3 QA loop.
 
 ## Input Contract
 
-- raw Figma data from `workspace/rawdata/`,
+- raw Figma data from `workspace/rawdata/` and styling context from `workspace/figma/figma.raw-context.json`,
 - content data from `workspace/contents/`,
 - `workspace/design-system.json`,
 - Client-First knowledge,
 - `knowledge-base/client-first-class-map.json`,
 - per-project library: `knowledge-base/libraries/{site_id}/client-first-library.json`,
+- raw layout blueprint `workspace/figma/raw-layout-blueprint.json` (produced by `extract_raw_styling.py`),
 - design analysis (intermediate): `workspace/blueprints/[page-slug]_design-analysis.json` (produced by `read-figma-data.md` prompt before HTML contract writing),
 - page context and target page ID.
 
@@ -46,11 +47,13 @@ create a new custom class. Every `new_classes` entry must cite the Case number f
 
 ## Output Contract
 
+- raw inline-styled HTML `workspace/html/raw-inline.html` (intermediate code representation),
 - design analysis JSON `workspace/blueprints/[page-slug]_design-analysis.json` (intermediate pre-analysis before blueprint),
 - blueprint JSON in `workspace/blueprints/`, including per-section `html_contract` + `cf_classes`
   and a page-level `new_classes` list (the architect is the naming authority that pre-decides every
   class name, which prevents the parallel-build naming race),
 - updated `workspace/page_structure.json`,
+- semantic tree output `workspace/semantic/figma.semantic-tree.json` (produced by `resolve_client_first.py`),
 - QA verdict in `workspace/error-logs.json` or a QA report,
 - `[APPROVED]` or `[FIX]` verdict.
 

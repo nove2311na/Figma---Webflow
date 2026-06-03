@@ -1,0 +1,236 @@
+{
+  "meta": {
+    "schemaVersion": "1.0.0",
+    "purpose": "Map Figma data-name keywords to semantic HTML tags"
+  },
+  "rules": {
+    "nav_menu": {
+      "tag": "nav",
+      "match": "contains",
+      "category": "landmark",
+      "priority": 90,
+      "attributes": {},
+      "requiredAttributes": [],
+      "confidence": 0.95
+    },
+    "form_submit": {
+      "tag": "button",
+      "match": "contains",
+      "category": "form",
+      "priority": 100,
+      "attributes": {
+        "type": "submit"
+      },
+      "requiredAttributes": [],
+      "confidence": 0.98
+    },
+    "button_wrapper": {
+      "tag": "div",
+      "match": "contains",
+      "category": "layout",
+      "priority": 80,
+      "attributes": {},
+      "classHints": ["button-group"],
+      "confidence": 0.85
+    },
+    "button": {
+      "tag": "button",
+      "match": "contains",
+      "category": "interactive",
+      "priority": 90,
+      "attributes": {
+        "type": "button"
+      },
+      "requiredAttributes": [],
+      "confidence": 0.95
+    },
+    "form_wrapper": {
+      "tag": "form",
+      "match": "contains",
+      "category": "form",
+      "priority": 90,
+      "attributes": {},
+      "requiredAttributes": [],
+      "confidence": 0.95
+    },
+    "form_input": {
+      "tag": "input",
+      "match": "contains",
+      "category": "form",
+      "priority": 90,
+      "attributes": {
+        "type": "text"
+      },
+      "requiredAttributes": ["name"],
+      "confidence": 0.95
+    },
+    "form_textarea": {
+      "tag": "textarea",
+      "match": "contains",
+      "category": "form",
+      "priority": 90,
+      "attributes": {},
+      "requiredAttributes": ["name"],
+      "confidence": 0.95
+    },
+    "image": {
+      "tag": "img",
+      "match": "contains",
+      "category": "media",
+      "priority": 90,
+      "attributes": {},
+      "requiredAttributes": ["alt"],
+      "confidence": 0.90
+    },
+    "heading_h1": {
+      "tag": "h1",
+      "match": "contains",
+      "category": "typography",
+      "priority": 90,
+      "attributes": {},
+      "requiredAttributes": [],
+      "confidence": 0.95
+    },
+    "heading_h2": {
+      "tag": "h2",
+      "match": "contains",
+      "category": "typography",
+      "priority": 90,
+      "attributes": {},
+      "requiredAttributes": [],
+      "confidence": 0.95
+    },
+    "heading_h3": {
+      "tag": "h3",
+      "match": "contains",
+      "category": "typography",
+      "priority": 90,
+      "attributes": {},
+      "requiredAttributes": [],
+      "confidence": 0.95
+    },
+    "heading_h4": {
+      "tag": "h4",
+      "match": "contains",
+      "category": "typography",
+      "priority": 90,
+      "attributes": {},
+      "requiredAttributes": [],
+      "confidence": 0.95
+    },
+    "heading_h5": {
+      "tag": "h5",
+      "match": "contains",
+      "category": "typography",
+      "priority": 90,
+      "attributes": {},
+      "requiredAttributes": [],
+      "confidence": 0.95
+    },
+    "heading_h6": {
+      "tag": "h6",
+      "match": "contains",
+      "category": "typography",
+      "priority": 90,
+      "attributes": {},
+      "requiredAttributes": [],
+      "confidence": 0.95
+    },
+    "paragraph": {
+      "tag": "p",
+      "match": "contains",
+      "category": "typography",
+      "priority": 90,
+      "attributes": {},
+      "requiredAttributes": [],
+      "confidence": 0.90
+    },
+    "list_wrapper": {
+      "tag": "ul",
+      "match": "contains",
+      "category": "layout",
+      "priority": 90,
+      "attributes": {},
+      "requiredAttributes": [],
+      "confidence": 0.95
+    },
+    "list_item": {
+      "tag": "li",
+      "match": "contains",
+      "category": "layout",
+      "priority": 90,
+      "attributes": {},
+      "requiredAttributes": [],
+      "confidence": 0.95
+    },
+    "section": {
+      "tag": "section",
+      "match": "contains",
+      "category": "landmark",
+      "priority": 90,
+      "attributes": {},
+      "requiredAttributes": [],
+      "confidence": 0.95
+    },
+    "header": {
+      "tag": "header",
+      "match": "contains",
+      "category": "landmark",
+      "priority": 90,
+      "attributes": {},
+      "requiredAttributes": [],
+      "confidence": 0.95
+    },
+    "footer": {
+      "tag": "footer",
+      "match": "contains",
+      "category": "landmark",
+      "priority": 90,
+      "attributes": {},
+      "requiredAttributes": [],
+      "confidence": 0.95
+    },
+    "article": {
+      "tag": "article",
+      "match": "contains",
+      "category": "landmark",
+      "priority": 90,
+      "attributes": {},
+      "requiredAttributes": [],
+      "confidence": 0.95
+    },
+    "main": {
+      "tag": "main",
+      "match": "contains",
+      "category": "landmark",
+      "priority": 90,
+      "attributes": {},
+      "requiredAttributes": [],
+      "confidence": 0.95
+    }
+  },
+  "allowedGenericKeywords": [
+    "wrapper",
+    "container",
+    "grid",
+    "row",
+    "column",
+    "block",
+    "spacer",
+    "divider",
+    "inner",
+    "outer",
+    "layout"
+  ],
+  "decorativeKeywords": [
+    "background",
+    "shape",
+    "icon",
+    "line",
+    "decoration",
+    "rectangle",
+    "ellipse",
+    "circle",
+    "vector"
+  ]
+}

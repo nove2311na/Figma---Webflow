@@ -1,23 +1,19 @@
-# Component Registry Contract Specification
+# Component Registry Contract
 
-The Component Registry guarantees that all UI components generated or manipulated in the Figma-to-Webflow pipeline adhere to a strictly registered definition. In **strict mode**, any component instance discovered in Figma that is not registered, or fails signature matching, blocks the pipeline immediately.
+## Purpose
+This contract dictates how the system identifies high-level components from Figma and maps them to Webflow Symbols. Unlike legacy pipelines that attempted to guess complex micro-components, the modern pipeline relies strictly on Finsweet Client-First for structure and only uses this registry for macro-level Symbols.
 
-## Registry Database Structure
+## Allowed Symbols
+Only sections that are typically reused across an entire Webflow site should be registered here.
+- `Navbar`
+- `Footer`
 
-The registry database is located at `knowledge-base/component-registry.json` and must conform to the JSON schema defined in `agentic/schemas/component-registry.schema.json`.
+## Workflow Integration
+1. During the execution of `resolve_client_first.py`, the script checks the top-level sections against `agentic/knowledge/component-signatures.json`.
+2. If a match is found (e.g., node name is "Navigation"), the semantic tree node will be tagged with `"symbol": "Navbar"`.
+3. The Webflow Sync Agent reads this tag and consults `agentic/knowledge/component-registry.json` to invoke the Webflow Symbol ID instead of building the section from scratch.
 
-Each component in the registry defines:
-- **`id`**: Unique alphanumeric identifier (e.g. `button`).
-- **`name`**: Descriptive human-readable name.
-- **`category`**: Category of the component (e.g., `primitives`, `layout`, `structure`, `forms`, `typography`, `media`).
-- **`description`**: Explanation of purpose and usage.
-- **`required_classes`**: Mandatory CSS classes from the Client-First contract that this component must utilize.
-- **`required_variables`**: Mandatory CSS variables from the CSS variable index that this component must utilize.
-- **`signatures`**: References to valid signature IDs in the component signatures database.
-
-## Registry Constraints
-
-1. **Mandatory Registry Enrollment**: Every component built in the final HTML code must correspond to an active component in the registry.
-2. **Client-First Integration**: All classes specified in `required_classes` must exist inside the generated Client-First CSS contract (`knowledge-base/generated/client-first-library-contract.json`).
-3. **No Dynamic Class Insertion**: The compiler is prohibited from injecting classes into components if they violate or bypass registry definitions.
-4. **Validation Enforcements**: The validation gate `scripts/gates/validate_component_matching.py` verifies compliance. If a component uses an unauthorized class, the validation gate throws a blocker and exits with code 1.
+## Maintenance
+To add a new Webflow Symbol, developers must:
+1. Add the Symbol definition to `component-registry.json`.
+2. Add the Regex signature patterns to `component-signatures.json`.

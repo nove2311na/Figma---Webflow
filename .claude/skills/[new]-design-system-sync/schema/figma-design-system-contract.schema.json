@@ -1,0 +1,83 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "FigmaDesignSystemContract",
+  "type": "object",
+  "required": ["meta", "variables", "styles"],
+  "properties": {
+    "meta": {
+      "type": "object",
+      "required": ["schemaVersion", "source", "projectName", "extractedAt", "baseline"],
+      "properties": {
+        "schemaVersion": { "type": "string" },
+        "source": { "type": "string", "enum": ["figma"] },
+        "projectName": { "type": "string" },
+        "extractedAt": { "type": "string" },
+        "baseline": { "type": "string" }
+      }
+    },
+    "variables": {
+      "type": "object",
+      "additionalProperties": {
+        "type": "object",
+        "required": ["type", "value", "resolvedValue", "unit", "mode"],
+        "properties": {
+          "type": {
+            "type": "string",
+            "enum": ["color", "number", "string", "boolean", "size", "font-weight", "font-family", "letter-spacing"]
+          },
+          "value": { "type": ["string", "number", "boolean", "null"] },
+          "resolvedValue": { "type": ["string", "number", "boolean", "null"] },
+          "unit": { "type": ["string", "null"] },
+          "mode": { "type": "string" },
+          "collection": { "type": ["string", "null"] },
+          "aliasOf": { "type": ["string", "null"] },
+          "projectExtension": { "type": "boolean" }
+        }
+      }
+    },
+    "styles": {
+      "type": "object",
+      "additionalProperties": {
+        "type": "object",
+        "required": ["type", "properties", "mode"],
+        "properties": {
+          "type": { "type": "string", "enum": ["text-style"] },
+          "mode": { "type": "string" },
+          "projectExtension": { "type": "boolean" },
+          "properties": {
+            "type": "object",
+            "required": ["font-family", "font-size", "font-weight", "line-height"],
+            "properties": {
+              "font-family": { "type": "string" },
+              "font-size": {
+                "type": "object",
+                "required": ["value", "unit"],
+                "properties": {
+                  "value": { "type": "number" },
+                  "unit": { "type": "string" }
+                }
+              },
+              "font-weight": { "type": "number" },
+              "line-height": {
+                "type": "object",
+                "required": ["value", "unit"],
+                "properties": {
+                  "value": { "type": "number" },
+                  "unit": { "type": "string" }
+                }
+              },
+              "letter-spacing": {
+                "type": "object",
+                "required": ["value", "unit"],
+                "properties": {
+                  "value": { "type": "number" },
+                  "unit": { "type": "string" }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

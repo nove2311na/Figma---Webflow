@@ -1,49 +1,37 @@
-# Workflow Map
+# Workflow Map (Modern Figma-to-Webflow)
 
-## Phase 0: Safety & Audit
-- **Trigger**: New compile run or page transition.
-- **Steps**: Verify archive cleanup, check target details, validate folder boundaries.
+This outlines the streamlined, 3-phase pipeline for converting Figma designs into Webflow structures.
 
-## Phase 1: CSS Contract & Library
-- **Trigger**: Safety gate passed.
-- **Steps**: Compile CSS Library Contract from normalize/webflow/client-first CSS sources.
+## Phase 1: Design Extraction
+- **Trigger**: New compile run requested.
+- **Actor**: Figma Extraction Agent / Script (`extract_raw_styling.py`).
+- **Steps**:
+  1. Authenticate with Figma via Figma MCP Server.
+  2. Parse the target node structure and extract exact CSS values (spacing, typography, colors).
+  3. Output a raw HTML blueprint with inline CSS styles (`workspace/figma/raw-layout-blueprint.json` and `workspace/html/raw-inline.html`).
 
-## Phase 2: Figma Extraction
-- **Trigger**: Library contract established.
-- **Steps**: Extract raw Figma context and serialize into a stable node bundle.
+## Phase 2: Client-First Translation
+- **Trigger**: Raw layout blueprint generated.
+- **Actor**: Translation Script (`resolve_client_first.py`).
+- **Steps**:
+  1. Map extracted inline spacings and typography to Finsweet Client-First utility classes.
+  2. Snap raw colors and font sizes to the pre-defined Webflow project CSS variables.
+  3. Reconstruct the layout using semantic tags (`<section>`, `<nav>`, `<footer>`) and structure classes (`page-wrapper`, `main-wrapper`).
+  4. Generate the definitive Semantic Tree (`workspace/semantic/figma.semantic-tree.json`).
 
-## Phase 3: Design-System Sync
-- **Trigger**: Node bundle saved.
-- **Steps**: Sync figma color/typography/spacing tokens against the CSS contract.
+## Phase 3: Webflow Synchronization
+- **Trigger**: Semantic Tree validated.
+- **Actor**: Webflow Sync Agent using Webflow MCP Server.
+- **Steps**:
+  1. Parse the Semantic Tree for required Variables and Styles.
+  2. Call Webflow MCP to sync/create missing Variables.
+  3. Call Webflow MCP to update Style definitions.
+  4. Identify Webflow Symbols (using `agentic/knowledge/component-registry.json`).
+  5. Push the standard HTML structure to Webflow.
+  6. Trigger the site build/publish routine and generate the `mcp-sync-report.json`.
 
-## Phase 4: Component Registry & Signatures
-- **Trigger**: Design-system synced.
-- **Steps**: Match elements against known components and structure topologies.
-
-## Phase 5: Figma Normalization
-- **Trigger**: Component matching done.
-- **Steps**: Recover generic names, auto-layouts, and snap raw colors.
-
-## Phase 6: Semantic IR Resolution
-- **Trigger**: Normalization tree ready.
-- **Steps**: Resolve tag intents and Client-First class choices strictly.
-
-## Phase 7: HTML Blueprint & Render QA
-- **Trigger**: Semantic IR tree ready.
-- **Steps**: Generate logical blueprint, render physical HTML, and run quality gates.
-
-## Phase 8: Asset & Alt policy
-- **Trigger**: HTML compiled.
-- **Steps**: Create asset manifest and enforce accessibility alt rules.
-
-## Phase 9: Chunk Slicing & Golden Benchmarks
-- **Trigger**: Alt policy verified.
-- **Steps**: Slice page HTML into section chunks and benchmark accuracy against fixtures.
-
-## Phase 10: Webflow Native Plan
-- **Trigger**: Benchmarks passed.
-- **Steps**: Compile section chunks into serialized native build plans.
-
-## Phase 11: Approval & Deployment
-- **Trigger**: Plan validated.
-- **Steps**: Present plan to user, wait for approval, and execute branch mutations sequentially with audit logging.
+## Stop Conditions
+The workflow halts and requests PM approval if:
+- Extracted nodes do not match any known structure patterns.
+- Client-First translation generates unresolved classes.
+- Webflow MCP encounters a mutation conflict or rate limit.

@@ -18,16 +18,10 @@ def main():
         "source-css",
         "knowledge-base/generated",
         "agentic/rules",
+        "agentic/knowledge",
         "workspace/figma",
         "workspace/semantic",
-        "workspace/html/chunks",
-        "workspace/webflow-native/section-tasks",
-        "workspace/webflow-native/section-results",
         "workspace/reports",
-        "tests/fixtures/figma",
-        "tests/fixtures/expected",
-        "tests/fixtures/broken",
-        "tests/goldens"
     ]
     for folder in folders:
         full_path = os.path.join(root_dir, folder)
@@ -37,17 +31,12 @@ def main():
     # 2. Specs validation
     specs = [
         "agentic/specs/pipeline/html-first-pipeline.md",
+        "agentic/specs/pipeline/webflow-mcp-sync.md",
         "agentic/specs/pipeline/figma-extraction-contract.md",
-        "agentic/specs/pipeline/figma-normalization-policy.md",
         "agentic/specs/pipeline/html-tag-resolution.md",
-        "agentic/specs/pipeline/html-to-webflow-native-ops.md",
         "agentic/specs/pipeline/asset-and-image-policy.md",
         "agentic/specs/pipeline/webflow-branch-strategy.md",
         "agentic/specs/contracts/client-first-library-contract.md",
-        "agentic/specs/contracts/figma-design-system-contract.md",
-        "agentic/specs/contracts/component-registry-contract.md",
-        "agentic/specs/contracts/component-signature-matching.md",
-        "agentic/specs/contracts/tailwind-trace-to-client-first-evidence.md",
         "agentic/specs/contracts/visual-qa-evidence-contract.md",
         "agentic/specs/system/agent-system-spec.md",
         "agentic/specs/system/workspace-artifact-schemas.md"
@@ -59,13 +48,11 @@ def main():
             
     # 3. Rules validation
     rules = [
-        "agentic/rules/tag.rules.yaml",
+        ".claude/skills/[new]-semantic-html-resolver/rules/tag.rules.yaml",
+        "agentic/rules/webflow-mcp.rules.yaml",
         "agentic/rules/class-selection.rules.yaml",
-        "agentic/rules/component-match.rules.yaml",
         "agentic/rules/html-qa.rules.yaml",
-        "agentic/rules/figma-normalization.rules.yaml",
         "agentic/rules/asset-alt.rules.yaml",
-        "agentic/rules/webflow-native-ops.rules.yaml",
         "agentic/rules/concurrency-policy.yaml",
         "agentic/rules/retry-policy.yaml"
     ]
@@ -92,32 +79,18 @@ def main():
     # 4. Schemas validation (Valid JSON)
     schemas = [
         # Figma pipeline schemas
-        "agentic/schemas/figma/figma-node-bundle.schema.json",
-        "agentic/schemas/figma/figma-extract-run-log.schema.json",
-        "agentic/schemas/figma/figma-normalized-tree.schema.json",
-        "agentic/schemas/figma/figma-normalization-report.schema.json",
-        "agentic/schemas/figma/figma-semantic-tree.schema.json",
-        "agentic/schemas/figma/missing-mapping-report.schema.json",
+        # Semantic schemas
+        "agentic/schemas/semantic/semantic-tree.schema.json",
         # HTML pipeline schemas
-        "agentic/schemas/html/html-blueprint.schema.json",
-        "agentic/schemas/html/html-validation-report.schema.json",
-        "agentic/schemas/html/asset-manifest.schema.json",
         "agentic/schemas/html/alt-policy.schema.json",
-        "agentic/schemas/html/section-manifest.schema.json",
         # Webflow schemas
-        "agentic/schemas/webflow/webflow-native-build-plan.schema.json",
-        "agentic/schemas/webflow/webflow-section-task.schema.json",
+        "agentic/schemas/webflow/mcp-sync-report.schema.json",
         "agentic/schemas/webflow/webflow-write-audit-log.schema.json",
         # Library schemas
         "agentic/schemas/library/client-first-library-contract.schema.json",
         "agentic/schemas/library/client-first-library.schema.json",
         # Component schemas
-        "agentic/schemas/component/component-registry.schema.json",
-        "agentic/schemas/component/component-signature.schema.json",
-        "agentic/schemas/component/component-match-report.schema.json",
-        "agentic/schemas/component/component-sync-report.schema.json",
         # Design-system schemas
-        "agentic/schemas/design-system/design-system-sync-report.schema.json",
     ]
     for schema in schemas:
         full_path = os.path.join(root_dir, schema)
@@ -157,8 +130,6 @@ def main():
                     "workspace/figma/",
                     "workspace/semantic/",
                     "workspace/html/",
-                    "workspace/html/chunks/",
-                    "workspace/webflow-native/",
                     "workspace/reports/"
                 ]
                 for fld in expected_folders:

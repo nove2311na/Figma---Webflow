@@ -109,49 +109,18 @@ class ClientFirstResolver:
             
         return raw_color
 
-    def infer_tag_and_role(self, node: dict[str, Any], parent_tag: str | None = None) -> tuple[str, str]:
-        """Infer HTML tag and semantic role from node metadata."""
+    def get_tag_and_role(self, node: dict[str, Any], parent_tag: str | None = None) -> tuple[str, str]:
+        """Extract pre-resolved HTML tag and semantic role from node metadata."""
         node_name = node.get("name", "").lower()
         node_type = node.get("type", "FRAME").upper()
         
-        tag = "div"
-        role = "structure"
+        tag = node.get("tag", "div")
+        role = node.get("role", "structure")
         
-        # Explicit tag markup in node name, e.g. [section]
-        prefix_match = re.match(r"^\[([a-z0-9]+)\]", node.get("name", ""))
-        if prefix_match:
-            tag = prefix_match.group(1)
-            role = f"custom-{tag}"
-            return tag, role
-            
-        if "section" in node_name:
-            tag = "section"
-            role = "section"
-        elif "container" in node_name:
-            tag = "div"
-            role = "container"
-        elif "heading" in node_name or "title" in node_name:
-            tag = "h2"
-            role = "heading-2"
-            if "h1" in node_name:
-                tag = "h1"
-                role = "heading-1"
-            elif "h3" in node_name:
-                tag = "h3"
-                role = "heading-3"
-        elif node_type == "TEXT":
+        # If still raw text (e.g. somehow skipped auto-tagger), fallback to p
+        if node_type == "TEXT" and tag in ("div", "span") and not role.startswith("custom-"):
             tag = "p"
             role = "paragraph"
-            if "paragraph" not in node_name and ("title" in node_name or "heading" in node_name):
-                tag = "h2"
-                role = "heading-2"
-        elif "button" in node_name or "cta" in node_name:
-            tag = "a"
-            role = "button"
-            
-        if parent_tag in ("ul", "ol"):
-            tag = "li"
-            role = "list-item"
             
         return tag, role
 
@@ -240,8 +209,8 @@ class ClientFirstResolver:
         node_name = node.get("name", "")
         node_type = node.get("type", "FRAME")
         
-        # 1. Infer tag & role
-        tag, role = self.infer_tag_and_role(node, parent_tag)
+        # 1. Get tag & role (now relies on auto_tagger or Agent intervention)
+        tag, role = self.get_tag_and_role(node, parent_tag)
         self.stats["nodes_resolved"] += 1
         
         # 2. Map styling to class list
@@ -277,9 +246,9 @@ class ClientFirstResolver:
 
 def main():
     parser = argparse.ArgumentParser(description="Resolve client-first styles into semantic trees")
-    parser.add_argument("--input", default="workspace/figma/raw-layout-blueprint.json")
+    parser.add_argument("--input", default="workspace/semantic/tagged-blueprint.json")
     parser.add_argument("--output", default="workspace/semantic/figma.semantic-tree.json")
-    parser.add_argument("--tag-rules", default="agentic/rules/tag.rules.yaml")
+    parser.add_argument("--tag-rules", default=".claude/skills/[new]-semantic-html-resolver/rules/tag.rules.yaml")
     parser.add_argument("--class-rules", default="agentic/rules/class-selection.rules.yaml")
     parser.add_argument("--contract", default="knowledge-base/generated/client-first-library-contract.json")
     parser.add_argument("--var-index", default="knowledge-base/generated/css-variable-index.json")

@@ -1,0 +1,24 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "type": "object",
+  "properties": {
+    "synced_at": { "type": "string", "format": "date-time" },
+    "site_id": { "type": "string" },
+    "variables_updated": { "type": "integer" },
+    "classes_updated": { "type": "integer" },
+    "nodes_pushed": { "type": "integer" },
+    "symbols_linked": {
+      "type": "array",
+      "items": { "type": "string" }
+    },
+    "status": {
+      "type": "string",
+      "enum": ["success", "failure", "partial"]
+    },
+    "errors": {
+      "type": "array",
+      "items": { "type": "string" }
+    }
+  },
+  "required": ["synced_at", "site_id", "status"]
+}

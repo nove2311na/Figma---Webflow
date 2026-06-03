@@ -1,0 +1,21 @@
+{
+  "registry_version": "2.0.0",
+  "description": "Registry mapping high-level Figma sections to Webflow Symbols for the Webflow MCP Agent.",
+  "components": {
+    "navbar": {
+      "symbol_name": "Navbar",
+      "expected_tag": "nav",
+      "default_classes": ["navbar", "nav_component"]
+    },
+    "footer": {
+      "symbol_name": "Footer",
+      "expected_tag": "footer",
+      "default_classes": ["footer", "footer_component"]
+    },
+    "hero": {
+      "symbol_name": "Hero Section",
+      "expected_tag": "section",
+      "default_classes": ["section_hero"]
+    }
+  }
+}

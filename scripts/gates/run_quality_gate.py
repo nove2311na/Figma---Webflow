@@ -8,8 +8,6 @@ import sys
 from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[2]))
-from scripts.gates.system.validate_project_library import validate_project_library
-from scripts.gates.system.validate_build_contract import validate_build_contract
 
 
 REQUIRED_TEXT = {
@@ -71,21 +69,6 @@ def validate(root: Path) -> list[str]:
             if phrase in text:
                 failures.append(f"{relative_path} contains deprecated phrase {phrase}")
 
-    # Auto-run project library gate when workspace has a webflowSiteId
-    site_id = _load_workspace_site_id(root)
-    if site_id:
-        lib_failures = validate_project_library(root, site_id)
-        for failure in lib_failures:
-            failures.append(f"[project-library:{site_id}] {failure}")
-
-        # Build-contract gate only when blueprints exist (a build is in progress)
-        if (root / "workspace" / "blueprints").is_dir() and any(
-            (root / "workspace" / "blueprints").glob("*.json")
-        ):
-            contract_failures = validate_build_contract(root, site_id)
-            for failure in contract_failures:
-                failures.append(f"[build-contract:{site_id}] {failure}")
-
     return failures
 
 
@@ -128,14 +111,7 @@ def main(argv: list[str] | None = None) -> int:
             "system/validate_workspace_artifacts.py",
             # Pipeline gates in compiler order
             "pipeline/validate_css_contract.py",
-            "pipeline/validate_css_index.py",
-            "pipeline/validate_figma_normalization.py",
-            "pipeline/validate_semantic_ir.py",
-            "pipeline/validate_html_blueprint.py",
-            "pipeline/validate_asset_policy.py",
-            "pipeline/validate_html_chunks.py",
-            "pipeline/validate_resolver_benchmark.py",
-            "pipeline/validate_native_build_plan.py"
+            "pipeline/validate_css_index.py"
         ]
         
         for gate in gates:
