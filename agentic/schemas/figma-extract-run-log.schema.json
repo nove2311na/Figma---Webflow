@@ -1,6 +1,36 @@
 {
   "$schema": "http://json-schema.org/draft-07/schema#",
-  "title": "Figma Extract Run Log",
+  "title": "Figma Extract Run Log Schema",
   "type": "object",
-  "properties": {}
+  "required": ["timestamp", "status", "duration_seconds", "errors", "steps"],
+  "properties": {
+    "timestamp": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "status": {
+      "type": "string",
+      "enum": ["success", "failed"]
+    },
+    "duration_seconds": {
+      "type": "number"
+    },
+    "errors": {
+      "type": "array",
+      "items": { "type": "string" }
+    },
+    "steps": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["name", "timestamp", "status"],
+        "properties": {
+          "name": { "type": "string" },
+          "timestamp": { "type": "string", "format": "date-time" },
+          "status": { "type": "string" },
+          "details": { "type": "string" }
+        }
+      }
+    }
+  }
 }
