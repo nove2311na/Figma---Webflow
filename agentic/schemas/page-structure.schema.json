@@ -1,0 +1,17 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "MAS Page Structure",
+  "type": "array",
+  "items": {
+    "type": "object",
+    "required": ["name", "class", "layer"],
+    "properties": {
+      "name": {"type": "string"},
+      "class": {"type": "string"},
+      "layer": {"type": "string"},
+      "children": {"type": "array", "items": {"type": "object"}}
+    },
+    "additionalProperties": true
+  }
+}
+

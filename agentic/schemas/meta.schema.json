@@ -1,0 +1,22 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "MAS Workspace Metadata",
+  "type": "object",
+  "required": ["projectName", "figmaUrl", "initializedAt", "runtime"],
+  "properties": {
+    "projectName": {"type": "string", "minLength": 1},
+    "figmaUrl": {"type": "string"},
+    "figmaFileId": {
+      "type": "string",
+      "description": "Figma file ID extracted from figmaUrl, e.g. 'ABC123XYZ'."
+    },
+    "webflowSiteId": {
+      "type": "string",
+      "description": "Webflow site ID; keys the per-project CF library in knowledge-base/libraries/."
+    },
+    "initializedAt": {"type": "string"},
+    "runtime": {"type": "string", "const": "claude_code_python"}
+  },
+  "additionalProperties": true
+}
+

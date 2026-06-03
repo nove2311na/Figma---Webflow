@@ -1,0 +1,11 @@
+{
+  "mcpServers": {
+    "webflow": {
+      "command": "python",
+      "args": ["-m", "configure_webflow_mcp_after_auth"],
+      "env": {
+        "WEBFLOW_MCP_NOTE": "Replace this example value with an approved Claude Code Webflow MCP command after auth is configured outside the repo."
+      }
+    }
+  }
+}

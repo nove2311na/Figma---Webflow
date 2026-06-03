@@ -1,0 +1,33 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "MAS State Log",
+  "type": "array",
+  "items": {
+    "type": "object",
+    "required": ["timestamp", "agent", "phase", "type", "message"],
+    "properties": {
+      "timestamp": {"type": "string"},
+      "agent": {"type": "string"},
+      "phase": {"type": "string"},
+      "type": {"type": "string"},
+      "message": {"type": "string"},
+      "reason": {"type": "string"},
+      "action": {"type": "string"},
+      "observation": {"type": "string"},
+      "next_decision": {"type": "string"},
+      "artifact": {"type": "string"},
+      "resolution": {"type": "string"},
+      "subagent_id": {"type": "string", "description": "Which section-builder subagent executed this action (parallel tracking)."},
+      "parent_element_id": {
+        "type": "object",
+        "properties": {
+          "component": {"type": "string"},
+          "element": {"type": "string"}
+        },
+        "description": "Webflow parent_element_id {component, element} this action targeted. Matches element_builder parameter directly."
+      }
+    },
+    "additionalProperties": true
+  }
+}
+

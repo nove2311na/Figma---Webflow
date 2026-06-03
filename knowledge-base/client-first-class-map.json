@@ -1,0 +1,356 @@
+{
+  "version": "0.5.0",
+  "source_notes": [
+    "knowledge-base/client-first-theory.md",
+    "agentic/specs/figma-to-client-first-mapping.md",
+    "finsweet.com/client-first/docs",
+    "webflow:Client-First V2.2 (6a1fa213c04827556dcac7b5) live 2026-06-03"
+  ],
+  "principles": {
+    "unit_system": "rem",
+    "custom_class_delimiter": "_",
+    "utility_class_delimiter": "-",
+    "combo_prefix": "is-",
+    "webflow_write_rule": "apply only after approved blueprint",
+    "responsive": "variable-mode-based",
+    "spacing": "variable-token-utility"
+  },
+  "class_groups": {
+    "structure": [
+      {
+        "class": "page-wrapper",
+        "applies_to": "outer page wrapper",
+        "figma_signals": ["top-level page frame", "full page composition"],
+        "webflow_properties": {"width": "100%"},
+        "class_strategy": "required_global"
+      },
+      {
+        "class": "main-wrapper",
+        "applies_to": "main content wrapper",
+        "figma_signals": ["page content excluding nav and footer"],
+        "webflow_properties": {"html_tag": "main"},
+        "class_strategy": "required_global"
+      },
+      {
+        "class_pattern": "section_[section-name]",
+        "applies_to": "semantic page section",
+        "figma_signals": ["large vertical frame", "named page section", "content band"],
+        "webflow_properties": {"position": "relative", "overflow": "visible"},
+        "class_strategy": "custom_section"
+      },
+      {
+        "class": "padding-global",
+        "applies_to": "horizontal site gutter wrapper",
+        "figma_signals": ["consistent left and right page gutter", "desktop side margin"],
+        "webflow_properties": {"padding-left": "site variable", "padding-right": "site variable"},
+        "class_strategy": "required_global"
+      },
+      {
+        "class_pattern": "container-[small|medium|large]",
+        "applies_to": "content max-width wrapper",
+        "figma_signals": ["centered content width", "max width frame", "layout grid content column"],
+        "webflow_properties": {"max-width": "mapped content width", "margin-left": "auto", "margin-right": "auto"},
+        "class_strategy": "utility_selection",
+        "values": {"small": "48rem", "medium": "64rem", "large": "80rem"}
+      },
+      {
+        "class_pattern": "padding-section-[small|medium|large]",
+        "applies_to": "top and bottom section rhythm",
+        "figma_signals": ["section vertical padding", "top and bottom spacing around section content"],
+        "webflow_properties": {"padding-top": "spacing token", "padding-bottom": "spacing token"},
+        "class_strategy": "utility_selection"
+      },
+      {
+        "class_pattern": "padding-section-top-[small|medium|large]",
+        "applies_to": "top section rhythm only",
+        "figma_signals": ["top-only section padding"],
+        "webflow_properties": {"padding-top": "spacing token"},
+        "class_strategy": "utility_selection"
+      },
+      {
+        "class_pattern": "padding-section-bottom-[small|medium|large]",
+        "applies_to": "bottom section rhythm only",
+        "figma_signals": ["bottom-only section padding"],
+        "webflow_properties": {"padding-bottom": "spacing token"},
+        "class_strategy": "utility_selection"
+      }
+    ],
+    "typography": [
+      {
+        "class_pattern": "heading-style-h[1-6]",
+        "applies_to": "visual heading size when semantic tag differs",
+        "figma_signals": ["text style name contains heading", "large font size", "semantic mismatch"],
+        "webflow_properties": {"font-size": "type token", "line-height": "type token", "font-weight": "type token"},
+        "class_strategy": "utility_selection"
+      },
+      {
+        "class_pattern": "text-size-[tiny|small|regular|medium|large]",
+        "applies_to": "body and supporting text size",
+        "figma_signals": ["fontSize", "text style size", "body text token"],
+        "webflow_properties": {"font-size": "rem token", "line-height": "unitless or rem token"},
+        "class_strategy": "utility_selection"
+      },
+      {
+        "class_pattern": "text-weight-[light|normal|medium|semibold|bold|xbold]",
+        "applies_to": "font weight utility",
+        "figma_signals": ["fontWeight", "font style contains Medium, Semibold, Bold"],
+        "webflow_properties": {"font-weight": "mapped weight"},
+        "class_strategy": "utility_selection",
+        "note": "text-weight-medium EXISTS in CF V2.2 (confirmed live). All 6 weights ship: light/normal/medium/semibold/bold/xbold"
+      },
+      {
+        "class_pattern": "text-align-[left|center|right]",
+        "applies_to": "text alignment utility",
+        "figma_signals": ["textAlignHorizontal"],
+        "webflow_properties": {"text-align": "mapped alignment"},
+        "class_strategy": "utility_selection"
+      }
+    ],
+    "spacing": [
+      {
+        "class_pattern": "margin-[top|bottom|left|right|horizontal|vertical]",
+        "applies_to": "spacing direction wrapper",
+        "figma_signals": ["vertical gap between sibling elements", "explicit outside spacing", "horizontal margin"],
+        "webflow_properties": {"margin-direction": "direction class only"},
+        "class_strategy": "utility_pair"
+      },
+      {
+        "class_pattern": "margin-[0|tiny|xxsmall|xsmall|small|medium|large|xlarge|xxlarge|huge|xhuge|xxhuge]",
+        "applies_to": "spacing size wrapper",
+        "figma_signals": ["gap value", "distance between siblings"],
+        "webflow_properties": {"margin-size": "rem token — variable-backed, auto-responsive"},
+        "class_strategy": "utility_pair"
+      },
+      {
+        "class_pattern": "padding-[top|bottom|left|right|horizontal|vertical]",
+        "applies_to": "local padding direction wrapper",
+        "figma_signals": ["component padding side", "auto-layout padding side"],
+        "webflow_properties": {"padding-direction": "direction class only"},
+        "class_strategy": "utility_pair"
+      },
+      {
+        "class_pattern": "padding-[0|tiny|xxsmall|xsmall|small|medium|large|xlarge|xxlarge|huge|xhuge|xxhuge]",
+        "applies_to": "local padding size wrapper",
+        "figma_signals": ["auto-layout padding value"],
+        "webflow_properties": {"padding-size": "rem token — variable-backed, auto-responsive"},
+        "class_strategy": "utility_pair"
+      }
+    ],
+    "color": [
+      {
+        "class_pattern": "text-color-[token]",
+        "applies_to": "text color utility",
+        "figma_signals": ["fills on text node", "text color style"],
+        "webflow_properties": {"color": "color variable"},
+        "class_strategy": "variable_backed_utility"
+      },
+      {
+        "class_pattern": "background-color-[token]",
+        "applies_to": "background color utility",
+        "figma_signals": ["solid fill on frame", "section background token"],
+        "webflow_properties": {"background-color": "color variable"},
+        "class_strategy": "variable_backed_utility"
+      },
+      {
+        "class_pattern": "border-color-[token]",
+        "applies_to": "border color utility",
+        "figma_signals": ["stroke color", "divider color", "card border"],
+        "webflow_properties": {"border-color": "color variable"},
+        "class_strategy": "variable_backed_utility"
+      }
+    ],
+    "layout": [
+      {
+        "class_pattern": "[component]_[element]",
+        "applies_to": "component-specific layout, grid, or flex behavior",
+        "figma_signals": ["auto-layout direction", "layout grid", "responsive child arrangement"],
+        "webflow_properties": {"display": "flex or grid", "gap": "rem token", "alignment": "mapped auto-layout"},
+        "class_strategy": "custom_component"
+      },
+      {
+        "class_pattern": "[component]_[element]-wrapper",
+        "applies_to": "image, text, button, card, or media wrapper",
+        "figma_signals": ["nested frame", "mask group", "media container"],
+        "webflow_properties": {"position": "relative", "overflow": "as needed"},
+        "class_strategy": "custom_component"
+      }
+    ],
+    "state": [
+      {
+        "class_pattern": "is-[state]",
+        "applies_to": "combo class variation",
+        "figma_signals": ["variant property", "component state", "selected or active design"],
+        "webflow_properties": {"variation": "combo class only"},
+        "class_strategy": "combo_class"
+      }
+    ],
+    "text_style": [
+      {"class": "text-style-allcaps",       "figma_signals": ["textCase: UPPER"],                                    "webflow_properties": {"text-transform": "uppercase"},                           "class_strategy": "utility_selection"},
+      {"class": "text-style-italic",        "figma_signals": ["fontStyle: Italic"],                                  "webflow_properties": {"font-style": "italic"},                                   "class_strategy": "utility_selection"},
+      {"class": "text-style-link",          "figma_signals": ["text node as hyperlink"],                             "webflow_properties": {"text-decoration": "underline"},                           "class_strategy": "utility_selection"},
+      {"class": "text-style-muted",         "figma_signals": ["opacity < 60% on text", "secondary text"],           "webflow_properties": {"opacity": "muted token"},                                 "class_strategy": "utility_selection"},
+      {"class": "text-style-nowrap",        "figma_signals": ["single-line label, button text"],                     "webflow_properties": {"white-space": "nowrap"},                                  "class_strategy": "utility_selection"},
+      {"class": "text-style-quote",         "figma_signals": ["pull quote", "testimonial text with decoration"],     "webflow_properties": {"font-style": "italic", "border-left": "quote bar"},       "class_strategy": "utility_selection"},
+      {"class": "text-style-strikethrough", "figma_signals": ["textDecoration: STRIKETHROUGH"],                      "webflow_properties": {"text-decoration": "line-through"},                        "class_strategy": "utility_selection"},
+      {"class": "text-style-2lines",        "figma_signals": ["truncated 2-line text block"],                        "webflow_properties": {"-webkit-line-clamp": "2"},                                "class_strategy": "utility_selection"},
+      {"class": "text-style-3lines",        "figma_signals": ["truncated 3-line text block"],                        "webflow_properties": {"-webkit-line-clamp": "3"},                                "class_strategy": "utility_selection"},
+      {"class": "text-style-1line",         "figma_signals": ["single-line truncated text"],                         "webflow_properties": {"-webkit-line-clamp": "1", "overflow": "hidden"},          "class_strategy": "utility_selection"},
+      {"class": "text-style-balance",       "figma_signals": ["balanced line breaks heading"],                       "webflow_properties": {"text-wrap": "balance"},                                   "class_strategy": "utility_selection"},
+      {"class": "text-style-pretty",        "figma_signals": ["pretty/orphan-free text wrapping"],                   "webflow_properties": {"text-wrap": "pretty"},                                    "class_strategy": "utility_selection"}
+    ],
+    "visibility": [
+      {"class": "hide",                   "figma_signals": ["visible=false all screens"],                            "webflow_properties": {"display": "none"},                "class_strategy": "utility_selection"},
+      {"class": "hide-tablet",            "figma_signals": ["element absent in tablet frame variant"],               "webflow_properties": {"display": "none at tablet"},      "class_strategy": "utility_selection"},
+      {"class": "hide-mobile-landscape",  "figma_signals": ["element absent in mobile landscape variant"],           "webflow_properties": {"display": "none at mobile-landscape"}, "class_strategy": "utility_selection"},
+      {"class": "hide-mobile-portrait",   "figma_signals": ["element absent in mobile portrait variant"],            "webflow_properties": {"display": "none at mobile-portrait"},  "class_strategy": "utility_selection"}
+    ],
+    "display": [
+      {"class": "display-inlineflex", "figma_signals": ["inline badge", "tag chip", "inline icon+text"], "webflow_properties": {"display": "inline-flex"}, "class_strategy": "utility_selection"}
+    ],
+    "button": [
+      {"class": "button",              "figma_signals": ["component named Button/Primary or CTA"],   "webflow_properties": {"base button styles": "padding, font, border-radius"}, "class_strategy": "required_global"},
+      {"class": "button is-secondary", "figma_signals": ["Button/Secondary variant"],                 "webflow_properties": {"variant overrides": "border, bg"},                   "class_strategy": "combo_class"},
+      {"class": "button is-text",      "figma_signals": ["Button/Text or link-style CTA"],            "webflow_properties": {"variant overrides": "no bg, no border"},              "class_strategy": "combo_class"}
+    ],
+    "max_width": [
+      {"class_pattern": "max-width-[xxlarge|xlarge|large|medium|small|xsmall|xxsmall]", "figma_signals": ["text block with constrained width inside container", "narrow content column"], "webflow_properties": {"max-width": "rem token"}, "class_strategy": "utility_selection"},
+      {"class_pattern": "max-width-full",                   "figma_signals": ["element must fill 100% on breakpoint"],         "webflow_properties": {"max-width": "100%"},                   "class_strategy": "utility_selection"},
+      {"class_pattern": "max-width-full-tablet",            "figma_signals": ["width constrained desktop, full at tablet"],    "webflow_properties": {"max-width": "100% at tablet"},         "class_strategy": "utility_selection"},
+      {"class_pattern": "max-width-full-mobile-landscape",  "figma_signals": ["full width mobile landscape only"],             "webflow_properties": {"max-width": "100% at mobile-landscape"},"class_strategy": "utility_selection"},
+      {"class_pattern": "max-width-full-mobile-portrait",   "figma_signals": ["full width mobile portrait only"],              "webflow_properties": {"max-width": "100% at mobile-portrait"}, "class_strategy": "utility_selection"}
+    ],
+    "icon": [
+      {"class_pattern": "icon-height-[small|medium|large]", "figma_signals": ["SVG/icon with height-only constraint, variable width"], "webflow_properties": {"height": "size token"},                            "class_strategy": "utility_selection"},
+      {"class_pattern": "icon-1x1-[small|medium|large]",    "figma_signals": ["square icon frame < 64px", "icon with equal width and height"], "webflow_properties": {"width": "size token", "height": "size token"}, "class_strategy": "utility_selection"}
+    ],
+    "advanced_layout": [
+      {"class": "z-index-1",            "figma_signals": ["overlapping stacked elements, lower layer"],          "webflow_properties": {"z-index": "1"},              "class_strategy": "utility_selection"},
+      {"class": "z-index-2",            "figma_signals": ["overlapping stacked elements, upper layer"],          "webflow_properties": {"z-index": "2"},              "class_strategy": "utility_selection"},
+      {"class": "align-center",         "figma_signals": ["centered child within parent frame"],                 "webflow_properties": {"margin": "auto"},             "class_strategy": "utility_selection"},
+      {"class": "layer",                "figma_signals": ["position absolute, 100% w and h, covers parent"],    "webflow_properties": {"position": "absolute", "inset": "0"}, "class_strategy": "utility_selection"},
+      {"class": "pointer-events-none",  "figma_signals": ["decorative overlay, no click interaction"],           "webflow_properties": {"pointer-events": "none"},     "class_strategy": "utility_selection"},
+      {"class": "pointer-events-auto",  "figma_signals": ["restore clicks on child inside pointer-none parent"],"webflow_properties": {"pointer-events": "auto"},     "class_strategy": "utility_selection"},
+      {"class": "overflow-hidden",      "figma_signals": ["clipsContent: true on frame", "image mask container"],"webflow_properties": {"overflow": "hidden"},         "class_strategy": "utility_selection"},
+      {"class": "overflow-scroll",      "figma_signals": ["scrollable content area"],                            "webflow_properties": {"overflow": "scroll"},         "class_strategy": "utility_selection"},
+      {"class": "overflow-auto",        "figma_signals": ["auto-scroll content area"],                           "webflow_properties": {"overflow": "auto"},           "class_strategy": "utility_selection"},
+      {"class": "aspect-ratio-square",      "figma_signals": ["square image placeholder, 1:1 frame"],      "webflow_properties": {"aspect-ratio": "1/1",  "object-fit": "cover"},  "class_strategy": "utility_selection", "note": "object-fit:cover baked in — no separate object-fit class needed"},
+      {"class": "aspect-ratio-portrait",    "figma_signals": ["portrait image placeholder, 2:3 frame"],    "webflow_properties": {"aspect-ratio": "2/3",  "object-fit": "cover"},  "class_strategy": "utility_selection", "note": "REAL value = 2/3 (not 3/4). object-fit:cover baked in"},
+      {"class": "aspect-ratio-landscape",   "figma_signals": ["landscape image placeholder, 3:2 frame"],   "webflow_properties": {"aspect-ratio": "3/2",  "object-fit": "cover"},  "class_strategy": "utility_selection", "note": "REAL value = 3/2 (not 4/3). object-fit:cover baked in"},
+      {"class": "aspect-ratio-widescreen",  "figma_signals": ["16:9 video or banner frame"],               "webflow_properties": {"aspect-ratio": "16/9", "object-fit": "cover"},  "class_strategy": "utility_selection", "note": "object-fit:cover baked in"}
+    ],
+    "layout_utilities": [
+      {"class": "flex-horizontal", "figma_signals": ["auto-layout direction:HORIZONTAL", "flex row"], "webflow_properties": {"display": "flex", "flex-direction": "row", "flex-wrap": "nowrap"}, "class_strategy": "utility_selection"},
+      {"class": "flex-vertical", "figma_signals": ["auto-layout direction:VERTICAL", "flex column"], "webflow_properties": {"display": "flex", "flex-direction": "column"}, "class_strategy": "utility_selection"},
+      {"class": "flex-wrap-down", "figma_signals": ["auto-layout with wrap"], "webflow_properties": {"flex-wrap": "wrap"}, "class_strategy": "utility_selection"},
+      {"class_pattern": "gap-[none|tiny|xxsmall|xsmall|small|medium|large|xlarge|xxlarge|huge|xhuge|xxhuge]", "figma_signals": ["itemSpacing in auto-layout"], "webflow_properties": {"gap": "spacing token"}, "class_strategy": "utility_selection"},
+      {"class_pattern": "gap-[small|regular|medium|large]", "figma_signals": ["semantic gap — grid column/row gap"], "webflow_properties": {"grid-column-gap": "gaps token", "grid-row-gap": "gaps token"}, "class_strategy": "utility_selection"},
+      {"class_pattern": "grid-[1-6]-col", "figma_signals": ["multi-column grid, equal columns"], "webflow_properties": {"display": "grid", "grid-template-columns": "repeat(N, 1fr)"}, "class_strategy": "utility_selection"},
+      {"class_pattern": "grid-[1-6]-col-tab", "figma_signals": ["tablet column override"], "webflow_properties": {"grid-template-columns": "tablet variant"}, "class_strategy": "utility_selection"},
+      {"class_pattern": "grid-[1-6]-col-mobile", "figma_signals": ["mobile column override"], "webflow_properties": {"grid-template-columns": "mobile variant"}, "class_strategy": "utility_selection"},
+      {"class_pattern": "grid-autofit-[xsmall|small|medium|large|xlarge]", "figma_signals": ["auto-fit grid, responsive columns"], "webflow_properties": {"display": "grid", "grid-template-columns": "repeat(auto-fit, minmax(Xrem,1fr))"}, "class_strategy": "utility_selection"},
+      {"class_pattern": "grid-autofill-[xsmall|small|medium|large|xlarge]", "figma_signals": ["auto-fill grid"], "webflow_properties": {"display": "grid", "grid-template-columns": "repeat(auto-fill, minmax(Xrem,1fr))"}, "class_strategy": "utility_selection"},
+      {"class": "grid-span-full", "figma_signals": ["element spans all grid columns"], "webflow_properties": {"grid-column": "1/-1"}, "class_strategy": "utility_selection"},
+      {"class": "display-contents", "figma_signals": ["transparent layout container"], "webflow_properties": {"display": "contents"}, "class_strategy": "utility_selection"}
+    ],
+    "inherit": [
+      {"class": "inherit-text-color", "figma_signals": ["text color should inherit from parent"], "webflow_properties": {"color": "inherit"}, "class_strategy": "utility_selection"},
+      {"class": "inherit-text-weight", "figma_signals": ["font weight inherits"], "webflow_properties": {"font-weight": "inherit"}, "class_strategy": "utility_selection"},
+      {"class": "inherit-text-size", "figma_signals": ["font size inherits"], "webflow_properties": {"font-size": "inherit"}, "class_strategy": "utility_selection"},
+      {"class": "inherit-text-decoration", "figma_signals": ["text decoration inherits"], "webflow_properties": {"text-decoration": "inherit"}, "class_strategy": "utility_selection"},
+      {"class": "inherit-border-radius", "figma_signals": ["border radius inherits from parent"], "webflow_properties": {"border-radius": "inherit"}, "class_strategy": "utility_selection"}
+    ],
+    "spacer": [
+      {"class_pattern": "spacer-[tiny|small|medium|large|huge]", "figma_signals": ["empty spacer frame between siblings", "explicit vertical gap without layout grid"], "webflow_properties": {"height": "size token"}, "class_strategy": "utility_selection"}
+    ],
+    "spacing_reset": [
+      {"class": "spacing-clean", "figma_signals": ["override: remove all margin/padding from element"], "webflow_properties": {"margin": "0", "padding": "0"}, "class_strategy": "utility_selection"}
+    ]
+  },
+  "figma_property_map": [
+    {
+      "figma_property": "auto-layout direction and itemSpacing",
+      "signals": ["direction: HORIZONTAL or VERTICAL", "itemSpacing", "multi-column grid"],
+      "client_first_decision": "use flex-horizontal/vertical + gap-[token] utilities first; grid → grid-N-col; custom class only when utilities cannot express unique child sizing, >6 columns, asymmetric tracks, or specific offset positioning"
+    },
+    {
+      "figma_property": "frame role",
+      "signals": ["top-level frame", "page shell"],
+      "client_first_decision": "create page-wrapper and main-wrapper before section classes"
+    },
+    {
+      "figma_property": "section frame name",
+      "signals": ["Hero", "Features", "Pricing", "Footer", "CTA"],
+      "client_first_decision": "create section_[normalized-name] and component prefix from the same normalized name"
+    },
+    {
+      "figma_property": "autoLayout.paddingLeft and autoLayout.paddingRight",
+      "signals": ["same side gutter across sections"],
+      "client_first_decision": "use padding-global for site gutter; use padding utilities only for local component padding"
+    },
+    {
+      "figma_property": "frame width or layout grid column width",
+      "signals": ["centered max width"],
+      "client_first_decision": "choose container-small, container-medium, or container-large"
+    },
+    {
+      "figma_property": "vertical section padding",
+      "signals": ["top and bottom spacing around section content"],
+      "client_first_decision": "choose padding-section-small, padding-section-medium, or padding-section-large"
+    },
+    {
+      "figma_property": "fontSize and text style",
+      "signals": ["heading or body style"],
+      "client_first_decision": "choose heading-style-h* for visual heading or text-size-* for body text"
+    },
+    {
+      "figma_property": "fontWeight",
+      "signals": ["Regular", "Medium", "Semibold", "Bold"],
+      "client_first_decision": "choose text-weight-* utility when the weight is reusable; otherwise keep it in the component class"
+    },
+    {
+      "figma_property": "fills",
+      "signals": ["text fill", "frame fill", "semantic color style"],
+      "client_first_decision": "map to text-color-[token] or background-color-[token] backed by Webflow variables"
+    },
+    {
+      "figma_property": "strokes",
+      "signals": ["divider", "card border", "outline"],
+      "client_first_decision": "map to border-color-[token] and component border properties"
+    },
+    {
+      "figma_property": "component variant",
+      "signals": ["active", "secondary", "large", "small", "disabled"],
+      "client_first_decision": "apply base component class plus is-[state] combo class"
+    },
+    {
+      "figma_property": "visible=false (some breakpoints)",
+      "signals": ["element only shows on mobile frame"],
+      "client_first_decision": "use hide-tablet or hide-mobile-* utility"
+    },
+    {
+      "figma_property": "clipsContent: true on frame",
+      "signals": ["image crops to frame bounds"],
+      "client_first_decision": "use overflow-hidden utility"
+    },
+    {
+      "figma_property": "SVG frame < 64px, equal w+h",
+      "signals": ["icon node"],
+      "client_first_decision": "use icon-1x1-[size] utility for sizing"
+    },
+    {
+      "figma_property": "component named Button/*",
+      "signals": ["CTA, action button"],
+      "client_first_decision": "use 'button' base class; add 'is-secondary' or 'is-text' combo for variants"
+    },
+    {
+      "figma_property": "text block with explicit maxWidth constraint",
+      "signals": ["readable width constraint inside container"],
+      "client_first_decision": "use max-width-[size] utility"
+    },
+    {
+      "figma_property": "frame stacking with absolute positions",
+      "signals": ["decorative layer behind content"],
+      "client_first_decision": "use 'layer' utility on absolute frame, z-index-1/2 for stacking order"
+    }
+  ]
+}

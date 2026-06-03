@@ -1,0 +1,25 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "MAS Phase State",
+  "type": "object",
+  "required": ["phase", "status", "updated_by"],
+  "properties": {
+    "phase": {
+      "type": "string",
+      "enum": [
+        "phase_0_setup_audit",
+        "phase_1_blueprint",
+        "phase_2_webflow_build",
+        "phase_2a_class_setup",
+        "phase_2b_parallel_section_build",
+        "phase_3_qa_loop",
+        "handoff_closeout"
+      ]
+    },
+    "status": {"type": "string", "enum": ["pending", "active", "blocked", "complete"]},
+    "updated_by": {"type": "string"},
+    "evidence": {"type": "array", "items": {"type": "string"}}
+  },
+  "additionalProperties": true
+}
+

@@ -1,0 +1,59 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "MAS Section Builder Subagent Task",
+  "description": "Per-section handoff contract a section-builder subagent receives. Apply-only: the subagent creates elements and applies existing classes under one parent node; it never creates classes, pages, or components.",
+  "type": "object",
+  "required": ["section_id", "parent_element_id", "html_contract", "cf_classes", "site_id", "page_id", "mode"],
+  "properties": {
+    "section_id": {
+      "type": "string",
+      "minLength": 1,
+      "description": "Which section slice this subagent owns, e.g. 'hero'."
+    },
+    "parent_element_id": {
+      "type": "object",
+      "required": ["component", "element"],
+      "properties": {
+        "component": {
+          "type": "string",
+          "minLength": 1,
+          "description": "Component ID of the section container. Matches element_builder DEElementIDSchema.component field."
+        },
+        "element": {
+          "type": "string",
+          "minLength": 1,
+          "description": "Element ID of the section container. Matches element_builder DEElementIDSchema.element field."
+        }
+      },
+      "additionalProperties": false,
+      "description": "Webflow element identifier for the section container created by the parent in Phase 2A. Passed directly as parent_element_id to element_builder. Subagent inserts children only under this element."
+    },
+    "html_contract": {
+      "type": "string",
+      "minLength": 1,
+      "description": "Section HTML slice with Client-First tags and final class names. Intermediate contract only; recreated via native element operations, never pushed via whtml_builder."
+    },
+    "cf_classes": {
+      "type": "array",
+      "items": {"type": "string"},
+      "description": "Every class this section applies. All must already exist on the Webflow canvas before the subagent runs."
+    },
+    "site_id": {"type": "string", "minLength": 1},
+    "page_id": {"type": "string", "minLength": 1},
+    "mcp_352": {
+      "type": "object",
+      "properties": {
+        "max_nesting": {"type": "integer", "const": 3},
+        "max_actions_per_turn": {"type": "integer", "const": 5},
+        "verify_every": {"type": "integer", "const": 2}
+      },
+      "additionalProperties": false
+    },
+    "mode": {
+      "type": "string",
+      "const": "apply_only",
+      "description": "Subagent contract mode. Always apply_only: no class/page/component creation."
+    }
+  },
+  "additionalProperties": false
+}

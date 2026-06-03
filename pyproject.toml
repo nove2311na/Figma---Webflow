@@ -1,0 +1,10 @@
+[project]
+name = "mas-figma-webflow-claude"
+version = "0.3.0"
+description = "Claude Code-native Python-first MAS workflow for Figma to Webflow builds."
+requires-python = ">=3.10"
+dependencies = []
+
+[tool.ruff]
+line-length = 120
+target-version = "py310"

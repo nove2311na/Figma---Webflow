@@ -1,0 +1,18 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "MAS Visual QA Report",
+  "type": "object",
+  "required": ["blueprint_path", "webflow_state_ref", "checks", "mismatches", "verdict", "recorded_by"],
+  "properties": {
+    "blueprint_path": {"type": "string"},
+    "webflow_state_ref": {"type": "string"},
+    "snapshot_refs": {"type": "array", "items": {"type": "string"}},
+    "checks": {"type": "array", "items": {"type": "object"}},
+    "mismatches": {"type": "array", "items": {"type": "object"}},
+    "verdict": {"type": "string", "enum": ["[APPROVED]", "[FIX]"]},
+    "fix_owner": {"type": "string"},
+    "recorded_by": {"type": "string"}
+  },
+  "additionalProperties": true
+}
+

@@ -1,0 +1,62 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "MAS Client-First Blueprint",
+  "type": "object",
+  "required": ["page", "source", "sections", "client_first", "approval_status"],
+  "properties": {
+    "page": {"type": "string", "minLength": 1},
+    "source": {"type": "object"},
+    "sections": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "section_id": {"type": "string"},
+          "html_contract": {
+            "type": "string",
+            "description": "Section HTML with Client-First tags and final class names. Intermediate build contract; recreated via native element ops, never pushed via whtml_builder."
+          },
+          "target_parent_element_id": {
+            "type": "object",
+            "required": ["component", "element"],
+            "properties": {
+              "component": {"type": "string", "minLength": 1, "description": "Component ID returned by element_builder when container is created in Phase 2A."},
+              "element": {"type": "string", "minLength": 1, "description": "Element ID returned by element_builder when container is created in Phase 2A."}
+            },
+            "additionalProperties": false,
+            "description": "Webflow parent_element_id for this section's container; filled at Phase 2A after container creation. Passed as-is to element_builder."
+          },
+          "cf_classes": {
+            "type": "array",
+            "items": {"type": "string"},
+            "description": "Every class this section applies."
+          }
+        },
+        "additionalProperties": true
+      }
+    },
+    "client_first": {"type": "object"},
+    "new_classes": {
+      "type": "array",
+      "description": "Classes the page needs that do not yet exist in the per-project library; created once by the parent in Phase 2A and registered into the library + changelog.",
+      "items": {
+        "type": "object",
+        "required": ["name", "cf_category", "webflow_property", "value"],
+        "properties": {
+          "name": {"type": "string", "minLength": 1},
+          "cf_category": {
+            "type": "string",
+            "enum": ["text-color", "background-color", "border-color", "spacing", "font-size", "font-weight", "border-radius", "opacity"]
+          },
+          "webflow_property": {"type": "string", "minLength": 1},
+          "value": {"type": "string", "minLength": 1},
+          "reason": {"type": "string"}
+        },
+        "additionalProperties": false
+      }
+    },
+    "approval_status": {"type": "string", "enum": ["draft", "approved", "rejected", "needs_revision"]}
+  },
+  "additionalProperties": true
+}
+

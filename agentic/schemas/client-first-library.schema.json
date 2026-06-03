@@ -1,0 +1,46 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Client-First Class Library",
+  "type": "object",
+  "required": ["version", "principles", "class_groups", "figma_property_map"],
+  "properties": {
+    "version": {"type": "string"},
+    "principles": {"type": "object"},
+    "class_groups": {
+      "type": "object",
+      "required": ["structure", "typography", "spacing", "color", "layout", "state"],
+      "additionalProperties": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "required": ["applies_to", "figma_signals", "webflow_properties", "class_strategy"],
+          "properties": {
+            "class": {"type": "string"},
+            "class_pattern": {"type": "string"},
+            "applies_to": {"type": "string"},
+            "figma_signals": {"type": "array", "items": {"type": "string"}},
+            "webflow_properties": {"type": "object"},
+            "class_strategy": {"type": "string"}
+          },
+          "anyOf": [{"required": ["class"]}, {"required": ["class_pattern"]}],
+          "additionalProperties": true
+        }
+      }
+    },
+    "figma_property_map": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["figma_property", "signals", "client_first_decision"],
+        "properties": {
+          "figma_property": {"type": "string"},
+          "signals": {"type": "array", "items": {"type": "string"}},
+          "client_first_decision": {"type": "string"}
+        },
+        "additionalProperties": true
+      }
+    }
+  },
+  "additionalProperties": true
+}
+

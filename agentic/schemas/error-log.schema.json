@@ -1,0 +1,21 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "MAS Error Log",
+  "type": "array",
+  "items": {
+    "type": "object",
+    "required": ["timestamp", "agent", "phase", "message", "resolution"],
+    "properties": {
+      "timestamp": {"type": "string"},
+      "agent": {"type": "string"},
+      "phase": {"type": "string"},
+      "message": {"type": "string"},
+      "severity": {"type": "string"},
+      "fix_owner": {"type": "string"},
+      "resolution": {"type": "string"},
+      "evidence": {"type": "string"}
+    },
+    "additionalProperties": true
+  }
+}
+
