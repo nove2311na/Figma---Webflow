@@ -129,22 +129,6 @@ tools/utils.py
 <files>
 This section contains the contents of the repository's files.
 
-<file path=".gitignore">
- 1: .venv/
- 2: venv/
- 3: __pycache__/
- 4: *.pyc
- 5: .env
- 6: .env.*
- 7: workspace/
- 8: archives/
- 9: *.log
-10: *.tmp
-11: .DS_Store
-12: Thumbs.db
-13: .claude/settings.json
-</file>
-
 <file path="agentic/evals/golden-tasks/README.md">
 1: # Golden Tasks
 2: 
@@ -3446,137 +3430,6 @@ This section contains the contents of the repository's files.
 48: ## Versioning
 49: 
 50: Do not overwrite artifacts. Create a new blueprint filename or append a new state entry when a phase repeats.
-</file>
-
-<file path="AGENTS.md">
- 1: <!-- gitnexus:start -->
- 2: # GitNexus — Code Intelligence
- 3: 
- 4: This project is indexed by GitNexus as **MAS-Figma-Webflow-khang**. Use the GitNexus MCP tools to understand code, assess impact, and navigate safely.
- 5: 
- 6: > Index stale? Run `node .gitnexus/run.cjs analyze` from the project root — it auto-selects an available runner. No `.gitnexus/run.cjs` yet? `npx gitnexus analyze` (npm 11 crash → `npm i -g gitnexus`; #1939).
- 7: 
- 8: ## Always Do
- 9: 
-10: - **MUST run impact analysis before editing any symbol.** Before modifying a function, class, or method, run `gitnexus_impact({target: "symbolName", direction: "upstream"})` and report the blast radius (direct callers, affected processes, risk level) to the user.
-11: - **MUST run `gitnexus_detect_changes()` before committing** to verify your changes only affect expected symbols and execution flows.
-12: - **MUST warn the user** if impact analysis returns HIGH or CRITICAL risk before proceeding with edits.
-13: - When exploring unfamiliar code, use `gitnexus_query({query: "concept"})` to find execution flows instead of grepping. It returns process-grouped results ranked by relevance.
-14: - When you need full context on a specific symbol — callers, callees, which execution flows it participates in — use `gitnexus_context({name: "symbolName"})`.
-15: 
-16: ## Never Do
-17: 
-18: - NEVER edit a function, class, or method without first running `gitnexus_impact` on it.
-19: - NEVER ignore HIGH or CRITICAL risk warnings from impact analysis.
-20: - NEVER rename symbols with find-and-replace — use `gitnexus_rename` which understands the call graph.
-21: - NEVER commit changes without running `gitnexus_detect_changes()` to check affected scope.
-22: 
-23: ## Resources
-24: 
-25: | Resource | Use for |
-26: |----------|---------|
-27: | `gitnexus://repo/MAS-Figma-Webflow-khang/context` | Codebase overview, check index freshness |
-28: | `gitnexus://repo/MAS-Figma-Webflow-khang/clusters` | All functional areas |
-29: | `gitnexus://repo/MAS-Figma-Webflow-khang/processes` | All execution flows |
-30: | `gitnexus://repo/MAS-Figma-Webflow-khang/process/{name}` | Step-by-step execution trace |
-31: 
-32: <!-- gitnexus:end -->
-</file>
-
-<file path="CLAUDE.md">
- 1: # CLAUDE.md
- 2: 
- 3: This folder is a Claude Code-native agentic workspace for the MAS V3 Figma-to-Webflow workflow.
- 4: 
- 5: ## Read First
- 6: 
- 7: 1. Read `agentic/memory/team-memory.md` for the current agent team, invariants, and operating boundaries.
- 8: 2. Read `agentic/policies/runtime-instructions.md` for the MAS V3 mandates adapted to Claude Code.
- 9: 3. Read `agentic/orchestration/sop.md` before starting any Figma-to-Webflow run.
-10: 4. Read `agentic/specs/agent-system-spec.md` for the standalone agent-system contract.
-11: 5. Read `agentic/orchestration/reflection-loop.md` and `agentic/orchestration/phase-state-machine.md` before closing or changing phases.
-12: 6. Read `agentic/policies/approval-gates.md` before using Webflow, Figma, file writes, archive/restore, or any external connector.
-13: 
-14: ## Common Commands
-15: 
-16: ```cmd
-17: python scripts\init_workspace.py --project "Project Name" --figma "https://www.figma.com/design/file"
-18: python scripts\gates\validate_agentic_structure.py --target .
-19: python scripts\gates\run_quality_gate.py --target .
-20: python scripts\gates\scan_secrets.py --target .
-21: python scripts\gates\validate_agent_system_spec.py --target .
-22: python scripts\gates\validate_skills.py --target .
-23: python scripts\gates\validate_workspace_artifacts.py --target .
-24: python scripts\gates\validate_phase_state.py --target .
-25: python scripts\gates\validate_relative_paths.py --target .
-26: ```
-27: 
-28: Workspace lifecycle:
-29: 
-30: ```cmd
-31: python scripts\archive_workspace.py
-32: python scripts\restore_workspace.py
-33: python scripts\restore_workspace.py 0
-34: ```
-35: 
-36: ## Operating Rules
-37: 
-38: - Never silently overwrite existing files.
-39: - Never delete or restore `workspace/` unless the archive/restore safety gates pass.
-40: - Never proceed from Blueprint to Webflow build until the user approves.
-41: - Never use `whtml_builder`; build with Webflow native element operations and MCP-352.
-42: - Always use REM units for spacing, sizes, and typography.
-43: - Always record evidence in workspace JSON files before reporting progress.
-44: - Always record Webflow actions with reason, action, observation, and next decision.
-45: - Always run QA from real Webflow state or snapshots; do not guess visual parity.
-46: - Treat `agentic/evals/standalone-architecture-baseline.md` as the local architecture baseline.
-47: - Use `knowledge-base/client-first-class-map.json` before mapping Figma properties to Webflow classes.
-48: - Use Python as the project automation language.
-49: - Keep local filesystem references relative inside this folder.
-50: 
-51: ## Workflow Summary
-52: 
-53: 1. `@pm` receives the user request and checks `agentic/memory/session-handoff.md`, `agentic/orchestration/sop.md`, and workspace state.
-54: 2. `@operator` extracts Figma/raw data into `workspace/rawdata/` and `workspace/contents/`.
-55: 3. `@architect` produces Client-First blueprints in `workspace/blueprints/`.
-56: 4. `@pm` presents the blueprint and stops for approval.
-57: 5. `@operator` builds in Webflow using MCP-352.
-58: 6. `@gatekeeper` or `@architect` runs reflection review on risky artifacts.
-59: 7. `@architect` runs QA against actual Webflow state and records fixes.
-60: 8. `@pm` updates `agentic/memory/session-handoff.md` and reports evidence-backed completion.
-61: 
-62: <!-- gitnexus:start -->
-63: # GitNexus — Code Intelligence
-64: 
-65: This project is indexed by GitNexus as **MAS-Figma-Webflow-khang**. Use the GitNexus MCP tools to understand code, assess impact, and navigate safely.
-66: 
-67: > Index stale? Run `node .gitnexus/run.cjs analyze` from the project root — it auto-selects an available runner. No `.gitnexus/run.cjs` yet? `npx gitnexus analyze` (npm 11 crash → `npm i -g gitnexus`; #1939).
-68: 
-69: ## Always Do
-70: 
-71: - **MUST run impact analysis before editing any symbol.** Before modifying a function, class, or method, run `gitnexus_impact({target: "symbolName", direction: "upstream"})` and report the blast radius (direct callers, affected processes, risk level) to the user.
-72: - **MUST run `gitnexus_detect_changes()` before committing** to verify your changes only affect expected symbols and execution flows.
-73: - **MUST warn the user** if impact analysis returns HIGH or CRITICAL risk before proceeding with edits.
-74: - When exploring unfamiliar code, use `gitnexus_query({query: "concept"})` to find execution flows instead of grepping. It returns process-grouped results ranked by relevance.
-75: - When you need full context on a specific symbol — callers, callees, which execution flows it participates in — use `gitnexus_context({name: "symbolName"})`.
-76: 
-77: ## Never Do
-78: 
-79: - NEVER edit a function, class, or method without first running `gitnexus_impact` on it.
-80: - NEVER ignore HIGH or CRITICAL risk warnings from impact analysis.
-81: - NEVER rename symbols with find-and-replace — use `gitnexus_rename` which understands the call graph.
-82: - NEVER commit changes without running `gitnexus_detect_changes()` to check affected scope.
-83: 
-84: ## Resources
-85: 
-86: | Resource | Use for |
-87: |----------|---------|
-88: | `gitnexus://repo/MAS-Figma-Webflow-khang/context` | Codebase overview, check index freshness |
-89: | `gitnexus://repo/MAS-Figma-Webflow-khang/clusters` | All functional areas |
-90: | `gitnexus://repo/MAS-Figma-Webflow-khang/processes` | All execution flows |
-91: | `gitnexus://repo/MAS-Figma-Webflow-khang/process/{name}` | Step-by-step execution trace |
-92: 
-93: <!-- gitnexus:end -->
 </file>
 
 <file path="knowledge-base/client-first-class-map.json">
@@ -7103,6 +6956,153 @@ This section contains the contents of the repository's files.
 160:                 }
 161:             )
 162:     return suggestions
+</file>
+
+<file path=".gitignore">
+ 1: .venv/
+ 2: venv/
+ 3: __pycache__/
+ 4: *.pyc
+ 5: .env
+ 6: .env.*
+ 7: workspace/
+ 8: archives/
+ 9: *.log
+10: *.tmp
+11: .DS_Store
+12: Thumbs.db
+13: .claude/settings.json
+</file>
+
+<file path="AGENTS.md">
+ 1: <!-- gitnexus:start -->
+ 2: # GitNexus — Code Intelligence
+ 3: 
+ 4: This project is indexed by GitNexus as **Figma---Webflow**. Use the GitNexus MCP tools to understand code, assess impact, and navigate safely.
+ 5: 
+ 6: > Index stale? Run `node .gitnexus/run.cjs analyze` from the project root — it auto-selects an available runner. No `.gitnexus/run.cjs` yet? `npx gitnexus analyze` (npm 11 crash → `npm i -g gitnexus`; #1939).
+ 7: 
+ 8: ## Always Do
+ 9: 
+10: - **MUST run impact analysis before editing any symbol.** Before modifying a function, class, or method, run `gitnexus_impact({target: "symbolName", direction: "upstream"})` and report the blast radius (direct callers, affected processes, risk level) to the user.
+11: - **MUST run `gitnexus_detect_changes()` before committing** to verify your changes only affect expected symbols and execution flows.
+12: - **MUST warn the user** if impact analysis returns HIGH or CRITICAL risk before proceeding with edits.
+13: - When exploring unfamiliar code, use `gitnexus_query({query: "concept"})` to find execution flows instead of grepping. It returns process-grouped results ranked by relevance.
+14: - When you need full context on a specific symbol — callers, callees, which execution flows it participates in — use `gitnexus_context({name: "symbolName"})`.
+15: 
+16: ## Never Do
+17: 
+18: - NEVER edit a function, class, or method without first running `gitnexus_impact` on it.
+19: - NEVER ignore HIGH or CRITICAL risk warnings from impact analysis.
+20: - NEVER rename symbols with find-and-replace — use `gitnexus_rename` which understands the call graph.
+21: - NEVER commit changes without running `gitnexus_detect_changes()` to check affected scope.
+22: 
+23: ## Resources
+24: 
+25: | Resource | Use for |
+26: |----------|---------|
+27: | `gitnexus://repo/Figma---Webflow/context` | Codebase overview, check index freshness |
+28: | `gitnexus://repo/Figma---Webflow/clusters` | All functional areas |
+29: | `gitnexus://repo/Figma---Webflow/processes` | All execution flows |
+30: | `gitnexus://repo/Figma---Webflow/process/{name}` | Step-by-step execution trace |
+31: 
+32: <!-- gitnexus:end -->
+</file>
+
+<file path="CLAUDE.md">
+ 1: # CLAUDE.md
+ 2: 
+ 3: This folder is a Claude Code-native agentic workspace for the MAS V3 Figma-to-Webflow workflow.
+ 4: 
+ 5: ## Read First
+ 6: 
+ 7: 1. Read `agentic/memory/team-memory.md` for the current agent team, invariants, and operating boundaries.
+ 8: 2. Read `agentic/policies/runtime-instructions.md` for the MAS V3 mandates adapted to Claude Code.
+ 9: 3. Read `agentic/orchestration/sop.md` before starting any Figma-to-Webflow run.
+10: 4. Read `agentic/specs/agent-system-spec.md` for the standalone agent-system contract.
+11: 5. Read `agentic/orchestration/reflection-loop.md` and `agentic/orchestration/phase-state-machine.md` before closing or changing phases.
+12: 6. Read `agentic/policies/approval-gates.md` before using Webflow, Figma, file writes, archive/restore, or any external connector.
+13: 
+14: ## Common Commands
+15: 
+16: ```cmd
+17: python scripts\init_workspace.py --project "Project Name" --figma "https://www.figma.com/design/file"
+18: python scripts\gates\validate_agentic_structure.py --target .
+19: python scripts\gates\run_quality_gate.py --target .
+20: python scripts\gates\scan_secrets.py --target .
+21: python scripts\gates\validate_agent_system_spec.py --target .
+22: python scripts\gates\validate_skills.py --target .
+23: python scripts\gates\validate_workspace_artifacts.py --target .
+24: python scripts\gates\validate_phase_state.py --target .
+25: python scripts\gates\validate_relative_paths.py --target .
+26: ```
+27: 
+28: Workspace lifecycle:
+29: 
+30: ```cmd
+31: python scripts\archive_workspace.py
+32: python scripts\restore_workspace.py
+33: python scripts\restore_workspace.py 0
+34: ```
+35: 
+36: ## Operating Rules
+37: 
+38: - Never silently overwrite existing files.
+39: - Never delete or restore `workspace/` unless the archive/restore safety gates pass.
+40: - Never proceed from Blueprint to Webflow build until the user approves.
+41: - Never use `whtml_builder`; build with Webflow native element operations and MCP-352.
+42: - Always use REM units for spacing, sizes, and typography.
+43: - Always record evidence in workspace JSON files before reporting progress.
+44: - Always record Webflow actions with reason, action, observation, and next decision.
+45: - Always run QA from real Webflow state or snapshots; do not guess visual parity.
+46: - Treat `agentic/evals/standalone-architecture-baseline.md` as the local architecture baseline.
+47: - Use `knowledge-base/client-first-class-map.json` before mapping Figma properties to Webflow classes.
+48: - Use Python as the project automation language.
+49: - Keep local filesystem references relative inside this folder.
+50: 
+51: ## Workflow Summary
+52: 
+53: 1. `@pm` receives the user request and checks `agentic/memory/session-handoff.md`, `agentic/orchestration/sop.md`, and workspace state.
+54: 2. `@operator` extracts Figma/raw data into `workspace/rawdata/` and `workspace/contents/`.
+55: 3. `@architect` produces Client-First blueprints in `workspace/blueprints/`.
+56: 4. `@pm` presents the blueprint and stops for approval.
+57: 5. `@operator` builds in Webflow using MCP-352.
+58: 6. `@gatekeeper` or `@architect` runs reflection review on risky artifacts.
+59: 7. `@architect` runs QA against actual Webflow state and records fixes.
+60: 8. `@pm` updates `agentic/memory/session-handoff.md` and reports evidence-backed completion.
+61: 
+62: <!-- gitnexus:start -->
+63: # GitNexus — Code Intelligence
+64: 
+65: This project is indexed by GitNexus as **Figma---Webflow**. Use the GitNexus MCP tools to understand code, assess impact, and navigate safely.
+66: 
+67: > Index stale? Run `node .gitnexus/run.cjs analyze` from the project root — it auto-selects an available runner. No `.gitnexus/run.cjs` yet? `npx gitnexus analyze` (npm 11 crash → `npm i -g gitnexus`; #1939).
+68: 
+69: ## Always Do
+70: 
+71: - **MUST run impact analysis before editing any symbol.** Before modifying a function, class, or method, run `gitnexus_impact({target: "symbolName", direction: "upstream"})` and report the blast radius (direct callers, affected processes, risk level) to the user.
+72: - **MUST run `gitnexus_detect_changes()` before committing** to verify your changes only affect expected symbols and execution flows.
+73: - **MUST warn the user** if impact analysis returns HIGH or CRITICAL risk before proceeding with edits.
+74: - When exploring unfamiliar code, use `gitnexus_query({query: "concept"})` to find execution flows instead of grepping. It returns process-grouped results ranked by relevance.
+75: - When you need full context on a specific symbol — callers, callees, which execution flows it participates in — use `gitnexus_context({name: "symbolName"})`.
+76: 
+77: ## Never Do
+78: 
+79: - NEVER edit a function, class, or method without first running `gitnexus_impact` on it.
+80: - NEVER ignore HIGH or CRITICAL risk warnings from impact analysis.
+81: - NEVER rename symbols with find-and-replace — use `gitnexus_rename` which understands the call graph.
+82: - NEVER commit changes without running `gitnexus_detect_changes()` to check affected scope.
+83: 
+84: ## Resources
+85: 
+86: | Resource | Use for |
+87: |----------|---------|
+88: | `gitnexus://repo/Figma---Webflow/context` | Codebase overview, check index freshness |
+89: | `gitnexus://repo/Figma---Webflow/clusters` | All functional areas |
+90: | `gitnexus://repo/Figma---Webflow/processes` | All execution flows |
+91: | `gitnexus://repo/Figma---Webflow/process/{name}` | Step-by-step execution trace |
+92: 
+93: <!-- gitnexus:end -->
 </file>
 
 </files>
