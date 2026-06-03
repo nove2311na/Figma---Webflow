@@ -28,6 +28,7 @@ The existing files remain source-of-truth inputs:
 9. No silent overwrite. Existing project files and workspace state are preserved unless a documented gate approves a transition.
 10. Webflow external writes are high risk and require explicit workflow phase, target site/page, payload summary, and validation evidence.
 11. Secrets belong outside committed files.
+12. **MAS Build Discipline is mandatory**: every agent reads `agentic/policies/build-discipline.md` before any work. 8 patterns (D-1..D-8) cover: Write→Bash pattern, no subagents for MCP, EnterPlanMode for >5 writes, retry on bash error, caveman terse, stop after first failure, surface stand-in swap path, blocker format with retry count.
 
 ## Agent Team
 

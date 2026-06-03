@@ -78,3 +78,18 @@ The system is working when:
 - architect produces and QA-checks Client-First blueprints,
 - gatekeeper passes local Python gates,
 - final report is grounded in evidence.
+
+## 8. Build Discipline (mandatory)
+
+Every agent (`pm`, `client-first-architect`, `figma-webflow-operator`, `section-builder`, `qa-gatekeeper`, `workspace-steward`) MUST read and apply `agentic/policies/build-discipline.md` (D-1..D-8) on every MAS run. The 8 patterns are:
+
+- D-1: Write→Bash (no multi-line `python -c` with embedded newlines)
+- D-2: No subagents for MCP-dependent work (subagent runtimes in this Claude Code instance do not inherit MCP)
+- D-3: EnterPlanMode for any phase with >5 Webflow writes
+- D-4: Retry on bash error in same turn (never end a turn on a tool failure)
+- D-5: Caveman terse for messages >3 lines
+- D-6: Stop after first tool failure; never stack
+- D-7: Surface stand-in asset swap path inline
+- D-8: Blocker format includes retry count + next action + recoverability
+
+A PreToolUse hook at `.claude/settings.local.json` enforces D-1 by warning on `python -c` with embedded newlines.

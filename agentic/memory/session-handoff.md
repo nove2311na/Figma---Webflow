@@ -8,7 +8,7 @@
 
 Build frame "SaaS — Futuristic App" (Figma nodeId `138:8546`) on a new page in Webflow site "Account's Radical Site" (`6920a7d45c61690dd10ac690`).
 
-**Status**: complete. See `agentic/memory/final-report-saas-futuristic-app.md` for the full report.
+**Status**: complete. See `archive/runs/saas-futuristic-app/final-report.md` for the full report.
 
 ## Last Verified State
 
@@ -60,7 +60,7 @@ See `.user_bugs-log` for the full log of 8 workflow issues + 8 project-state iss
 
 ## Files of Record
 
-- `agentic/memory/final-report-saas-futuristic-app.md` — the full report
+- `archive/runs/saas-futuristic-app/final-report.md` — the full report (archived)
 - `agentic/memory/session-handoff.md` — this file
 - `workspace/state.json` — 6 entries (approval, blocker+resolution, phase_2a_complete, phase_2b_complete, reflection_review, handoff_closeout)
 - `workspace/page_structure.json` — page record with all container IDs
@@ -70,15 +70,15 @@ See `.user_bugs-log` for the full log of 8 workflow issues + 8 project-state iss
 - `workspace/contents/saas-futuristic-app_content.json`
 - `workspace/sections/section_*_action_log.json` × 6
 - `workspace/sections/gate-results.json` — 9/11 PASS
-- `knowledge-base/libraries/6920a7d45c61690dd10ac690/client-first-library.json` — 194 classes
-- `knowledge-base/libraries/6920a7d45c61690dd10ac690/figma-token-map.json` — 9 token mappings
-- `knowledge-base/libraries/6920a7d45c61690dd10ac690/changelog.json` — build entries
+- `archive/site-libraries/6920a7d45c61690dd10ac690/client-first-library.json` — 194 classes (archived)
+- `archive/site-libraries/6920a7d45c61690dd10ac690/figma-token-map.json` — 9 token mappings (archived)
+- `archive/site-libraries/6920a7d45c61690dd10ac690/changelog.json` — build entries (archived)
 - `.user_bugs-log` — full issue log
-- `scripts/phase2a_reconcile_library.py` — helper written
-- `scripts/phase2b_synthesize_logs.py` — helper written
-- `scripts/phase3_fix_library.py` — helper written
-- `scripts/phase3_fix_tokenmap.py` — helper written
-- `scripts/run_all_gates.py` — aggregator helper
+- `archive/runs/saas-futuristic-app/scripts/phase2a_reconcile_library.py` — helper written (archived)
+- `archive/runs/saas-futuristic-app/scripts/phase2b_synthesize_logs.py` — helper written (archived)
+- `archive/runs/saas-futuristic-app/scripts/phase3_fix_library.py` — helper written (archived)
+- `archive/runs/saas-futuristic-app/scripts/phase3_fix_tokenmap.py` — helper written (archived)
+- `archive/runs/saas-futuristic-app/scripts/run_all_gates.py` — aggregator helper (archived)
 
 ## Date
 

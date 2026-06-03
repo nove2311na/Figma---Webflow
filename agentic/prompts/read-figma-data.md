@@ -3,7 +3,7 @@
 ## Purpose
 
 Produce a structured **design analysis document** BEFORE writing the HTML contract.
-This analysis is the mandatory input to `write-html-contract.md`. Do not skip this step.
+This analysis is the mandatory input to `archive/deprecated-workflows/write-html-contract.webflow-first.md`. Do not skip this step.
 
 Run AFTER:
 1. Figma raw data is in `workspace/rawdata/`.
@@ -209,7 +209,7 @@ Rules:
 
 ## Validation Checklist Before Proceeding to HTML Contract
 
-Run through this checklist after producing the analysis JSON. Do NOT proceed to `write-html-contract.md` until all pass:
+Run through this checklist after producing the analysis JSON. Do NOT proceed to `archive/deprecated-workflows/write-html-contract.webflow-first.md` until all pass:
 
 - [ ] Every `section_id` is unique (no duplicate slugs)
 - [ ] Section order in `section_inventory` matches Figma vertical order (top to bottom)

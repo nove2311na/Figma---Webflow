@@ -2,6 +2,8 @@
 
 This SOP governs the Claude Code-native, Python-first MAS Figma-to-Webflow workflow.
 
+**Before any phase**: every agent reads `agentic/policies/build-discipline.md` (D-1..D-8). 8 patterns govern bash, subagent use, plan mode, retries, formatting, failure handling, stand-in assets, and blocker reporting. The patterns apply to every phase below.
+
 ## Phase 0: Setup and Audit
 
 Goal: synchronize state and protect the Webflow site and local workspace.

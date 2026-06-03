@@ -67,7 +67,7 @@ Hard stops bắt buộc:
 
 Khi viết HTML contract:
 1. Đọc `agentic/prompts/read-figma-data.md` → tạo design analysis JSON trước
-2. Đọc `agentic/prompts/write-html-contract.md` → decision framework 5-layer
+2. Đọc `archive/deprecated-workflows/write-html-contract.webflow-first.md` → decision framework 5-layer
 3. Mọi class phải trace về: CF library class HOẶC entry trong `new_classes` với Case 1-5
 
 ---
@@ -140,7 +140,7 @@ Không báo cáo "xong" khi chưa có evidence:
 | Project token library | `knowledge-base/libraries/{site_id}/client-first-library.json` |
 | Token → Figma map | `knowledge-base/libraries/{site_id}/figma-token-map.json` |
 | Figma analysis prompt | `agentic/prompts/read-figma-data.md` |
-| HTML contract prompt | `agentic/prompts/write-html-contract.md` |
+| HTML contract prompt | `archive/deprecated-workflows/write-html-contract.webflow-first.md` |
 | Figma→CF mapping rules | `agentic/specs/figma-to-client-first-mapping.md` |
 | Token sync architecture | `agentic/knowledge/token-sync-architecture.md` |
 | Approval gate rules | `agentic/policies/approval-gates.md` |

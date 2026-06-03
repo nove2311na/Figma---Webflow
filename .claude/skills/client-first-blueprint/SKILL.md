@@ -17,11 +17,11 @@ description: Produce Client-First V2 Webflow blueprints from Figma raw data usin
 2. Read `knowledge-base/client-first-class-map.json`.
 3. Read `knowledge-base/libraries/{site_id}/client-first-library.json` (per-project token classes).
 4. Read `agentic/specs/figma-to-client-first-mapping.md`.
-5. **Read `agentic/prompts/write-html-contract.md`** — mandatory decision guide for utility vs custom class.
+5. **Read `archive/deprecated-workflows/write-html-contract.webflow-first.md`** — mandatory decision guide for utility vs custom class.
 6. Read Figma raw data and content files from `workspace/rawdata/` and `workspace/contents/`.
 7. **Run `agentic/prompts/read-figma-data.md` prompt** — produce `workspace/blueprints/[page-slug]_design-analysis.json`. Use the analysis as structured input before writing any HTML contract. Do not skip.
 8. Identify global components, sections, grids, flex layouts, variables, text styles, and assets.
-9. For each section, write `html_contract` using the 5-layer decision flowchart in `write-html-contract.md`.
+9. For each section, write `html_contract` using the 5-layer decision flowchart in `archive/deprecated-workflows/write-html-contract.webflow-first.md`.
 10. List every new custom class in the page-level `new_classes` array; each entry must cite Case number in `reason`.
 11. Generate blueprint JSON under `workspace/blueprints/` with `html_contract`, `cf_classes`, `new_classes`.
 12. Update `workspace/page_structure.json` with routing and section map only.
@@ -31,7 +31,7 @@ description: Produce Client-First V2 Webflow blueprints from Figma raw data usin
 
 ## Hard Rules
 
-- Use six-layer Client-First structure (see `write-html-contract.md` Layer 1).
+- Use six-layer Client-First structure (see `archive/deprecated-workflows/write-html-contract.webflow-first.md` Layer 1).
 - Use `section_[name]`, `padding-global`, `container-[size]`, and `padding-section-[size]`.
 - Use underscore ONLY for custom child classes (`component_element`). Utilities have NO underscore.
 - Use REM units only — no px in final values.
@@ -39,7 +39,7 @@ description: Produce Client-First V2 Webflow blueprints from Figma raw data usin
 - **Never create a custom class** for typography size/weight/color/align — use existing utilities.
 - **Always create a custom class** for layout (flex/grid/positioning/sizing) — CF has no layout utilities.
 - Max 3–4 classes per element. If you need 5+, merge into a single custom class.
-- Every `new_classes` entry must cite Case 1–5 from `write-html-contract.md` in `reason`.
+- Every `new_classes` entry must cite Case 1–5 from `archive/deprecated-workflows/write-html-contract.webflow-first.md` in `reason`.
 - Every Figma property to class mapping needs `source` pointing to class map or library file.
 - Do not approve generic global components.
 

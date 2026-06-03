@@ -81,7 +81,7 @@ Step 1  sync-library     ← TOKEN SYNC (đây)
           │
 Step 2  sync-components  ← component structure map (de_component_tool)
           │
-Step 3  read + html      ← read-figma-data.md → write-html-contract.md
+Step 3  read + html      ← read-figma-data.md → archive/deprecated-workflows/write-html-contract.webflow-first.md
           │
 Step 4  split sections   ← section boundary detection
           │

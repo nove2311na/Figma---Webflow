@@ -40,7 +40,7 @@ Use during SOP Phase 1 blueprint creation and Phase 3 QA loop.
 
 ## HTML Contract Rule
 
-Read `agentic/prompts/write-html-contract.md` before writing any `html_contract` or `new_classes`.
+Read `archive/deprecated-workflows/write-html-contract.webflow-first.md` before writing any `html_contract` or `new_classes`.
 That guide is the mandatory decision framework: when to apply an existing utility/library class vs when to
 create a new custom class. Every `new_classes` entry must cite the Case number from that guide in `reason`.
 
