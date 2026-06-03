@@ -1,0 +1,12 @@
+normalization_rules:
+  generic_names:
+    - pattern: '^Frame \d+$'
+      normalize: true
+    - pattern: '^Rectangle \d+$'
+      normalize: true
+  untokenized_values:
+    mode: error_on_high_severity
+    threshold_snap_px: 2
+  auto_layout_recovery:
+    enabled: true
+    default_flex_wrap: wrap

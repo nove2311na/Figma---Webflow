@@ -1,0 +1,7 @@
+native_ops_rules:
+  branch_first: true
+  preflight_check: true
+  serialize_writes: true
+  concurrency_level: 1
+  audit_logged: true
+  audit_log_path: workspace/webflow-native/write-audit-log.jsonl

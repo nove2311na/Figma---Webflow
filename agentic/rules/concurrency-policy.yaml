@@ -1,0 +1,10 @@
+concurrency_policy:
+  figma_extraction:
+    parallel_frames: true
+    max_workers: 4
+  section_rendering:
+    parallel: true
+    max_workers: 4
+  webflow_mutation:
+    parallel: false
+    max_workers: 1

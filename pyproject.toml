@@ -3,7 +3,12 @@ name = "mas-figma-webflow-claude"
 version = "0.3.0"
 description = "Claude Code-native Python-first MAS workflow for Figma to Webflow builds."
 requires-python = ">=3.10"
-dependencies = []
+dependencies = [
+  "tinycss2>=1.2.1",
+  "pydantic>=2.0",
+  "typer>=0.12",
+  "beautifulsoup4>=4.12"
+]
 
 [tool.ruff]
 line-length = 120

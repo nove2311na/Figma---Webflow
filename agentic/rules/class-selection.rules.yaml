@@ -1,0 +1,14 @@
+selection_policy:
+  strict_mode: true
+  missing_class_behavior: block
+  allow_inline_style: false
+  allow_hardcoded_hex: false
+  allow_new_class_proposals: false
+  final_class_source:
+    - client-first-library-contract
+    - webflow-native-class-index
+    - structural-conventions
+
+structural_convention_classes:
+  - page-wrapper
+  - main-wrapper

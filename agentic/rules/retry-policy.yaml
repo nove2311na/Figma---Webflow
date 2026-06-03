@@ -1,0 +1,9 @@
+retry_policy:
+  mcp_calls:
+    max_retries: 3
+    backoff_factor: 2.0
+    initial_delay_seconds: 1.0
+  network_failures:
+    max_retries: 5
+    backoff_factor: 1.5
+    initial_delay_seconds: 2.0

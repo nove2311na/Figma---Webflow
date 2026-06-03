@@ -1,0 +1,15 @@
+html_qa_rules:
+  validate_nesting: true
+  validate_attributes: true
+  enforce_rem_units: true
+  check_data_markers:
+    required_attributes:
+      - data-section
+      - data-component
+      - data-figma-node
+  forbidden_tags:
+    - style
+    - font
+  forbidden_styles:
+    - inline_style
+    - hardcoded_hex_colors

@@ -1,0 +1,28 @@
+tag_resolution:
+  default_fallback: div
+  text_fallback: span
+  mappings:
+    - role: heading-1
+      tag: h1
+    - role: heading-2
+      tag: h2
+    - role: heading-3
+      tag: h3
+    - role: heading-4
+      tag: h4
+    - role: heading-5
+      tag: h5
+    - role: heading-6
+      tag: h6
+    - role: paragraph
+      tag: p
+    - role: button
+      tag: a
+    - role: navigation
+      tag: nav
+    - role: list
+      tag: ul
+    - role: list-item
+      tag: li
+    - role: image
+      tag: img

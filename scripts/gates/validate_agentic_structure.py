@@ -1,118 +1,170 @@
-#!/usr/bin/env python3
-"""Validate the Claude Code-native MAS standalone scaffold structure."""
-from __future__ import annotations
-
-import argparse
+import os
+import sys
 import json
-from dataclasses import dataclass
-from pathlib import Path
-from typing import Any
 
+try:
+    import yaml
+except ImportError:
+    yaml = None
 
-@dataclass(frozen=True)
-class Requirement:
-    path: str
-    kind: str = "file"
-    profile: str = "standard"
-    note: str = ""
-
-
-PROFILE_ORDER = {"minimal": 0, "standard": 1, "full": 2}
-
-REQUIREMENTS = [
-    Requirement("CLAUDE.md", profile="minimal", note="Claude Code entrypoint"),
-    Requirement("agentic/memory/team-memory.md", profile="minimal", note="team memory"),
-    Requirement("agentic/policies/runtime-instructions.md", profile="minimal", note="system mandate"),
-    Requirement("agentic/orchestration/sop.md", profile="minimal", note="workflow SOP"),
-    Requirement("agentic/memory/session-handoff.md", profile="minimal", note="session handoff"),
-    Requirement(".claude/agents", "dir", "minimal", "Claude agents"),
-    Requirement(".claude/skills", "dir", "minimal", "Claude skills"),
-    Requirement("agentic/README.md", profile="minimal", note="agentic index"),
-    Requirement("agentic/knowledge", "dir", "minimal", "knowledge layer"),
-    Requirement("agentic/memory", "dir", "minimal", "memory layer"),
-    Requirement("agentic/policies", "dir", "minimal", "policy layer"),
-    Requirement("agentic/orchestration", "dir", "minimal", "workflow contracts"),
-    Requirement("scripts/gates", "dir", "minimal", "validation gates"),
-    Requirement("scripts/init_workspace.py", profile="minimal", note="Python workspace init"),
-    Requirement("scripts/archive_workspace.py", profile="minimal", note="Python workspace archive"),
-    Requirement("scripts/restore_workspace.py", profile="minimal", note="Python workspace restore"),
-    Requirement("scripts/gates/run_quality_gate.py", profile="minimal", note="quality gate"),
-    Requirement("scripts/gates/scan_secrets.py", profile="minimal", note="secret scan"),
-    Requirement("scripts/gates/validate_agent_system_spec.py", profile="standard", note="system spec gate"),
-    Requirement("scripts/gates/validate_skills.py", profile="standard", note="skill anatomy gate"),
-    Requirement("scripts/gates/validate_workspace_artifacts.py", profile="standard", note="workspace artifact gate"),
-    Requirement("scripts/gates/validate_phase_state.py", profile="standard", note="phase state gate"),
-    Requirement("scripts/gates/validate_relative_paths.py", profile="standard", note="relative path gate"),
-    Requirement("scripts/gates/validate_client_first_library.py", profile="standard", note="Client-First library gate"),
-    Requirement("agentic/specs/agent-system-spec.md", profile="standard", note="system spec"),
-    Requirement("agentic/specs/scaffold-file-plan.md", profile="standard", note="scaffold plan"),
-    Requirement("agentic/specs/workspace-artifact-schemas.md", profile="standard", note="artifact schemas contract"),
-    Requirement("agentic/specs/visual-qa-evidence-contract.md", profile="standard", note="visual QA evidence contract"),
-    Requirement("agentic/specs/figma-to-client-first-mapping.md", profile="standard", note="Figma to Client-First map"),
-    Requirement("agentic/evals/standalone-architecture-baseline.md", profile="standard", note="standalone baseline"),
-    Requirement("agentic/evals/reflection-rubric.md", profile="standard", note="reflection rubric"),
-    Requirement("agentic/orchestration/reflection-loop.md", profile="standard", note="reflection loop"),
-    Requirement("agentic/orchestration/phase-state-machine.md", profile="standard", note="phase state machine"),
-    Requirement("agentic/schemas", "dir", "standard", "JSON schema contracts"),
-    Requirement("knowledge-base/client-first-class-map.json", profile="standard", note="Client-First class map"),
-    Requirement("agentic/policies/mcp-risk-auth-map.md", profile="standard", note="MCP risk map"),
-    Requirement("pyproject.toml", profile="standard", note="Python project metadata"),
-    Requirement(".user_versions/README.md", profile="standard", note="version log index"),
-    Requirement(".user_versions/VERSION_HISTORY.md", profile="standard", note="version history"),
-    Requirement(".claude/settings.json.example", profile="full", note="Claude settings example"),
-    Requirement("agentic/policies/mcp-config.example.json", profile="full", note="MCP config example"),
-]
-
-
-def applies(requirement: Requirement, profile: str) -> bool:
-    return PROFILE_ORDER[requirement.profile] <= PROFILE_ORDER[profile]
-
-
-def path_exists(root: Path, requirement: Requirement) -> bool:
-    path = root / requirement.path
-    if requirement.kind == "dir":
-        return path.is_dir()
-    return path.is_file()
-
-
-def validate(root: Path, profile: str) -> dict[str, Any]:
-    applicable = [requirement for requirement in REQUIREMENTS if applies(requirement, profile)]
-    missing = [requirement.path for requirement in applicable if not path_exists(root, requirement)]
-    return {
-        "target": str(root),
-        "profile": profile,
-        "status": "pass" if not missing else "fail",
-        "summary": {
-            "requirements": len(applicable),
-            "passed": len(applicable) - len(missing),
-            "missing": len(missing),
-        },
-        "missing": missing,
-    }
-
-
-def main(argv: list[str] | None = None) -> int:
-    parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument("--target", default=".", help="Folder to validate")
-    parser.add_argument("--profile", choices=sorted(PROFILE_ORDER), default="standard")
-    parser.add_argument("--json", action="store_true", help="Emit JSON")
-    args = parser.parse_args(argv)
-
-    report = validate(Path(args.target).resolve(), args.profile)
-    if args.json:
-        print(json.dumps(report, indent=2, ensure_ascii=False))
+def main():
+    root_dir = os.path.abspath(os.path.join(os.path.dirname(__file__), "..", ".."))
+    print(f"Validating Agentic Structure from Root: {root_dir}")
+    
+    errors = []
+    
+    # 1. Folders validation
+    folders = [
+        "source-css",
+        "knowledge-base/generated",
+        "agentic/rules",
+        "workspace/figma",
+        "workspace/semantic",
+        "workspace/html/chunks",
+        "workspace/webflow-native/section-tasks",
+        "workspace/webflow-native/section-results",
+        "workspace/reports",
+        "tests/fixtures/figma",
+        "tests/fixtures/expected",
+        "tests/fixtures/broken",
+        "tests/goldens"
+    ]
+    for folder in folders:
+        full_path = os.path.join(root_dir, folder)
+        if not os.path.isdir(full_path):
+            errors.append(f"Required folder missing: {folder}")
+            
+    # 2. Specs validation
+    specs = [
+        "agentic/specs/html-first-pipeline.md",
+        "agentic/specs/client-first-library-contract.md",
+        "agentic/specs/figma-extraction-contract.md",
+        "agentic/specs/figma-design-system-contract.md",
+        "agentic/specs/figma-normalization-policy.md",
+        "agentic/specs/html-tag-resolution.md",
+        "agentic/specs/component-registry-contract.md",
+        "agentic/specs/component-signature-matching.md",
+        "agentic/specs/html-to-webflow-native-ops.md",
+        "agentic/specs/asset-and-image-policy.md",
+        "agentic/specs/tailwind-trace-to-client-first-evidence.md",
+        "agentic/specs/webflow-branch-strategy.md"
+    ]
+    for spec in specs:
+        full_path = os.path.join(root_dir, spec)
+        if not os.path.exists(full_path):
+            errors.append(f"Required specification file missing: {spec}")
+            
+    # 3. Rules validation
+    rules = [
+        "agentic/rules/tag.rules.yaml",
+        "agentic/rules/class-selection.rules.yaml",
+        "agentic/rules/component-match.rules.yaml",
+        "agentic/rules/html-qa.rules.yaml",
+        "agentic/rules/figma-normalization.rules.yaml",
+        "agentic/rules/asset-alt.rules.yaml",
+        "agentic/rules/webflow-native-ops.rules.yaml",
+        "agentic/rules/concurrency-policy.yaml",
+        "agentic/rules/retry-policy.yaml"
+    ]
+    for rule in rules:
+        full_path = os.path.join(root_dir, rule)
+        if not os.path.exists(full_path):
+            errors.append(f"Required rule file missing: {rule}")
+        else:
+            if yaml is not None:
+                try:
+                    with open(full_path, "r", encoding="utf-8") as f:
+                        yaml.safe_load(f)
+                except Exception as e:
+                    errors.append(f"Invalid YAML in rule file {rule}: {e}")
+            else:
+                try:
+                    with open(full_path, "r", encoding="utf-8") as f:
+                        content = f.read()
+                        if ":" not in content:
+                            errors.append(f"Rule file {rule} does not seem to contain valid colon mappings.")
+                except Exception as e:
+                    errors.append(f"Cannot read rule file {rule}: {e}")
+                    
+    # 4. Schemas validation (Valid JSON)
+    schemas = [
+        "agentic/schemas/client-first-library-contract.schema.json",
+        "agentic/schemas/figma-node-bundle.schema.json",
+        "agentic/schemas/figma-extract-run-log.schema.json",
+        "agentic/schemas/design-system-sync-report.schema.json",
+        "agentic/schemas/component-registry.schema.json",
+        "agentic/schemas/component-signature.schema.json",
+        "agentic/schemas/component-match-report.schema.json",
+        "agentic/schemas/component-sync-report.schema.json",
+        "agentic/schemas/figma-normalized-tree.schema.json",
+        "agentic/schemas/figma-normalization-report.schema.json",
+        "agentic/schemas/figma-semantic-tree.schema.json",
+        "agentic/schemas/missing-mapping-report.schema.json",
+        "agentic/schemas/html-blueprint.schema.json",
+        "agentic/schemas/html-validation-report.schema.json",
+        "agentic/schemas/asset-manifest.schema.json",
+        "agentic/schemas/alt-policy.schema.json",
+        "agentic/schemas/section-manifest.schema.json",
+        "agentic/schemas/webflow-native-build-plan.schema.json",
+        "agentic/schemas/webflow-section-task.schema.json",
+        "agentic/schemas/webflow-write-audit-log.schema.json"
+    ]
+    for schema in schemas:
+        full_path = os.path.join(root_dir, schema)
+        if not os.path.exists(full_path):
+            errors.append(f"Required schema file missing: {schema}")
+        else:
+            try:
+                with open(full_path, "r", encoding="utf-8") as f:
+                    json.load(f)
+            except Exception as e:
+                errors.append(f"Invalid JSON in schema file {schema}: {e}")
+                
+    # 5. pyproject.toml dependencies check
+    pyproject_path = os.path.join(root_dir, "pyproject.toml")
+    required_deps = ["tinycss2", "pydantic", "typer", "beautifulsoup4"]
+    if not os.path.exists(pyproject_path):
+        errors.append("pyproject.toml is missing.")
     else:
-        print("== MAS agentic structure validation ==")
-        print(f"target: {report['target']}")
-        print(f"profile: {report['profile']}")
-        print(f"status: {report['status']}")
-        print(f"passed: {report['summary']['passed']}/{report['summary']['requirements']}")
-        if report["missing"]:
-            print("\nMissing:")
-            for item in report["missing"]:
-                print(f"  - {item}")
-    return 0 if report["status"] == "pass" else 1
-
+        try:
+            with open(pyproject_path, "r", encoding="utf-8") as f:
+                content = f.read()
+                for dep in required_deps:
+                    if dep not in content:
+                        errors.append(f"Dependency '{dep}' not documented in pyproject.toml")
+        except Exception as e:
+            errors.append(f"Cannot read pyproject.toml: {e}")
+            
+    # 6. workspacespec check
+    workspace_spec_path = os.path.join(root_dir, "agentic/specs/workspace-artifact-schemas.md")
+    if not os.path.exists(workspace_spec_path):
+        errors.append("agentic/specs/workspace-artifact-schemas.md is missing.")
+    else:
+        try:
+            with open(workspace_spec_path, "r", encoding="utf-8") as f:
+                content = f.read()
+                expected_folders = [
+                    "workspace/figma/",
+                    "workspace/semantic/",
+                    "workspace/html/",
+                    "workspace/html/chunks/",
+                    "workspace/webflow-native/",
+                    "workspace/reports/"
+                ]
+                for fld in expected_folders:
+                    if fld not in content:
+                        errors.append(f"New workspace folder '{fld}' not documented in workspace-artifact-schemas.md")
+        except Exception as e:
+            errors.append(f"Cannot read workspace-artifact-schemas.md: {e}")
+            
+    if errors:
+        print("\n--- AGENTIC STRUCTURE VALIDATION FAILED ---")
+        for err in errors:
+            print(f"ERROR: {err}")
+        sys.exit(1)
+    else:
+        print("\n--- AGENTIC STRUCTURE VALIDATION PASSED ---")
+        sys.exit(0)
 
 if __name__ == "__main__":
-    raise SystemExit(main())
+    main()

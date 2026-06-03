@@ -1,0 +1,14 @@
+asset_alt_policy:
+  enforce_alt_text: true
+  alt_requirements:
+    informative: required
+    functional: required
+    decorative:
+      alt_value: ""
+      role: presentation
+    complex: required_extended
+  forbidden_generic_alts:
+    - image
+    - logo
+    - photo
+    - placeholder

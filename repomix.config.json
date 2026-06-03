@@ -23,6 +23,7 @@
       ".claude/**",
       ".user_bugs-log/**",
       ".user_guides/**",
+      "archive/**",
       ".user_versions/**"
     ]
   }

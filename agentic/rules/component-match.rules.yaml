@@ -1,0 +1,12 @@
+component_matching:
+  match_by_name: false
+  match_by_signature: true
+  thresholds:
+    exact_match: 1.0
+    usable_match: 0.8
+    candidate_match: 0.5
+  features:
+    - structure
+    - styling_tokens
+    - child_count
+    - child_types
