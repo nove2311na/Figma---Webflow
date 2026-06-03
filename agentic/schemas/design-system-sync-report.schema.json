@@ -1,6 +1,66 @@
 {
   "$schema": "http://json-schema.org/draft-07/schema#",
-  "title": "Design System Sync Report",
+  "title": "Design System Sync Report Schema",
   "type": "object",
-  "properties": {}
+  "required": [
+    "timestamp",
+    "matched_tokens",
+    "missing_tokens",
+    "unmapped_styles",
+    "hardcoded_values",
+    "blockers",
+    "status"
+  ],
+  "properties": {
+    "timestamp": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "matched_tokens": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["figma_token", "css_variable"],
+        "properties": {
+          "figma_token": { "type": "string" },
+          "css_variable": { "type": "string" }
+        }
+      }
+    },
+    "missing_tokens": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["figma_token", "severity"],
+        "properties": {
+          "figma_token": { "type": "string" },
+          "severity": { "type": "string", "enum": ["high", "medium", "low"] }
+        }
+      }
+    },
+    "unmapped_styles": {
+      "type": "array",
+      "items": { "type": "string" }
+    },
+    "hardcoded_values": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["layer_name", "property", "value"],
+        "properties": {
+          "layer_name": { "type": "string" },
+          "property": { "type": "string" },
+          "value": { "type": "string" }
+        }
+      }
+    },
+    "blockers": {
+      "type": "array",
+      "items": { "type": "string" }
+    },
+    "status": {
+      "type": "string",
+      "enum": ["pass", "failed"]
+    }
+  }
 }

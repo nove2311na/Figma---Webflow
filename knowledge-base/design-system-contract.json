@@ -1,0 +1,28 @@
+{
+  "version": "1.0.0",
+  "collections": {
+    "base": {
+      "required_variables": [
+        "--font-family--primary",
+        "--font-weight--light",
+        "--font-weight--normal",
+        "--font-weight--medium",
+        "--font-weight--semibold",
+        "--font-weight--bold"
+      ]
+    },
+    "theme": {
+      "required_variables": [
+        "--_theme---text-color--primary",
+        "--_theme---background-color--primary",
+        "--_theme---border-color--primary"
+      ]
+    },
+    "layout": {
+      "required_variables": [
+        "--_layout---spacing--medium",
+        "--_layout---spacing--global-padding"
+      ]
+    }
+  }
+}

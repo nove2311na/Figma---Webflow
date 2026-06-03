@@ -76,6 +76,7 @@ agentic/policies/tool-risk-levels.md
 agentic/prompts/extract-figma-context.md
 agentic/prompts/generate-cf-library.md
 agentic/prompts/read-figma-data.md
+agentic/prompts/sync-design-system-from-figma.md
 agentic/README.md
 agentic/rules/asset-alt.rules.yaml
 agentic/rules/class-selection.rules.yaml
@@ -139,6 +140,7 @@ AGENTS.md
 CLAUDE.md
 knowledge-base/client-first-class-map.json
 knowledge-base/client-first-theory.md
+knowledge-base/design-system-contract.json
 knowledge-base/generated/client-first-library-contract.json
 knowledge-base/generated/css-breakpoint-index.json
 knowledge-base/generated/css-class-index.json
@@ -162,6 +164,7 @@ scripts/gates/validate_build_contract.py
 scripts/gates/validate_client_first_library.py
 scripts/gates/validate_css_contract.py
 scripts/gates/validate_css_index.py
+scripts/gates/validate_design_system_sync.py
 scripts/gates/validate_figma_node_bundle.py
 scripts/gates/validate_phase_state.py
 scripts/gates/validate_project_library.py
@@ -188,6 +191,117 @@ tools/utils.py
 
 <files>
 This section contains the contents of the repository's files.
+
+<file path="agentic/prompts/sync-design-system-from-figma.md">
+ 1: # Prompt: Sync Design System from Figma
+ 2: 
+ 3: This prompt describes how to validate and synchronize the Figma variable collections and styles against the Client-First CSS contract.
+ 4: 
+ 5: ## Context
+ 6: 
+ 7: This phase runs after the Figma extraction node bundle is saved. You must read from the extraction files directly (`workspace/figma/figma.node-bundle.json` and `workspace/figma/variable-defs.json`). Do NOT make live Figma MCP requests.
+ 8: 
+ 9: ## Strict Sync Rules
+10: 
+11: 1. **Strict Token Matching**: Every design system token (colors, spacing, font weight) used in the design frame must match a corresponding allowed variable in the Client-First Library Contract.
+12: 2. **Missing Token = Blocker**: If a Figma variable or theme alias cannot be resolved to an allowed CSS variable, flag it as a `blocker` and stop the pipeline.
+13: 3. **No Automatic Class Proposals**: If a styling value is missing or untokenized, the sync tool must NOT propose new classes or variables.
+14: 4. **No Hardcoded Hex/Rem Values**: All properties must resolve to variable-backed Client-First classes. Hardcoded spacing or color values on elements are blockers.
+15: 
+16: ## Sync Report Output
+17: 
+18: Write the sync report to `workspace/reports/design-system-sync-report.json` with the following structure:
+19: - `timestamp`: Sync runtime.
+20: - `matched_tokens`: Mapped variable names and target CSS variables.
+21: - `missing_tokens`: List of Figma variables that are missing in the CSS contract (leads to failure).
+22: - `unmapped_styles`: List of style guides or styles not mapped.
+23: - `hardcoded_values`: List of layers containing raw color/spacing overrides.
+24: - `blockers`: List of blocker errors.
+25: - `status`: `"pass"` | `"failed"` (fails if any blockers or missing tokens exist).
+</file>
+
+<file path="knowledge-base/design-system-contract.json">
+ 1: {
+ 2:   "version": "1.0.0",
+ 3:   "collections": {
+ 4:     "base": {
+ 5:       "required_variables": [
+ 6:         "--font-family--primary",
+ 7:         "--font-weight--light",
+ 8:         "--font-weight--normal",
+ 9:         "--font-weight--medium",
+10:         "--font-weight--semibold",
+11:         "--font-weight--bold"
+12:       ]
+13:     },
+14:     "theme": {
+15:       "required_variables": [
+16:         "--_theme---text-color--primary",
+17:         "--_theme---background-color--primary",
+18:         "--_theme---border-color--primary"
+19:       ]
+20:     },
+21:     "layout": {
+22:       "required_variables": [
+23:         "--_layout---spacing--medium",
+24:         "--_layout---spacing--global-padding"
+25:       ]
+26:     }
+27:   }
+28: }
+</file>
+
+<file path="scripts/gates/validate_design_system_sync.py">
+ 1: import os
+ 2: import sys
+ 3: import json
+ 4: 
+ 5: def main():
+ 6:     root_dir = os.path.abspath(os.path.join(os.path.dirname(__file__), "..", ".."))
+ 7:     report_path = os.path.join(root_dir, "workspace", "reports", "design-system-sync-report.json")
+ 8:     print(f"Validating Design System Sync Report at: {report_path}")
+ 9:     
+10:     errors = []
+11:     
+12:     if not os.path.exists(report_path):
+13:         errors.append(f"Sync report is missing: design-system-sync-report.json. Run sync command first.")
+14:     else:
+15:         try:
+16:             with open(report_path, "r", encoding="utf-8") as f:
+17:                 report = json.load(f)
+18:                 
+19:             # Perform strict validation
+20:             for prop in ["timestamp", "matched_tokens", "missing_tokens", "unmapped_styles", "hardcoded_values", "blockers", "status"]:
+21:                 if prop not in report:
+22:                     errors.append(f"Property '{prop}' is missing from design-system-sync-report.json")
+23:                     
+24:             status = report.get("status", "")
+25:             if status != "pass":
+26:                 errors.append(f"Sync status is '{status}' (must be 'pass')")
+27:                 
+28:             blockers = report.get("blockers", [])
+29:             if blockers:
+30:                 errors.append(f"Sync report contains blockers: {blockers}")
+31:                 
+32:             missing_tokens = report.get("missing_tokens", [])
+33:             if missing_tokens:
+34:                 errors.append(f"Sync report contains missing tokens: {missing_tokens}")
+35:                 
+36:         except Exception as e:
+37:             errors.append(f"Failed to parse design-system-sync-report.json as valid JSON: {e}")
+38:             
+39:     if errors:
+40:         print("\n--- DESIGN SYSTEM SYNC VALIDATION FAILED ---")
+41:         for err in errors:
+42:             print(f"ERROR: {err}")
+43:         sys.exit(1)
+44:     else:
+45:         print("\n--- DESIGN SYSTEM SYNC VALIDATION PASSED ---")
+46:         sys.exit(0)
+47: 
+48: if __name__ == "__main__":
+49:     main()
+</file>
 
 <file path="agentic/evals/golden-tasks/README.md">
 1: # Golden Tasks
@@ -1668,12 +1782,72 @@ This section contains the contents of the repository's files.
 </file>
 
 <file path="agentic/schemas/design-system-sync-report.schema.json">
-1: {
-2:   "$schema": "http://json-schema.org/draft-07/schema#",
-3:   "title": "Design System Sync Report",
-4:   "type": "object",
-5:   "properties": {}
-6: }
+ 1: {
+ 2:   "$schema": "http://json-schema.org/draft-07/schema#",
+ 3:   "title": "Design System Sync Report Schema",
+ 4:   "type": "object",
+ 5:   "required": [
+ 6:     "timestamp",
+ 7:     "matched_tokens",
+ 8:     "missing_tokens",
+ 9:     "unmapped_styles",
+10:     "hardcoded_values",
+11:     "blockers",
+12:     "status"
+13:   ],
+14:   "properties": {
+15:     "timestamp": {
+16:       "type": "string",
+17:       "format": "date-time"
+18:     },
+19:     "matched_tokens": {
+20:       "type": "array",
+21:       "items": {
+22:         "type": "object",
+23:         "required": ["figma_token", "css_variable"],
+24:         "properties": {
+25:           "figma_token": { "type": "string" },
+26:           "css_variable": { "type": "string" }
+27:         }
+28:       }
+29:     },
+30:     "missing_tokens": {
+31:       "type": "array",
+32:       "items": {
+33:         "type": "object",
+34:         "required": ["figma_token", "severity"],
+35:         "properties": {
+36:           "figma_token": { "type": "string" },
+37:           "severity": { "type": "string", "enum": ["high", "medium", "low"] }
+38:         }
+39:       }
+40:     },
+41:     "unmapped_styles": {
+42:       "type": "array",
+43:       "items": { "type": "string" }
+44:     },
+45:     "hardcoded_values": {
+46:       "type": "array",
+47:       "items": {
+48:         "type": "object",
+49:         "required": ["layer_name", "property", "value"],
+50:         "properties": {
+51:           "layer_name": { "type": "string" },
+52:           "property": { "type": "string" },
+53:           "value": { "type": "string" }
+54:         }
+55:       }
+56:     },
+57:     "blockers": {
+58:       "type": "array",
+59:       "items": { "type": "string" }
+60:     },
+61:     "status": {
+62:       "type": "string",
+63:       "enum": ["pass", "failed"]
+64:     }
+65:   }
+66: }
 </file>
 
 <file path="agentic/schemas/error-log.schema.json">
