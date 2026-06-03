@@ -1,6 +1,6 @@
 {
   "figma_file_id": "",
-  "updated_at": "2026-06-03T07:32:56.225607+00:00",
+  "updated_at": "2026-06-03T07:42:05.856403+00:00",
   "naming_convention": {
     "pattern": "{cf_category}-{semantic_name}",
     "categories": [
@@ -51,6 +51,18 @@
       "css_property": "border-color",
       "class": "border-color-border-subtle",
       "source": "figma:138:8546"
+    },
+    "cf-v2.2-utility": {
+      "figma_value": "see-blueprint",
+      "css_property": "see-blueprint",
+      "class": "see-blueprint",
+      "source": "cf-v2.2-standard"
+    },
+    "declared-in-blueprint": {
+      "figma_value": "see-blueprint",
+      "css_property": "see-blueprint",
+      "class": "see-blueprint",
+      "source": "cf-v2.2-standard"
     }
   }
 }

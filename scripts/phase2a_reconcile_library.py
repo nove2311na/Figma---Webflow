@@ -55,6 +55,7 @@ def main() -> int:
     blueprint_class_names = {nc["name"] for nc in blueprint["new_classes"]}
 
     updated = 0
+    added = 0
     for name, entry in lib["classes"].items():
         if name in blueprint_class_names:
             entry["status"] = "created_on_webflow"
@@ -67,11 +68,29 @@ def main() -> int:
         else:
             entry.setdefault("figma_token", "cf-v2.2-utility")
 
+    # Add any blueprint new_classes missing from library (PM created them on Webflow but
+    # they were never registered).
+    for nc in blueprint["new_classes"]:
+        name = nc["name"]
+        if name not in lib["classes"]:
+            token = COLOR_TOKEN_MAP.get(name, "declared-in-blueprint")
+            lib["classes"][name] = {
+                "cf_category": nc["cf_category"],
+                "webflow_property": nc["webflow_property"],
+                "value": nc["value"],
+                "figma_token": token,
+                "status": "created_on_webflow",
+                "created_at": now,
+                "source": nc.get("source", "figma_adapt")
+            }
+            added += 1
+
     lib["version"] = "0.3.0"
     lib["updated_at"] = now
     lib["reconciled_count"] = updated
+    lib["added_during_reconcile"] = added
     LIB_PATH.write_text(json.dumps(lib, indent=2, ensure_ascii=False), encoding="utf-8")
-    print(f"updated {updated} class entries in client-first-library.json")
+    print(f"updated {updated} class entries; added {added} missing class entries; total {len(lib['classes'])}")
 
     # Create figma-token-map.json (was missing per explore)
     figma_colors = raw["tokens"]["color"]

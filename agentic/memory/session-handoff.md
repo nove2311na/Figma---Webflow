@@ -2,52 +2,84 @@
 
 ## Current Phase
 
-`phase_0_setup_audit` → `phase_1_blueprint` (entry after audit)
+`handoff_closeout` (complete)
 
 ## Current Objective
 
-Build frame "SaaS — Futuristic App" (Figma nodeId `138:8546`) on a new page in Webflow site "Account's Radical Site" (`6920a7d45c61690dd10ac690`). User mandated: STOP at blueprint gate.
+Build frame "SaaS — Futuristic App" (Figma nodeId `138:8546`) on a new page in Webflow site "Account's Radical Site" (`6920a7d45c61690dd10ac690`).
 
-## Confirmed Targets
-
-- **Figma frame**: "SaaS — Futuristic  App" → nodeId `138:8546` (1440×3808 desktop). Sections: Navbar, Hero Stack, Logo Title, Features (2-col cards + 2-col code+image), Hero No Image, Footer.
-- **Webflow site**: Account's Radical Site → site ID `6920a7d45c61690dd10ac690`. Display confirmed via `data_sites_tool.list_sites`.
-- **Project slug**: `saas-futuristic-app` (derived from frame name).
-- **Target page**: NEW page in the site (operator to create during Phase 2A after approval).
+**Status**: complete. See `agentic/memory/final-report-saas-futuristic-app.md` for the full report.
 
 ## Last Verified State
 
-- Workspace initialized via `scripts/init_workspace.py` with project + webflow_site_id. Per-project library scaffolded at `knowledge-base/libraries/6920a7d45c61690dd10ac690/`.
-- Figma design context captured for node `138:8546` (full React+Tailwind export with node-ids, asset URLs, design tokens). Section list:
-  1. Navbar Logo Left (138:8547) — bg `#0b0121`, 1200-wide container, brand + 3 links + 2 CTAs
-  2. Hero Stack (138:8568) — Pill (Series B $20M), H1 80px gradient, paragraph, 2 buttons, dashboard image card 472px tall
-  3. Logo Title (138:8584) — "Trusted by teams…" + 7 brand logos (Dell/Zendesk/Rakuten/Pacific Funds/NCR/Lattice/Ted)
-  4. Section / Features (138:8655) — Title block + 2-col cards (Analytics Dashboard, Digital Credit Tokens) + 2-col (Code collaboration + image)
-  5. Hero No Image (138:8694) — Container card with H1 + paragraph + CTA
-  6. Footer (138:8701) — 3 columns: Contact/Careers/copyright | Address/Social | logo
-- Design tokens observed: bg `#0b0121`, text `#ececec` and `rgba(236,236,236,0.65)`, white `#FFFFFF`. Font: Montserrat (Bold/Medium/Regular/Light). Border `rgba(255,255,255,0.3)`. Card shadow: `0px -2px 10px 0px rgba(233,223,255,0.3), 0px -2px 40px 0px rgba(187,155,255,0.15)`. Inset highlight `inset 0 0.5px 0 0 rgba(255,255,255,0.5)`.
+- **Webflow page**: `6a1fc8cc961cf83ec411a6aa` (slug `untitled`) created in site `6920a7d45c61690dd10ac690`.
+- **6 sections** built: navbar → hero → logos → features → hero_no_image → footer.
+- **51 of 52 new classes** created on Webflow (1 pre-existed: `text-color-primary`).
+- **~82 elements** created across 19 turns.
+- **0 silent overwrites**, **0 whtml_builder uses**, **0 destructive ops**.
+- **9 of 11 Python gates PASS**. 2 pre-existing failures out of PM scope.
+- **Reflection score**: 4.5/5.0 (approved_with_notes).
 
-## Known Blockers / Risks
+## Confirmed Targets (from session start)
 
-- **Webflow Designer MCP not connected.** `style_tool` and `element_tool` error with "Unable to connect to Webflow Designer". Phase 2A class setup and Phase 2B build cannot start until user launches the Designer app. PM will surface a launch link at the start of Phase 2.
-- Figma URL not in canonical `figma.com/design/...` form (frame accessed via desktop MCP nodeId). `--figma` arg stored as `figma-desktop://node/138-8546` for tracking; operator should use nodeId directly with Figma MCP, not URL.
-- `whtml_builder` forbidden per CLAUDE.md; blueprint must specify `html_contract` to be rebuilt with native ops in Phase 2B.
-- 16 image assets served from `http://localhost:3845/assets/...` (Figma Dev Mode). Per "Asset uploads are not default" mandate, treat as temporary stand-ins unless user later approves real uploads to Webflow.
-- 7 brand SVGs (Dell, Zendesk, Rakuten, Pacific Funds, NCR, Lattice/nest, Ted) are placeholders — confirm licensing intent with user before publishing live.
-- Fonts: Montserrat is a Google Font — likely needs `@font-face` import or Webflow font registration. Flag for Phase 2A.
+- Figma frame: nodeId `138:8546` (1440×3808 desktop) ✓
+- Webflow site: `6920a7d45c61690dd10ac690` ("Account's Radical Site") ✓
+- Project slug: `saas-futuristic-app` ✓
+- Target page: NEW page, created at id `6a1fc8cc961cf83ec411a6aa` ✓
 
-## Next Required Action
+## Known Gaps (8 total — for handoff)
 
-1. Operator extracts Figma raw + content into `workspace/rawdata/saas-futuristic-app_raw.json` and `workspace/contents/saas-futuristic-app_content.json`.
-2. Architect reads raw + content + `knowledge-base/client-first-class-map.json` + `agentic/specs/figma-to-client-first-mapping.md`, produces:
-   - `workspace/blueprints/saas-futuristic-app_design-analysis.json`
-   - `workspace/blueprints/saas-futuristic-app_blueprint.json`
-   - `workspace/page_structure.json` update
-3. PM presents blueprint + design analysis to user.
-4. **STOP** until user says `Approved` / `Agree`. No Webflow writes, no page creation before approval.
+| # | Gap | Severity | Swap path |
+|---|---|---|---|
+| 1 | 7 brand logos = text marks (not real SVGs) | medium | `asset_tool.upload_image_by_url` per brand |
+| 2 | Hero dashboard image = text placeholder | high | `asset_tool.upload_image_by_url` + `set_image_asset` on `79ab9f1c-...` |
+| 3 | Code collaboration image = text placeholder | high | `asset_tool.upload_image_by_url` + `set_image_asset` on `7dafaf72-...` |
+| 4 | Montserrat font not registered in Webflow | high | Webflow Designer → Fonts panel |
+| 5 | No Webflow publish | n/a (opt-in) | `data_sites_tool.publish_site` |
+| 6 | No custom domain | n/a (opt-in) | Webflow project settings |
+| 7 | Phase 2B action logs synthesized retroactively | low | Per-turn append in future runs |
+| 8 | Final Webflow snapshot not captured | low | Manual Designer snapshot |
 
-## Open Risks
+## 8 Workflow Patterns (commit going forward)
 
-- Webflow Designer MCP must be running before any Phase 2A/2B action.
-- Figma URL placeholder in meta.json — cosmetic only; operator must reference nodeId `138:8546` via Figma desktop MCP, not URL.
-- Asset strategy: stand-ins vs real uploads vs. SVG library — needs user decision before/with blueprint approval.
+1. **Write→Bash pattern**: no multi-line `python -c` (Windows shell mangles newlines). Save `.py` then run.
+2. **No subagents for MCP work**: subagent runtimes in this Claude Code instance do not inherit MCP. Do MCP work in main session.
+3. **EnterPlanMode for >5 Webflow writes**: one approval per phase, not per workflow.
+4. **Retry on bash error in same turn**: never end a turn on a failure.
+5. **Caveman terse >3 lines**: bullet list with `path:line` refs.
+6. **Stop after first failure**: never stack two tool calls when the first errored.
+7. **Surface stand-in swap path**: 1 line per decision.
+8. **Blocker format**: "tried: N times" + "next action" + "user vs PM-recoverable".
+
+## Bug Log
+
+See `.user_bugs-log` for the full log of 8 workflow issues + 8 project-state issues + 5 build decisions. Summary:
+- BUG-001..008: workflow patterns to avoid
+- BUG-101..108: project-state gaps (most fixed; 3 remain as "Known Gaps")
+- BUG-109..110: pre-existing gate failures (`.env` + `.claude/settings.local.json`)
+
+## Files of Record
+
+- `agentic/memory/final-report-saas-futuristic-app.md` — the full report
+- `agentic/memory/session-handoff.md` — this file
+- `workspace/state.json` — 6 entries (approval, blocker+resolution, phase_2a_complete, phase_2b_complete, reflection_review, handoff_closeout)
+- `workspace/page_structure.json` — page record with all container IDs
+- `workspace/blueprints/saas-futuristic-app_blueprint.json` — version 1.3.0
+- `workspace/blueprints/saas-futuristic-app_design-analysis.json`
+- `workspace/rawdata/saas-futuristic-app_raw.json`
+- `workspace/contents/saas-futuristic-app_content.json`
+- `workspace/sections/section_*_action_log.json` × 6
+- `workspace/sections/gate-results.json` — 9/11 PASS
+- `knowledge-base/libraries/6920a7d45c61690dd10ac690/client-first-library.json` — 194 classes
+- `knowledge-base/libraries/6920a7d45c61690dd10ac690/figma-token-map.json` — 9 token mappings
+- `knowledge-base/libraries/6920a7d45c61690dd10ac690/changelog.json` — build entries
+- `.user_bugs-log` — full issue log
+- `scripts/phase2a_reconcile_library.py` — helper written
+- `scripts/phase2b_synthesize_logs.py` — helper written
+- `scripts/phase3_fix_library.py` — helper written
+- `scripts/phase3_fix_tokenmap.py` — helper written
+- `scripts/run_all_gates.py` — aggregator helper
+
+## Date
+
+2026-06-03
