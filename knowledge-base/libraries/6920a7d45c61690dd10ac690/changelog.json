@@ -1,0 +1,29 @@
+[
+  {
+    "id": "figma_adapt_138_8546_2026-06-03",
+    "source": "figma_adapt",
+    "timestamp": "2026-06-03T00:00:00Z",
+    "agent": "client-first-architect",
+    "project": "saas-futuristic-app",
+    "figma_node_id": "138:8546",
+    "figma_frame_name": "SaaS — Futuristic  App",
+    "webflow_site_id": "6920a7d45c61690dd10ac690",
+    "blueprint_path": "workspace/blueprints/saas-futuristic-app_blueprint.json",
+    "design_analysis_path": "workspace/blueprints/saas-futuristic-app_design-analysis.json",
+    "classes_added_count": 41,
+    "sections_count": 6,
+    "asset_placeholders_count": 16,
+    "color_tokens_pending": [
+      "background-base",
+      "primary",
+      "muted",
+      "caption",
+      "inverse",
+      "footer-muted",
+      "border-subtle"
+    ],
+    "queued_for": "phase_2a_class_setup",
+    "status": "draft_for_PM_review",
+    "notes": "Project library is empty. All 7 color tokens must be registered in knowledge-base/libraries/6920a7d45c61690dd10ac690/client-first-library.json before any of the 31 new classes are created. Asset uploads deferred until user approval. Montserrat font must be registered on the Webflow site before build."
+  }
+]

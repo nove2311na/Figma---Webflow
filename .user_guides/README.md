@@ -24,6 +24,12 @@ Webflow live page
 | **Developer / Operator** — chạy pipeline, quản lý repo | [`for-developers.md`](./for-developers.md) |
 | **LLM / AI Agent** — thực thi task trong repo này | [`for-agents.md`](./for-agents.md) |
 
+## Setup môi trường
+
+| Việc | File |
+|---|---|
+| Cài Webflow + Figma MCP cho 1 repo (Claude Code) — gồm audit trạng thái repo này, fast-path lặp lại cho repo khác, troubleshooting, caveats | [`setup-mcp-webflow-figma.md`](./setup-mcp-webflow-figma.md) |
+
 ## Sơ đồ hệ sinh thái
 
 ```

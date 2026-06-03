@@ -1,0 +1,952 @@
+{
+  "project_id": "6920a7d45c61690dd10ac690",
+  "webflow_site_id": "6920a7d45c61690dd10ac690",
+  "figma_file_id": "",
+  "version": "0.3.0",
+  "updated_at": "2026-06-03T07:32:56.225607+00:00",
+  "classes": {
+    "page-wrapper": {
+      "cf_category": "utility",
+      "source": "client-first-v2.2-standard",
+      "status": "declared_pending_webflow_creation",
+      "figma_token": "cf-v2.2-utility"
+    },
+    "main-wrapper": {
+      "cf_category": "utility",
+      "source": "client-first-v2.2-standard",
+      "status": "declared_pending_webflow_creation",
+      "figma_token": "cf-v2.2-utility"
+    },
+    "padding-global": {
+      "cf_category": "utility",
+      "source": "client-first-v2.2-standard",
+      "status": "declared_pending_webflow_creation",
+      "figma_token": "cf-v2.2-utility"
+    },
+    "container-large": {
+      "cf_category": "utility",
+      "source": "client-first-v2.2-standard",
+      "status": "declared_pending_webflow_creation",
+      "figma_token": "cf-v2.2-utility"
+    },
+    "container-medium": {
+      "cf_category": "utility",
+      "source": "client-first-v2.2-standard",
+      "status": "declared_pending_webflow_creation",
+      "figma_token": "cf-v2.2-utility"
+    },
+    "padding-section-small": {
+      "cf_category": "utility",
+      "source": "client-first-v2.2-standard",
+      "status": "declared_pending_webflow_creation",
+      "figma_token": "cf-v2.2-utility"
+    },
+    "padding-section-large": {
+      "cf_category": "utility",
+      "source": "client-first-v2.2-standard",
+      "status": "declared_pending_webflow_creation",
+      "figma_token": "cf-v2.2-utility"
+    },
+    "heading-style-h1": {
+      "cf_category": "utility",
+      "source": "client-first-v2.2-standard",
+      "status": "declared_pending_webflow_creation",
+      "figma_token": "cf-v2.2-utility"
+    },
+    "heading-style-h2": {
+      "cf_category": "utility",
+      "source": "client-first-v2.2-standard",
+      "status": "declared_pending_webflow_creation",
+      "figma_token": "cf-v2.2-utility"
+    },
+    "heading-style-h3": {
+      "cf_category": "utility",
+      "source": "client-first-v2.2-standard",
+      "status": "declared_pending_webflow_creation",
+      "figma_token": "cf-v2.2-utility"
+    },
+    "text-size-tiny": {
+      "cf_category": "utility",
+      "source": "client-first-v2.2-standard",
+      "status": "declared_pending_webflow_creation",
+      "figma_token": "cf-v2.2-utility"
+    },
+    "text-size-small": {
+      "cf_category": "utility",
+      "source": "client-first-v2.2-standard",
+      "status": "declared_pending_webflow_creation",
+      "figma_token": "cf-v2.2-utility"
+    },
+    "text-size-regular": {
+      "cf_category": "utility",
+      "source": "client-first-v2.2-standard",
+      "status": "declared_pending_webflow_creation",
+      "figma_token": "cf-v2.2-utility"
+    },
+    "text-size-medium": {
+      "cf_category": "utility",
+      "source": "client-first-v2.2-standard",
+      "status": "declared_pending_webflow_creation",
+      "figma_token": "cf-v2.2-utility"
+    },
+    "text-size-large": {
+      "cf_category": "utility",
+      "source": "client-first-v2.2-standard",
+      "status": "declared_pending_webflow_creation",
+      "figma_token": "cf-v2.2-utility"
+    },
+    "text-weight-light": {
+      "cf_category": "utility",
+      "source": "client-first-v2.2-standard",
+      "status": "declared_pending_webflow_creation",
+      "figma_token": "cf-v2.2-utility"
+    },
+    "text-weight-normal": {
+      "cf_category": "utility",
+      "source": "client-first-v2.2-standard",
+      "status": "declared_pending_webflow_creation",
+      "figma_token": "cf-v2.2-utility"
+    },
+    "text-weight-medium": {
+      "cf_category": "utility",
+      "source": "client-first-v2.2-standard",
+      "status": "declared_pending_webflow_creation",
+      "figma_token": "cf-v2.2-utility"
+    },
+    "text-weight-semibold": {
+      "cf_category": "utility",
+      "source": "client-first-v2.2-standard",
+      "status": "declared_pending_webflow_creation",
+      "figma_token": "cf-v2.2-utility"
+    },
+    "text-weight-bold": {
+      "cf_category": "utility",
+      "source": "client-first-v2.2-standard",
+      "status": "declared_pending_webflow_creation",
+      "figma_token": "cf-v2.2-utility"
+    },
+    "text-weight-xbold": {
+      "cf_category": "utility",
+      "source": "client-first-v2.2-standard",
+      "status": "declared_pending_webflow_creation",
+      "figma_token": "cf-v2.2-utility"
+    },
+    "text-align-left": {
+      "cf_category": "utility",
+      "source": "client-first-v2.2-standard",
+      "status": "declared_pending_webflow_creation",
+      "figma_token": "cf-v2.2-utility"
+    },
+    "text-align-center": {
+      "cf_category": "utility",
+      "source": "client-first-v2.2-standard",
+      "status": "declared_pending_webflow_creation",
+      "figma_token": "cf-v2.2-utility"
+    },
+    "text-align-right": {
+      "cf_category": "utility",
+      "source": "client-first-v2.2-standard",
+      "status": "declared_pending_webflow_creation",
+      "figma_token": "cf-v2.2-utility"
+    },
+    "text-style-allcaps": {
+      "cf_category": "utility",
+      "source": "client-first-v2.2-standard",
+      "status": "declared_pending_webflow_creation",
+      "figma_token": "cf-v2.2-utility"
+    },
+    "text-style-italic": {
+      "cf_category": "utility",
+      "source": "client-first-v2.2-standard",
+      "status": "declared_pending_webflow_creation",
+      "figma_token": "cf-v2.2-utility"
+    },
+    "text-style-link": {
+      "cf_category": "utility",
+      "source": "client-first-v2.2-standard",
+      "status": "declared_pending_webflow_creation",
+      "figma_token": "cf-v2.2-utility"
+    },
+    "text-style-muted": {
+      "cf_category": "utility",
+      "source": "client-first-v2.2-standard",
+      "status": "declared_pending_webflow_creation",
+      "figma_token": "cf-v2.2-utility"
+    },
+    "text-style-nowrap": {
+      "cf_category": "utility",
+      "source": "client-first-v2.2-standard",
+      "status": "declared_pending_webflow_creation",
+      "figma_token": "cf-v2.2-utility"
+    },
+    "text-style-quote": {
+      "cf_category": "utility",
+      "source": "client-first-v2.2-standard",
+      "status": "declared_pending_webflow_creation",
+      "figma_token": "cf-v2.2-utility"
+    },
+    "text-style-strikethrough": {
+      "cf_category": "utility",
+      "source": "client-first-v2.2-standard",
+      "status": "declared_pending_webflow_creation",
+      "figma_token": "cf-v2.2-utility"
+    },
+    "text-style-2lines": {
+      "cf_category": "utility",
+      "source": "client-first-v2.2-standard",
+      "status": "declared_pending_webflow_creation",
+      "figma_token": "cf-v2.2-utility"
+    },
+    "text-style-3lines": {
+      "cf_category": "utility",
+      "source": "client-first-v2.2-standard",
+      "status": "declared_pending_webflow_creation",
+      "figma_token": "cf-v2.2-utility"
+    },
+    "text-style-1line": {
+      "cf_category": "utility",
+      "source": "client-first-v2.2-standard",
+      "status": "declared_pending_webflow_creation",
+      "figma_token": "cf-v2.2-utility"
+    },
+    "text-style-balance": {
+      "cf_category": "utility",
+      "source": "client-first-v2.2-standard",
+      "status": "declared_pending_webflow_creation",
+      "figma_token": "cf-v2.2-utility"
+    },
+    "text-style-pretty": {
+      "cf_category": "utility",
+      "source": "client-first-v2.2-standard",
+      "status": "declared_pending_webflow_creation",
+      "figma_token": "cf-v2.2-utility"
+    },
+    "hide": {
+      "cf_category": "utility",
+      "source": "client-first-v2.2-standard",
+      "status": "declared_pending_webflow_creation",
+      "figma_token": "cf-v2.2-utility"
+    },
+    "hide-tablet": {
+      "cf_category": "utility",
+      "source": "client-first-v2.2-standard",
+      "status": "declared_pending_webflow_creation",
+      "figma_token": "cf-v2.2-utility"
+    },
+    "hide-mobile-landscape": {
+      "cf_category": "utility",
+      "source": "client-first-v2.2-standard",
+      "status": "declared_pending_webflow_creation",
+      "figma_token": "cf-v2.2-utility"
+    },
+    "hide-mobile-portrait": {
+      "cf_category": "utility",
+      "source": "client-first-v2.2-standard",
+      "status": "declared_pending_webflow_creation",
+      "figma_token": "cf-v2.2-utility"
+    },
+    "display-inlineflex": {
+      "cf_category": "utility",
+      "source": "client-first-v2.2-standard",
+      "status": "declared_pending_webflow_creation",
+      "figma_token": "cf-v2.2-utility"
+    },
+    "button": {
+      "cf_category": "utility",
+      "source": "client-first-v2.2-standard",
+      "status": "declared_pending_webflow_creation",
+      "figma_token": "cf-v2.2-utility"
+    },
+    "is-secondary": {
+      "cf_category": "utility",
+      "source": "client-first-v2.2-standard",
+      "status": "declared_pending_webflow_creation",
+      "figma_token": "cf-v2.2-utility"
+    },
+    "is-text": {
+      "cf_category": "utility",
+      "source": "client-first-v2.2-standard",
+      "status": "declared_pending_webflow_creation",
+      "figma_token": "cf-v2.2-utility"
+    },
+    "max-width-xxlarge": {
+      "cf_category": "utility",
+      "source": "client-first-v2.2-standard",
+      "status": "declared_pending_webflow_creation",
+      "figma_token": "cf-v2.2-utility"
+    },
+    "max-width-xlarge": {
+      "cf_category": "utility",
+      "source": "client-first-v2.2-standard",
+      "status": "declared_pending_webflow_creation",
+      "figma_token": "cf-v2.2-utility"
+    },
+    "max-width-large": {
+      "cf_category": "utility",
+      "source": "client-first-v2.2-standard",
+      "status": "declared_pending_webflow_creation",
+      "figma_token": "cf-v2.2-utility"
+    },
+    "max-width-medium": {
+      "cf_category": "utility",
+      "source": "client-first-v2.2-standard",
+      "status": "declared_pending_webflow_creation",
+      "figma_token": "cf-v2.2-utility"
+    },
+    "max-width-small": {
+      "cf_category": "utility",
+      "source": "client-first-v2.2-standard",
+      "status": "declared_pending_webflow_creation",
+      "figma_token": "cf-v2.2-utility"
+    },
+    "max-width-xsmall": {
+      "cf_category": "utility",
+      "source": "client-first-v2.2-standard",
+      "status": "declared_pending_webflow_creation",
+      "figma_token": "cf-v2.2-utility"
+    },
+    "max-width-xxsmall": {
+      "cf_category": "utility",
+      "source": "client-first-v2.2-standard",
+      "status": "declared_pending_webflow_creation",
+      "figma_token": "cf-v2.2-utility"
+    },
+    "max-width-full": {
+      "cf_category": "utility",
+      "source": "client-first-v2.2-standard",
+      "status": "declared_pending_webflow_creation",
+      "figma_token": "cf-v2.2-utility"
+    },
+    "max-width-full-tablet": {
+      "cf_category": "utility",
+      "source": "client-first-v2.2-standard",
+      "status": "declared_pending_webflow_creation",
+      "figma_token": "cf-v2.2-utility"
+    },
+    "max-width-full-mobile-landscape": {
+      "cf_category": "utility",
+      "source": "client-first-v2.2-standard",
+      "status": "declared_pending_webflow_creation",
+      "figma_token": "cf-v2.2-utility"
+    },
+    "max-width-full-mobile-portrait": {
+      "cf_category": "utility",
+      "source": "client-first-v2.2-standard",
+      "status": "declared_pending_webflow_creation",
+      "figma_token": "cf-v2.2-utility"
+    },
+    "icon-height-small": {
+      "cf_category": "utility",
+      "source": "client-first-v2.2-standard",
+      "status": "declared_pending_webflow_creation",
+      "figma_token": "cf-v2.2-utility"
+    },
+    "icon-height-medium": {
+      "cf_category": "utility",
+      "source": "client-first-v2.2-standard",
+      "status": "declared_pending_webflow_creation",
+      "figma_token": "cf-v2.2-utility"
+    },
+    "icon-height-large": {
+      "cf_category": "utility",
+      "source": "client-first-v2.2-standard",
+      "status": "declared_pending_webflow_creation",
+      "figma_token": "cf-v2.2-utility"
+    },
+    "icon-1x1-small": {
+      "cf_category": "utility",
+      "source": "client-first-v2.2-standard",
+      "status": "declared_pending_webflow_creation",
+      "figma_token": "cf-v2.2-utility"
+    },
+    "icon-1x1-medium": {
+      "cf_category": "utility",
+      "source": "client-first-v2.2-standard",
+      "status": "declared_pending_webflow_creation",
+      "figma_token": "cf-v2.2-utility"
+    },
+    "icon-1x1-large": {
+      "cf_category": "utility",
+      "source": "client-first-v2.2-standard",
+      "status": "declared_pending_webflow_creation",
+      "figma_token": "cf-v2.2-utility"
+    },
+    "z-index-1": {
+      "cf_category": "utility",
+      "source": "client-first-v2.2-standard",
+      "status": "declared_pending_webflow_creation",
+      "figma_token": "cf-v2.2-utility"
+    },
+    "z-index-2": {
+      "cf_category": "utility",
+      "source": "client-first-v2.2-standard",
+      "status": "declared_pending_webflow_creation",
+      "figma_token": "cf-v2.2-utility"
+    },
+    "align-center": {
+      "cf_category": "utility",
+      "source": "client-first-v2.2-standard",
+      "status": "declared_pending_webflow_creation",
+      "figma_token": "cf-v2.2-utility"
+    },
+    "layer": {
+      "cf_category": "utility",
+      "source": "client-first-v2.2-standard",
+      "status": "declared_pending_webflow_creation",
+      "figma_token": "cf-v2.2-utility"
+    },
+    "pointer-events-none": {
+      "cf_category": "utility",
+      "source": "client-first-v2.2-standard",
+      "status": "declared_pending_webflow_creation",
+      "figma_token": "cf-v2.2-utility"
+    },
+    "pointer-events-auto": {
+      "cf_category": "utility",
+      "source": "client-first-v2.2-standard",
+      "status": "declared_pending_webflow_creation",
+      "figma_token": "cf-v2.2-utility"
+    },
+    "overflow-hidden": {
+      "cf_category": "utility",
+      "source": "client-first-v2.2-standard",
+      "status": "declared_pending_webflow_creation",
+      "figma_token": "cf-v2.2-utility"
+    },
+    "overflow-scroll": {
+      "cf_category": "utility",
+      "source": "client-first-v2.2-standard",
+      "status": "declared_pending_webflow_creation",
+      "figma_token": "cf-v2.2-utility"
+    },
+    "overflow-auto": {
+      "cf_category": "utility",
+      "source": "client-first-v2.2-standard",
+      "status": "declared_pending_webflow_creation",
+      "figma_token": "cf-v2.2-utility"
+    },
+    "aspect-ratio-square": {
+      "cf_category": "utility",
+      "source": "client-first-v2.2-standard",
+      "status": "declared_pending_webflow_creation",
+      "figma_token": "cf-v2.2-utility"
+    },
+    "aspect-ratio-portrait": {
+      "cf_category": "utility",
+      "source": "client-first-v2.2-standard",
+      "status": "declared_pending_webflow_creation",
+      "figma_token": "cf-v2.2-utility"
+    },
+    "aspect-ratio-landscape": {
+      "cf_category": "utility",
+      "source": "client-first-v2.2-standard",
+      "status": "declared_pending_webflow_creation",
+      "figma_token": "cf-v2.2-utility"
+    },
+    "aspect-ratio-widescreen": {
+      "cf_category": "utility",
+      "source": "client-first-v2.2-standard",
+      "status": "declared_pending_webflow_creation",
+      "figma_token": "cf-v2.2-utility"
+    },
+    "flex-horizontal": {
+      "cf_category": "utility",
+      "source": "client-first-v2.2-standard",
+      "status": "declared_pending_webflow_creation",
+      "figma_token": "cf-v2.2-utility"
+    },
+    "flex-vertical": {
+      "cf_category": "utility",
+      "source": "client-first-v2.2-standard",
+      "status": "declared_pending_webflow_creation",
+      "figma_token": "cf-v2.2-utility"
+    },
+    "flex-wrap-down": {
+      "cf_category": "utility",
+      "source": "client-first-v2.2-standard",
+      "status": "declared_pending_webflow_creation",
+      "figma_token": "cf-v2.2-utility"
+    },
+    "gap-none": {
+      "cf_category": "utility",
+      "source": "client-first-v2.2-standard",
+      "status": "declared_pending_webflow_creation",
+      "figma_token": "cf-v2.2-utility"
+    },
+    "gap-tiny": {
+      "cf_category": "utility",
+      "source": "client-first-v2.2-standard",
+      "status": "declared_pending_webflow_creation",
+      "figma_token": "cf-v2.2-utility"
+    },
+    "gap-xxsmall": {
+      "cf_category": "utility",
+      "source": "client-first-v2.2-standard",
+      "status": "declared_pending_webflow_creation",
+      "figma_token": "cf-v2.2-utility"
+    },
+    "gap-xsmall": {
+      "cf_category": "utility",
+      "source": "client-first-v2.2-standard",
+      "status": "declared_pending_webflow_creation",
+      "figma_token": "cf-v2.2-utility"
+    },
+    "gap-small": {
+      "cf_category": "utility",
+      "source": "client-first-v2.2-standard",
+      "status": "declared_pending_webflow_creation",
+      "figma_token": "cf-v2.2-utility"
+    },
+    "gap-medium": {
+      "cf_category": "utility",
+      "source": "client-first-v2.2-standard",
+      "status": "declared_pending_webflow_creation",
+      "figma_token": "cf-v2.2-utility"
+    },
+    "gap-large": {
+      "cf_category": "utility",
+      "source": "client-first-v2.2-standard",
+      "status": "declared_pending_webflow_creation",
+      "figma_token": "cf-v2.2-utility"
+    },
+    "gap-xlarge": {
+      "cf_category": "utility",
+      "source": "client-first-v2.2-standard",
+      "status": "declared_pending_webflow_creation",
+      "figma_token": "cf-v2.2-utility"
+    },
+    "gap-xxlarge": {
+      "cf_category": "utility",
+      "source": "client-first-v2.2-standard",
+      "status": "declared_pending_webflow_creation",
+      "figma_token": "cf-v2.2-utility"
+    },
+    "gap-huge": {
+      "cf_category": "utility",
+      "source": "client-first-v2.2-standard",
+      "status": "declared_pending_webflow_creation",
+      "figma_token": "cf-v2.2-utility"
+    },
+    "gap-xhuge": {
+      "cf_category": "utility",
+      "source": "client-first-v2.2-standard",
+      "status": "declared_pending_webflow_creation",
+      "figma_token": "cf-v2.2-utility"
+    },
+    "gap-xxhuge": {
+      "cf_category": "utility",
+      "source": "client-first-v2.2-standard",
+      "status": "declared_pending_webflow_creation",
+      "figma_token": "cf-v2.2-utility"
+    },
+    "grid-1-col": {
+      "cf_category": "utility",
+      "source": "client-first-v2.2-standard",
+      "status": "declared_pending_webflow_creation",
+      "figma_token": "cf-v2.2-utility"
+    },
+    "grid-2-col": {
+      "cf_category": "utility",
+      "source": "client-first-v2.2-standard",
+      "status": "declared_pending_webflow_creation",
+      "figma_token": "cf-v2.2-utility"
+    },
+    "grid-3-col": {
+      "cf_category": "utility",
+      "source": "client-first-v2.2-standard",
+      "status": "declared_pending_webflow_creation",
+      "figma_token": "cf-v2.2-utility"
+    },
+    "grid-4-col": {
+      "cf_category": "utility",
+      "source": "client-first-v2.2-standard",
+      "status": "declared_pending_webflow_creation",
+      "figma_token": "cf-v2.2-utility"
+    },
+    "grid-5-col": {
+      "cf_category": "utility",
+      "source": "client-first-v2.2-standard",
+      "status": "declared_pending_webflow_creation",
+      "figma_token": "cf-v2.2-utility"
+    },
+    "grid-6-col": {
+      "cf_category": "utility",
+      "source": "client-first-v2.2-standard",
+      "status": "declared_pending_webflow_creation",
+      "figma_token": "cf-v2.2-utility"
+    },
+    "grid-1-col-tablet": {
+      "cf_category": "utility",
+      "source": "client-first-v2.2-standard",
+      "status": "declared_pending_webflow_creation",
+      "figma_token": "cf-v2.2-utility"
+    },
+    "grid-2-col-tablet": {
+      "cf_category": "utility",
+      "source": "client-first-v2.2-standard",
+      "status": "declared_pending_webflow_creation",
+      "figma_token": "cf-v2.2-utility"
+    },
+    "grid-1-col-mobile": {
+      "cf_category": "utility",
+      "source": "client-first-v2.2-standard",
+      "status": "declared_pending_webflow_creation",
+      "figma_token": "cf-v2.2-utility"
+    },
+    "grid-2-col-mobile": {
+      "cf_category": "utility",
+      "source": "client-first-v2.2-standard",
+      "status": "declared_pending_webflow_creation",
+      "figma_token": "cf-v2.2-utility"
+    },
+    "grid-span-full": {
+      "cf_category": "utility",
+      "source": "client-first-v2.2-standard",
+      "status": "declared_pending_webflow_creation",
+      "figma_token": "cf-v2.2-utility"
+    },
+    "grid-autofit-xsmall": {
+      "cf_category": "utility",
+      "source": "client-first-v2.2-standard",
+      "status": "declared_pending_webflow_creation",
+      "figma_token": "cf-v2.2-utility"
+    },
+    "grid-autofit-small": {
+      "cf_category": "utility",
+      "source": "client-first-v2.2-standard",
+      "status": "declared_pending_webflow_creation",
+      "figma_token": "cf-v2.2-utility"
+    },
+    "grid-autofit-medium": {
+      "cf_category": "utility",
+      "source": "client-first-v2.2-standard",
+      "status": "declared_pending_webflow_creation",
+      "figma_token": "cf-v2.2-utility"
+    },
+    "grid-autofit-large": {
+      "cf_category": "utility",
+      "source": "client-first-v2.2-standard",
+      "status": "declared_pending_webflow_creation",
+      "figma_token": "cf-v2.2-utility"
+    },
+    "grid-autofit-xlarge": {
+      "cf_category": "utility",
+      "source": "client-first-v2.2-standard",
+      "status": "declared_pending_webflow_creation",
+      "figma_token": "cf-v2.2-utility"
+    },
+    "grid-autofill-xsmall": {
+      "cf_category": "utility",
+      "source": "client-first-v2.2-standard",
+      "status": "declared_pending_webflow_creation",
+      "figma_token": "cf-v2.2-utility"
+    },
+    "grid-autofill-small": {
+      "cf_category": "utility",
+      "source": "client-first-v2.2-standard",
+      "status": "declared_pending_webflow_creation",
+      "figma_token": "cf-v2.2-utility"
+    },
+    "grid-autofill-medium": {
+      "cf_category": "utility",
+      "source": "client-first-v2.2-standard",
+      "status": "declared_pending_webflow_creation",
+      "figma_token": "cf-v2.2-utility"
+    },
+    "grid-autofill-large": {
+      "cf_category": "utility",
+      "source": "client-first-v2.2-standard",
+      "status": "declared_pending_webflow_creation",
+      "figma_token": "cf-v2.2-utility"
+    },
+    "grid-autofill-xlarge": {
+      "cf_category": "utility",
+      "source": "client-first-v2.2-standard",
+      "status": "declared_pending_webflow_creation",
+      "figma_token": "cf-v2.2-utility"
+    },
+    "display-contents": {
+      "cf_category": "utility",
+      "source": "client-first-v2.2-standard",
+      "status": "declared_pending_webflow_creation",
+      "figma_token": "cf-v2.2-utility"
+    },
+    "inherit-text-color": {
+      "cf_category": "utility",
+      "source": "client-first-v2.2-standard",
+      "status": "declared_pending_webflow_creation",
+      "figma_token": "cf-v2.2-utility"
+    },
+    "inherit-text-weight": {
+      "cf_category": "utility",
+      "source": "client-first-v2.2-standard",
+      "status": "declared_pending_webflow_creation",
+      "figma_token": "cf-v2.2-utility"
+    },
+    "inherit-text-size": {
+      "cf_category": "utility",
+      "source": "client-first-v2.2-standard",
+      "status": "declared_pending_webflow_creation",
+      "figma_token": "cf-v2.2-utility"
+    },
+    "inherit-text-decoration": {
+      "cf_category": "utility",
+      "source": "client-first-v2.2-standard",
+      "status": "declared_pending_webflow_creation",
+      "figma_token": "cf-v2.2-utility"
+    },
+    "inherit-border-radius": {
+      "cf_category": "utility",
+      "source": "client-first-v2.2-standard",
+      "status": "declared_pending_webflow_creation",
+      "figma_token": "cf-v2.2-utility"
+    },
+    "spacer-tiny": {
+      "cf_category": "utility",
+      "source": "client-first-v2.2-standard",
+      "status": "declared_pending_webflow_creation",
+      "figma_token": "cf-v2.2-utility"
+    },
+    "spacer-small": {
+      "cf_category": "utility",
+      "source": "client-first-v2.2-standard",
+      "status": "declared_pending_webflow_creation",
+      "figma_token": "cf-v2.2-utility"
+    },
+    "spacer-medium": {
+      "cf_category": "utility",
+      "source": "client-first-v2.2-standard",
+      "status": "declared_pending_webflow_creation",
+      "figma_token": "cf-v2.2-utility"
+    },
+    "spacer-large": {
+      "cf_category": "utility",
+      "source": "client-first-v2.2-standard",
+      "status": "declared_pending_webflow_creation",
+      "figma_token": "cf-v2.2-utility"
+    },
+    "spacer-huge": {
+      "cf_category": "utility",
+      "source": "client-first-v2.2-standard",
+      "status": "declared_pending_webflow_creation",
+      "figma_token": "cf-v2.2-utility"
+    },
+    "spacing-clean": {
+      "cf_category": "utility",
+      "source": "client-first-v2.2-standard",
+      "status": "declared_pending_webflow_creation",
+      "figma_token": "cf-v2.2-utility"
+    },
+    "margin-top": {
+      "cf_category": "utility",
+      "source": "client-first-v2.2-standard",
+      "status": "declared_pending_webflow_creation",
+      "figma_token": "cf-v2.2-utility"
+    },
+    "margin-bottom": {
+      "cf_category": "utility",
+      "source": "client-first-v2.2-standard",
+      "status": "declared_pending_webflow_creation",
+      "figma_token": "cf-v2.2-utility"
+    },
+    "margin-left": {
+      "cf_category": "utility",
+      "source": "client-first-v2.2-standard",
+      "status": "declared_pending_webflow_creation",
+      "figma_token": "cf-v2.2-utility"
+    },
+    "margin-right": {
+      "cf_category": "utility",
+      "source": "client-first-v2.2-standard",
+      "status": "declared_pending_webflow_creation",
+      "figma_token": "cf-v2.2-utility"
+    },
+    "margin-horizontal": {
+      "cf_category": "utility",
+      "source": "client-first-v2.2-standard",
+      "status": "declared_pending_webflow_creation",
+      "figma_token": "cf-v2.2-utility"
+    },
+    "margin-vertical": {
+      "cf_category": "utility",
+      "source": "client-first-v2.2-standard",
+      "status": "declared_pending_webflow_creation",
+      "figma_token": "cf-v2.2-utility"
+    },
+    "margin-tiny": {
+      "cf_category": "utility",
+      "source": "client-first-v2.2-standard",
+      "status": "declared_pending_webflow_creation",
+      "figma_token": "cf-v2.2-utility"
+    },
+    "margin-small": {
+      "cf_category": "utility",
+      "source": "client-first-v2.2-standard",
+      "status": "declared_pending_webflow_creation",
+      "figma_token": "cf-v2.2-utility"
+    },
+    "margin-medium": {
+      "cf_category": "utility",
+      "source": "client-first-v2.2-standard",
+      "status": "declared_pending_webflow_creation",
+      "figma_token": "cf-v2.2-utility"
+    },
+    "margin-large": {
+      "cf_category": "utility",
+      "source": "client-first-v2.2-standard",
+      "status": "declared_pending_webflow_creation",
+      "figma_token": "cf-v2.2-utility"
+    },
+    "padding-top": {
+      "cf_category": "utility",
+      "source": "client-first-v2.2-standard",
+      "status": "declared_pending_webflow_creation",
+      "figma_token": "cf-v2.2-utility"
+    },
+    "padding-bottom": {
+      "cf_category": "utility",
+      "source": "client-first-v2.2-standard",
+      "status": "declared_pending_webflow_creation",
+      "figma_token": "cf-v2.2-utility"
+    },
+    "padding-left": {
+      "cf_category": "utility",
+      "source": "client-first-v2.2-standard",
+      "status": "declared_pending_webflow_creation",
+      "figma_token": "cf-v2.2-utility"
+    },
+    "padding-right": {
+      "cf_category": "utility",
+      "source": "client-first-v2.2-standard",
+      "status": "declared_pending_webflow_creation",
+      "figma_token": "cf-v2.2-utility"
+    },
+    "padding-horizontal": {
+      "cf_category": "utility",
+      "source": "client-first-v2.2-standard",
+      "status": "declared_pending_webflow_creation",
+      "figma_token": "cf-v2.2-utility"
+    },
+    "padding-vertical": {
+      "cf_category": "utility",
+      "source": "client-first-v2.2-standard",
+      "status": "declared_pending_webflow_creation",
+      "figma_token": "cf-v2.2-utility"
+    },
+    "padding-tiny": {
+      "cf_category": "utility",
+      "source": "client-first-v2.2-standard",
+      "status": "declared_pending_webflow_creation",
+      "figma_token": "cf-v2.2-utility"
+    },
+    "padding-small": {
+      "cf_category": "utility",
+      "source": "client-first-v2.2-standard",
+      "status": "declared_pending_webflow_creation",
+      "figma_token": "cf-v2.2-utility"
+    },
+    "padding-medium": {
+      "cf_category": "utility",
+      "source": "client-first-v2.2-standard",
+      "status": "declared_pending_webflow_creation",
+      "figma_token": "cf-v2.2-utility"
+    },
+    "padding-large": {
+      "cf_category": "utility",
+      "source": "client-first-v2.2-standard",
+      "status": "declared_pending_webflow_creation",
+      "figma_token": "cf-v2.2-utility"
+    },
+    "text-color-primary": {
+      "cf_category": "color",
+      "webflow_property": "color",
+      "value": "#ececec",
+      "source": "knowledge-base/client-first-class-map.json#class_groups.color (text-color-[token] pattern)",
+      "status": "created_on_webflow",
+      "created_at": "2026-06-03T07:32:56.225607+00:00",
+      "figma_token": "primary"
+    },
+    "background-color-primary": {
+      "cf_category": "color",
+      "webflow_property": "background-color",
+      "value": "#ececec",
+      "source": "knowledge-base/client-first-class-map.json#class_groups.color",
+      "status": "created_on_webflow",
+      "created_at": "2026-06-03T07:32:56.225607+00:00",
+      "figma_token": "primary"
+    },
+    "border-color-primary": {
+      "cf_category": "color",
+      "webflow_property": "border-color",
+      "value": "#ececec",
+      "source": "knowledge-base/client-first-class-map.json#class_groups.color",
+      "status": "created_on_webflow",
+      "created_at": "2026-06-03T07:32:56.225607+00:00",
+      "figma_token": "primary"
+    },
+    "text-color-muted": {
+      "cf_category": "color",
+      "webflow_property": "color",
+      "value": "rgba(236,236,236,0.65)",
+      "source": "knowledge-base/client-first-class-map.json#class_groups.color",
+      "status": "created_on_webflow",
+      "created_at": "2026-06-03T07:32:56.225607+00:00",
+      "figma_token": "muted"
+    },
+    "text-color-caption": {
+      "cf_category": "color",
+      "webflow_property": "color",
+      "value": "rgba(255,255,255,0.8)",
+      "source": "knowledge-base/client-first-class-map.json#class_groups.color",
+      "status": "created_on_webflow",
+      "created_at": "2026-06-03T07:32:56.225607+00:00",
+      "figma_token": "caption"
+    },
+    "text-color-inverse": {
+      "cf_category": "color",
+      "webflow_property": "color",
+      "value": "#0b081c",
+      "source": "knowledge-base/client-first-class-map.json#class_groups.color",
+      "status": "created_on_webflow",
+      "created_at": "2026-06-03T07:32:56.225607+00:00",
+      "figma_token": "inverse"
+    },
+    "background-color-inverse": {
+      "cf_category": "color",
+      "webflow_property": "background-color",
+      "value": "#0b081c",
+      "source": "knowledge-base/client-first-class-map.json#class_groups.color",
+      "status": "created_on_webflow",
+      "created_at": "2026-06-03T07:32:56.225607+00:00",
+      "figma_token": "inverse"
+    },
+    "text-color-footer-muted": {
+      "cf_category": "color",
+      "webflow_property": "color",
+      "value": "#939393",
+      "source": "knowledge-base/client-first-class-map.json#class_groups.color",
+      "status": "created_on_webflow",
+      "created_at": "2026-06-03T07:32:56.225607+00:00",
+      "figma_token": "footer-muted"
+    },
+    "background-color-background-base": {
+      "cf_category": "color",
+      "webflow_property": "background-color",
+      "value": "#0b0121",
+      "source": "knowledge-base/client-first-class-map.json#class_groups.color",
+      "status": "created_on_webflow",
+      "created_at": "2026-06-03T07:32:56.225607+00:00",
+      "figma_token": "background-base"
+    },
+    "border-color-border-subtle": {
+      "cf_category": "color",
+      "webflow_property": "border-color",
+      "value": "rgba(255,255,255,0.3)",
+      "source": "knowledge-base/client-first-class-map.json#class_groups.color",
+      "status": "created_on_webflow",
+      "created_at": "2026-06-03T07:32:56.225607+00:00",
+      "figma_token": "border-subtle"
+    }
+  },
+  "reconciled_count": 10
+}

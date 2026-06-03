@@ -1,0 +1,56 @@
+{
+  "figma_file_id": "",
+  "updated_at": "2026-06-03T07:32:56.225607+00:00",
+  "naming_convention": {
+    "pattern": "{cf_category}-{semantic_name}",
+    "categories": [
+      "text-color",
+      "background-color",
+      "border-color"
+    ]
+  },
+  "mappings": {
+    "background-base": {
+      "figma_value": "#0b0121",
+      "css_property": "background-color",
+      "class": "background-color-background-base",
+      "source": "figma:138:8546"
+    },
+    "primary": {
+      "figma_value": "#ececec",
+      "css_property": "color",
+      "class": "text-color-primary",
+      "source": "figma:138:8546"
+    },
+    "muted": {
+      "figma_value": "rgba(236,236,236,0.65)",
+      "css_property": "color",
+      "class": "text-color-muted",
+      "source": "figma:138:8546"
+    },
+    "caption": {
+      "figma_value": "rgba(255,255,255,0.8)",
+      "css_property": "color",
+      "class": "text-color-caption",
+      "source": "figma:138:8546"
+    },
+    "inverse": {
+      "figma_value": "#0b081c",
+      "css_property": "color",
+      "class": "text-color-inverse",
+      "source": "figma:138:8546"
+    },
+    "footer-muted": {
+      "figma_value": "#939393",
+      "css_property": "color",
+      "class": "text-color-footer-muted",
+      "source": "figma:138:8546"
+    },
+    "border-subtle": {
+      "figma_value": "rgba(255,255,255,0.3)",
+      "css_property": "border-color",
+      "class": "border-color-border-subtle",
+      "source": "figma:138:8546"
+    }
+  }
+}
