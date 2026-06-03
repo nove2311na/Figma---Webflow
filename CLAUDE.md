@@ -15,22 +15,22 @@ This folder is a Claude Code-native agentic workspace for the MAS V3 Figma-to-We
 
 ```cmd
 # 1. Parse CSS library to build contract
-python scripts\index_css_library.py --normalize source-css\normalize.css --webflow source-css\webflow.css --client-first source-css\client-first-v2-2.webflow.css --out knowledge-base\generated
+python scripts\pipeline\index_css_library.py --normalize source-css\normalize.css --webflow source-css\webflow.css --client-first source-css\client-first-v2-2.webflow.css --out knowledge-base\generated
 
-# 2. Normalize Figma nodes
-python scripts\normalize_figma_nodes.py --input workspace\figma\figma.node-bundle.json
+# 2. Extract raw styling and layout blueprint from Figma
+python scripts\pipeline\extract_raw_styling.py --input workspace\figma\figma.raw-context.json
 
-# 3. Resolve semantic roles and classes
-python scripts\resolve_semantic_ir.py
+# 3. Resolve Client-First classes and snap variables
+python scripts\pipeline\resolve_client_first.py --input workspace/figma/raw-layout-blueprint.json
 
 # 4. Render HTML from blueprint
-python scripts\render_html_from_blueprint.py
+python scripts\pipeline\render_html_from_blueprint.py
 
 # 5. Slice page HTML into section chunks
-python scripts\slice_html_into_chunks.py
+python scripts\pipeline\slice_html_into_chunks.py
 
 # 6. Compile native ops plan
-python scripts\compile_native_ops_from_html.py
+python scripts\pipeline\compile_native_ops_from_html.py
 
 # 7. Unified quality gate validation
 python scripts\gates\run_quality_gate.py --profile html-first
@@ -39,9 +39,9 @@ python scripts\gates\run_quality_gate.py --profile html-first
 Workspace lifecycle:
 
 ```cmd
-python scripts\archive_workspace.py
-python scripts\restore_workspace.py
-python scripts\restore_workspace.py 0
+python scripts\workspace\archive_workspace.py
+python scripts\workspace\restore_workspace.py
+python scripts\workspace\restore_workspace.py 0
 ```
 
 ## Operating Rules

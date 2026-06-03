@@ -8,22 +8,22 @@ import sys
 from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[2]))
-from scripts.gates.validate_project_library import validate_project_library
-from scripts.gates.validate_build_contract import validate_build_contract
+from scripts.gates.system.validate_project_library import validate_project_library
+from scripts.gates.system.validate_build_contract import validate_build_contract
 
 
 REQUIRED_TEXT = {
-    "CLAUDE.md": ["Claude Code", "Python", "MCP-352", "Webflow", "client-first-class-map.json"],
+    "CLAUDE.md": ["Claude Code", "python", "Webflow", "client-first-library-contract.json"],
     "agentic/memory/team-memory.md": ["Hard Invariants", "Agent Team", "standalone baseline"],
     "agentic/policies/runtime-instructions.md": ["Claude Code", "Python", "Webflow", "approval"],
-    "agentic/orchestration/sop.md": ["Phase 0", "Phase 1", "Phase 2", "Phase 3", "Approved"],
+    "agentic/orchestration/sop.md": ["Phase 0", "Phase 1", "Phase 2", "Phase 3", "approval"],
     "agentic/orchestration/reflection-loop.md": ["reflection_review", "revise", "Stop Conditions"],
-    "agentic/specs/agent-system-spec.md": ["Seed Input", "Agents", "MCP Servers", "Standalone Architecture Baseline"],
-    "agentic/specs/figma-to-client-first-mapping.md": ["figma_property", "client_first_class", "class_strategy"],
-    "agentic/specs/visual-qa-evidence-contract.md": ["[APPROVED]", "[FIX]", "webflow_state_ref"],
+    "agentic/specs/system/agent-system-spec.md": ["Seed Input", "Agents", "MCP Servers", "Standalone Architecture Baseline"],
+    "agentic/specs/contracts/figma-to-client-first-mapping.md": ["figma_property", "client_first_class", "class_strategy"],
+    "agentic/specs/contracts/visual-qa-evidence-contract.md": ["[APPROVED]", "[FIX]", "webflow_state_ref"],
     "agentic/knowledge/client-first-library.md": ["client-first-class-map.json", "figma_property", "webflow_property"],
     "agentic/policies/tool-risk-levels.md": ["R0", "R4", "risk_class"],
-    "agentic/policies/approval-gates.md": ["Webflow external write", "Blueprint completion"],
+    "agentic/policies/approval-gates.md": ["Webflow writes", "logical blueprint rendered to physical HTML"],
     ".user_versions/VERSION_HISTORY.md": ["v0.1.0", "v0.2.0", "v0.3.0"],
 }
 
@@ -91,8 +91,16 @@ def validate(root: Path) -> list[str]:
 
 def run_sub_gate(gate_script: str) -> list[str]:
     import subprocess
+    # gate_script can be:
+    #   "pipeline/validate_foo.py"  -> resolves to scripts/gates/pipeline/validate_foo.py
+    #   "system/validate_foo.py"    -> resolves to scripts/gates/system/validate_foo.py
+    #   absolute or already-rooted path (contains os.sep or starts with scripts/)
+    if gate_script.startswith("scripts/"):
+        resolved = gate_script
+    else:
+        resolved = f"scripts/gates/{gate_script}"
     res = subprocess.run(
-        [sys.executable, f"scripts/gates/{gate_script}" if "/" not in gate_script else gate_script],
+        [sys.executable, resolved],
         capture_output=True,
         text=True,
         encoding="utf-8"
@@ -115,17 +123,19 @@ def main(argv: list[str] | None = None) -> int:
         
         # List of gates to execute sequentially
         gates = [
-            "validate_agentic_structure.py",
-            "validate_workspace_artifacts.py",
-            "validate_css_contract.py",
-            "validate_css_index.py",
-            "validate_figma_normalization.py",
-            "validate_semantic_ir.py",
-            "validate_html_blueprint.py",
-            "validate_asset_policy.py",
-            "scripts/validate_html_chunks.py",
-            "validate_resolver_benchmark.py",
-            "validate_native_build_plan.py"
+            # System gates first (structure must be valid before pipeline checks)
+            "system/validate_agentic_structure.py",
+            "system/validate_workspace_artifacts.py",
+            # Pipeline gates in compiler order
+            "pipeline/validate_css_contract.py",
+            "pipeline/validate_css_index.py",
+            "pipeline/validate_figma_normalization.py",
+            "pipeline/validate_semantic_ir.py",
+            "pipeline/validate_html_blueprint.py",
+            "pipeline/validate_asset_policy.py",
+            "pipeline/validate_html_chunks.py",
+            "pipeline/validate_resolver_benchmark.py",
+            "pipeline/validate_native_build_plan.py"
         ]
         
         for gate in gates:
