@@ -2,7 +2,7 @@
 """Wire validate_artifacts.py into the html-first quality gate.
 
 For each workspace under <target>/workspace/*, run
-scripts/validation/validate_artifacts.py --workspace <name> and aggregate
+.claude/skills/_shared/scripts/validate_artifacts.py --workspace <name> and aggregate
 results. Block-tier violations in any workspace fail this gate.
 
 Exit codes:

@@ -1,142 +1,138 @@
 # Token Sync Architecture
 
-Tài liệu này giải thích cơ chế đồng bộ design token giữa **Figma → Repo → Webflow**
-và những điều kiện bắt buộc để pipeline MAS hoạt động deterministic.
+This document explains the design token sync mechanism between **Figma → Repo → Webflow** and the deterministic conditions required by the pipeline.
 
----
+## Core Principle
 
-## Nguyên tắc cốt lõi
-
-> **Class definition = immutable. Token value = payload duy nhất cần sync.**
+> **Class definition = immutable. Token value = the only payload that needs to sync.**
 
 ```
 class text-weight-bold  →  var --font-weight--bold  →  value (project A: 700, project B: 900)
-       (không đổi)               (key cố định)              (thay đổi theo dự án/thiết kế)
+       (never changes)            (fixed key)              (changes per project)
 ```
 
-`text-weight-bold` không bao giờ đổi tên hay nghĩa.
-Cái thay đổi là **giá trị của variable** đứng sau nó.
-LLM không đoán "bold là bao nhiêu" — nó đọc value từ token catalog.
+`text-weight-bold` never changes its name or meaning. What changes is **the value of the variable** behind it. The LLM does not guess "what bold is" — it reads the value from the token catalog.
 
 ---
 
-## Kiến trúc 3-way ledger
+## 3-Way Ledger
 
 ```
 ┌─────────────────┐      read       ┌──────────────────┐      push       ┌─────────────────┐
-│  Figma Project  │ ─────────────►  │   Repo Library   │ ─────────────►  │ Webflow Project │
+│  Figma Project  │ ─────────────►  │   Repo Contract  │ ─────────────►  │ Webflow Project │
 │  (design SoT)   │                 │ (git-versioned)  │                 │ (build target)  │
 │                 │                 │                  │                 │                 │
-│ Variables panel │                 │ libraries/       │                 │ Variables panel │
-│ - Base tokens   │ ◄─── drift? ──► │ {site_id}/       │ ◄─── drift? ──► │ - same tokens   │
-│ - Theme aliases │                 │ library.json     │                 │ - applied live  │
-└─────────────────┘                 │ token-map.json   │                 └─────────────────┘
-                                    │ changelog.json   │
-                                    └──────────────────┘
+│ Variables panel │                 │ knowledge-base/  │                 │ Variables panel │
+│ - Base tokens   │ ◄─── drift? ──► │ generated/       │ ◄─── drift? ──► │ - same tokens   │
+│ - Theme aliases │                 │ webflow-         │                 │ - applied live  │
+│                 │                 │ contract.json    │                 │                 │
+│                 │                 │ figma-           │                 │                 │
+│                 │                 │ contract.json    │                 │                 │
+└─────────────────┘                 └──────────────────┘                 └─────────────────┘
 ```
 
-**Figma** = nơi designer định nghĩa token value.
-**Repo** = ledger trung gian, git-versioned, là nguồn sự thật cho agent build.
-**Webflow** = đích build, nhận value từ repo qua `variable_tool`.
+**Figma** = where the designer defines token values.
+**Repo** = git-versioned ledger, source of truth for the build agent.
+**Webflow** = build target; receives values from the repo via `variable_tool`.
 
-Mỗi lần sync tạo 1 entry trong `changelog.json` — đây là audit trail.
+Each sync round appends to `write-audit-log.jsonl` — the audit trail.
 
 ---
 
-## Token là "hợp đồng" giữa designer và LLM
+## Token is the "Contract" between Designer and LLM
 
 | | Figma | Repo | Webflow |
 |---|---|---|---|
-| **Key (cố định)** | `Font Weight/bold` | `figma-token-map.json` mapping | `--font-weight--bold` |
-| **Value (sync được)** | 700 | `client-first-library.json` | variable value |
+| **Key (fixed)** | `Font Weight/bold` | `figmaId` mapping | `--font-weight--bold` |
+| **Value (synced)** | 700 | `client-first-library-contract.json` | variable value |
 
-Designer đổi `Font Weight/bold` từ 700 → 900 ở Figma
-→ `update_library_from_figma.py` cập nhật repo
-→ `sync_library_to_webflow.py` push lên Webflow variable
-→ **class `text-weight-bold` không cần đổi một chữ.**
+Designer changes `Font Weight/bold` from 700 → 900 in Figma
+→ `design-system-sync` skill Task 2 (validate extraction) + Task 3 (map variables) re-generates `webflow-contract.json`
+→ LLM calls Webflow `variable_tool` to push value to Webflow (approval-gated, branch-first)
+→ **class `text-weight-bold` does not change one character.**
 
 ---
 
-## Điều kiện sống còn: designer BẮT BUỘC dùng Figma Variables
+## Critical Condition: Designer MUST Use Figma Variables
 
-Đây là điều kiện kỹ thuật, không phải khuyến nghị.
+This is a technical requirement, not a recommendation.
 
-| Designer làm | Kết quả pipeline |
+| Designer does | Pipeline outcome |
 |---|---|
-| Dùng Variable cho color, spacing, typography | Token có thể sync → LLM deterministic |
-| Hardcode raw value (vd: `font-weight: 700` trực tiếp) | Không có token để sync → LLM phải đoán → vỡ |
+| Use Variable for color, spacing, typography | Token can sync → LLM deterministic |
+| Hardcode raw value (e.g. `font-weight: 700` directly) | No token to sync → LLM must guess → breaks |
 
-**Pre-flight gate** tại bước ingest:
-- Phát hiện Figma node có raw value không backed-by-variable
-- Flag: `untokenized_property` → chặn pipeline hoặc yêu cầu designer fix trước
-- Không có cách tự động giải quyết case này — chỉ có kỷ luật đầu vào
+**Pre-flight gate** at ingest:
+- Detect Figma nodes with raw values not backed-by-variable
+- Flag: `untokenized_property` → block pipeline or require designer fix first
+- No automatic workaround — only input discipline
 
 ---
 
-## Vị trí trong pipeline MAS
+## Position in Pipeline
 
 ```
-Step 1  sync-library     ← TOKEN SYNC (đây)
-          │ Figma vars → repo → Webflow vars + drift gate + untokenized gate
+Step 1  design-system-sync     ← TOKEN SYNC (this document)
+          │ Figma vars → repo (figma-contract.json) → Webflow vars + drift gate + untokenized gate
           │
-Step 2  sync-components  ← component structure map (de_component_tool)
+Step 2  figma-to-html-architect  ← Figma node → HTML with CF classes
+          │ Uses knowledge-base/generated/* for class selection
           │
-Step 3  read + html      ← read-figma-data.md → resolve_client_first.py
-          │
-Step 4  split sections   ← section boundary detection
-          │
-Step 5  subagents build  ← parallel-section-build (apply-only)
+Step 3  figma-to-webflow-orchestrator  ← parallel sync + render
+          │ Branch A: Webflow MCP write
+          │ Branch B: HTML output
 ```
 
-Step 1 là nền. Nếu token-layer chuẩn, steps 3–5 hoàn toàn deterministic.
+Step 1 is the foundation. If the token layer is correct, Steps 2-3 are deterministic.
 
 ---
 
-## Scripts hiện có
+## Skill-Owned Scripts (in current architecture)
 
-| Script | Việc làm |
+| Script | Owner | Role |
+|---|---|---|
+| `design-system-sync/scripts/extract_client_first_baseline.py` | design-system-sync | Task 0: Parse Webflow CSS → baseline contract |
+| `design-system-sync/scripts/validate_figma_extraction.py` | design-system-sync | Task 2: Validate figma-contract.json against baseline |
+| `design-system-sync/scripts/map_variables.py` | design-system-sync | Task 3: Map Figma variables → Webflow contract |
+
+**Shared (cross-skill):**
+
+| Script | Role |
 |---|---|
-| `scripts/update_library_from_figma.py` | Figma MCP → repo library (step: Figma→Repo) |
-| `scripts/sync_library_to_webflow.py` | Repo → Webflow variable_tool (step: Repo→Webflow) |
-| `tools/library_resolver.py` | Load/register/scaffold library dir, update last-synced |
-| `scripts/gates/validate_project_library.py` | Gate: validate library JSON, class←→token coverage |
-
-**Còn thiếu (v0.7.0 candidates):**
-- `scripts/detect_token_drift.py` — so sánh 3-way (Figma ↔ repo ↔ Webflow), tạo reconciliation report
-- `scripts/gates/validate_tokens_in_figma.py` — gate phát hiện untokenized property trong raw Figma data
+| `.claude/skills/_shared/scripts/index_css_library.py` | One-time setup: parse `source-css/` → `knowledge-base/generated/` |
+| `.claude/skills/_shared/scripts/validate_artifacts.py` | Q2 schema validation block/warn/log |
+| `.claude/skills/_shared/scripts/run_quality_gate.py` | Full quality gate |
 
 ---
 
-## Hướng dẫn ngắn cho từng bên
+## Quick Reference
 
 ### Designer (Figma side)
-- **Luôn dùng Variables** cho mọi color, spacing, typography, border — kể cả prototype
-- Đặt tên variable theo pattern đã có: `Font Weight/bold`, `Spacing/medium`, `Colors/Theme/Text Color/primary`
-- Không apply raw hex hoặc raw number trực tiếp lên element nếu nó sẽ xuất hiện trong component build
-- Nếu muốn thêm token mới → thêm vào Figma Variable collection trước, đặt tên rõ ràng, rồi báo operator sync
+- **Always use Variables** for color, spacing, typography, border — even in prototype
+- Name variables with established patterns
+- Do not apply raw hex or raw numbers directly to elements that will appear in component builds
+- Adding new token → add to Figma Variable collection first, then notify operator
 
-### Operator / Developer (repo side)
-1. Sau khi designer update token ở Figma → chạy `update_library_from_figma.py` để pull về repo
-2. Review `changelog.json` diff — confirm intentional changes
-3. Chạy `validate_project_library.py` để đảm bảo không có class mồ côi
-4. Chạy `sync_library_to_webflow.py` để push lên Webflow variable
-5. Commit repo
+### Operator / Developer
+1. After designer updates Figma tokens → run `validate_figma_extraction.py` + `map_variables.py`
+2. Review `webflow-contract.json` diff
+3. Run `validate_artifacts.py --tier block` to ensure schema compliance
+4. Push to Webflow via `variable_tool` (approval-gated)
 
 ### LLM / Agent (build side)
-- Trước khi viết HTML contract → đọc `knowledge-base/libraries/{site_id}/client-first-library.json`
-- Mọi color đều phải trace về token class (`text-color-primary`) — không hardcode hex
-- Mọi spacing đều pick token (`margin-medium`, `gap-large`) — không compute px/16
-- Nếu Figma node có raw value không có token → `flag: untokenized` trong design analysis, STOP
+- Before writing HTML contract → read `knowledge-base/generated/client-first-library-contract.json` for allowed classes
+- Every color must trace back to a token class — no hardcoded hex
+- Every spacing picks a token — no `px/16` computation
+- If Figma node has raw value without token → flag `untokenized` in design analysis, STOP
 
 ---
 
-## Source files tham khảo
+## Reference Files
 
-| File | Nội dung |
+| File | Content |
 |---|---|
-| `knowledge-base/client-first-class-map.json` | Global utility class catalog (v0.5.0, synced từ CF V2.2) |
-| `knowledge-base/libraries/{site_id}/client-first-library.json` | Per-project variable-backed class values |
-| `knowledge-base/libraries/{site_id}/figma-token-map.json` | Figma variable path → CF class + cssName |
-| `agentic/specs/figma-to-client-first-mapping.md` | Quy tắc map Figma node → CF class (Sections A–G) |
-| `agentic/prompts/read-figma-data.md` | Pre-analysis prompt, bao gồm color token catalog validation |
-| `agentic/prompts/generate-cf-library.md` | LLM prompt tạo/update library từ Figma MCP |
+| `knowledge-base/client-first-class-map.json` | Global utility class catalog |
+| `knowledge-base/generated/client-first-library-contract.json` | Generated contract (CF V2.2 + class allowlist + breakpoint policy) |
+| `agentic/schemas/_shared/variable-entry.schema.json` | Q2 schema for variable entries (requires `figmaId` + `modes`) |
+| `agentic/specs/contracts/figma-to-client-first-mapping.md` | Figma node → CF class rules (Sections A–G) |
+| `.claude/skills/_shared/scripts/validate_artifacts.py` | Q2 schema validation gate |

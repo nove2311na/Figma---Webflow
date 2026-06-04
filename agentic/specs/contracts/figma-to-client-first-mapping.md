@@ -180,7 +180,7 @@ For each TEXT node in Figma:
 ## Section F — Figma Variable → Color Class
 
 1. All Figma color variables are listed in raw data under `"variables"` or `"variableCollections"`.
-2. For each variable used on a node, look up `figma_token` in `knowledge-base/libraries/{site_id}/client-first-library.json`.
+2. For each variable used on a node, look up `figma_token` in `knowledge-base/generated/client-first-library-contract.json`.
 3. Apply the correct class by context:
    - Fill on TEXT node → `text-color-[token]`
    - Fill on FRAME (not text) → `background-color-[token]`

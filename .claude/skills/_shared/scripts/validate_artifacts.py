@@ -5,10 +5,10 @@ Reads `agentic/policies/validation-gates.md` for the block/warn/log tier map
 (via the embedded tier map below), and runs `jsonschema` validation per tier.
 
 Usage:
-    python scripts/validation/validate_artifacts.py --workspace <name>
-    python scripts/validation/validate_artifacts.py --workspace <name> --tier block
-    python scripts/validation/validate_artifacts.py --list-tiers
-    python scripts/validation/validate_artifacts.py --path <file>
+    python .claude/skills/_shared/scripts/validate_artifacts.py --workspace <name>
+    python .claude/skills/_shared/scripts/validate_artifacts.py --workspace <name> --tier block
+    python .claude/skills/_shared/scripts/validate_artifacts.py --list-tiers
+    python .claude/skills/_shared/scripts/validate_artifacts.py --path <file>
 
 Exit codes:
     0 — all artifacts at the requested tier(s) pass

@@ -4,7 +4,7 @@ Claude Code-native agentic workspace for the MAS V3 Figma→HTML→Webflow pipel
 
 The pipeline is backed by two infrastructure layers:
 - **Knowledge layer (Q1)**: `knowledge-base/client-first/` — distilled Finsweet Client-First docs (concepts, usability, gotchas) indexed at `INDEX.yaml`. Skills pull 1–3 files at runtime; never dump the whole folder.
-- **Schema layer (Q2)**: `agentic/schemas/` + `.claude/skills/design-system-sync/schema/` — canonical JSON Schema 2020-12 for every pipeline artifact. Stable `figmaId` on every variable entry. Validated by `scripts/validation/validate_artifacts.py`.
+- **Schema layer (Q2)**: `agentic/schemas/` + `.claude/skills/design-system-sync/schema/` — canonical JSON Schema 2020-12 for every pipeline artifact. Stable `figmaId` on every variable entry. Validated by `.claude/skills/_shared/scripts/validate_artifacts.py`.
 
 ## Read First
 
@@ -52,6 +52,7 @@ python .claude/skills/_shared/scripts/run_quality_gate.py --profile html-first
 - **Never use absolute paths in the repository**: All references, documentation, scripts, and configurations must use relative paths (never absolute paths containing local directory prefixes like `Users/...`) unless absolutely required.
 - **Mandatory Response Narration**: At the end of every response to the user, you MUST append a detailed narration explaining exactly what you did during the turn. List each step, the tool used, the specific action or command executed, and the output/result achieved in an `### Execution Log` markdown list.
 - **User personal folders are off-limits**: Never suggest deleting, moving, or modifying `.user_bugs-log/`, `.user_guides/`, or `.user_versions/`. These are user-owned notes and version history, not pipeline artifacts. Skip them during any cleanup, audit, or file filtering pass.
+- **Reference Integrity on Delete/Move**: Whenever you delete a file or modify a file path, you must check for any files referencing the old path. If the file path is modified, update the reference path in all occurrences. If the file is deleted, inspect and rewrite the referencing sections in those files, as deleting the file may impact their operation.
 
 ## Workflow Summary
 

@@ -4,7 +4,7 @@ This policy defines which artifacts are schema-validated, at what severity, and 
 
 **Audience**: every skill that produces or consumes a JSON contract (`design-system-sync`, `figma-to-html-architect`, `figma-to-webflow-orchestrator`).
 
-**How to apply**: `scripts/validation/validate_artifacts.py --workspace <name> --tier <block|warn|log>` runs the gates. Wire into `scripts/gates/run_quality_gate.py --profile html-first` for the standard pipeline run.
+**How to apply**: `.claude/skills/_shared/scripts/validate_artifacts.py --workspace <name> --tier <block|warn|log>` runs the gates. Wire into `.claude/skills/_shared/scripts/run_quality_gate.py --profile html-first` for the standard pipeline run.
 
 ## Tiers
 
@@ -20,20 +20,20 @@ This policy defines which artifacts are schema-validated, at what severity, and 
 
 | Artifact | Schema | Producer | Validator |
 |---|---|---|---|
-| `write-audit-log.jsonl` | `agentic/schemas/webflow/webflow-write-audit-log.schema.json` | `figma-to-webflow-orchestrator` (Branch A) | `scripts/validation/validate_artifacts.py` |
+| `write-audit-log.jsonl` | `agentic/schemas/webflow/webflow-write-audit-log.schema.json` | `figma-to-webflow-orchestrator` (Branch A) | `.claude/skills/_shared/scripts/validate_artifacts.py` |
 | `figma-contract.json` | `.claude/skills/design-system-sync/schema/figma-design-system-contract.schema.json` | LLM via figma-dev-mode-mcp (Task 1) | `design-system-sync/scripts/validate_figma_extraction.py` |
 | `webflow-contract.json` | `.claude/skills/design-system-sync/schema/webflow-design-system-contract.schema.json` | `map_variables.py` (Task 3) | `design-system-sync/scripts/validate_figma_extraction.py` |
-| `blueprint.json` | `agentic/schemas/workspace/blueprint.schema.json` | `figma-to-html-architect` (Task 3) | `scripts/validation/validate_artifacts.py` |
-| `subagent-task.json` | `agentic/schemas/workspace/subagent-task.schema.json` | `figma-to-webflow-orchestrator` (Phase 2 fork) | `scripts/validation/validate_artifacts.py` |
-| `mcp-sync-report.json` | `agentic/schemas/webflow/mcp-sync-report.schema.json` | Branch A (Webflow MCP) | `scripts/validation/validate_artifacts.py` |
-| `client-first-baseline-contract.json` | `.claude/skills/design-system-sync/schema/client-first-baseline-contract.schema.json` | `extract_client_first_baseline.py` (Task 0) | `scripts/validation/validate_artifacts.py` |
+| `blueprint.json` | `agentic/schemas/workspace/blueprint.schema.json` | `figma-to-html-architect` (Task 3) | `.claude/skills/_shared/scripts/validate_artifacts.py` |
+| `subagent-task.json` | `agentic/schemas/workspace/subagent-task.schema.json` | `figma-to-webflow-orchestrator` (Phase 2 fork) | `.claude/skills/_shared/scripts/validate_artifacts.py` |
+| `mcp-sync-report.json` | `agentic/schemas/webflow/mcp-sync-report.schema.json` | Branch A (Webflow MCP) | `.claude/skills/_shared/scripts/validate_artifacts.py` |
+| `client-first-baseline-contract.json` | `.claude/skills/design-system-sync/schema/client-first-baseline-contract.schema.json` | `extract_client_first_baseline.py` (Task 0) | `.claude/skills/_shared/scripts/validate_artifacts.py` |
 
 ### Warn tier (should validate, build continues)
 
 | Artifact | Schema | Producer | Validator |
 |---|---|---|---|
-| `qa-report.json` | `agentic/schemas/workspace/qa-report.schema.json` | `qa-gatekeeper` | `scripts/validation/validate_artifacts.py` |
-| `page-structure.json` | `agentic/schemas/workspace/page-structure.schema.json` | `figma-to-html-architect` (Phase 2) | `scripts/validation/validate_artifacts.py` |
+| `qa-report.json` | `agentic/schemas/workspace/qa-report.schema.json` | `qa-gatekeeper` | `.claude/skills/_shared/scripts/validate_artifacts.py` |
+| `page-structure.json` | `agentic/schemas/workspace/page-structure.schema.json` | `figma-to-html-architect` (Phase 2) | `.claude/skills/_shared/scripts/validate_artifacts.py` |
 
 ### Log tier (tracked, not gated)
 
@@ -53,16 +53,16 @@ This policy defines which artifacts are schema-validated, at what severity, and 
 
 ```bash
 # Default: run all tiers
-python scripts/validation/validate_artifacts.py --workspace <name>
+python .claude/skills/_shared/scripts/validate_artifacts.py --workspace <name>
 
 # Single tier
-python scripts/validation/validate_artifacts.py --workspace <name> --tier block
+python .claude/skills/_shared/scripts/validate_artifacts.py --workspace <name> --tier block
 
 # List tiers + artifact map
-python scripts/validation/validate_artifacts.py --list-tiers
+python .claude/skills/_shared/scripts/validate_artifacts.py --list-tiers
 
 # Validate a single artifact by path
-python scripts/validation/validate_artifacts.py --path workspace/<name>/design-system/webflow-contract.json
+python .claude/skills/_shared/scripts/validate_artifacts.py --path workspace/<name>/design-system/webflow-contract.json
 ```
 
 ## Exit codes

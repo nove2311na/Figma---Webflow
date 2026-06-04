@@ -141,7 +141,7 @@ Sample section:
 
 ## Validation gate result
 
-Command: `python3 scripts/validation/validate_artifacts.py --workspace _fixtures/finsweet-template --tier block`
+Command: `python3 .claude/skills/_shared/scripts/validate_artifacts.py --workspace _fixtures/finsweet-template --tier block`
 Exit code: **0** (PASS)
 
 ```

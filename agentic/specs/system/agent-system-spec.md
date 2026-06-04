@@ -85,7 +85,7 @@ MAS-Figma-Webflow-khang is a standalone Claude-native, Python-first agentic fold
 | `python scripts/init_workspace.py` | Initialize workspace. | R1 | ask | none | workspace-steward, pm |
 | `python scripts/archive_workspace.py` | Archive and wipe workspace after zip validation. | R4 | explicit approval | none | workspace-steward |
 | `python scripts/restore_workspace.py` | Restore archived workspace. | R4 | explicit approval | none | workspace-steward |
-| `python scripts/gates/*.py` | Deterministic validation. | R0 | allow | none | qa-gatekeeper, pm |
+| `python .claude/skills/_shared/scripts/*.py` | Deterministic validation. | R0 | allow | none | qa-gatekeeper, pm |
 | `knowledge-base/client-first-class-map.json` | Structured Figma property to Client-First class mapping. | R0 | allow read | none | architect, operator, gatekeeper |
 | `Figma API/MCP` | Extract design data. | R2 | ask | Figma token or approved connector | figma-webflow-operator |
 | `Webflow MCP` | Inspect and mutate Webflow site. | R3 | explicit approval for writes | Webflow auth | operator, architect for read/QA |
@@ -106,7 +106,7 @@ MAS-Figma-Webflow-khang is a standalone Claude-native, Python-first agentic fold
 | `phase_1_blueprint` | Figma target confirmed. | raw/content data, blueprint JSON with class mapping. | 2 | blueprint ready for approval, missing Figma data. | blueprint review + client-first library |
 | `phase_2_webflow_build` | User approves blueprint. | Webflow state changes, ReAct action log. | 3 | MCP-352 boundary, Webflow failure, QA needed. | state log + phase gate |
 | `phase_3_qa_loop` | Build or fix complete. | `[APPROVED]` or `[FIX]`. | 5 | approved, unresolved blocker, repeated failure. | pixel-perfect QA + reflection |
-| `handoff_closeout` | Phase complete or session ending. | updated `agentic/memory/session-handoff.md`. | 1 | handoff complete. | quality gate |
+| `handoff_closeout` | Phase complete or session ending. | updated `.claude/skills/_shared/scripts/`. | 1 | handoff complete. | quality gate |
 
 ## Memory
 
@@ -120,15 +120,15 @@ MAS-Figma-Webflow-khang is a standalone Claude-native, Python-first agentic fold
 
 | Gate | command_or_rule | scope | pass_condition |
 |---|---|---|---|
-| structure | `python scripts/gates/validate_agentic_structure.py --target .` | repo scaffold | required standalone paths exist |
-| quality | `python scripts/gates/run_quality_gate.py --target .` | docs/specs | mandatory phrases and policies present |
-| secrets | `python scripts/gates/scan_secrets.py --target .` | committed files | no common secret patterns |
-| system spec | `python scripts/gates/validate_agent_system_spec.py --target .` | system spec | required spec sections present |
-| skill anatomy | `python scripts/gates/validate_skills.py --target .` | Claude skills | frontmatter, workflow, validation, and resource folders exist |
-| workspace artifacts | `python scripts/gates/validate_workspace_artifacts.py --target .` | generated workspace | JSON and ReAct action entries are valid when workspace exists |
-| phase state | `python scripts/gates/validate_phase_state.py --target .` | runtime phase log | phase 2 cannot start without user approval |
-| relative paths | `python scripts/gates/validate_relative_paths.py --target .` | repo content | no local absolute filesystem paths |
-| Client-First library | `python scripts/gates/validate_client_first_library.py --target .` | class catalog | structured class groups and mapping rules exist |
+| structure | `python .claude/skills/_shared/scripts/validate_agentic_structure.py --target .` | repo scaffold | required standalone paths exist |
+| quality | `python .claude/skills/_shared/scripts/run_quality_gate.py --target .` | docs/specs | mandatory phrases and policies present |
+| secrets | `python .claude/skills/_shared/scripts/scan_secrets.py --target .` | committed files | no common secret patterns |
+| system spec | `python .claude/skills/_shared/scripts/validate_agent_system_spec.py --target .` | system spec | required spec sections present |
+| skill anatomy | `python .claude/skills/_shared/scripts/validate_skills.py --target .` | Claude skills | frontmatter, workflow, validation, and resource folders exist |
+| workspace artifacts | `python .claude/skills/_shared/scripts/validate_workspace_artifacts.py --target .` | generated workspace | JSON and ReAct action entries are valid when workspace exists |
+| phase state | `python .claude/skills/_shared/scripts/validate_phase_state.py --target .` | runtime phase log | phase 2 cannot start without user approval |
+| relative paths | `python .claude/skills/_shared/scripts/validate_relative_paths.py --target .` | repo content | no local absolute filesystem paths |
+| Client-First library | `python .claude/skills/_shared/scripts/validate_client_first_library.py --target .` | class catalog | structured class groups and mapping rules exist |
 | approval | policy check | workflow | external write has target, payload summary, and approval |
 
 ## Scaffold Files
@@ -139,7 +139,7 @@ See `agentic/specs/scaffold-file-plan.md`.
 
 This folder targets self-contained readiness:
 
-- Structure parity: `CLAUDE.md`, `.claude/`, `agentic/memory/team-memory.md`, `agentic/`, `knowledge-base/`, and `scripts/gates/` exist.
+- Structure parity: `CLAUDE.md`, `.claude/`, `agentic/knowledge/token-sync-architecture.md`, `agentic/`, `knowledge-base/`, and `.claude/skills/_shared/scripts/` exist.
 - Quality target: 4.7.
 - Exceedance: agent system spec, tool/MCP matrix, workflow contracts, memory promotion, MCP risk map, scaffold file plan, reflection loop, ReAct trace, JSON schemas, visual QA evidence, and Client-First class library exist.
 - Runtime specialization: Claude Code-only and Python-first.
@@ -166,7 +166,7 @@ This folder targets self-contained readiness:
     "structure_profile": "standard",
     "expected_structure_validator": "pass",
     "quality_target": 4.7,
-    "parity_items": ["CLAUDE.md", "agentic/memory/team-memory.md", ".claude/agents", ".claude/skills", "agentic/policies", "agentic/orchestration", "knowledge-base", "scripts/gates"],
+    "parity_items": ["CLAUDE.md", "agentic/knowledge/token-sync-architecture.md", ".claude/agents", ".claude/skills", "agentic/policies", "agentic/specs", "knowledge-base", ".claude/skills/_shared/scripts"],
     "exceedance_items": ["agent_system_spec", "tool_mcp_matrix", "workflow_contracts", "mcp_risk_auth_map", "scaffold_file_plan", "reflection_loop", "react_trace", "client_first_library", "json_schemas", "visual_qa_contract"],
     "documented_skips": ["Live .mcp.json is skipped until Webflow/Figma auth is configured"]
   },
