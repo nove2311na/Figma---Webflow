@@ -10,6 +10,7 @@
 | v0.6.0 | 2026-06-03 | CF V2.2 ground-truth sync | Connected to live Webflow Client-First V2.2 site via MCP. Read ~250 classes + 5 variable collections. Synced repo 100% to live site: per-project library generated, class-map corrected (layout utilities exist, aspect-ratio fixed, text-size-huge removed, text-weight-medium kept), prompts/spec updated (layout-utility-first rule, token-snap spacing, variable-mode responsive strategy, _component naming), bugs reconciled. |
 | v0.7.0 | 2026-06-03 | HTML-First compiler refactor start | Initiated refactoring to strict HTML-first compiler structure: completed Phase 0 (cleanup archive), Phase 1 (pipeline folders, specs, rules, schemas, dependencies), Phase 2 (Client-First CSS contract builder CLI and validation gates), and Phase 3 (Figma extraction contract, schemas, and node bundle validation). |
 | v0.8.0 | 2026-06-03 | Design system sync & Component registry | Strict mode validation of design tokens (Phase 4) and schema-validated component signature matching with layout topology and token cluster scoring (Phase 5). |
+| v0.9.0 | 2026-06-04 | Client-First baseline sync | Upgraded design system sync, mapper, HTML processor, and layer naming validator to isolate Finsweet Client-First CSS layer, preventing native Webflow CSS (.w-*, .wf-*) or HTML elements from bleeding into Figma or HTML rendering. Added 12 Development Rules to GEMINI.md. Archived 6 deprecated skills. |
 
 ## Current Quality Bar
 
