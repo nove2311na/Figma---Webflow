@@ -25,7 +25,7 @@ def discover_workspaces(target: Path) -> list[str]:
     workspaces_dir = target / "workspace"
     if not workspaces_dir.exists():
         return []
-    return sorted(p.name for p in workspaces_dir.iterdir() if p.is_dir())
+    return sorted(p.name for p in workspaces_dir.iterdir() if p.is_dir() and not p.name.startswith("_"))
 
 
 def validate_workspace(name: str) -> tuple[int, str]:

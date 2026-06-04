@@ -47,6 +47,8 @@ def validate_workspace(root: Path) -> list[str]:
         return []
 
     failures: list[str] = []
+    if not (workspace / "meta.json").is_file():
+        return []  # No active run — workspace is pre-execution state, skip checks
     for filename in CORE_FILES:
         path = workspace / filename
         if not path.is_file():

@@ -17,11 +17,11 @@ def main():
     folders = [
         "source-css",
         "knowledge-base/generated",
+        "knowledge-base/client-first",
         "agentic/rules",
         "agentic/knowledge",
-        "workspace/figma",
-        "workspace/semantic",
-        "workspace/reports",
+        "agentic/schemas/_shared",
+        "workspace/_fixtures",
     ]
     for folder in folders:
         full_path = os.path.join(root_dir, folder)
@@ -48,7 +48,6 @@ def main():
             
     # 3. Rules validation
     rules = [
-        ".claude/skills/[new]-semantic-html-resolver/rules/tag.rules.yaml",
         "agentic/rules/webflow-mcp.rules.yaml",
         "agentic/rules/class-selection.rules.yaml",
         "agentic/rules/html-qa.rules.yaml",
@@ -78,7 +77,6 @@ def main():
                     
     # 4. Schemas validation (Valid JSON)
     schemas = [
-        # Figma pipeline schemas
         # Semantic schemas
         "agentic/schemas/semantic/semantic-tree.schema.json",
         # HTML pipeline schemas
@@ -87,10 +85,14 @@ def main():
         "agentic/schemas/webflow/mcp-sync-report.schema.json",
         "agentic/schemas/webflow/webflow-write-audit-log.schema.json",
         # Library schemas
-        "agentic/schemas/library/client-first-library-contract.schema.json",
         "agentic/schemas/library/client-first-library.schema.json",
-        # Component schemas
-        # Design-system schemas
+        # Shared schemas (Q2 canonical layer)
+        "agentic/schemas/_shared/meta.schema.json",
+        "agentic/schemas/_shared/variable-entry.schema.json",
+        "agentic/schemas/_shared/ref-envelope.schema.json",
+        # Design-system skill schemas
+        ".claude/skills/design-system-sync/schema/figma-design-system-contract.schema.json",
+        ".claude/skills/design-system-sync/schema/webflow-design-system-contract.schema.json",
     ]
     for schema in schemas:
         full_path = os.path.join(root_dir, schema)

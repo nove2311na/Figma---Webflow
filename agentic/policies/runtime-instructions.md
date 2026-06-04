@@ -93,3 +93,5 @@ Every agent (`pm`, `client-first-architect`, `figma-webflow-operator`, `section-
 - D-8: Blocker format includes retry count + next action + recoverability
 
 A PreToolUse hook at `.claude/settings.local.json` enforces D-1 by warning on `python -c` with embedded newlines.
+
+- **Mandatory Response Narration**: At the end of every agent response, the agent must append a detailed `### Execution Log` listing each step, tool used, specific command, and result achieved during the turn.

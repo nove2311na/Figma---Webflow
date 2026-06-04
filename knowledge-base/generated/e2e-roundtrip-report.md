@@ -1,6 +1,6 @@
 # End-to-End Round-Trip Evidence
 
-**Generated:** 2026-06-04T07:29:02.934436+00:00
+**Generated:** 2026-06-04T09:23:30.600966+00:00
 **Workspace:** `workspace/_fixtures/finsweet-template/`
 **Source of truth:** backfilled LLM-fillable templates at `.claude/skills/design-system-sync/template/`
 

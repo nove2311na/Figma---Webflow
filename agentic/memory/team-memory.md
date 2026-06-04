@@ -1,6 +1,6 @@
 # Team Memory
 
-Keep this file concise. Archive older notes into `agentic/memory/archive/` when it grows beyond 200 lines.
+Keep this file concise. Archive older notes into the history subfolder when it grows beyond 200 lines.
 
 ## What This Folder Is
 
