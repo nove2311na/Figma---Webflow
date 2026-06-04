@@ -58,12 +58,12 @@ Before extracting/mapping variables, consult the Finsweet Client-First knowledge
 - `stable-id`, `figmaId`, `cross-machine`, `cross-person` (gotchas: display-name-vs-stable-id)
 - `multi-machine`, `sync`, `drift` (gotchas: multi-machine-sync-drift)
 
-**How to use**: read `knowledge-base/client-first/INDEX.yaml`, filter by `applicable_skill: design-system-sync`, pull 1-3 relevant files. Never full-dump.
+**How to use**: read `agentic/knowledge/client-first/INDEX.yaml`, filter by `applicable_skill: design-system-sync`, pull 1-3 relevant files. Never full-dump.
 
 ```bash
 python -c "
 import yaml
-d = yaml.safe_load(open('knowledge-base/client-first/INDEX.yaml'))
+d = yaml.safe_load(open('agentic/knowledge/client-first/INDEX.yaml'))
 mine = [e for e in d['entries'] if 'design-system-sync' in e.get('applicable_skill',[])]
 for e in mine[:5]: print(f\"  - {e['file_path']}  [tags: {e['topic_tags']}]\")
 "
@@ -86,3 +86,7 @@ for e in mine[:5]: print(f\"  - {e['file_path']}  [tags: {e['topic_tags']}]\")
 ### Mapping Rule
 - `map_variables.py` must produce a real `webflow-contract.json` and `mapping-report.json`.
 - If the script outputs mock status or baseline mapping violations (e.g., mapping to native `.w-*` classes or native HTML tags), the agent must halt and report the issue.
+
+### Schemas & Contracts
+- The schemas for design system contracts map to `agentic/schemas/library/schema_index.json`.
+- All design system data artifacts are verified against the JSON schemas indexed in [schema_index.json](file:///g:/My%20Drive/10_Learning/_Research/auto-research/.docs/source/MAS-Figma-Webflow-khang/agentic/schemas/library/schema_index.json).

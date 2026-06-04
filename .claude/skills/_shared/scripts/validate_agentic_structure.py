@@ -15,9 +15,9 @@ def main():
     
     # 1. Folders validation
     folders = [
-        "source-css",
-        "knowledge-base/generated",
-        "knowledge-base/client-first",
+        "agentic/knowledge/source-css",
+        "agentic/knowledge/generated",
+        "agentic/knowledge/client-first",
         "agentic/rules",
         "agentic/knowledge",
         "agentic/schemas/_shared",
@@ -117,7 +117,7 @@ def main():
     # 6. workspacespec check
     workspace_spec_path = os.path.join(root_dir, "agentic/specs/system/workspace-artifact-schemas.md")
     if not os.path.exists(workspace_spec_path):
-        errors.append("agentic/specs/system/workspace-artifact-schemas.md is missing.")
+        errors.append("agentic/specs/system/workspace-artifact-schemas.md.")
     else:
         try:
             with open(workspace_spec_path, "r", encoding="utf-8") as f:

@@ -1,9 +1,9 @@
 {
   "version": "1.0.0",
   "source": {
-    "normalize_css": "source-css/normalize.css",
-    "webflow_css": "source-css/webflow.css",
-    "client_first_css": "source-css/client-first-v2-2.webflow.css",
+    "normalize_css": "agentic/knowledge/source-css/normalize.css",
+    "webflow_css": "agentic/knowledge/source-css/webflow.css",
+    "client_first_css": "agentic/knowledge/source-css/client-first-v2-2.webflow.css",
     "client_first_css_hash": "21e8d8ef7f5c0dbfa3d7f09dca36df2f"
   },
   "strict_mode": true,

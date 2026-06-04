@@ -17,8 +17,8 @@ Use before archive, restore, page transition cleanup, new project initialization
 ## Allowed Tools
 
 - Read, Grep, Glob
-- Write/Edit for `agentic/memory/session-handoff.md` and workspace lifecycle reports
-- Bash for `scripts/init_workspace.py`, `archive_workspace.py`, and `restore_workspace.py`
+- Write/Edit for `workspace/state.json` and workspace lifecycle reports
+- Bash for `archive/deprecated-pipeline/scripts/workspace/init_workspace.py`, `archive_workspace.py`, and `restore_workspace.py`
 
 ## Forbidden Actions
 
@@ -38,7 +38,7 @@ Use before archive, restore, page transition cleanup, new project initialization
 
 - lifecycle report,
 - archive or restore evidence,
-- updated `agentic/memory/session-handoff.md`,
+- updated `workspace/state.json`,
 - blockers.
 
 ## Stop Conditions

@@ -250,8 +250,8 @@ def main():
     parser.add_argument("--output", default="workspace/semantic/figma.semantic-tree.json")
     parser.add_argument("--tag-rules", default=".claude/skills/[new]-semantic-html-resolver/rules/tag.rules.yaml")
     parser.add_argument("--class-rules", default="agentic/rules/class-selection.rules.yaml")
-    parser.add_argument("--contract", default="knowledge-base/generated/client-first-library-contract.json")
-    parser.add_argument("--var-index", default="knowledge-base/generated/css-variable-index.json")
+    parser.add_argument("--contract", default="agentic/knowledge/generated/client-first-library-contract.json")
+    parser.add_argument("--var-index", default="agentic/knowledge/generated/css-variable-index.json")
     parser.add_argument("--reports-dir", default="workspace/reports")
     args = parser.parse_args()
     

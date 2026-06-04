@@ -25,7 +25,7 @@ These classes have **Webflow-defined styles** that override anything you write. 
 
 ## Detection
 
-The `webflow-native-class-index.json` (under `knowledge-base/generated/`) lists all known native classes. The `selector_guards.is_native_selector()` function in `.claude/skills/_shared/` checks against this list.
+The `webflow-native-class-index.json` (under `agentic/knowledge/generated/`) lists all known native classes. The `selector_guards.is_native_selector()` function in `.claude/skills/_shared/` checks against this list.
 
 ```python
 from _shared.selector_guards import is_native_selector

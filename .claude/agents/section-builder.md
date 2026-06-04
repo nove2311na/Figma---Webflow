@@ -19,7 +19,7 @@ after Phase 2A has created all new classes and section containers.
 
 ## Input Contract
 
-A task matching `agentic/schemas/subagent-task.schema.json`:
+A task matching `agentic/schemas/_shared/meta.schema.json`:
 
 - `section_id`,
 - `parent_element_id` (section container created in Phase 2A),

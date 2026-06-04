@@ -56,7 +56,7 @@ WEBFLOW (build target)                                    │
 | `guides/` | Onboarding cho người đọc (bạn đang ở đây) |
 | `agentic/knowledge/` | Kiến thức kỹ thuật nền: token sync, CF library, Webflow MCP |
 | `agentic/specs/` | Spec chi tiết: mapping rules, schemas, QA contract |
-| `agentic/prompts/` | Prompt guide cho LLM: phân tích Figma, viết HTML contract |
-| `agentic/orchestration/` | SOP, phase state machine, handoff contracts |
+| `.claude/skills/figma-to-webflow-orchestrator/SKILL.md` | Prompt guide cho LLM: phân tích Figma, viết HTML contract |
+| `.claude/skills/figma-to-webflow-orchestrator/SKILL.md` | SOP, phase state machine, handoff contracts |
 | `.claude/agents/` | Định nghĩa vai trò từng AI agent |
 | `.claude/skills/` | Workflow skills: blueprint, build, QA, parallel sections |

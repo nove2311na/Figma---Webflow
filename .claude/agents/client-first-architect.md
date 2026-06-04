@@ -33,15 +33,15 @@ Use during SOP Phase 1 blueprint creation and Phase 3 QA loop.
 - content data from `workspace/contents/`,
 - `workspace/design-system.json`,
 - Client-First knowledge,
-- `knowledge-base/client-first-class-map.json`,
-- per-project library: `knowledge-base/libraries/{site_id}/client-first-library.json`,
+- `agentic/knowledge/client-first-class-map.json`,
+- baseline library: `agentic/knowledge/generated/client-first-library-contract.json`,
 - raw layout blueprint `workspace/figma/raw-layout-blueprint.json` (produced by `extract_raw_styling.py`),
 - design analysis (intermediate): `workspace/blueprints/[page-slug]_design-analysis.json` (produced by `read-figma-data.md` prompt before HTML contract writing),
 - page context and target page ID.
 
 ## HTML Contract Rule
 
-Read `archive/deprecated-workflows/write-html-contract.webflow-first.md` before writing any `html_contract` or `new_classes`.
+Read `.claude/skills/figma-to-html-architect/SKILL.md` before writing any `html_contract` or `new_classes`.
 That guide is the mandatory decision framework: when to apply an existing utility/library class vs when to
 create a new custom class. Every `new_classes` entry must cite the Case number from that guide in `reason`.
 

@@ -12,7 +12,7 @@
     },
     "webflowSiteId": {
       "type": "string",
-      "description": "Webflow site ID; keys the per-project CF library in knowledge-base/libraries/."
+      "description": "Webflow site ID; keys the project CF library contract in agentic/knowledge/generated/."
     },
     "initializedAt": {"type": "string"},
     "runtime": {"type": "string", "const": "claude_code_python"}

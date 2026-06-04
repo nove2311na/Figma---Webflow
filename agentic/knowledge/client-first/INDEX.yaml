@@ -5,7 +5,7 @@ meta:
   format: distilled-notes
   max_lines_per_file: 300
 entries:
-- file_path: knowledge-base/client-first/concepts/00-overview.md
+- file_path: agentic/knowledge/client-first/concepts/00-overview.md
   raw_url: https://finsweet.com/client-first/docs/overview
   section: concepts
   page: overview
@@ -18,7 +18,7 @@ entries:
   - design-system-sync
   token_estimate: 400
   status: ready
-- file_path: knowledge-base/client-first/concepts/01-class-system.md
+- file_path: agentic/knowledge/client-first/concepts/01-class-system.md
   raw_url: https://finsweet.com/client-first/docs/concepts/class-system
   section: concepts
   page: class-system
@@ -32,7 +32,7 @@ entries:
   - figma-to-html-architect
   token_estimate: 800
   status: ready
-- file_path: knowledge-base/client-first/concepts/02-spacing.md
+- file_path: agentic/knowledge/client-first/concepts/02-spacing.md
   raw_url: https://finsweet.com/client-first/docs/concepts/spacing
   section: concepts
   page: spacing
@@ -45,7 +45,7 @@ entries:
   - figma-to-html-architect
   token_estimate: 700
   status: ready
-- file_path: knowledge-base/client-first/concepts/03-typography.md
+- file_path: agentic/knowledge/client-first/concepts/03-typography.md
   raw_url: https://finsweet.com/client-first/docs/concepts/typography
   section: concepts
   page: typography
@@ -59,7 +59,7 @@ entries:
   - figma-to-html-architect
   token_estimate: 900
   status: ready
-- file_path: knowledge-base/client-first/concepts/04-colors.md
+- file_path: agentic/knowledge/client-first/concepts/04-colors.md
   raw_url: https://finsweet.com/client-first/docs/concepts/colors
   section: concepts
   page: colors
@@ -72,7 +72,7 @@ entries:
   - figma-to-html-architect
   token_estimate: 800
   status: ready
-- file_path: knowledge-base/client-first/concepts/05-sizing.md
+- file_path: agentic/knowledge/client-first/concepts/05-sizing.md
   raw_url: https://finsweet.com/client-first/docs/concepts/sizing
   section: concepts
   page: sizing
@@ -86,7 +86,7 @@ entries:
   - figma-to-html-architect
   token_estimate: 600
   status: ready
-- file_path: knowledge-base/client-first/concepts/06-utility-classes.md
+- file_path: agentic/knowledge/client-first/concepts/06-utility-classes.md
   raw_url: https://finsweet.com/client-first/docs/concepts/utility-classes
   section: concepts
   page: utility-classes
@@ -100,7 +100,7 @@ entries:
   - figma-to-html-architect
   token_estimate: 700
   status: ready
-- file_path: knowledge-base/client-first/concepts/07-combo-classes.md
+- file_path: agentic/knowledge/client-first/concepts/07-combo-classes.md
   raw_url: https://finsweet.com/client-first/docs/concepts/combo-classes
   section: concepts
   page: combo-classes
@@ -112,7 +112,7 @@ entries:
   - figma-to-html-architect
   token_estimate: 600
   status: ready
-- file_path: knowledge-base/client-first/concepts/08-layout-system.md
+- file_path: agentic/knowledge/client-first/concepts/08-layout-system.md
   raw_url: https://finsweet.com/client-first/docs/concepts/layout-system
   section: concepts
   page: layout-system
@@ -126,7 +126,7 @@ entries:
   - figma-to-webflow-orchestrator
   token_estimate: 800
   status: ready
-- file_path: knowledge-base/client-first/usability/01-responsive-design.md
+- file_path: agentic/knowledge/client-first/usability/01-responsive-design.md
   raw_url: https://finsweet.com/client-first/docs/usability/responsive-design
   section: usability
   page: responsive-design
@@ -138,7 +138,7 @@ entries:
   - figma-to-html-architect
   token_estimate: 900
   status: ready
-- file_path: knowledge-base/client-first/usability/02-accessibility.md
+- file_path: agentic/knowledge/client-first/usability/02-accessibility.md
   raw_url: https://finsweet.com/client-first/docs/usability/accessibility
   section: usability
   page: accessibility
@@ -151,7 +151,7 @@ entries:
   - figma-to-html-architect
   token_estimate: 700
   status: ready
-- file_path: knowledge-base/client-first/usability/03-rtl-support.md
+- file_path: agentic/knowledge/client-first/usability/03-rtl-support.md
   raw_url: https://finsweet.com/client-first/docs/usability/rtl
   section: usability
   page: rtl
@@ -164,7 +164,7 @@ entries:
   - figma-to-html-architect
   token_estimate: 500
   status: ready
-- file_path: knowledge-base/client-first/usability/04-dark-mode.md
+- file_path: agentic/knowledge/client-first/usability/04-dark-mode.md
   raw_url: https://finsweet.com/client-first/docs/usability/dark-mode
   section: usability
   page: dark-mode
@@ -178,7 +178,7 @@ entries:
   - figma-to-html-architect
   token_estimate: 800
   status: ready
-- file_path: knowledge-base/client-first/usability/05-grids.md
+- file_path: agentic/knowledge/client-first/usability/05-grids.md
   raw_url: https://finsweet.com/client-first/docs/usability/grids
   section: usability
   page: grids
@@ -191,7 +191,7 @@ entries:
   - figma-to-html-architect
   token_estimate: 600
   status: ready
-- file_path: knowledge-base/client-first/usability/06-forms.md
+- file_path: agentic/knowledge/client-first/usability/06-forms.md
   raw_url: https://finsweet.com/client-first/docs/usability/forms
   section: usability
   page: forms
@@ -204,7 +204,7 @@ entries:
   - figma-to-html-architect
   token_estimate: 700
   status: ready
-- file_path: knowledge-base/client-first/concepts/09-figma-integration.md
+- file_path: agentic/knowledge/client-first/concepts/09-figma-integration.md
   raw_url: https://finsweet.com/client-first/docs/figma
   section: supporting-content
   page: figma
@@ -217,7 +217,7 @@ entries:
   - design-system-sync
   token_estimate: 800
   status: ready
-- file_path: knowledge-base/client-first/concepts/10-webflow-integration.md
+- file_path: agentic/knowledge/client-first/concepts/10-webflow-integration.md
   raw_url: https://finsweet.com/client-first/docs/webflow
   section: supporting-content
   page: webflow
@@ -230,7 +230,7 @@ entries:
   - design-system-sync
   token_estimate: 800
   status: ready
-- file_path: knowledge-base/client-first/concepts/11-components.md
+- file_path: agentic/knowledge/client-first/concepts/11-components.md
   raw_url: https://finsweet.com/client-first/docs/components
   section: supporting-content
   page: components
@@ -244,7 +244,7 @@ entries:
   - figma-to-webflow-orchestrator
   token_estimate: 600
   status: ready
-- file_path: knowledge-base/client-first/gotchas/01-variable-modes-figma-webflow.md
+- file_path: agentic/knowledge/client-first/gotchas/01-variable-modes-figma-webflow.md
   section: gotchas
   page: variable-modes-figma-webflow
   topic_tags:
@@ -257,7 +257,7 @@ entries:
   - design-system-sync
   token_estimate: 800
   status: ready
-- file_path: knowledge-base/client-first/gotchas/02-breakpoint-mismatch.md
+- file_path: agentic/knowledge/client-first/gotchas/02-breakpoint-mismatch.md
   section: gotchas
   page: breakpoint-mismatch
   topic_tags:
@@ -269,7 +269,7 @@ entries:
   - figma-to-html-architect
   token_estimate: 600
   status: ready
-- file_path: knowledge-base/client-first/gotchas/03-alias-chains.md
+- file_path: agentic/knowledge/client-first/gotchas/03-alias-chains.md
   section: gotchas
   page: alias-chains
   topic_tags:
@@ -281,7 +281,7 @@ entries:
   - design-system-sync
   token_estimate: 700
   status: ready
-- file_path: knowledge-base/client-first/gotchas/04-native-class-denylist.md
+- file_path: agentic/knowledge/client-first/gotchas/04-native-class-denylist.md
   section: gotchas
   page: native-class-denylist
   topic_tags:
@@ -294,7 +294,7 @@ entries:
   - design-system-sync
   token_estimate: 600
   status: ready
-- file_path: knowledge-base/client-first/gotchas/05-display-name-vs-stable-id.md
+- file_path: agentic/knowledge/client-first/gotchas/05-display-name-vs-stable-id.md
   section: gotchas
   page: display-name-vs-stable-id
   topic_tags:
@@ -308,7 +308,7 @@ entries:
   - figma-to-webflow-orchestrator
   token_estimate: 700
   status: ready
-- file_path: knowledge-base/client-first/gotchas/06-multi-machine-sync-drift.md
+- file_path: agentic/knowledge/client-first/gotchas/06-multi-machine-sync-drift.md
   section: gotchas
   page: multi-machine-sync-drift
   topic_tags:
@@ -321,7 +321,7 @@ entries:
   - figma-to-webflow-orchestrator
   token_estimate: 600
   status: ready
-- file_path: knowledge-base/client-first/gotchas/07-css-unit-rem-mandate.md
+- file_path: agentic/knowledge/client-first/gotchas/07-css-unit-rem-mandate.md
   section: gotchas
   page: css-unit-rem-mandate
   topic_tags:
@@ -334,7 +334,7 @@ entries:
   - figma-to-html-architect
   token_estimate: 500
   status: ready
-- file_path: knowledge-base/client-first/gotchas/08-webflow-native-widget-conflict.md
+- file_path: agentic/knowledge/client-first/gotchas/08-webflow-native-widget-conflict.md
   section: gotchas
   page: webflow-native-widget-conflict
   topic_tags:

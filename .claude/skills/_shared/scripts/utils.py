@@ -23,7 +23,7 @@ SPACING_SCALE = {
     "section-medium": 80,
     "section-large": 120,
 }
-CLIENT_FIRST_MAP_PATH = Path(__file__).resolve().parents[3] / "knowledge-base" / "client-first-class-map.json"
+CLIENT_FIRST_MAP_PATH = Path(__file__).resolve().parents[3] / "agentic" / "knowledge" / "client-first-class-map.json"
 
 
 @dataclass(frozen=True)
@@ -156,7 +156,7 @@ def suggest_client_first_classes(figma_properties: dict[str, Any], class_map: di
                 {
                     "figma_property": str(mapping.get("figma_property", "")),
                     "client_first_decision": str(mapping.get("client_first_decision", "")),
-                    "source": "knowledge-base/client-first-class-map.json",
+                    "source": "agentic/knowledge/client-first-class-map.json",
                 }
             )
     return suggestions

@@ -50,7 +50,7 @@ ARCH_DIR = SKILLS_DIR / "figma-to-html-architect" / "scripts"
 
 PHASE_1_STEPS = [
     ("Task 0  extract_client_first_baseline", SYNC_DIR / "extract_client_first_baseline.py",
-     ["--input-css", "workspace/{ws}/source-css/client-first-v2-2.webflow.css",
+     ["--input-css", "agentic/knowledge/source-css/client-first-v2-2.webflow.css",
       "--output-contract", "workspace/{ws}/design-system/client-first-baseline-contract.json",
       "--report", "workspace/{ws}/design-system/validations/client-first-extraction-report.json",
       "--strict"]),

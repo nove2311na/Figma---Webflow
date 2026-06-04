@@ -30,8 +30,8 @@ Use for every user request, phase transition, build kickoff, approval checkpoint
 ## Input Contract
 
 - user request,
-- `agentic/memory/session-handoff.md`,
-- `agentic/orchestration/sop.md`,
+- `workspace/state.json`,
+- `agentic/specs/pipeline/html-first-pipeline.md`,
 - current workspace state,
 - target Figma URL and Webflow site/page when available.
 
@@ -47,7 +47,7 @@ classes are created only by the parent operator in Phase 2A.
 - phase report,
 - specialist task request,
 - evidence summary with file paths,
-- updated `agentic/memory/session-handoff.md`,
+- updated `workspace/state.json`,
 - user-facing next action.
 
 ## Stop Conditions

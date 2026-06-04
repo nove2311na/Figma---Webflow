@@ -135,7 +135,7 @@ Khi có lỗi, kiểm tra theo thứ tự:
 ```
 1. workspace/error-logs.json          → lỗi gì?
 2. workspace/state.json               → pipeline đang ở phase nào?
-3. scripts/gates/run_quality_gate.py  → gate nào fail?
+3. .claude/skills/_shared/scripts/run_quality_gate.py  → gate nào fail?
 4. knowledge-base/libraries/{id}/     → library đúng không?
-5. agentic/orchestration/sop.md       → SOP phase yêu cầu gì?
+5. .claude/skills/figma-to-webflow-orchestrator/SKILL.mdsop.md       → SOP phase yêu cầu gì?
 ```

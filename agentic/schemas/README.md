@@ -6,8 +6,8 @@ Schemas are grouped by pipeline stage. Each sub-folder contains JSON Schema defi
 |---|---|
 | `figma/` | Figma extraction inputs — node bundles, normalized tree, semantic tree, normalization/mapping reports |
 | `html/` | HTML pipeline outputs — blueprint, validation report, asset manifest, alt policy, section manifest |
-| `webflow/` | Webflow-side structures — native build plan, section tasks, write audit log |
-| `library/` | CSS contract and project library schemas |
+| `webflow/` | Webflow-side structures — native build plan, section tasks, write audit log (indexed in [schema_index.json](file:///g:/My%20Drive/10_Learning/_Research/auto-research/.docs/source/MAS-Figma-Webflow-khang/agentic/schemas/webflow/schema_index.json)) |
+| `library/` | CSS contract and project library schemas (indexed in [schema_index.json](file:///g:/My%20Drive/10_Learning/_Research/auto-research/.docs/source/MAS-Figma-Webflow-khang/agentic/schemas/library/schema_index.json)) |
 | `component/` | Component registry, signature, and matching report schemas |
 | `design-system/` | Design-system sync report schema |
 | `workspace/` | Runtime workspace file schemas — meta, state, page structure, error log, etc. |

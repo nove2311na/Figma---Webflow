@@ -22,9 +22,10 @@ class text-weight-bold  →  var --font-weight--bold  →  value (project A: 700
 │  Figma Project  │ ─────────────►  │   Repo Contract  │ ─────────────►  │ Webflow Project │
 │  (design SoT)   │                 │ (git-versioned)  │                 │ (build target)  │
 │                 │                 │                  │                 │                 │
-│ Variables panel │                 │ knowledge-base/  │                 │ Variables panel │
-│ - Base tokens   │ ◄─── drift? ──► │ generated/       │ ◄─── drift? ──► │ - same tokens   │
-│ - Theme aliases │                 │ webflow-         │                 │ - applied live  │
+│ Variables panel │                 │ agentic/         │                 │ Variables panel │
+│ - Base tokens   │ ◄─── drift? ──► │ knowledge/       │ ◄─── drift? ──► │ - same tokens   │
+│ - Theme aliases │                 │ generated/       │                 │ - applied live  │
+│                 │                 │ webflow-         │                 │                 │
 │                 │                 │ contract.json    │                 │                 │
 │                 │                 │ figma-           │                 │                 │
 │                 │                 │ contract.json    │                 │                 │
@@ -76,7 +77,7 @@ Step 1  design-system-sync     ← TOKEN SYNC (this document)
           │ Figma vars → repo (figma-contract.json) → Webflow vars + drift gate + untokenized gate
           │
 Step 2  figma-to-html-architect  ← Figma node → HTML with CF classes
-          │ Uses knowledge-base/generated/* for class selection
+          │ Uses agentic/knowledge/generated/* for class selection
           │
 Step 3  figma-to-webflow-orchestrator  ← parallel sync + render
           │ Branch A: Webflow MCP write
@@ -99,7 +100,7 @@ Step 1 is the foundation. If the token layer is correct, Steps 2-3 are determini
 
 | Script | Role |
 |---|---|
-| `.claude/skills/_shared/scripts/index_css_library.py` | One-time setup: parse `source-css/` → `knowledge-base/generated/` |
+| `.claude/skills/_shared/.claude/skills/_shared/scripts/index_css_library.py` | One-time setup: parse `agentic/knowledge/source-css/` → `agentic/knowledge/generated/` |
 | `.claude/skills/_shared/scripts/validate_artifacts.py` | Q2 schema validation block/warn/log |
 | `.claude/skills/_shared/scripts/run_quality_gate.py` | Full quality gate |
 
@@ -120,7 +121,7 @@ Step 1 is the foundation. If the token layer is correct, Steps 2-3 are determini
 4. Push to Webflow via `variable_tool` (approval-gated)
 
 ### LLM / Agent (build side)
-- Before writing HTML contract → read `knowledge-base/generated/client-first-library-contract.json` for allowed classes
+- Before writing HTML contract → read `agentic/knowledge/generated/client-first-library-contract.json` for allowed classes
 - Every color must trace back to a token class — no hardcoded hex
 - Every spacing picks a token — no `px/16` computation
 - If Figma node has raw value without token → flag `untokenized` in design analysis, STOP
@@ -131,8 +132,8 @@ Step 1 is the foundation. If the token layer is correct, Steps 2-3 are determini
 
 | File | Content |
 |---|---|
-| `knowledge-base/client-first-class-map.json` | Global utility class catalog |
-| `knowledge-base/generated/client-first-library-contract.json` | Generated contract (CF V2.2 + class allowlist + breakpoint policy) |
+| `agentic/knowledge/client-first-class-map.json` | Global utility class catalog |
+| `agentic/knowledge/generated/client-first-library-contract.json` | Generated contract (CF V2.2 + class allowlist + breakpoint policy) |
 | `agentic/schemas/_shared/variable-entry.schema.json` | Q2 schema for variable entries (requires `figmaId` + `modes`) |
 | `agentic/specs/contracts/figma-to-client-first-mapping.md` | Figma node → CF class rules (Sections A–G) |
 | `.claude/skills/_shared/scripts/validate_artifacts.py` | Q2 schema validation gate |

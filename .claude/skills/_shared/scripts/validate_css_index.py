@@ -4,7 +4,7 @@ import json
 
 def main():
     root_dir = os.path.abspath(os.path.join(os.path.dirname(__file__), "..", "..", "..", ".."))
-    generated_dir = os.path.join(root_dir, "knowledge-base", "generated")
+    generated_dir = os.path.join(root_dir, "agentic", "knowledge", "generated")
     print(f"Validating CSS Index files in: {generated_dir}")
     
     indices = [

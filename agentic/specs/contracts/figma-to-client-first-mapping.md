@@ -7,7 +7,7 @@ This contract turns Figma properties into Client-First class decisions. It preve
 | Step | Input | Decision | Output |
 |---|---|---|---|
 | Identify role | Frame name, hierarchy, component context | Page wrapper, section, component, child, or utility wrapper. | `element_role` |
-| Read properties | Auto-layout, fills, strokes, typography, variant, size | Select matching rule from `knowledge-base/client-first-class-map.json`. | `class_mapping[]` |
+| Read properties | Auto-layout, fills, strokes, typography, variant, size | Select matching rule from `agentic/knowledge/client-first-class-map.json`. | `class_mapping[]` |
 | Normalize units | Pixel-like values | Convert to REM and token size. | `rem_value` |
 | Pick strategy | Global, utility, custom, combo, variable-backed utility | Decide class application mode. | `class_strategy` |
 | Write blueprint | Mapped classes and reasons | Build-ready class contract. | `workspace/blueprints/*.json` |
@@ -26,7 +26,7 @@ This contract turns Figma properties into Client-First class decisions. It preve
       "webflow_property": "font-size",
       "class_strategy": "utility_selection",
       "reason": "Hero title is visually H1 scale.",
-      "source": "knowledge-base/client-first-class-map.json"
+      "source": "agentic/knowledge/client-first-class-map.json"
     }
   ]
 }
@@ -180,7 +180,7 @@ For each TEXT node in Figma:
 ## Section F — Figma Variable → Color Class
 
 1. All Figma color variables are listed in raw data under `"variables"` or `"variableCollections"`.
-2. For each variable used on a node, look up `figma_token` in `knowledge-base/generated/client-first-library-contract.json`.
+2. For each variable used on a node, look up `figma_token` in `agentic/knowledge/generated/client-first-library-contract.json`.
 3. Apply the correct class by context:
    - Fill on TEXT node → `text-color-[token]`
    - Fill on FRAME (not text) → `background-color-[token]`

@@ -2,7 +2,7 @@
   "_note": "Curated interpretation only. Generated client-first-library-contract.json is source of truth. If conflict, generated contract wins.",
   "version": "0.5.0",
   "source_notes": [
-    "agentic/specs/figma-to-client-first-mapping.md",
+    "agentic/specs/contracts/figma-to-client-first-mapping.md",
     "finsweet.com/client-first/docs",
     "webflow:Client-First V2.2 (6a1fa213c04827556dcac7b5) live 2026-06-03"
   ],

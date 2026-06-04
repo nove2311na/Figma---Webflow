@@ -14,6 +14,13 @@ Invoke this command in chat:
 
 *Example:* `/project:figma-to-webflow-orchestrator my-project 1003-521`
 
+### Deterministic Orchestration Script (CLI alternative)
+You can run all deterministic steps (Phase 1, Phase 2 Branch B) directly using the following CLI script:
+```bash
+python .claude/skills/figma-to-webflow-orchestrator/scripts/orchestrate.py --workspace <workspace-name> --node-id <node-id>
+```
+*Note: Steps requiring Figma MCP or Webflow MCP (Tasks 1 & 4 of design-system-sync, plus Figma raw HTML extraction in Branch B) are left to the LLM agent.*
+
 ---
 
 ## 📋 Orchestration Workflow
@@ -75,12 +82,12 @@ This skill coordinates the other two. The knowledge base is the contract between
 - **Branch B (architect)**: `utility`, `combo`, `custom`, `semantic-html`, `a11y`, `responsive`, `layout`, `forms`, `grid`, `rem`, `widget-conflict`
 - **Cross-cutting**: `components` (concepts/11), `naming-convention` (concepts/00)
 
-**How to use**: read `knowledge-base/client-first/INDEX.yaml`, filter by `applicable_skill`, pull 1-3 files per branch. Never full-dump.
+**How to use**: read `agentic/knowledge/client-first/INDEX.yaml`, filter by `applicable_skill`, pull 1-3 files per branch. Never full-dump.
 
 ```bash
 python -c "
 import yaml
-d = yaml.safe_load(open('knowledge-base/client-first/INDEX.yaml'))
+d = yaml.safe_load(open('agentic/knowledge/client-first/INDEX.yaml'))
 for e in d['entries']:
     if 'figma-to-webflow-orchestrator' in e.get('applicable_skill',[]):
         print(f\"  - {e['file_path']}  [section: {e.get('section','?')}]\")
@@ -94,3 +101,12 @@ Once both **Branch A** (Webflow sync complete) and **Branch B** (Subagent report
 1.  Verify the integrity of `workspace/<workspace-name>/components/<node-id>/final-webflow.html`.
 2.  Print a summary of variables synced, classes created, and HTML files processed.
 3.  Notify the user that the component is fully ready and validated.
+
+---
+
+## 🛡️ Policies & Constraints
+- Concurrency, retry-handling, and Webflow MCP limits are specified in:
+  - [concurrency-policy.yaml](file:///g:/My%20Drive/10_Learning/_Research/auto-research/.docs/source/MAS-Figma-Webflow-khang/agentic/rules/concurrency-policy.yaml) (Serial write lock and concurrency configurations)
+  - [retry-policy.yaml](file:///g:/My%20Drive/10_Learning/_Research/auto-research/.docs/source/MAS-Figma-Webflow-khang/agentic/rules/retry-policy.yaml) (API retry/backoff parameters)
+  - [webflow-mcp.rules.yaml](file:///g:/My%20Drive/10_Learning/_Research/auto-research/.docs/source/MAS-Figma-Webflow-khang/agentic/rules/webflow-mcp.rules.yaml) (Webflow MCP API usage limits)
+- Webflow JSON Schemas are indexed in [schema_index.json](file:///g:/My%20Drive/10_Learning/_Research/auto-research/.docs/source/MAS-Figma-Webflow-khang/agentic/schemas/webflow/schema_index.json).

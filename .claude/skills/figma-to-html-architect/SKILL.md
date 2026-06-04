@@ -54,12 +54,12 @@ Before processing HTML, pull only the conceptual rules this skill actually needs
 - `rem`, `px`, `unit-conversion` (gotchas/07)
 - `w-nav`, `w-slider`, `w-tabs`, `layer-name-conflict` (gotchas/08)
 
-**How to use**: read `knowledge-base/client-first/INDEX.yaml`, filter by `applicable_skill: figma-to-html-architect`, pull 1-3 files. Never full-dump.
+**How to use**: read `agentic/knowledge/client-first/INDEX.yaml`, filter by `applicable_skill: figma-to-html-architect`, pull 1-3 files. Never full-dump.
 
 ```bash
 python -c "
 import yaml
-d = yaml.safe_load(open('knowledge-base/client-first/INDEX.yaml'))
+d = yaml.safe_load(open('agentic/knowledge/client-first/INDEX.yaml'))
 mine = [e for e in d['entries'] if 'figma-to-html-architect' in e.get('applicable_skill',[])]
 for e in mine[:6]: print(f\"  - {e['file_path']}  [tags: {e['topic_tags']}]\")
 "
@@ -85,3 +85,9 @@ for e in mine[:6]: print(f\"  - {e['file_path']}  [tags: {e['topic_tags']}]\")
   - `warn`: Logs warnings for generic wrappers and native widget names, but passes the build. (Recommended default for active development).
   - `ignore`: Silently passes generic/wrapper layers, checking only critical interactive elements.
 - The agent should use `strict` only when generating production-ready final markup.
+
+### Rules & Policy Files
+- Spacing, naming, and HTML validation rules are specified in:
+  - [class-selection.rules.yaml](file:///g:/My%20Drive/10_Learning/_Research/auto-research/.docs/source/MAS-Figma-Webflow-khang/agentic/rules/class-selection.rules.yaml) (Class matching & selection policy)
+  - [html-qa.rules.yaml](file:///g:/My%20Drive/10_Learning/_Research/auto-research/.docs/source/MAS-Figma-Webflow-khang/agentic/rules/html-qa.rules.yaml) (HTML quality checklist & rule definitions)
+  - [asset-alt.rules.yaml](file:///g:/My%20Drive/10_Learning/_Research/auto-research/.docs/source/MAS-Figma-Webflow-khang/agentic/rules/asset-alt.rules.yaml) (Alt tag assignment rules)
