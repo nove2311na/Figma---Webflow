@@ -1,0 +1,3514 @@
+{
+  "meta": {
+    "schemaVersion": "1.0.0",
+    "source": "webflow",
+    "baseline": "finsweet-client-first-2.2",
+    "extractedAt": "2026-06-04T00:00:00Z",
+    "extractedBy": "template-webflow-v1"
+  },
+  "variables": {
+    "--_layout---gaps--large": {
+      "figmaName": "Layout / Gaps / Large",
+      "webflowName": "--_layout---gaps--large",
+      "type": "size",
+      "value": 16,
+      "resolvedValue": 16,
+      "unit": "px",
+      "mode": "default",
+      "updatePolicy": "update_value_only",
+      "name": "--_layout---gaps--large",
+      "figmaId": "VariableID:tpl-a71c011f-3df0-8cdb-1993-3f5075b63947:1",
+      "namespace": "_layout",
+      "modes": {
+        "default": "16"
+      },
+      "editableInFigma": true,
+      "projectExtension": false
+    },
+    "--_layout---gaps--medium": {
+      "figmaName": "Layout / Gaps / Medium",
+      "webflowName": "--_layout---gaps--medium",
+      "type": "size",
+      "value": 16,
+      "resolvedValue": 16,
+      "unit": "px",
+      "mode": "default",
+      "updatePolicy": "update_value_only",
+      "name": "--_layout---gaps--medium",
+      "figmaId": "VariableID:tpl-7c27bb75-dc01-d9cf-4f41-2d666b40ca78:2",
+      "namespace": "_layout",
+      "modes": {
+        "default": "16"
+      },
+      "editableInFigma": true,
+      "projectExtension": false
+    },
+    "--_layout---gaps--regular": {
+      "figmaName": "Layout / Gaps / Regular",
+      "webflowName": "--_layout---gaps--regular",
+      "type": "size",
+      "value": 16,
+      "resolvedValue": 16,
+      "unit": "px",
+      "mode": "default",
+      "updatePolicy": "update_value_only",
+      "name": "--_layout---gaps--regular",
+      "figmaId": "VariableID:tpl-bafd629d-faae-4f3d-390f-707bd4d9e90a:3",
+      "namespace": "_layout",
+      "modes": {
+        "default": "16"
+      },
+      "editableInFigma": true,
+      "projectExtension": false
+    },
+    "--_layout---gaps--small": {
+      "figmaName": "Layout / Gaps / Small",
+      "webflowName": "--_layout---gaps--small",
+      "type": "size",
+      "value": 16,
+      "resolvedValue": 16,
+      "unit": "px",
+      "mode": "default",
+      "updatePolicy": "update_value_only",
+      "name": "--_layout---gaps--small",
+      "figmaId": "VariableID:tpl-dfc839eb-a52f-176b-1b6c-2e04a26e5e42:4",
+      "namespace": "_layout",
+      "modes": {
+        "default": "16"
+      },
+      "editableInFigma": true,
+      "projectExtension": false
+    },
+    "--_layout---grid-columns--default-count": {
+      "figmaName": "Layout / Grid Columns / Default Count",
+      "webflowName": "--_layout---grid-columns--default-count",
+      "type": "number",
+      "value": 12,
+      "resolvedValue": 12,
+      "unit": null,
+      "mode": "default",
+      "updatePolicy": "update_value_only",
+      "name": "--_layout---grid-columns--default-count",
+      "figmaId": "VariableID:tpl-dcc5720b-71ca-a369-293b-e7ae3825929a:5",
+      "namespace": "_layout",
+      "modes": {
+        "default": "12"
+      },
+      "editableInFigma": true,
+      "projectExtension": false
+    },
+    "--_layout---grid-columns--large": {
+      "figmaName": "Layout / Grid Columns / Large",
+      "webflowName": "--_layout---grid-columns--large",
+      "type": "size",
+      "value": 16,
+      "resolvedValue": 16,
+      "unit": "px",
+      "mode": "default",
+      "updatePolicy": "update_value_only",
+      "name": "--_layout---grid-columns--large",
+      "figmaId": "VariableID:tpl-5c111f3f-c319-6086-cdef-c7691fef7f87:6",
+      "namespace": "_layout",
+      "modes": {
+        "default": "16"
+      },
+      "editableInFigma": true,
+      "projectExtension": false
+    },
+    "--_layout---grid-columns--medium": {
+      "figmaName": "Layout / Grid Columns / Medium",
+      "webflowName": "--_layout---grid-columns--medium",
+      "type": "size",
+      "value": 16,
+      "resolvedValue": 16,
+      "unit": "px",
+      "mode": "default",
+      "updatePolicy": "update_value_only",
+      "name": "--_layout---grid-columns--medium",
+      "figmaId": "VariableID:tpl-3baa056d-5560-bb45-7c90-11d11dd54903:7",
+      "namespace": "_layout",
+      "modes": {
+        "default": "16"
+      },
+      "editableInFigma": true,
+      "projectExtension": false
+    },
+    "--_layout---grid-columns--small": {
+      "figmaName": "Layout / Grid Columns / Small",
+      "webflowName": "--_layout---grid-columns--small",
+      "type": "size",
+      "value": 16,
+      "resolvedValue": 16,
+      "unit": "px",
+      "mode": "default",
+      "updatePolicy": "update_value_only",
+      "name": "--_layout---grid-columns--small",
+      "figmaId": "VariableID:tpl-26d3b9bc-6b54-6eaa-701b-ebefbcf7327b:8",
+      "namespace": "_layout",
+      "modes": {
+        "default": "16"
+      },
+      "editableInFigma": true,
+      "projectExtension": false
+    },
+    "--_layout---grid-columns--xlarge": {
+      "figmaName": "Layout / Grid Columns / Xlarge",
+      "webflowName": "--_layout---grid-columns--xlarge",
+      "type": "size",
+      "value": 16,
+      "resolvedValue": 16,
+      "unit": "px",
+      "mode": "default",
+      "updatePolicy": "update_value_only",
+      "name": "--_layout---grid-columns--xlarge",
+      "figmaId": "VariableID:tpl-5cde5040-1a7d-403b-3966-e3fda1ac9a5e:9",
+      "namespace": "_layout",
+      "modes": {
+        "default": "16"
+      },
+      "editableInFigma": true,
+      "projectExtension": false
+    },
+    "--_layout---grid-columns--xsmall": {
+      "figmaName": "Layout / Grid Columns / Xsmall",
+      "webflowName": "--_layout---grid-columns--xsmall",
+      "type": "size",
+      "value": 16,
+      "resolvedValue": 16,
+      "unit": "px",
+      "mode": "default",
+      "updatePolicy": "update_value_only",
+      "name": "--_layout---grid-columns--xsmall",
+      "figmaId": "VariableID:tpl-8abccc7c-df41-5b8a-bad9-f406ba9b55c3:10",
+      "namespace": "_layout",
+      "modes": {
+        "default": "16"
+      },
+      "editableInFigma": true,
+      "projectExtension": false
+    },
+    "--_layout---grid-columns--xxlarge": {
+      "figmaName": "Layout / Grid Columns / Xxlarge",
+      "webflowName": "--_layout---grid-columns--xxlarge",
+      "type": "size",
+      "value": 16,
+      "resolvedValue": 16,
+      "unit": "px",
+      "mode": "default",
+      "updatePolicy": "update_value_only",
+      "name": "--_layout---grid-columns--xxlarge",
+      "figmaId": "VariableID:tpl-74567267-9867-7289-bf40-21f00cd4f22a:11",
+      "namespace": "_layout",
+      "modes": {
+        "default": "16"
+      },
+      "editableInFigma": true,
+      "projectExtension": false
+    },
+    "--_layout---section-padding--large": {
+      "figmaName": "Layout / Section Padding / Large",
+      "webflowName": "--_layout---section-padding--large",
+      "type": "size",
+      "value": 16,
+      "resolvedValue": 16,
+      "unit": "px",
+      "mode": "default",
+      "updatePolicy": "update_value_only",
+      "name": "--_layout---section-padding--large",
+      "figmaId": "VariableID:tpl-25bb0d5b-f2dc-8284-e134-305a2a1b6222:12",
+      "namespace": "_layout",
+      "modes": {
+        "default": "16"
+      },
+      "editableInFigma": true,
+      "projectExtension": false
+    },
+    "--_layout---section-padding--medium": {
+      "figmaName": "Layout / Section Padding / Medium",
+      "webflowName": "--_layout---section-padding--medium",
+      "type": "size",
+      "value": 16,
+      "resolvedValue": 16,
+      "unit": "px",
+      "mode": "default",
+      "updatePolicy": "update_value_only",
+      "name": "--_layout---section-padding--medium",
+      "figmaId": "VariableID:tpl-d7a6a3b8-f407-38cd-484c-583a373b3c1d:13",
+      "namespace": "_layout",
+      "modes": {
+        "default": "16"
+      },
+      "editableInFigma": true,
+      "projectExtension": false
+    },
+    "--_layout---section-padding--small": {
+      "figmaName": "Layout / Section Padding / Small",
+      "webflowName": "--_layout---section-padding--small",
+      "type": "size",
+      "value": 16,
+      "resolvedValue": 16,
+      "unit": "px",
+      "mode": "default",
+      "updatePolicy": "update_value_only",
+      "name": "--_layout---section-padding--small",
+      "figmaId": "VariableID:tpl-fd809f1b-acc7-1c0f-37d3-7abb49c62a4e:14",
+      "namespace": "_layout",
+      "modes": {
+        "default": "16"
+      },
+      "editableInFigma": true,
+      "projectExtension": false
+    },
+    "--_layout---spacing--global-padding": {
+      "figmaName": "Layout / Spacing / Global Padding",
+      "webflowName": "--_layout---spacing--global-padding",
+      "type": "size",
+      "value": 16,
+      "resolvedValue": 16,
+      "unit": "px",
+      "mode": "default",
+      "updatePolicy": "update_value_only",
+      "name": "--_layout---spacing--global-padding",
+      "figmaId": "VariableID:tpl-3440b4f3-c4a4-e934-c967-0703f3d2337f:15",
+      "namespace": "_layout",
+      "modes": {
+        "default": "16"
+      },
+      "editableInFigma": true,
+      "projectExtension": false
+    },
+    "--_layout---spacing--huge": {
+      "figmaName": "Layout / Spacing / Huge",
+      "webflowName": "--_layout---spacing--huge",
+      "type": "size",
+      "value": 16,
+      "resolvedValue": 16,
+      "unit": "px",
+      "mode": "default",
+      "updatePolicy": "update_value_only",
+      "name": "--_layout---spacing--huge",
+      "figmaId": "VariableID:tpl-e1de1661-f87f-ea10-84ca-48229e969057:16",
+      "namespace": "_layout",
+      "modes": {
+        "default": "16"
+      },
+      "editableInFigma": true,
+      "projectExtension": false
+    },
+    "--_layout---spacing--large": {
+      "figmaName": "Layout / Spacing / Large",
+      "webflowName": "--_layout---spacing--large",
+      "type": "size",
+      "value": 16,
+      "resolvedValue": 16,
+      "unit": "px",
+      "mode": "default",
+      "updatePolicy": "update_value_only",
+      "name": "--_layout---spacing--large",
+      "figmaId": "VariableID:tpl-3a399220-b4f4-53c2-cf19-dfc56d6a4d96:17",
+      "namespace": "_layout",
+      "modes": {
+        "default": "16"
+      },
+      "editableInFigma": true,
+      "projectExtension": false
+    },
+    "--_layout---spacing--medium": {
+      "figmaName": "Layout / Spacing / Medium",
+      "webflowName": "--_layout---spacing--medium",
+      "type": "size",
+      "value": 16,
+      "resolvedValue": 16,
+      "unit": "px",
+      "mode": "default",
+      "updatePolicy": "update_value_only",
+      "name": "--_layout---spacing--medium",
+      "figmaId": "VariableID:tpl-b4a1976c-f473-3268-36fb-9f937d8fe922:18",
+      "namespace": "_layout",
+      "modes": {
+        "default": "16"
+      },
+      "editableInFigma": true,
+      "projectExtension": false
+    },
+    "--_layout---spacing--none": {
+      "figmaName": "Layout / Spacing / None",
+      "webflowName": "--_layout---spacing--none",
+      "type": "size",
+      "value": 16,
+      "resolvedValue": 16,
+      "unit": "px",
+      "mode": "default",
+      "updatePolicy": "update_value_only",
+      "name": "--_layout---spacing--none",
+      "figmaId": "VariableID:tpl-6d22597e-3077-8942-8ebd-fa0fcda29203:19",
+      "namespace": "_layout",
+      "modes": {
+        "default": "16"
+      },
+      "editableInFigma": true,
+      "projectExtension": false
+    },
+    "--_layout---spacing--small": {
+      "figmaName": "Layout / Spacing / Small",
+      "webflowName": "--_layout---spacing--small",
+      "type": "size",
+      "value": 16,
+      "resolvedValue": 16,
+      "unit": "px",
+      "mode": "default",
+      "updatePolicy": "update_value_only",
+      "name": "--_layout---spacing--small",
+      "figmaId": "VariableID:tpl-77c9b9a7-70c1-0cfa-74da-86507e909fd4:20",
+      "namespace": "_layout",
+      "modes": {
+        "default": "16"
+      },
+      "editableInFigma": true,
+      "projectExtension": false
+    },
+    "--_layout---spacing--tiny": {
+      "figmaName": "Layout / Spacing / Tiny",
+      "webflowName": "--_layout---spacing--tiny",
+      "type": "size",
+      "value": 16,
+      "resolvedValue": 16,
+      "unit": "px",
+      "mode": "default",
+      "updatePolicy": "update_value_only",
+      "name": "--_layout---spacing--tiny",
+      "figmaId": "VariableID:tpl-42fb75b0-b7b1-2f2e-7187-42109f1cb7ca:21",
+      "namespace": "_layout",
+      "modes": {
+        "default": "16"
+      },
+      "editableInFigma": true,
+      "projectExtension": false
+    },
+    "--_layout---spacing--xhuge": {
+      "figmaName": "Layout / Spacing / Xhuge",
+      "webflowName": "--_layout---spacing--xhuge",
+      "type": "size",
+      "value": 16,
+      "resolvedValue": 16,
+      "unit": "px",
+      "mode": "default",
+      "updatePolicy": "update_value_only",
+      "name": "--_layout---spacing--xhuge",
+      "figmaId": "VariableID:tpl-0252fb42-eaf6-946a-58fa-d24371ad782a:22",
+      "namespace": "_layout",
+      "modes": {
+        "default": "16"
+      },
+      "editableInFigma": true,
+      "projectExtension": false
+    },
+    "--_layout---spacing--xlarge": {
+      "figmaName": "Layout / Spacing / Xlarge",
+      "webflowName": "--_layout---spacing--xlarge",
+      "type": "size",
+      "value": 16,
+      "resolvedValue": 16,
+      "unit": "px",
+      "mode": "default",
+      "updatePolicy": "update_value_only",
+      "name": "--_layout---spacing--xlarge",
+      "figmaId": "VariableID:tpl-a2e4fa3d-c937-3bbf-55db-f49d6700491c:23",
+      "namespace": "_layout",
+      "modes": {
+        "default": "16"
+      },
+      "editableInFigma": true,
+      "projectExtension": false
+    },
+    "--_layout---spacing--xsmall": {
+      "figmaName": "Layout / Spacing / Xsmall",
+      "webflowName": "--_layout---spacing--xsmall",
+      "type": "size",
+      "value": 16,
+      "resolvedValue": 16,
+      "unit": "px",
+      "mode": "default",
+      "updatePolicy": "update_value_only",
+      "name": "--_layout---spacing--xsmall",
+      "figmaId": "VariableID:tpl-b335cb29-64ff-a480-f356-8dab157e50e8:24",
+      "namespace": "_layout",
+      "modes": {
+        "default": "16"
+      },
+      "editableInFigma": true,
+      "projectExtension": false
+    },
+    "--_layout---spacing--xxhuge": {
+      "figmaName": "Layout / Spacing / Xxhuge",
+      "webflowName": "--_layout---spacing--xxhuge",
+      "type": "size",
+      "value": 16,
+      "resolvedValue": 16,
+      "unit": "px",
+      "mode": "default",
+      "updatePolicy": "update_value_only",
+      "name": "--_layout---spacing--xxhuge",
+      "figmaId": "VariableID:tpl-63563504-e97c-1835-1c97-eb4425dcf5cc:25",
+      "namespace": "_layout",
+      "modes": {
+        "default": "16"
+      },
+      "editableInFigma": true,
+      "projectExtension": false
+    },
+    "--_layout---spacing--xxlarge": {
+      "figmaName": "Layout / Spacing / Xxlarge",
+      "webflowName": "--_layout---spacing--xxlarge",
+      "type": "size",
+      "value": 16,
+      "resolvedValue": 16,
+      "unit": "px",
+      "mode": "default",
+      "updatePolicy": "update_value_only",
+      "name": "--_layout---spacing--xxlarge",
+      "figmaId": "VariableID:tpl-68b7c9d3-eb33-7121-49cd-337e9ac3fda5:26",
+      "namespace": "_layout",
+      "modes": {
+        "default": "16"
+      },
+      "editableInFigma": true,
+      "projectExtension": false
+    },
+    "--_layout---spacing--xxsmall": {
+      "figmaName": "Layout / Spacing / Xxsmall",
+      "webflowName": "--_layout---spacing--xxsmall",
+      "type": "size",
+      "value": 16,
+      "resolvedValue": 16,
+      "unit": "px",
+      "mode": "default",
+      "updatePolicy": "update_value_only",
+      "name": "--_layout---spacing--xxsmall",
+      "figmaId": "VariableID:tpl-c8287dd3-dae4-f2e1-ddd2-8ed681bd6d2c:27",
+      "namespace": "_layout",
+      "modes": {
+        "default": "16"
+      },
+      "editableInFigma": true,
+      "projectExtension": false
+    },
+    "--_sizes---border-radius--large": {
+      "figmaName": "Sizes / Border Radius / Large",
+      "webflowName": "--_sizes---border-radius--large",
+      "type": "size",
+      "value": 16,
+      "resolvedValue": 16,
+      "unit": "px",
+      "mode": "default",
+      "updatePolicy": "update_value_only",
+      "name": "--_sizes---border-radius--large",
+      "figmaId": "VariableID:tpl-35ac7616-76c1-198e-c648-28ffeca24640:28",
+      "namespace": "_sizes",
+      "modes": {
+        "default": "16"
+      },
+      "editableInFigma": true,
+      "projectExtension": false
+    },
+    "--_sizes---border-radius--medium": {
+      "figmaName": "Sizes / Border Radius / Medium",
+      "webflowName": "--_sizes---border-radius--medium",
+      "type": "size",
+      "value": 16,
+      "resolvedValue": 16,
+      "unit": "px",
+      "mode": "default",
+      "updatePolicy": "update_value_only",
+      "name": "--_sizes---border-radius--medium",
+      "figmaId": "VariableID:tpl-88695bd0-1de3-7c96-6257-dbd0f25c66ed:29",
+      "namespace": "_sizes",
+      "modes": {
+        "default": "16"
+      },
+      "editableInFigma": true,
+      "projectExtension": false
+    },
+    "--_sizes---border-radius--small": {
+      "figmaName": "Sizes / Border Radius / Small",
+      "webflowName": "--_sizes---border-radius--small",
+      "type": "size",
+      "value": 16,
+      "resolvedValue": 16,
+      "unit": "px",
+      "mode": "default",
+      "updatePolicy": "update_value_only",
+      "name": "--_sizes---border-radius--small",
+      "figmaId": "VariableID:tpl-ceabcfcc-54eb-431d-3925-287a093d2ff8:30",
+      "namespace": "_sizes",
+      "modes": {
+        "default": "16"
+      },
+      "editableInFigma": true,
+      "projectExtension": false
+    },
+    "--_sizes---border-width--bold": {
+      "figmaName": "Sizes / Border Width / Bold",
+      "webflowName": "--_sizes---border-width--bold",
+      "type": "size",
+      "value": 16,
+      "resolvedValue": 16,
+      "unit": "px",
+      "mode": "default",
+      "updatePolicy": "update_value_only",
+      "name": "--_sizes---border-width--bold",
+      "figmaId": "VariableID:tpl-420bf009-d35d-8051-27d3-a2e7ee0daeaf:31",
+      "namespace": "_sizes",
+      "modes": {
+        "default": "16"
+      },
+      "editableInFigma": true,
+      "projectExtension": false
+    },
+    "--_sizes---border-width--normal": {
+      "figmaName": "Sizes / Border Width / Normal",
+      "webflowName": "--_sizes---border-width--normal",
+      "type": "size",
+      "value": 16,
+      "resolvedValue": 16,
+      "unit": "px",
+      "mode": "default",
+      "updatePolicy": "update_value_only",
+      "name": "--_sizes---border-width--normal",
+      "figmaId": "VariableID:tpl-bb8bab17-4c8e-ac1e-671d-6807c6c6bf5e:32",
+      "namespace": "_sizes",
+      "modes": {
+        "default": "16"
+      },
+      "editableInFigma": true,
+      "projectExtension": false
+    },
+    "--_sizes---border-width--thin": {
+      "figmaName": "Sizes / Border Width / Thin",
+      "webflowName": "--_sizes---border-width--thin",
+      "type": "size",
+      "value": 16,
+      "resolvedValue": 16,
+      "unit": "px",
+      "mode": "default",
+      "updatePolicy": "update_value_only",
+      "name": "--_sizes---border-width--thin",
+      "figmaId": "VariableID:tpl-bd2ec230-96ed-78f7-d9e5-9e40ebd9370f:33",
+      "namespace": "_sizes",
+      "modes": {
+        "default": "16"
+      },
+      "editableInFigma": true,
+      "projectExtension": false
+    },
+    "--_sizes---container--large": {
+      "figmaName": "Sizes / Container / Large",
+      "webflowName": "--_sizes---container--large",
+      "type": "size",
+      "value": 16,
+      "resolvedValue": 16,
+      "unit": "px",
+      "mode": "default",
+      "updatePolicy": "update_value_only",
+      "name": "--_sizes---container--large",
+      "figmaId": "VariableID:tpl-cf6282a3-3c84-4a6e-e619-1df9f1f872a7:34",
+      "namespace": "_sizes",
+      "modes": {
+        "default": "16"
+      },
+      "editableInFigma": true,
+      "projectExtension": false
+    },
+    "--_sizes---container--medium": {
+      "figmaName": "Sizes / Container / Medium",
+      "webflowName": "--_sizes---container--medium",
+      "type": "size",
+      "value": 16,
+      "resolvedValue": 16,
+      "unit": "px",
+      "mode": "default",
+      "updatePolicy": "update_value_only",
+      "name": "--_sizes---container--medium",
+      "figmaId": "VariableID:tpl-2b5c5580-2f5f-a431-8fa4-2cd94382eb70:35",
+      "namespace": "_sizes",
+      "modes": {
+        "default": "16"
+      },
+      "editableInFigma": true,
+      "projectExtension": false
+    },
+    "--_sizes---container--small": {
+      "figmaName": "Sizes / Container / Small",
+      "webflowName": "--_sizes---container--small",
+      "type": "size",
+      "value": 16,
+      "resolvedValue": 16,
+      "unit": "px",
+      "mode": "default",
+      "updatePolicy": "update_value_only",
+      "name": "--_sizes---container--small",
+      "figmaId": "VariableID:tpl-9ece2d2a-7af4-13ca-da99-4ff52a54e471:36",
+      "namespace": "_sizes",
+      "modes": {
+        "default": "16"
+      },
+      "editableInFigma": true,
+      "projectExtension": false
+    },
+    "--_sizes---max-width--large": {
+      "figmaName": "Sizes / Max Width / Large",
+      "webflowName": "--_sizes---max-width--large",
+      "type": "size",
+      "value": 16,
+      "resolvedValue": 16,
+      "unit": "px",
+      "mode": "default",
+      "updatePolicy": "update_value_only",
+      "name": "--_sizes---max-width--large",
+      "figmaId": "VariableID:tpl-6ff7f6e4-18af-4b8d-9b87-50cb4b324677:37",
+      "namespace": "_sizes",
+      "modes": {
+        "default": "16"
+      },
+      "editableInFigma": true,
+      "projectExtension": false
+    },
+    "--_sizes---max-width--medium": {
+      "figmaName": "Sizes / Max Width / Medium",
+      "webflowName": "--_sizes---max-width--medium",
+      "type": "size",
+      "value": 16,
+      "resolvedValue": 16,
+      "unit": "px",
+      "mode": "default",
+      "updatePolicy": "update_value_only",
+      "name": "--_sizes---max-width--medium",
+      "figmaId": "VariableID:tpl-0aec8a98-9f8f-3c6f-5a4d-dfb32e81f027:38",
+      "namespace": "_sizes",
+      "modes": {
+        "default": "16"
+      },
+      "editableInFigma": true,
+      "projectExtension": false
+    },
+    "--_sizes---max-width--small": {
+      "figmaName": "Sizes / Max Width / Small",
+      "webflowName": "--_sizes---max-width--small",
+      "type": "size",
+      "value": 16,
+      "resolvedValue": 16,
+      "unit": "px",
+      "mode": "default",
+      "updatePolicy": "update_value_only",
+      "name": "--_sizes---max-width--small",
+      "figmaId": "VariableID:tpl-3af1ef9e-3bcf-4b9c-cadd-2789a3982ef9:39",
+      "namespace": "_sizes",
+      "modes": {
+        "default": "16"
+      },
+      "editableInFigma": true,
+      "projectExtension": false
+    },
+    "--_sizes---max-width--xlarge": {
+      "figmaName": "Sizes / Max Width / Xlarge",
+      "webflowName": "--_sizes---max-width--xlarge",
+      "type": "size",
+      "value": 16,
+      "resolvedValue": 16,
+      "unit": "px",
+      "mode": "default",
+      "updatePolicy": "update_value_only",
+      "name": "--_sizes---max-width--xlarge",
+      "figmaId": "VariableID:tpl-68a3bf95-a11e-2d54-8938-3274267a9e81:40",
+      "namespace": "_sizes",
+      "modes": {
+        "default": "16"
+      },
+      "editableInFigma": true,
+      "projectExtension": false
+    },
+    "--_sizes---max-width--xsmall": {
+      "figmaName": "Sizes / Max Width / Xsmall",
+      "webflowName": "--_sizes---max-width--xsmall",
+      "type": "size",
+      "value": 16,
+      "resolvedValue": 16,
+      "unit": "px",
+      "mode": "default",
+      "updatePolicy": "update_value_only",
+      "name": "--_sizes---max-width--xsmall",
+      "figmaId": "VariableID:tpl-d757ed3b-4dbf-b898-2467-09bf36e6513e:41",
+      "namespace": "_sizes",
+      "modes": {
+        "default": "16"
+      },
+      "editableInFigma": true,
+      "projectExtension": false
+    },
+    "--_sizes---max-width--xxlarge": {
+      "figmaName": "Sizes / Max Width / Xxlarge",
+      "webflowName": "--_sizes---max-width--xxlarge",
+      "type": "size",
+      "value": 16,
+      "resolvedValue": 16,
+      "unit": "px",
+      "mode": "default",
+      "updatePolicy": "update_value_only",
+      "name": "--_sizes---max-width--xxlarge",
+      "figmaId": "VariableID:tpl-4dbfbc12-ed27-3584-31b8-7c276c4fdcff:42",
+      "namespace": "_sizes",
+      "modes": {
+        "default": "16"
+      },
+      "editableInFigma": true,
+      "projectExtension": false
+    },
+    "--_sizes---max-width--xxsmall": {
+      "figmaName": "Sizes / Max Width / Xxsmall",
+      "webflowName": "--_sizes---max-width--xxsmall",
+      "type": "size",
+      "value": 16,
+      "resolvedValue": 16,
+      "unit": "px",
+      "mode": "default",
+      "updatePolicy": "update_value_only",
+      "name": "--_sizes---max-width--xxsmall",
+      "figmaId": "VariableID:tpl-bac2e0ce-63a8-0f23-77ee-27615ad4a6e5:43",
+      "namespace": "_sizes",
+      "modes": {
+        "default": "16"
+      },
+      "editableInFigma": true,
+      "projectExtension": false
+    },
+    "--_theme---background--alternate": {
+      "figmaName": "Theme / Background / Alternate",
+      "webflowName": "--_theme---background--alternate",
+      "type": "size",
+      "value": 16,
+      "resolvedValue": 16,
+      "unit": "px",
+      "mode": "default",
+      "updatePolicy": "update_value_only",
+      "name": "--_theme---background--alternate",
+      "figmaId": "VariableID:tpl-620b946c-5197-8dfa-1dec-5dff50d195f1:44",
+      "namespace": "_theme",
+      "modes": {
+        "default": "16"
+      },
+      "editableInFigma": true,
+      "projectExtension": false
+    },
+    "--_theme---background--error": {
+      "figmaName": "Theme / Background / Error",
+      "webflowName": "--_theme---background--error",
+      "type": "size",
+      "value": 16,
+      "resolvedValue": 16,
+      "unit": "px",
+      "mode": "default",
+      "updatePolicy": "update_value_only",
+      "name": "--_theme---background--error",
+      "figmaId": "VariableID:tpl-6d99d81e-c991-37b1-09cd-44a5d401a715:45",
+      "namespace": "_theme",
+      "modes": {
+        "default": "16"
+      },
+      "editableInFigma": true,
+      "projectExtension": false
+    },
+    "--_theme---background--primary": {
+      "figmaName": "Theme / Background / Primary",
+      "webflowName": "--_theme---background--primary",
+      "type": "size",
+      "value": 16,
+      "resolvedValue": 16,
+      "unit": "px",
+      "mode": "default",
+      "updatePolicy": "update_value_only",
+      "name": "--_theme---background--primary",
+      "figmaId": "VariableID:tpl-a0350ccf-225c-890b-47ff-c6a4d528dbf9:46",
+      "namespace": "_theme",
+      "modes": {
+        "default": "16"
+      },
+      "editableInFigma": true,
+      "projectExtension": false
+    },
+    "--_theme---background--secondary": {
+      "figmaName": "Theme / Background / Secondary",
+      "webflowName": "--_theme---background--secondary",
+      "type": "size",
+      "value": 16,
+      "resolvedValue": 16,
+      "unit": "px",
+      "mode": "default",
+      "updatePolicy": "update_value_only",
+      "name": "--_theme---background--secondary",
+      "figmaId": "VariableID:tpl-b973c6cc-1531-9922-6806-47834f174d2c:47",
+      "namespace": "_theme",
+      "modes": {
+        "default": "16"
+      },
+      "editableInFigma": true,
+      "projectExtension": false
+    },
+    "--_theme---background--success": {
+      "figmaName": "Theme / Background / Success",
+      "webflowName": "--_theme---background--success",
+      "type": "size",
+      "value": 16,
+      "resolvedValue": 16,
+      "unit": "px",
+      "mode": "default",
+      "updatePolicy": "update_value_only",
+      "name": "--_theme---background--success",
+      "figmaId": "VariableID:tpl-b173d628-6435-2f48-99ac-4e4191f72a50:48",
+      "namespace": "_theme",
+      "modes": {
+        "default": "16"
+      },
+      "editableInFigma": true,
+      "projectExtension": false
+    },
+    "--_theme---background--tertiary": {
+      "figmaName": "Theme / Background / Tertiary",
+      "webflowName": "--_theme---background--tertiary",
+      "type": "size",
+      "value": 16,
+      "resolvedValue": 16,
+      "unit": "px",
+      "mode": "default",
+      "updatePolicy": "update_value_only",
+      "name": "--_theme---background--tertiary",
+      "figmaId": "VariableID:tpl-f26c55f6-3a18-539f-ab01-feeaf46f598c:49",
+      "namespace": "_theme",
+      "modes": {
+        "default": "16"
+      },
+      "editableInFigma": true,
+      "projectExtension": false
+    },
+    "--_theme---background--warning": {
+      "figmaName": "Theme / Background / Warning",
+      "webflowName": "--_theme---background--warning",
+      "type": "size",
+      "value": 16,
+      "resolvedValue": 16,
+      "unit": "px",
+      "mode": "default",
+      "updatePolicy": "update_value_only",
+      "name": "--_theme---background--warning",
+      "figmaId": "VariableID:tpl-914383f6-8d1f-8cb6-e098-9eec2e53ddba:50",
+      "namespace": "_theme",
+      "modes": {
+        "default": "16"
+      },
+      "editableInFigma": true,
+      "projectExtension": false
+    },
+    "--_theme---border-color--alternate": {
+      "figmaName": "Theme / Border Color / Alternate",
+      "webflowName": "--_theme---border-color--alternate",
+      "type": "color",
+      "value": "#ffffff",
+      "resolvedValue": "#ffffff",
+      "unit": null,
+      "mode": "default",
+      "updatePolicy": "update_value_only",
+      "name": "--_theme---border-color--alternate",
+      "figmaId": "VariableID:tpl-7962739c-efb9-1340-5d46-871866d0367e:51",
+      "namespace": "_sizes",
+      "modes": {
+        "default": "#ffffff"
+      },
+      "editableInFigma": true,
+      "projectExtension": false
+    },
+    "--_theme---border-color--primary": {
+      "figmaName": "Theme / Border Color / Primary",
+      "webflowName": "--_theme---border-color--primary",
+      "type": "color",
+      "value": "#ffffff",
+      "resolvedValue": "#ffffff",
+      "unit": null,
+      "mode": "default",
+      "updatePolicy": "update_value_only",
+      "name": "--_theme---border-color--primary",
+      "figmaId": "VariableID:tpl-5e3a928b-9bb1-d3f5-bc46-669afee0d0d1:52",
+      "namespace": "_sizes",
+      "modes": {
+        "default": "#ffffff"
+      },
+      "editableInFigma": true,
+      "projectExtension": false
+    },
+    "--_theme---border-color--secondary": {
+      "figmaName": "Theme / Border Color / Secondary",
+      "webflowName": "--_theme---border-color--secondary",
+      "type": "color",
+      "value": "#ffffff",
+      "resolvedValue": "#ffffff",
+      "unit": null,
+      "mode": "default",
+      "updatePolicy": "update_value_only",
+      "name": "--_theme---border-color--secondary",
+      "figmaId": "VariableID:tpl-a6130795-fb42-af0b-2f11-c909a04e8a3e:53",
+      "namespace": "_sizes",
+      "modes": {
+        "default": "#ffffff"
+      },
+      "editableInFigma": true,
+      "projectExtension": false
+    },
+    "--_theme---link-color--alternate": {
+      "figmaName": "Theme / Link Color / Alternate",
+      "webflowName": "--_theme---link-color--alternate",
+      "type": "color",
+      "value": "#ffffff",
+      "resolvedValue": "#ffffff",
+      "unit": null,
+      "mode": "default",
+      "updatePolicy": "update_value_only",
+      "name": "--_theme---link-color--alternate",
+      "figmaId": "VariableID:tpl-2810c52c-8f26-da64-2978-dd7614d904de:54",
+      "namespace": "_theme",
+      "modes": {
+        "default": "#ffffff"
+      },
+      "editableInFigma": true,
+      "projectExtension": false
+    },
+    "--_theme---link-color--primary": {
+      "figmaName": "Theme / Link Color / Primary",
+      "webflowName": "--_theme---link-color--primary",
+      "type": "color",
+      "value": "#ffffff",
+      "resolvedValue": "#ffffff",
+      "unit": null,
+      "mode": "default",
+      "updatePolicy": "update_value_only",
+      "name": "--_theme---link-color--primary",
+      "figmaId": "VariableID:tpl-4023b22f-d719-5dc0-d11a-5de7a9efa91e:55",
+      "namespace": "_theme",
+      "modes": {
+        "default": "#ffffff"
+      },
+      "editableInFigma": true,
+      "projectExtension": false
+    },
+    "--_theme---link-color--secondary": {
+      "figmaName": "Theme / Link Color / Secondary",
+      "webflowName": "--_theme---link-color--secondary",
+      "type": "color",
+      "value": "#ffffff",
+      "resolvedValue": "#ffffff",
+      "unit": null,
+      "mode": "default",
+      "updatePolicy": "update_value_only",
+      "name": "--_theme---link-color--secondary",
+      "figmaId": "VariableID:tpl-3b1cec7c-eeea-1646-1876-a9e945692c4d:56",
+      "namespace": "_theme",
+      "modes": {
+        "default": "#ffffff"
+      },
+      "editableInFigma": true,
+      "projectExtension": false
+    },
+    "--_theme---system--error-background": {
+      "figmaName": "Theme / System / Error Background",
+      "webflowName": "--_theme---system--error-background",
+      "type": "size",
+      "value": 16,
+      "resolvedValue": 16,
+      "unit": "px",
+      "mode": "default",
+      "updatePolicy": "update_value_only",
+      "name": "--_theme---system--error-background",
+      "figmaId": "VariableID:tpl-e5d62f8b-f2ce-774b-f2c2-a566e0ea35cf:57",
+      "namespace": "_theme",
+      "modes": {
+        "default": "16"
+      },
+      "editableInFigma": true,
+      "projectExtension": false
+    },
+    "--_theme---system--error-text": {
+      "figmaName": "Theme / System / Error Text",
+      "webflowName": "--_theme---system--error-text",
+      "type": "size",
+      "value": 16,
+      "resolvedValue": 16,
+      "unit": "px",
+      "mode": "default",
+      "updatePolicy": "update_value_only",
+      "name": "--_theme---system--error-text",
+      "figmaId": "VariableID:tpl-f9bb7c21-8196-5a5e-e711-8ff954eb6bd7:58",
+      "namespace": "other",
+      "modes": {
+        "default": "16"
+      },
+      "editableInFigma": true,
+      "projectExtension": false
+    },
+    "--_theme---system--focus-state": {
+      "figmaName": "Theme / System / Focus State",
+      "webflowName": "--_theme---system--focus-state",
+      "type": "size",
+      "value": 16,
+      "resolvedValue": 16,
+      "unit": "px",
+      "mode": "default",
+      "updatePolicy": "update_value_only",
+      "name": "--_theme---system--focus-state",
+      "figmaId": "VariableID:tpl-f2594124-69b1-529d-0a25-cd37ef0ca596:59",
+      "namespace": "_focus",
+      "modes": {
+        "default": "16"
+      },
+      "editableInFigma": true,
+      "projectExtension": false
+    },
+    "--_theme---system--selection-background": {
+      "figmaName": "Theme / System / Selection Background",
+      "webflowName": "--_theme---system--selection-background",
+      "type": "size",
+      "value": 16,
+      "resolvedValue": 16,
+      "unit": "px",
+      "mode": "default",
+      "updatePolicy": "update_value_only",
+      "name": "--_theme---system--selection-background",
+      "figmaId": "VariableID:tpl-6fd00b91-461f-0557-ae64-6008c2818981:60",
+      "namespace": "_theme",
+      "modes": {
+        "default": "16"
+      },
+      "editableInFigma": true,
+      "projectExtension": false
+    },
+    "--_theme---system--selection-text": {
+      "figmaName": "Theme / System / Selection Text",
+      "webflowName": "--_theme---system--selection-text",
+      "type": "size",
+      "value": 16,
+      "resolvedValue": 16,
+      "unit": "px",
+      "mode": "default",
+      "updatePolicy": "update_value_only",
+      "name": "--_theme---system--selection-text",
+      "figmaId": "VariableID:tpl-f7ac3a07-5805-3dea-6697-5d003b913b21:61",
+      "namespace": "other",
+      "modes": {
+        "default": "16"
+      },
+      "editableInFigma": true,
+      "projectExtension": false
+    },
+    "--_theme---system--success-background": {
+      "figmaName": "Theme / System / Success Background",
+      "webflowName": "--_theme---system--success-background",
+      "type": "size",
+      "value": 16,
+      "resolvedValue": 16,
+      "unit": "px",
+      "mode": "default",
+      "updatePolicy": "update_value_only",
+      "name": "--_theme---system--success-background",
+      "figmaId": "VariableID:tpl-11331427-221c-3acf-6c4f-86dc55600fc1:62",
+      "namespace": "_theme",
+      "modes": {
+        "default": "16"
+      },
+      "editableInFigma": true,
+      "projectExtension": false
+    },
+    "--_theme---system--success-text": {
+      "figmaName": "Theme / System / Success Text",
+      "webflowName": "--_theme---system--success-text",
+      "type": "size",
+      "value": 16,
+      "resolvedValue": 16,
+      "unit": "px",
+      "mode": "default",
+      "updatePolicy": "update_value_only",
+      "name": "--_theme---system--success-text",
+      "figmaId": "VariableID:tpl-d9b440a1-7b25-09a6-748c-4bd5aadbdcd4:63",
+      "namespace": "other",
+      "modes": {
+        "default": "16"
+      },
+      "editableInFigma": true,
+      "projectExtension": false
+    },
+    "--_theme---system--warning-background": {
+      "figmaName": "Theme / System / Warning Background",
+      "webflowName": "--_theme---system--warning-background",
+      "type": "size",
+      "value": 16,
+      "resolvedValue": 16,
+      "unit": "px",
+      "mode": "default",
+      "updatePolicy": "update_value_only",
+      "name": "--_theme---system--warning-background",
+      "figmaId": "VariableID:tpl-2b85ea71-16b0-4ad0-6f1c-ce8ee535779d:64",
+      "namespace": "_theme",
+      "modes": {
+        "default": "16"
+      },
+      "editableInFigma": true,
+      "projectExtension": false
+    },
+    "--_theme---system--warning-text": {
+      "figmaName": "Theme / System / Warning Text",
+      "webflowName": "--_theme---system--warning-text",
+      "type": "size",
+      "value": 16,
+      "resolvedValue": 16,
+      "unit": "px",
+      "mode": "default",
+      "updatePolicy": "update_value_only",
+      "name": "--_theme---system--warning-text",
+      "figmaId": "VariableID:tpl-de37a0f0-eda9-d57b-1d5c-d50cc4b5f778:65",
+      "namespace": "other",
+      "modes": {
+        "default": "16"
+      },
+      "editableInFigma": true,
+      "projectExtension": false
+    },
+    "--_theme---text-color--alternate": {
+      "figmaName": "Theme / Text Color / Alternate",
+      "webflowName": "--_theme---text-color--alternate",
+      "type": "color",
+      "value": "#ffffff",
+      "resolvedValue": "#ffffff",
+      "unit": null,
+      "mode": "default",
+      "updatePolicy": "update_value_only",
+      "name": "--_theme---text-color--alternate",
+      "figmaId": "VariableID:tpl-d8046215-f396-bd42-4a84-9488cde8fef2:66",
+      "namespace": "_theme",
+      "modes": {
+        "default": "#ffffff"
+      },
+      "editableInFigma": true,
+      "projectExtension": false
+    },
+    "--_theme---text-color--error": {
+      "figmaName": "Theme / Text Color / Error",
+      "webflowName": "--_theme---text-color--error",
+      "type": "color",
+      "value": "#ffffff",
+      "resolvedValue": "#ffffff",
+      "unit": null,
+      "mode": "default",
+      "updatePolicy": "update_value_only",
+      "name": "--_theme---text-color--error",
+      "figmaId": "VariableID:tpl-6fabb95e-4c60-583e-96ae-4329678426d2:67",
+      "namespace": "_theme",
+      "modes": {
+        "default": "#ffffff"
+      },
+      "editableInFigma": true,
+      "projectExtension": false
+    },
+    "--_theme---text-color--primary": {
+      "figmaName": "Theme / Text Color / Primary",
+      "webflowName": "--_theme---text-color--primary",
+      "type": "color",
+      "value": "#ffffff",
+      "resolvedValue": "#ffffff",
+      "unit": null,
+      "mode": "default",
+      "updatePolicy": "update_value_only",
+      "name": "--_theme---text-color--primary",
+      "figmaId": "VariableID:tpl-9dccffc1-57b1-6ed7-075f-5a1ec0023d36:68",
+      "namespace": "_theme",
+      "modes": {
+        "default": "#ffffff"
+      },
+      "editableInFigma": true,
+      "projectExtension": false
+    },
+    "--_theme---text-color--secondary": {
+      "figmaName": "Theme / Text Color / Secondary",
+      "webflowName": "--_theme---text-color--secondary",
+      "type": "color",
+      "value": "#ffffff",
+      "resolvedValue": "#ffffff",
+      "unit": null,
+      "mode": "default",
+      "updatePolicy": "update_value_only",
+      "name": "--_theme---text-color--secondary",
+      "figmaId": "VariableID:tpl-4b39c485-7342-24ec-fc4c-e85850479c2a:69",
+      "namespace": "_theme",
+      "modes": {
+        "default": "#ffffff"
+      },
+      "editableInFigma": true,
+      "projectExtension": false
+    },
+    "--_theme---text-color--success": {
+      "figmaName": "Theme / Text Color / Success",
+      "webflowName": "--_theme---text-color--success",
+      "type": "color",
+      "value": "#ffffff",
+      "resolvedValue": "#ffffff",
+      "unit": null,
+      "mode": "default",
+      "updatePolicy": "update_value_only",
+      "name": "--_theme---text-color--success",
+      "figmaId": "VariableID:tpl-d846e5c4-f05a-71ad-f367-1f2cdec7a46b:70",
+      "namespace": "_theme",
+      "modes": {
+        "default": "#ffffff"
+      },
+      "editableInFigma": true,
+      "projectExtension": false
+    },
+    "--_theme---text-color--warning": {
+      "figmaName": "Theme / Text Color / Warning",
+      "webflowName": "--_theme---text-color--warning",
+      "type": "color",
+      "value": "#ffffff",
+      "resolvedValue": "#ffffff",
+      "unit": null,
+      "mode": "default",
+      "updatePolicy": "update_value_only",
+      "name": "--_theme---text-color--warning",
+      "figmaId": "VariableID:tpl-4733dad2-ca18-591e-9e8b-3429fdb59601:71",
+      "namespace": "_theme",
+      "modes": {
+        "default": "#ffffff"
+      },
+      "editableInFigma": true,
+      "projectExtension": false
+    },
+    "--_typography---body--body-font-size": {
+      "figmaName": "Typography / Body / Body Font Size",
+      "webflowName": "--_typography---body--body-font-size",
+      "type": "size",
+      "value": 16,
+      "resolvedValue": 16,
+      "unit": "px",
+      "mode": "default",
+      "updatePolicy": "update_value_only",
+      "name": "--_typography---body--body-font-size",
+      "figmaId": "VariableID:tpl-fd59769f-e724-1632-3126-8f512b8e98b5:72",
+      "namespace": "_typography",
+      "modes": {
+        "default": "16"
+      },
+      "editableInFigma": true,
+      "projectExtension": false
+    },
+    "--_typography---body--body-font-weight": {
+      "figmaName": "Typography / Body / Body Font Weight",
+      "webflowName": "--_typography---body--body-font-weight",
+      "type": "font-weight",
+      "value": 400,
+      "resolvedValue": 400,
+      "unit": null,
+      "mode": "default",
+      "updatePolicy": "update_value_only",
+      "name": "--_typography---body--body-font-weight",
+      "figmaId": "VariableID:tpl-dd5075a0-9f02-1de2-6b18-f62ffd1c367e:73",
+      "namespace": "_typography",
+      "modes": {
+        "default": "400"
+      },
+      "editableInFigma": true,
+      "projectExtension": false
+    },
+    "--_typography---body--body-letter-spacing": {
+      "figmaName": "Typography / Body / Body Letter Spacing",
+      "webflowName": "--_typography---body--body-letter-spacing",
+      "type": "letter-spacing",
+      "value": 0.0,
+      "resolvedValue": 0.0,
+      "unit": "em",
+      "mode": "default",
+      "updatePolicy": "update_value_only",
+      "name": "--_typography---body--body-letter-spacing",
+      "figmaId": "VariableID:tpl-c443b70c-8197-29e5-1ba4-79832fcede4e:74",
+      "namespace": "_layout",
+      "modes": {
+        "default": "0.0"
+      },
+      "editableInFigma": true,
+      "projectExtension": false
+    },
+    "--_typography---body--body-line-height": {
+      "figmaName": "Typography / Body / Body Line Height",
+      "webflowName": "--_typography---body--body-line-height",
+      "type": "size",
+      "value": 16,
+      "resolvedValue": 16,
+      "unit": "px",
+      "mode": "default",
+      "updatePolicy": "update_value_only",
+      "name": "--_typography---body--body-line-height",
+      "figmaId": "VariableID:tpl-2414d04e-ba55-2163-8840-f5afd831281f:75",
+      "namespace": "_typography",
+      "modes": {
+        "default": "16"
+      },
+      "editableInFigma": true,
+      "projectExtension": false
+    },
+    "--_typography---font-height--large": {
+      "figmaName": "Typography / Font Height / Large",
+      "webflowName": "--_typography---font-height--large",
+      "type": "size",
+      "value": 16,
+      "resolvedValue": 16,
+      "unit": "px",
+      "mode": "default",
+      "updatePolicy": "update_value_only",
+      "name": "--_typography---font-height--large",
+      "figmaId": "VariableID:tpl-c1888db4-2fd8-c997-3387-c4c9f71c7b9d:76",
+      "namespace": "other",
+      "modes": {
+        "default": "16"
+      },
+      "editableInFigma": true,
+      "projectExtension": false
+    },
+    "--_typography---font-height--medium": {
+      "figmaName": "Typography / Font Height / Medium",
+      "webflowName": "--_typography---font-height--medium",
+      "type": "size",
+      "value": 16,
+      "resolvedValue": 16,
+      "unit": "px",
+      "mode": "default",
+      "updatePolicy": "update_value_only",
+      "name": "--_typography---font-height--medium",
+      "figmaId": "VariableID:tpl-baea237a-4c7c-82b2-136e-940f0b6d9f5e:77",
+      "namespace": "other",
+      "modes": {
+        "default": "16"
+      },
+      "editableInFigma": true,
+      "projectExtension": false
+    },
+    "--_typography---font-height--small": {
+      "figmaName": "Typography / Font Height / Small",
+      "webflowName": "--_typography---font-height--small",
+      "type": "size",
+      "value": 16,
+      "resolvedValue": 16,
+      "unit": "px",
+      "mode": "default",
+      "updatePolicy": "update_value_only",
+      "name": "--_typography---font-height--small",
+      "figmaId": "VariableID:tpl-514cb748-47d9-bf48-1d41-8e6345f5bfc4:78",
+      "namespace": "other",
+      "modes": {
+        "default": "16"
+      },
+      "editableInFigma": true,
+      "projectExtension": false
+    },
+    "--_typography---font-height--xlarge": {
+      "figmaName": "Typography / Font Height / Xlarge",
+      "webflowName": "--_typography---font-height--xlarge",
+      "type": "size",
+      "value": 16,
+      "resolvedValue": 16,
+      "unit": "px",
+      "mode": "default",
+      "updatePolicy": "update_value_only",
+      "name": "--_typography---font-height--xlarge",
+      "figmaId": "VariableID:tpl-15ecf22d-33fd-a04f-fcd1-2de8d7a0f6a0:79",
+      "namespace": "other",
+      "modes": {
+        "default": "16"
+      },
+      "editableInFigma": true,
+      "projectExtension": false
+    },
+    "--_typography---font-size--large": {
+      "figmaName": "Typography / Font Size / Large",
+      "webflowName": "--_typography---font-size--large",
+      "type": "size",
+      "value": 16,
+      "resolvedValue": 16,
+      "unit": "px",
+      "mode": "default",
+      "updatePolicy": "update_value_only",
+      "name": "--_typography---font-size--large",
+      "figmaId": "VariableID:tpl-b5ee5479-22cf-c27e-b336-092c8700ddf7:80",
+      "namespace": "_typography",
+      "modes": {
+        "default": "16"
+      },
+      "editableInFigma": true,
+      "projectExtension": false
+    },
+    "--_typography---font-size--medium": {
+      "figmaName": "Typography / Font Size / Medium",
+      "webflowName": "--_typography---font-size--medium",
+      "type": "size",
+      "value": 16,
+      "resolvedValue": 16,
+      "unit": "px",
+      "mode": "default",
+      "updatePolicy": "update_value_only",
+      "name": "--_typography---font-size--medium",
+      "figmaId": "VariableID:tpl-703cd3f4-2c00-1f97-ef2e-07fd6ee1a740:81",
+      "namespace": "_typography",
+      "modes": {
+        "default": "16"
+      },
+      "editableInFigma": true,
+      "projectExtension": false
+    },
+    "--_typography---font-size--regular": {
+      "figmaName": "Typography / Font Size / Regular",
+      "webflowName": "--_typography---font-size--regular",
+      "type": "size",
+      "value": 16,
+      "resolvedValue": 16,
+      "unit": "px",
+      "mode": "default",
+      "updatePolicy": "update_value_only",
+      "name": "--_typography---font-size--regular",
+      "figmaId": "VariableID:tpl-5a7fb4ff-1799-b3f6-5c73-eb9330b2400e:82",
+      "namespace": "_typography",
+      "modes": {
+        "default": "16"
+      },
+      "editableInFigma": true,
+      "projectExtension": false
+    },
+    "--_typography---font-size--small": {
+      "figmaName": "Typography / Font Size / Small",
+      "webflowName": "--_typography---font-size--small",
+      "type": "size",
+      "value": 16,
+      "resolvedValue": 16,
+      "unit": "px",
+      "mode": "default",
+      "updatePolicy": "update_value_only",
+      "name": "--_typography---font-size--small",
+      "figmaId": "VariableID:tpl-c94b22e1-89f3-7bfe-79be-64a0eb7bc49b:83",
+      "namespace": "_typography",
+      "modes": {
+        "default": "16"
+      },
+      "editableInFigma": true,
+      "projectExtension": false
+    },
+    "--_typography---font-size--tiny": {
+      "figmaName": "Typography / Font Size / Tiny",
+      "webflowName": "--_typography---font-size--tiny",
+      "type": "size",
+      "value": 16,
+      "resolvedValue": 16,
+      "unit": "px",
+      "mode": "default",
+      "updatePolicy": "update_value_only",
+      "name": "--_typography---font-size--tiny",
+      "figmaId": "VariableID:tpl-08f73ca5-f266-20ed-c534-74c8ef090781:84",
+      "namespace": "_typography",
+      "modes": {
+        "default": "16"
+      },
+      "editableInFigma": true,
+      "projectExtension": false
+    },
+    "--_typography---h1--h1-font-size": {
+      "figmaName": "Typography / H1 / H1 Font Size",
+      "webflowName": "--_typography---h1--h1-font-size",
+      "type": "size",
+      "value": 16,
+      "resolvedValue": 16,
+      "unit": "px",
+      "mode": "default",
+      "updatePolicy": "update_value_only",
+      "name": "--_typography---h1--h1-font-size",
+      "figmaId": "VariableID:tpl-632489a7-f518-ec97-f5f8-1ec1669fe7e6:85",
+      "namespace": "_typography",
+      "modes": {
+        "default": "16"
+      },
+      "editableInFigma": true,
+      "projectExtension": false
+    },
+    "--_typography---h1--h1-font-weight": {
+      "figmaName": "Typography / H1 / H1 Font Weight",
+      "webflowName": "--_typography---h1--h1-font-weight",
+      "type": "font-weight",
+      "value": 400,
+      "resolvedValue": 400,
+      "unit": null,
+      "mode": "default",
+      "updatePolicy": "update_value_only",
+      "name": "--_typography---h1--h1-font-weight",
+      "figmaId": "VariableID:tpl-81f3810a-66ce-c393-04d5-4255457d44de:86",
+      "namespace": "_typography",
+      "modes": {
+        "default": "400"
+      },
+      "editableInFigma": true,
+      "projectExtension": false
+    },
+    "--_typography---h1--h1-letter-spacing": {
+      "figmaName": "Typography / H1 / H1 Letter Spacing",
+      "webflowName": "--_typography---h1--h1-letter-spacing",
+      "type": "letter-spacing",
+      "value": 0.0,
+      "resolvedValue": 0.0,
+      "unit": "em",
+      "mode": "default",
+      "updatePolicy": "update_value_only",
+      "name": "--_typography---h1--h1-letter-spacing",
+      "figmaId": "VariableID:tpl-01ebcac5-0e7a-0e7b-040f-eacf854d3d69:87",
+      "namespace": "_layout",
+      "modes": {
+        "default": "0.0"
+      },
+      "editableInFigma": true,
+      "projectExtension": false
+    },
+    "--_typography---h1--h1-line-height": {
+      "figmaName": "Typography / H1 / H1 Line Height",
+      "webflowName": "--_typography---h1--h1-line-height",
+      "type": "size",
+      "value": 16,
+      "resolvedValue": 16,
+      "unit": "px",
+      "mode": "default",
+      "updatePolicy": "update_value_only",
+      "name": "--_typography---h1--h1-line-height",
+      "figmaId": "VariableID:tpl-5f0320ad-e311-e028-8b33-d8b33e59e51c:88",
+      "namespace": "_typography",
+      "modes": {
+        "default": "16"
+      },
+      "editableInFigma": true,
+      "projectExtension": false
+    },
+    "--_typography---h2--h2-font-size": {
+      "figmaName": "Typography / H2 / H2 Font Size",
+      "webflowName": "--_typography---h2--h2-font-size",
+      "type": "size",
+      "value": 16,
+      "resolvedValue": 16,
+      "unit": "px",
+      "mode": "default",
+      "updatePolicy": "update_value_only",
+      "name": "--_typography---h2--h2-font-size",
+      "figmaId": "VariableID:tpl-6657b757-45e2-e95f-3e14-9261e2563832:89",
+      "namespace": "_typography",
+      "modes": {
+        "default": "16"
+      },
+      "editableInFigma": true,
+      "projectExtension": false
+    },
+    "--_typography---h2--h2-font-weight": {
+      "figmaName": "Typography / H2 / H2 Font Weight",
+      "webflowName": "--_typography---h2--h2-font-weight",
+      "type": "font-weight",
+      "value": 400,
+      "resolvedValue": 400,
+      "unit": null,
+      "mode": "default",
+      "updatePolicy": "update_value_only",
+      "name": "--_typography---h2--h2-font-weight",
+      "figmaId": "VariableID:tpl-8c33108e-6df8-5434-74de-99028c1aa4c4:90",
+      "namespace": "_typography",
+      "modes": {
+        "default": "400"
+      },
+      "editableInFigma": true,
+      "projectExtension": false
+    },
+    "--_typography---h2--h2-letter-spacing": {
+      "figmaName": "Typography / H2 / H2 Letter Spacing",
+      "webflowName": "--_typography---h2--h2-letter-spacing",
+      "type": "letter-spacing",
+      "value": 0.0,
+      "resolvedValue": 0.0,
+      "unit": "em",
+      "mode": "default",
+      "updatePolicy": "update_value_only",
+      "name": "--_typography---h2--h2-letter-spacing",
+      "figmaId": "VariableID:tpl-6ddab804-4503-d322-dd6e-709851a65ea8:91",
+      "namespace": "_layout",
+      "modes": {
+        "default": "0.0"
+      },
+      "editableInFigma": true,
+      "projectExtension": false
+    },
+    "--_typography---h2--h2-line-height": {
+      "figmaName": "Typography / H2 / H2 Line Height",
+      "webflowName": "--_typography---h2--h2-line-height",
+      "type": "size",
+      "value": 16,
+      "resolvedValue": 16,
+      "unit": "px",
+      "mode": "default",
+      "updatePolicy": "update_value_only",
+      "name": "--_typography---h2--h2-line-height",
+      "figmaId": "VariableID:tpl-46400635-eb7d-d7de-b785-eb911d12fa8a:92",
+      "namespace": "_typography",
+      "modes": {
+        "default": "16"
+      },
+      "editableInFigma": true,
+      "projectExtension": false
+    },
+    "--_typography---h3--h3-font-size": {
+      "figmaName": "Typography / H3 / H3 Font Size",
+      "webflowName": "--_typography---h3--h3-font-size",
+      "type": "size",
+      "value": 16,
+      "resolvedValue": 16,
+      "unit": "px",
+      "mode": "default",
+      "updatePolicy": "update_value_only",
+      "name": "--_typography---h3--h3-font-size",
+      "figmaId": "VariableID:tpl-c262c38a-582e-de6e-20bf-183abcaef957:93",
+      "namespace": "_typography",
+      "modes": {
+        "default": "16"
+      },
+      "editableInFigma": true,
+      "projectExtension": false
+    },
+    "--_typography---h3--h3-font-weight": {
+      "figmaName": "Typography / H3 / H3 Font Weight",
+      "webflowName": "--_typography---h3--h3-font-weight",
+      "type": "font-weight",
+      "value": 400,
+      "resolvedValue": 400,
+      "unit": null,
+      "mode": "default",
+      "updatePolicy": "update_value_only",
+      "name": "--_typography---h3--h3-font-weight",
+      "figmaId": "VariableID:tpl-28091481-32a5-5972-77ab-14d3e90d39cc:94",
+      "namespace": "_typography",
+      "modes": {
+        "default": "400"
+      },
+      "editableInFigma": true,
+      "projectExtension": false
+    },
+    "--_typography---h3--h3-letter-spacing": {
+      "figmaName": "Typography / H3 / H3 Letter Spacing",
+      "webflowName": "--_typography---h3--h3-letter-spacing",
+      "type": "letter-spacing",
+      "value": 0.0,
+      "resolvedValue": 0.0,
+      "unit": "em",
+      "mode": "default",
+      "updatePolicy": "update_value_only",
+      "name": "--_typography---h3--h3-letter-spacing",
+      "figmaId": "VariableID:tpl-db444ae7-4a8b-ad8c-6996-99841bf46051:95",
+      "namespace": "_layout",
+      "modes": {
+        "default": "0.0"
+      },
+      "editableInFigma": true,
+      "projectExtension": false
+    },
+    "--_typography---h3--h3-line-height": {
+      "figmaName": "Typography / H3 / H3 Line Height",
+      "webflowName": "--_typography---h3--h3-line-height",
+      "type": "size",
+      "value": 16,
+      "resolvedValue": 16,
+      "unit": "px",
+      "mode": "default",
+      "updatePolicy": "update_value_only",
+      "name": "--_typography---h3--h3-line-height",
+      "figmaId": "VariableID:tpl-ed4ab97c-758c-8a8f-75c5-860652102607:96",
+      "namespace": "_typography",
+      "modes": {
+        "default": "16"
+      },
+      "editableInFigma": true,
+      "projectExtension": false
+    },
+    "--_typography---h4--h4-font-size": {
+      "figmaName": "Typography / H4 / H4 Font Size",
+      "webflowName": "--_typography---h4--h4-font-size",
+      "type": "size",
+      "value": 16,
+      "resolvedValue": 16,
+      "unit": "px",
+      "mode": "default",
+      "updatePolicy": "update_value_only",
+      "name": "--_typography---h4--h4-font-size",
+      "figmaId": "VariableID:tpl-f8465d22-aee6-3066-90fd-c46a59e55eb4:97",
+      "namespace": "_typography",
+      "modes": {
+        "default": "16"
+      },
+      "editableInFigma": true,
+      "projectExtension": false
+    },
+    "--_typography---h4--h4-font-weight": {
+      "figmaName": "Typography / H4 / H4 Font Weight",
+      "webflowName": "--_typography---h4--h4-font-weight",
+      "type": "font-weight",
+      "value": 400,
+      "resolvedValue": 400,
+      "unit": null,
+      "mode": "default",
+      "updatePolicy": "update_value_only",
+      "name": "--_typography---h4--h4-font-weight",
+      "figmaId": "VariableID:tpl-bb277554-4854-35c8-f3fc-3b04fad39234:98",
+      "namespace": "_typography",
+      "modes": {
+        "default": "400"
+      },
+      "editableInFigma": true,
+      "projectExtension": false
+    },
+    "--_typography---h4--h4-letter-spacing": {
+      "figmaName": "Typography / H4 / H4 Letter Spacing",
+      "webflowName": "--_typography---h4--h4-letter-spacing",
+      "type": "letter-spacing",
+      "value": 0.0,
+      "resolvedValue": 0.0,
+      "unit": "em",
+      "mode": "default",
+      "updatePolicy": "update_value_only",
+      "name": "--_typography---h4--h4-letter-spacing",
+      "figmaId": "VariableID:tpl-02a3f102-2eaf-d41d-69c6-9bb1cee0f6fd:99",
+      "namespace": "_layout",
+      "modes": {
+        "default": "0.0"
+      },
+      "editableInFigma": true,
+      "projectExtension": false
+    },
+    "--_typography---h4--h4-line-height": {
+      "figmaName": "Typography / H4 / H4 Line Height",
+      "webflowName": "--_typography---h4--h4-line-height",
+      "type": "size",
+      "value": 16,
+      "resolvedValue": 16,
+      "unit": "px",
+      "mode": "default",
+      "updatePolicy": "update_value_only",
+      "name": "--_typography---h4--h4-line-height",
+      "figmaId": "VariableID:tpl-22d5825e-1a3b-a8bf-a0cb-e256f4ec05a5:100",
+      "namespace": "_typography",
+      "modes": {
+        "default": "16"
+      },
+      "editableInFigma": true,
+      "projectExtension": false
+    },
+    "--_typography---h5--h5-font-size": {
+      "figmaName": "Typography / H5 / H5 Font Size",
+      "webflowName": "--_typography---h5--h5-font-size",
+      "type": "size",
+      "value": 16,
+      "resolvedValue": 16,
+      "unit": "px",
+      "mode": "default",
+      "updatePolicy": "update_value_only",
+      "name": "--_typography---h5--h5-font-size",
+      "figmaId": "VariableID:tpl-0b5b86c9-0fb1-4ec3-965d-dcfbcc440dd4:101",
+      "namespace": "_typography",
+      "modes": {
+        "default": "16"
+      },
+      "editableInFigma": true,
+      "projectExtension": false
+    },
+    "--_typography---h5--h5-font-weight": {
+      "figmaName": "Typography / H5 / H5 Font Weight",
+      "webflowName": "--_typography---h5--h5-font-weight",
+      "type": "font-weight",
+      "value": 400,
+      "resolvedValue": 400,
+      "unit": null,
+      "mode": "default",
+      "updatePolicy": "update_value_only",
+      "name": "--_typography---h5--h5-font-weight",
+      "figmaId": "VariableID:tpl-f3ceaca2-4b31-fc15-572a-9dcf134a840b:102",
+      "namespace": "_typography",
+      "modes": {
+        "default": "400"
+      },
+      "editableInFigma": true,
+      "projectExtension": false
+    },
+    "--_typography---h5--h5-letter-spacing": {
+      "figmaName": "Typography / H5 / H5 Letter Spacing",
+      "webflowName": "--_typography---h5--h5-letter-spacing",
+      "type": "letter-spacing",
+      "value": 0.0,
+      "resolvedValue": 0.0,
+      "unit": "em",
+      "mode": "default",
+      "updatePolicy": "update_value_only",
+      "name": "--_typography---h5--h5-letter-spacing",
+      "figmaId": "VariableID:tpl-72c62c6a-7a8c-8ab5-e21c-6116413290cc:103",
+      "namespace": "_layout",
+      "modes": {
+        "default": "0.0"
+      },
+      "editableInFigma": true,
+      "projectExtension": false
+    },
+    "--_typography---h5--h5-line-height": {
+      "figmaName": "Typography / H5 / H5 Line Height",
+      "webflowName": "--_typography---h5--h5-line-height",
+      "type": "size",
+      "value": 16,
+      "resolvedValue": 16,
+      "unit": "px",
+      "mode": "default",
+      "updatePolicy": "update_value_only",
+      "name": "--_typography---h5--h5-line-height",
+      "figmaId": "VariableID:tpl-c6e35c32-d52b-354f-c33c-f622d6852cc3:104",
+      "namespace": "_typography",
+      "modes": {
+        "default": "16"
+      },
+      "editableInFigma": true,
+      "projectExtension": false
+    },
+    "--_typography---h6--h6-font-size": {
+      "figmaName": "Typography / H6 / H6 Font Size",
+      "webflowName": "--_typography---h6--h6-font-size",
+      "type": "size",
+      "value": 16,
+      "resolvedValue": 16,
+      "unit": "px",
+      "mode": "default",
+      "updatePolicy": "update_value_only",
+      "name": "--_typography---h6--h6-font-size",
+      "figmaId": "VariableID:tpl-51f1072c-eead-e905-4799-fd32d27ef9a1:105",
+      "namespace": "_typography",
+      "modes": {
+        "default": "16"
+      },
+      "editableInFigma": true,
+      "projectExtension": false
+    },
+    "--_typography---h6--h6-font-weight": {
+      "figmaName": "Typography / H6 / H6 Font Weight",
+      "webflowName": "--_typography---h6--h6-font-weight",
+      "type": "font-weight",
+      "value": 400,
+      "resolvedValue": 400,
+      "unit": null,
+      "mode": "default",
+      "updatePolicy": "update_value_only",
+      "name": "--_typography---h6--h6-font-weight",
+      "figmaId": "VariableID:tpl-b9b4aa22-24d7-f022-ce6f-f06b57d3ccf6:106",
+      "namespace": "_typography",
+      "modes": {
+        "default": "400"
+      },
+      "editableInFigma": true,
+      "projectExtension": false
+    },
+    "--_typography---h6--h6-letter-spacing": {
+      "figmaName": "Typography / H6 / H6 Letter Spacing",
+      "webflowName": "--_typography---h6--h6-letter-spacing",
+      "type": "letter-spacing",
+      "value": 0.0,
+      "resolvedValue": 0.0,
+      "unit": "em",
+      "mode": "default",
+      "updatePolicy": "update_value_only",
+      "name": "--_typography---h6--h6-letter-spacing",
+      "figmaId": "VariableID:tpl-bcac1b56-1684-2296-1a97-621760f907f6:107",
+      "namespace": "_layout",
+      "modes": {
+        "default": "0.0"
+      },
+      "editableInFigma": true,
+      "projectExtension": false
+    },
+    "--_typography---h6--h6-line-height": {
+      "figmaName": "Typography / H6 / H6 Line Height",
+      "webflowName": "--_typography---h6--h6-line-height",
+      "type": "size",
+      "value": 16,
+      "resolvedValue": 16,
+      "unit": "px",
+      "mode": "default",
+      "updatePolicy": "update_value_only",
+      "name": "--_typography---h6--h6-line-height",
+      "figmaId": "VariableID:tpl-d4665473-487e-de03-0124-157661c24ee5:108",
+      "namespace": "_typography",
+      "modes": {
+        "default": "16"
+      },
+      "editableInFigma": true,
+      "projectExtension": false
+    },
+    "--_typography---letter-spacing--default": {
+      "figmaName": "Typography / Letter Spacing / Default",
+      "webflowName": "--_typography---letter-spacing--default",
+      "type": "letter-spacing",
+      "value": 0.0,
+      "resolvedValue": 0.0,
+      "unit": "em",
+      "mode": "default",
+      "updatePolicy": "update_value_only",
+      "name": "--_typography---letter-spacing--default",
+      "figmaId": "VariableID:tpl-8f179e3d-abfb-ab3a-4418-4e493f861649:109",
+      "namespace": "_layout",
+      "modes": {
+        "default": "0.0"
+      },
+      "editableInFigma": true,
+      "projectExtension": false
+    },
+    "--_typography---letter-spacing--tight": {
+      "figmaName": "Typography / Letter Spacing / Tight",
+      "webflowName": "--_typography---letter-spacing--tight",
+      "type": "letter-spacing",
+      "value": 0.0,
+      "resolvedValue": 0.0,
+      "unit": "em",
+      "mode": "default",
+      "updatePolicy": "update_value_only",
+      "name": "--_typography---letter-spacing--tight",
+      "figmaId": "VariableID:tpl-edc9839b-4cd8-09ee-339d-43fbf749d02c:110",
+      "namespace": "_layout",
+      "modes": {
+        "default": "0.0"
+      },
+      "editableInFigma": true,
+      "projectExtension": false
+    },
+    "--_typography---letter-spacing--tighter": {
+      "figmaName": "Typography / Letter Spacing / Tighter",
+      "webflowName": "--_typography---letter-spacing--tighter",
+      "type": "letter-spacing",
+      "value": 0.0,
+      "resolvedValue": 0.0,
+      "unit": "em",
+      "mode": "default",
+      "updatePolicy": "update_value_only",
+      "name": "--_typography---letter-spacing--tighter",
+      "figmaId": "VariableID:tpl-f1f81695-2e74-2bef-1b9b-0947b1a9cb40:111",
+      "namespace": "_layout",
+      "modes": {
+        "default": "0.0"
+      },
+      "editableInFigma": true,
+      "projectExtension": false
+    },
+    "--_typography---letter-spacing--wide": {
+      "figmaName": "Typography / Letter Spacing / Wide",
+      "webflowName": "--_typography---letter-spacing--wide",
+      "type": "letter-spacing",
+      "value": 0.0,
+      "resolvedValue": 0.0,
+      "unit": "em",
+      "mode": "default",
+      "updatePolicy": "update_value_only",
+      "name": "--_typography---letter-spacing--wide",
+      "figmaId": "VariableID:tpl-c53e91ab-7566-5039-3f98-23ec3c994c09:112",
+      "namespace": "_layout",
+      "modes": {
+        "default": "0.0"
+      },
+      "editableInFigma": true,
+      "projectExtension": false
+    },
+    "--_typography---letter-spacing--wider": {
+      "figmaName": "Typography / Letter Spacing / Wider",
+      "webflowName": "--_typography---letter-spacing--wider",
+      "type": "letter-spacing",
+      "value": 0.0,
+      "resolvedValue": 0.0,
+      "unit": "em",
+      "mode": "default",
+      "updatePolicy": "update_value_only",
+      "name": "--_typography---letter-spacing--wider",
+      "figmaId": "VariableID:tpl-9f04ad9b-1e55-5da0-abd0-7ec73e2f0466:113",
+      "namespace": "_layout",
+      "modes": {
+        "default": "0.0"
+      },
+      "editableInFigma": true,
+      "projectExtension": false
+    },
+    "--brand--blue": {
+      "figmaName": "Brand / Blue",
+      "webflowName": "--brand--blue",
+      "type": "color",
+      "value": "#ffffff",
+      "resolvedValue": "#ffffff",
+      "unit": null,
+      "mode": "default",
+      "updatePolicy": "update_value_only",
+      "name": "--brand--blue",
+      "figmaId": "VariableID:tpl-50e5a14a-321c-b607-b694-54d3faea209b:114",
+      "namespace": "other",
+      "modes": {
+        "default": "#ffffff"
+      },
+      "editableInFigma": true,
+      "projectExtension": false
+    },
+    "--brand--blue-dark": {
+      "figmaName": "Brand / Blue Dark",
+      "webflowName": "--brand--blue-dark",
+      "type": "color",
+      "value": "#ffffff",
+      "resolvedValue": "#ffffff",
+      "unit": null,
+      "mode": "default",
+      "updatePolicy": "update_value_only",
+      "name": "--brand--blue-dark",
+      "figmaId": "VariableID:tpl-d9c28c2b-4ad0-39bb-0d7d-24bab703103f:115",
+      "namespace": "other",
+      "modes": {
+        "default": "#ffffff"
+      },
+      "editableInFigma": true,
+      "projectExtension": false
+    },
+    "--brand--blue-light": {
+      "figmaName": "Brand / Blue Light",
+      "webflowName": "--brand--blue-light",
+      "type": "color",
+      "value": "#ffffff",
+      "resolvedValue": "#ffffff",
+      "unit": null,
+      "mode": "default",
+      "updatePolicy": "update_value_only",
+      "name": "--brand--blue-light",
+      "figmaId": "VariableID:tpl-cd6d28eb-d716-c9b2-f812-0722f1848a17:116",
+      "namespace": "other",
+      "modes": {
+        "default": "#ffffff"
+      },
+      "editableInFigma": true,
+      "projectExtension": false
+    },
+    "--brand--green": {
+      "figmaName": "Brand / Green",
+      "webflowName": "--brand--green",
+      "type": "color",
+      "value": "#ffffff",
+      "resolvedValue": "#ffffff",
+      "unit": null,
+      "mode": "default",
+      "updatePolicy": "update_value_only",
+      "name": "--brand--green",
+      "figmaId": "VariableID:tpl-6e8740f4-7fb0-01bb-5967-63a08043555b:117",
+      "namespace": "other",
+      "modes": {
+        "default": "#ffffff"
+      },
+      "editableInFigma": true,
+      "projectExtension": false
+    },
+    "--brand--green-darker": {
+      "figmaName": "Brand / Green Darker",
+      "webflowName": "--brand--green-darker",
+      "type": "color",
+      "value": "#ffffff",
+      "resolvedValue": "#ffffff",
+      "unit": null,
+      "mode": "default",
+      "updatePolicy": "update_value_only",
+      "name": "--brand--green-darker",
+      "figmaId": "VariableID:tpl-0fc3eb33-82b5-0364-4ada-0b5b2c714ab2:118",
+      "namespace": "other",
+      "modes": {
+        "default": "#ffffff"
+      },
+      "editableInFigma": true,
+      "projectExtension": false
+    },
+    "--brand--pink": {
+      "figmaName": "Brand / Pink",
+      "webflowName": "--brand--pink",
+      "type": "color",
+      "value": "#ffffff",
+      "resolvedValue": "#ffffff",
+      "unit": null,
+      "mode": "default",
+      "updatePolicy": "update_value_only",
+      "name": "--brand--pink",
+      "figmaId": "VariableID:tpl-ced6fa1c-8dc9-ea1c-42b2-6bacff303512:119",
+      "namespace": "other",
+      "modes": {
+        "default": "#ffffff"
+      },
+      "editableInFigma": true,
+      "projectExtension": false
+    },
+    "--brand--pink-dark": {
+      "figmaName": "Brand / Pink Dark",
+      "webflowName": "--brand--pink-dark",
+      "type": "color",
+      "value": "#ffffff",
+      "resolvedValue": "#ffffff",
+      "unit": null,
+      "mode": "default",
+      "updatePolicy": "update_value_only",
+      "name": "--brand--pink-dark",
+      "figmaId": "VariableID:tpl-996e34b3-5826-7937-c6fb-dbbc9a278bdc:120",
+      "namespace": "other",
+      "modes": {
+        "default": "#ffffff"
+      },
+      "editableInFigma": true,
+      "projectExtension": false
+    },
+    "--brand--pink-light": {
+      "figmaName": "Brand / Pink Light",
+      "webflowName": "--brand--pink-light",
+      "type": "color",
+      "value": "#ffffff",
+      "resolvedValue": "#ffffff",
+      "unit": null,
+      "mode": "default",
+      "updatePolicy": "update_value_only",
+      "name": "--brand--pink-light",
+      "figmaId": "VariableID:tpl-67eb27c7-a151-5bbb-9ee0-2b2184f3279e:121",
+      "namespace": "other",
+      "modes": {
+        "default": "#ffffff"
+      },
+      "editableInFigma": true,
+      "projectExtension": false
+    },
+    "--brand--red": {
+      "figmaName": "Brand / Red",
+      "webflowName": "--brand--red",
+      "type": "color",
+      "value": "#ffffff",
+      "resolvedValue": "#ffffff",
+      "unit": null,
+      "mode": "default",
+      "updatePolicy": "update_value_only",
+      "name": "--brand--red",
+      "figmaId": "VariableID:tpl-a3056701-b504-f267-9846-1ff7e01acd44:122",
+      "namespace": "other",
+      "modes": {
+        "default": "#ffffff"
+      },
+      "editableInFigma": true,
+      "projectExtension": false
+    },
+    "--brand--red-darker": {
+      "figmaName": "Brand / Red Darker",
+      "webflowName": "--brand--red-darker",
+      "type": "color",
+      "value": "#ffffff",
+      "resolvedValue": "#ffffff",
+      "unit": null,
+      "mode": "default",
+      "updatePolicy": "update_value_only",
+      "name": "--brand--red-darker",
+      "figmaId": "VariableID:tpl-dedfa6a5-835f-460e-db27-c5a379ffa560:123",
+      "namespace": "other",
+      "modes": {
+        "default": "#ffffff"
+      },
+      "editableInFigma": true,
+      "projectExtension": false
+    },
+    "--brand--yellow": {
+      "figmaName": "Brand / Yellow",
+      "webflowName": "--brand--yellow",
+      "type": "color",
+      "value": "#ffffff",
+      "resolvedValue": "#ffffff",
+      "unit": null,
+      "mode": "default",
+      "updatePolicy": "update_value_only",
+      "name": "--brand--yellow",
+      "figmaId": "VariableID:tpl-ca86494a-b067-498b-317e-52ee5766629e:124",
+      "namespace": "other",
+      "modes": {
+        "default": "#ffffff"
+      },
+      "editableInFigma": true,
+      "projectExtension": false
+    },
+    "--brand--yellow-darker": {
+      "figmaName": "Brand / Yellow Darker",
+      "webflowName": "--brand--yellow-darker",
+      "type": "color",
+      "value": "#ffffff",
+      "resolvedValue": "#ffffff",
+      "unit": null,
+      "mode": "default",
+      "updatePolicy": "update_value_only",
+      "name": "--brand--yellow-darker",
+      "figmaId": "VariableID:tpl-611acdd9-aeb1-8d84-5528-89d9af479851:125",
+      "namespace": "other",
+      "modes": {
+        "default": "#ffffff"
+      },
+      "editableInFigma": true,
+      "projectExtension": false
+    },
+    "--focus--offset": {
+      "figmaName": "Focus / Offset",
+      "webflowName": "--focus--offset",
+      "type": "size",
+      "value": 16,
+      "resolvedValue": 16,
+      "unit": "px",
+      "mode": "default",
+      "updatePolicy": "update_value_only",
+      "name": "--focus--offset",
+      "figmaId": "VariableID:tpl-d53fa260-352a-a9ac-5a62-bf83c4a807ff:126",
+      "namespace": "_focus",
+      "modes": {
+        "default": "16"
+      },
+      "editableInFigma": true,
+      "projectExtension": false
+    },
+    "--focus--width": {
+      "figmaName": "Focus / Width",
+      "webflowName": "--focus--width",
+      "type": "size",
+      "value": 16,
+      "resolvedValue": 16,
+      "unit": "px",
+      "mode": "default",
+      "updatePolicy": "update_value_only",
+      "name": "--focus--width",
+      "figmaId": "VariableID:tpl-93cac0b7-0c6d-de10-2d09-ba0a0b91d995:127",
+      "namespace": "_focus",
+      "modes": {
+        "default": "16"
+      },
+      "editableInFigma": true,
+      "projectExtension": false
+    },
+    "--font-family--body": {
+      "figmaName": "Font Family / Body",
+      "webflowName": "--font-family--body",
+      "type": "font-family",
+      "value": "Inter",
+      "resolvedValue": "Inter",
+      "unit": null,
+      "mode": "default",
+      "updatePolicy": "update_value_only",
+      "name": "--font-family--body",
+      "figmaId": "VariableID:tpl-a6d8246b-eefb-e989-c513-ab210812a52b:128",
+      "namespace": "_typography",
+      "modes": {
+        "default": "Inter"
+      },
+      "editableInFigma": true,
+      "projectExtension": false
+    },
+    "--font-family--heading": {
+      "figmaName": "Font Family / Heading",
+      "webflowName": "--font-family--heading",
+      "type": "font-family",
+      "value": "Inter",
+      "resolvedValue": "Inter",
+      "unit": null,
+      "mode": "default",
+      "updatePolicy": "update_value_only",
+      "name": "--font-family--heading",
+      "figmaId": "VariableID:tpl-d7782d82-523f-d926-9c37-047b62025617:129",
+      "namespace": "other",
+      "modes": {
+        "default": "Inter"
+      },
+      "editableInFigma": true,
+      "projectExtension": false
+    },
+    "--font-weight--black": {
+      "figmaName": "Font Weight / Black",
+      "webflowName": "--font-weight--black",
+      "type": "font-weight",
+      "value": 900,
+      "resolvedValue": 900,
+      "unit": null,
+      "mode": "default",
+      "updatePolicy": "update_value_only",
+      "name": "--font-weight--black",
+      "figmaId": "VariableID:tpl-e50080be-5569-4197-2dd9-aadb37ee578e:130",
+      "namespace": "_font-weight",
+      "modes": {
+        "default": "900"
+      },
+      "editableInFigma": true,
+      "projectExtension": false
+    },
+    "--font-weight--bold": {
+      "figmaName": "Font Weight / Bold",
+      "webflowName": "--font-weight--bold",
+      "type": "font-weight",
+      "value": 700,
+      "resolvedValue": 700,
+      "unit": null,
+      "mode": "default",
+      "updatePolicy": "update_value_only",
+      "name": "--font-weight--bold",
+      "figmaId": "VariableID:tpl-9660bc4b-5696-e27d-f57d-3d95ccba25d2:131",
+      "namespace": "_font-weight",
+      "modes": {
+        "default": "700"
+      },
+      "editableInFigma": true,
+      "projectExtension": false
+    },
+    "--font-weight--light": {
+      "figmaName": "Font Weight / Light",
+      "webflowName": "--font-weight--light",
+      "type": "font-weight",
+      "value": 400,
+      "resolvedValue": 400,
+      "unit": null,
+      "mode": "default",
+      "updatePolicy": "update_value_only",
+      "name": "--font-weight--light",
+      "figmaId": "VariableID:tpl-cffcdfce-976a-d7c3-8abe-832aaa25d8f3:132",
+      "namespace": "_font-weight",
+      "modes": {
+        "default": "400"
+      },
+      "editableInFigma": true,
+      "projectExtension": false
+    },
+    "--font-weight--medium": {
+      "figmaName": "Font Weight / Medium",
+      "webflowName": "--font-weight--medium",
+      "type": "font-weight",
+      "value": 500,
+      "resolvedValue": 500,
+      "unit": null,
+      "mode": "default",
+      "updatePolicy": "update_value_only",
+      "name": "--font-weight--medium",
+      "figmaId": "VariableID:tpl-ab634709-2d90-2edd-76ee-afdcb8ab4989:133",
+      "namespace": "_font-weight",
+      "modes": {
+        "default": "500"
+      },
+      "editableInFigma": true,
+      "projectExtension": false
+    },
+    "--font-weight--normal": {
+      "figmaName": "Font Weight / Normal",
+      "webflowName": "--font-weight--normal",
+      "type": "font-weight",
+      "value": 400,
+      "resolvedValue": 400,
+      "unit": null,
+      "mode": "default",
+      "updatePolicy": "update_value_only",
+      "name": "--font-weight--normal",
+      "figmaId": "VariableID:tpl-32489d5d-53eb-f47d-1214-f00eb21547bf:134",
+      "namespace": "_font-weight",
+      "modes": {
+        "default": "400"
+      },
+      "editableInFigma": true,
+      "projectExtension": false
+    },
+    "--font-weight--semi-bold": {
+      "figmaName": "Font Weight / Semi Bold",
+      "webflowName": "--font-weight--semi-bold",
+      "type": "font-weight",
+      "value": 700,
+      "resolvedValue": 700,
+      "unit": null,
+      "mode": "default",
+      "updatePolicy": "update_value_only",
+      "name": "--font-weight--semi-bold",
+      "figmaId": "VariableID:tpl-cea23ea8-bde6-38d6-3868-bbbc2cabf256:135",
+      "namespace": "_font-weight",
+      "modes": {
+        "default": "700"
+      },
+      "editableInFigma": true,
+      "projectExtension": false
+    },
+    "--font-weight--thin": {
+      "figmaName": "Font Weight / Thin",
+      "webflowName": "--font-weight--thin",
+      "type": "font-weight",
+      "value": 400,
+      "resolvedValue": 400,
+      "unit": null,
+      "mode": "default",
+      "updatePolicy": "update_value_only",
+      "name": "--font-weight--thin",
+      "figmaId": "VariableID:tpl-a883c760-6551-fc24-479c-017ac50771a5:136",
+      "namespace": "_font-weight",
+      "modes": {
+        "default": "400"
+      },
+      "editableInFigma": true,
+      "projectExtension": false
+    },
+    "--font-weight--xbold": {
+      "figmaName": "Font Weight / Xbold",
+      "webflowName": "--font-weight--xbold",
+      "type": "font-weight",
+      "value": 700,
+      "resolvedValue": 700,
+      "unit": null,
+      "mode": "default",
+      "updatePolicy": "update_value_only",
+      "name": "--font-weight--xbold",
+      "figmaId": "VariableID:tpl-24e095b3-3f05-ee29-1994-54aad06a9d31:137",
+      "namespace": "_font-weight",
+      "modes": {
+        "default": "700"
+      },
+      "editableInFigma": true,
+      "projectExtension": false
+    },
+    "--font-weight--xlight": {
+      "figmaName": "Font Weight / Xlight",
+      "webflowName": "--font-weight--xlight",
+      "type": "font-weight",
+      "value": 400,
+      "resolvedValue": 400,
+      "unit": null,
+      "mode": "default",
+      "updatePolicy": "update_value_only",
+      "name": "--font-weight--xlight",
+      "figmaId": "VariableID:tpl-2f93ce82-7706-15e3-b48c-ec3bef4839b4:138",
+      "namespace": "_font-weight",
+      "modes": {
+        "default": "400"
+      },
+      "editableInFigma": true,
+      "projectExtension": false
+    },
+    "--neutral--black": {
+      "figmaName": "Neutral / Black",
+      "webflowName": "--neutral--black",
+      "type": "color",
+      "value": "#000000",
+      "resolvedValue": "#000000",
+      "unit": null,
+      "mode": "default",
+      "updatePolicy": "update_value_only",
+      "name": "--neutral--black",
+      "figmaId": "VariableID:tpl-16a7eb45-6251-5ebe-75c9-a2ccacf304e4:139",
+      "namespace": "other",
+      "modes": {
+        "default": "#000000"
+      },
+      "editableInFigma": true,
+      "projectExtension": false
+    },
+    "--neutral--neutral": {
+      "figmaName": "Neutral / Neutral",
+      "webflowName": "--neutral--neutral",
+      "type": "color",
+      "value": "#ffffff",
+      "resolvedValue": "#ffffff",
+      "unit": null,
+      "mode": "default",
+      "updatePolicy": "update_value_only",
+      "name": "--neutral--neutral",
+      "figmaId": "VariableID:tpl-1baaa1d9-c3e6-9c74-1e2a-c2c3808f0f38:140",
+      "namespace": "other",
+      "modes": {
+        "default": "#ffffff"
+      },
+      "editableInFigma": true,
+      "projectExtension": false
+    },
+    "--neutral--neutral-dark": {
+      "figmaName": "Neutral / Neutral Dark",
+      "webflowName": "--neutral--neutral-dark",
+      "type": "color",
+      "value": "#ffffff",
+      "resolvedValue": "#ffffff",
+      "unit": null,
+      "mode": "default",
+      "updatePolicy": "update_value_only",
+      "name": "--neutral--neutral-dark",
+      "figmaId": "VariableID:tpl-e160f800-0418-f93f-0320-20bd8b90f3fc:141",
+      "namespace": "other",
+      "modes": {
+        "default": "#ffffff"
+      },
+      "editableInFigma": true,
+      "projectExtension": false
+    },
+    "--neutral--neutral-darker": {
+      "figmaName": "Neutral / Neutral Darker",
+      "webflowName": "--neutral--neutral-darker",
+      "type": "color",
+      "value": "#ffffff",
+      "resolvedValue": "#ffffff",
+      "unit": null,
+      "mode": "default",
+      "updatePolicy": "update_value_only",
+      "name": "--neutral--neutral-darker",
+      "figmaId": "VariableID:tpl-303ad790-78d0-b27e-ee63-03d7b2d35609:142",
+      "namespace": "other",
+      "modes": {
+        "default": "#ffffff"
+      },
+      "editableInFigma": true,
+      "projectExtension": false
+    },
+    "--neutral--neutral-darkest": {
+      "figmaName": "Neutral / Neutral Darkest",
+      "webflowName": "--neutral--neutral-darkest",
+      "type": "color",
+      "value": "#ffffff",
+      "resolvedValue": "#ffffff",
+      "unit": null,
+      "mode": "default",
+      "updatePolicy": "update_value_only",
+      "name": "--neutral--neutral-darkest",
+      "figmaId": "VariableID:tpl-af35cb0b-c721-ef33-b742-b0ec0ed951a2:143",
+      "namespace": "other",
+      "modes": {
+        "default": "#ffffff"
+      },
+      "editableInFigma": true,
+      "projectExtension": false
+    },
+    "--neutral--neutral-light": {
+      "figmaName": "Neutral / Neutral Light",
+      "webflowName": "--neutral--neutral-light",
+      "type": "color",
+      "value": "#ffffff",
+      "resolvedValue": "#ffffff",
+      "unit": null,
+      "mode": "default",
+      "updatePolicy": "update_value_only",
+      "name": "--neutral--neutral-light",
+      "figmaId": "VariableID:tpl-df1d11d0-4489-86b9-780e-e84f339a2297:144",
+      "namespace": "other",
+      "modes": {
+        "default": "#ffffff"
+      },
+      "editableInFigma": true,
+      "projectExtension": false
+    },
+    "--neutral--neutral-lighter": {
+      "figmaName": "Neutral / Neutral Lighter",
+      "webflowName": "--neutral--neutral-lighter",
+      "type": "color",
+      "value": "#ffffff",
+      "resolvedValue": "#ffffff",
+      "unit": null,
+      "mode": "default",
+      "updatePolicy": "update_value_only",
+      "name": "--neutral--neutral-lighter",
+      "figmaId": "VariableID:tpl-c7d9785b-8423-b345-ab8c-ad59cfa98f0c:145",
+      "namespace": "other",
+      "modes": {
+        "default": "#ffffff"
+      },
+      "editableInFigma": true,
+      "projectExtension": false
+    },
+    "--neutral--neutral-lightest": {
+      "figmaName": "Neutral / Neutral Lightest",
+      "webflowName": "--neutral--neutral-lightest",
+      "type": "color",
+      "value": "#ffffff",
+      "resolvedValue": "#ffffff",
+      "unit": null,
+      "mode": "default",
+      "updatePolicy": "update_value_only",
+      "name": "--neutral--neutral-lightest",
+      "figmaId": "VariableID:tpl-4aea7a60-9350-178c-1160-8f97b773986f:146",
+      "namespace": "other",
+      "modes": {
+        "default": "#ffffff"
+      },
+      "editableInFigma": true,
+      "projectExtension": false
+    },
+    "--neutral--transparent": {
+      "figmaName": "Neutral / Transparent",
+      "webflowName": "--neutral--transparent",
+      "type": "color",
+      "value": "transparent",
+      "resolvedValue": "transparent",
+      "unit": null,
+      "mode": "default",
+      "updatePolicy": "update_value_only",
+      "name": "--neutral--transparent",
+      "figmaId": "VariableID:tpl-c8f7cb97-8ef7-3d82-bc31-dd14d6654070:147",
+      "namespace": "other",
+      "modes": {
+        "default": "transparent"
+      },
+      "editableInFigma": true,
+      "projectExtension": false
+    },
+    "--neutral--white": {
+      "figmaName": "Neutral / White",
+      "webflowName": "--neutral--white",
+      "type": "color",
+      "value": "#ffffff",
+      "resolvedValue": "#ffffff",
+      "unit": null,
+      "mode": "default",
+      "updatePolicy": "update_value_only",
+      "name": "--neutral--white",
+      "figmaId": "VariableID:tpl-8030b29a-fc9a-5df9-b879-8172e0e157e9:148",
+      "namespace": "other",
+      "modes": {
+        "default": "#ffffff"
+      },
+      "editableInFigma": true,
+      "projectExtension": false
+    },
+    "_theme---text-color--primary": {
+      "name": "_theme---text-color--primary",
+      "figmaId": "VariableID:example-_theme-text-color-primary:9000",
+      "type": "alias",
+      "namespace": "_theme",
+      "value": "var(--neutral--black)",
+      "modes": {
+        "default": "var(--neutral--black)",
+        "dark": "var(--neutral--white)"
+      },
+      "unit": null,
+      "source": {
+        "selector": ":root",
+        "property": "--_theme---text-color--primary",
+        "collection": "Theme"
+      },
+      "editableInFigma": true,
+      "projectExtension": false,
+      "aliasOf": "VariableID:example-neutral-black:9100",
+      "figmaName": "_theme---text-color--primary",
+      "webflowName": "_theme---text-color--primary",
+      "updatePolicy": "create"
+    },
+    "_typography---h1--h1-font-size": {
+      "name": "_typography---h1--h1-font-size",
+      "figmaId": "VariableID:example-_typography-h1-h1-font-size:9001",
+      "type": "font-size",
+      "namespace": "_typography",
+      "value": 4,
+      "modes": {
+        "default": "4rem"
+      },
+      "unit": "rem",
+      "source": {
+        "selector": ":root",
+        "property": "--_typography---h1--h1-font-size",
+        "collection": "Typography"
+      },
+      "editableInFigma": true,
+      "projectExtension": false,
+      "figmaName": "_typography---h1--h1-font-size",
+      "webflowName": "_typography---h1--h1-font-size",
+      "updatePolicy": "create"
+    },
+    "_sizes---container--large": {
+      "name": "_sizes---container--large",
+      "figmaId": "VariableID:example-_sizes-container-large:9002",
+      "type": "size",
+      "namespace": "_sizes",
+      "value": 80,
+      "modes": {
+        "default": "80rem"
+      },
+      "unit": "rem",
+      "source": {
+        "selector": ":root",
+        "property": "--_sizes---container--large",
+        "collection": "Sizes"
+      },
+      "editableInFigma": true,
+      "projectExtension": false,
+      "figmaName": "_sizes---container--large",
+      "webflowName": "_sizes---container--large",
+      "updatePolicy": "create"
+    },
+    "_layout---spacing--medium": {
+      "name": "_layout---spacing--medium",
+      "figmaId": "VariableID:example-_layout-spacing-medium:9003",
+      "type": "spacing",
+      "namespace": "_layout",
+      "value": 2,
+      "modes": {
+        "default": "2rem"
+      },
+      "unit": "rem",
+      "source": {
+        "selector": ":root",
+        "property": "--_layout---spacing--medium",
+        "collection": "Layout"
+      },
+      "editableInFigma": true,
+      "projectExtension": false,
+      "figmaName": "_layout---spacing--medium",
+      "webflowName": "_layout---spacing--medium",
+      "updatePolicy": "create"
+    },
+    "_focus--width": {
+      "name": "_focus--width",
+      "figmaId": "VariableID:example-_focus-width:9004",
+      "type": "size",
+      "namespace": "_focus",
+      "value": 0.125,
+      "modes": {
+        "default": ".125rem"
+      },
+      "unit": "rem",
+      "source": {
+        "selector": ":root",
+        "property": "--_focus--width",
+        "collection": "Focus"
+      },
+      "editableInFigma": true,
+      "projectExtension": false,
+      "figmaName": "_focus--width",
+      "webflowName": "_focus--width",
+      "updatePolicy": "create"
+    },
+    "_brand--blue": {
+      "name": "_brand--blue",
+      "figmaId": "VariableID:example-_brand-blue:9005",
+      "type": "color",
+      "namespace": "_brand",
+      "value": "#2d62ff",
+      "modes": {
+        "default": "#2d62ff",
+        "dark": "#d9e5ff"
+      },
+      "unit": null,
+      "source": {
+        "selector": ":root",
+        "property": "--_brand--blue",
+        "collection": "Brand"
+      },
+      "editableInFigma": true,
+      "projectExtension": false,
+      "figmaName": "_brand--blue",
+      "webflowName": "_brand--blue",
+      "updatePolicy": "create"
+    },
+    "_neutral--black": {
+      "name": "_neutral--black",
+      "figmaId": "VariableID:example-_neutral-black:9006",
+      "type": "color",
+      "namespace": "_neutral",
+      "value": "#000",
+      "modes": {
+        "default": "#000",
+        "dark": "#fff"
+      },
+      "unit": null,
+      "source": {
+        "selector": ":root",
+        "property": "--_neutral--black",
+        "collection": "Colors"
+      },
+      "editableInFigma": true,
+      "projectExtension": false,
+      "figmaName": "_neutral--black",
+      "webflowName": "_neutral--black",
+      "updatePolicy": "create"
+    },
+    "_font-weight--bold": {
+      "name": "_font-weight--bold",
+      "figmaId": "VariableID:example-_font-weight-bold:9007",
+      "type": "font-weight",
+      "namespace": "_font-weight",
+      "value": 700,
+      "modes": {
+        "default": "700"
+      },
+      "unit": null,
+      "source": {
+        "selector": ":root",
+        "property": "--_font-weight--bold",
+        "collection": "Font Weight"
+      },
+      "editableInFigma": true,
+      "projectExtension": false,
+      "figmaName": "_font-weight--bold",
+      "webflowName": "_font-weight--bold",
+      "updatePolicy": "create"
+    }
+  },
+  "styles": {
+    "heading-style-h1": {
+      "type": "text-style",
+      "figmaStyleName": "Heading Style / H1",
+      "webflowClassName": "heading-style-h1",
+      "properties": {
+        "font-family": "var(--font-family--heading)",
+        "font-size": "var(--_typography---h1--h1-font-size)",
+        "font-weight": "var(--_typography---h1--h1-font-weight)",
+        "line-height": "var(--_typography---h1--h1-line-height)",
+        "letter-spacing": "var(--_typography---h1--h1-letter-spacing)"
+      },
+      "breakpoints": {
+        "main": {},
+        "medium": {},
+        "small": {},
+        "tiny": {}
+      },
+      "matchPolicy": {
+        "strategy": "property_similarity",
+        "requiredProperties": [
+          "font-size",
+          "font-weight",
+          "line-height"
+        ],
+        "optionalProperties": [
+          "font-family",
+          "letter-spacing",
+          "color"
+        ],
+        "minimumConfidence": 0.85
+      },
+      "name": "heading-style-h1",
+      "figmaId": "VariableID:tpl-294ef1cd-779f-fbe3-0e02-f204118f3d35:1",
+      "category": "heading"
+    },
+    "heading-style-h2": {
+      "type": "text-style",
+      "figmaStyleName": "Heading Style / H2",
+      "webflowClassName": "heading-style-h2",
+      "properties": {
+        "font-family": "var(--font-family--heading)",
+        "font-size": "var(--_typography---h2--h2-font-size)",
+        "font-weight": "var(--_typography---h2--h2-font-weight)",
+        "line-height": "var(--_typography---h2--h2-line-height)",
+        "letter-spacing": "var(--_typography---h2--h2-letter-spacing)"
+      },
+      "breakpoints": {
+        "main": {},
+        "medium": {},
+        "small": {},
+        "tiny": {}
+      },
+      "matchPolicy": {
+        "strategy": "property_similarity",
+        "requiredProperties": [
+          "font-size",
+          "font-weight",
+          "line-height"
+        ],
+        "optionalProperties": [
+          "font-family",
+          "letter-spacing",
+          "color"
+        ],
+        "minimumConfidence": 0.85
+      },
+      "name": "heading-style-h2",
+      "figmaId": "VariableID:tpl-3b486ffd-c3bc-b15d-98bc-ed80d05a18b3:2",
+      "category": "heading"
+    },
+    "heading-style-h3": {
+      "type": "text-style",
+      "figmaStyleName": "Heading Style / H3",
+      "webflowClassName": "heading-style-h3",
+      "properties": {
+        "font-family": "var(--font-family--heading)",
+        "font-size": "var(--_typography---h3--h3-font-size)",
+        "font-weight": "var(--_typography---h3--h3-font-weight)",
+        "line-height": "var(--_typography---h3--h3-line-height)",
+        "letter-spacing": "var(--_typography---h3--h3-letter-spacing)"
+      },
+      "breakpoints": {
+        "main": {},
+        "medium": {},
+        "small": {},
+        "tiny": {}
+      },
+      "matchPolicy": {
+        "strategy": "property_similarity",
+        "requiredProperties": [
+          "font-size",
+          "font-weight",
+          "line-height"
+        ],
+        "optionalProperties": [
+          "font-family",
+          "letter-spacing",
+          "color"
+        ],
+        "minimumConfidence": 0.85
+      },
+      "name": "heading-style-h3",
+      "figmaId": "VariableID:tpl-c9fdead0-a5f6-3907-a039-250126bb63e8:3",
+      "category": "heading"
+    },
+    "heading-style-h4": {
+      "type": "text-style",
+      "figmaStyleName": "Heading Style / H4",
+      "webflowClassName": "heading-style-h4",
+      "properties": {
+        "font-family": "var(--font-family--heading)",
+        "font-size": "var(--_typography---h4--h4-font-size)",
+        "font-weight": "var(--_typography---h4--h4-font-weight)",
+        "line-height": "var(--_typography---h4--h4-line-height)",
+        "letter-spacing": "var(--_typography---h4--h4-letter-spacing)"
+      },
+      "breakpoints": {
+        "main": {},
+        "medium": {},
+        "small": {},
+        "tiny": {}
+      },
+      "matchPolicy": {
+        "strategy": "property_similarity",
+        "requiredProperties": [
+          "font-size",
+          "font-weight",
+          "line-height"
+        ],
+        "optionalProperties": [
+          "font-family",
+          "letter-spacing",
+          "color"
+        ],
+        "minimumConfidence": 0.85
+      },
+      "name": "heading-style-h4",
+      "figmaId": "VariableID:tpl-c135fb0e-282a-d898-8a86-02ac2b060920:4",
+      "category": "heading"
+    },
+    "heading-style-h5": {
+      "type": "text-style",
+      "figmaStyleName": "Heading Style / H5",
+      "webflowClassName": "heading-style-h5",
+      "properties": {
+        "font-family": "var(--font-family--heading)",
+        "font-size": "var(--_typography---h5--h5-font-size)",
+        "font-weight": "var(--_typography---h5--h5-font-weight)",
+        "line-height": "var(--_typography---h5--h5-line-height)",
+        "letter-spacing": "var(--_typography---h5--h5-letter-spacing)"
+      },
+      "breakpoints": {
+        "main": {},
+        "medium": {},
+        "small": {},
+        "tiny": {}
+      },
+      "matchPolicy": {
+        "strategy": "property_similarity",
+        "requiredProperties": [
+          "font-size",
+          "font-weight",
+          "line-height"
+        ],
+        "optionalProperties": [
+          "font-family",
+          "letter-spacing",
+          "color"
+        ],
+        "minimumConfidence": 0.85
+      },
+      "name": "heading-style-h5",
+      "figmaId": "VariableID:tpl-d714d2eb-97ce-c746-016e-9d2d70ade4be:5",
+      "category": "heading"
+    },
+    "heading-style-h6": {
+      "type": "text-style",
+      "figmaStyleName": "Heading Style / H6",
+      "webflowClassName": "heading-style-h6",
+      "properties": {
+        "font-family": "var(--font-family--heading)",
+        "font-size": "var(--_typography---h6--h6-font-size)",
+        "font-weight": "var(--_typography---h6--h6-font-weight)",
+        "line-height": "var(--_typography---h6--h6-line-height)",
+        "letter-spacing": "var(--_typography---h6--h6-letter-spacing)"
+      },
+      "breakpoints": {
+        "main": {},
+        "medium": {},
+        "small": {},
+        "tiny": {}
+      },
+      "matchPolicy": {
+        "strategy": "property_similarity",
+        "requiredProperties": [
+          "font-size",
+          "font-weight",
+          "line-height"
+        ],
+        "optionalProperties": [
+          "font-family",
+          "letter-spacing",
+          "color"
+        ],
+        "minimumConfidence": 0.85
+      },
+      "name": "heading-style-h6",
+      "figmaId": "VariableID:tpl-e7fd5fd0-1257-71b9-7f75-4fc8133d4916:6",
+      "category": "heading"
+    },
+    "inherit-text-size": {
+      "type": "text-style",
+      "figmaStyleName": "Inherit Text Size",
+      "webflowClassName": "inherit-text-size",
+      "properties": {
+        "font-family": "var(--font-family--body)",
+        "font-size": "16px",
+        "font-weight": "400",
+        "line-height": "1.5em",
+        "letter-spacing": "0em"
+      },
+      "breakpoints": {
+        "main": {},
+        "medium": {},
+        "small": {},
+        "tiny": {}
+      },
+      "matchPolicy": {
+        "strategy": "property_similarity",
+        "requiredProperties": [
+          "font-size",
+          "font-weight",
+          "line-height"
+        ],
+        "optionalProperties": [
+          "font-family",
+          "letter-spacing",
+          "color"
+        ],
+        "minimumConfidence": 0.85
+      },
+      "name": "inherit-text-size",
+      "figmaId": "VariableID:tpl-b85c9d31-eaf7-fe18-1915-6f238c453869:7",
+      "category": "text"
+    },
+    "inherit-text-weight": {
+      "type": "text-style",
+      "figmaStyleName": "Inherit Text Weight",
+      "webflowClassName": "inherit-text-weight",
+      "properties": {
+        "font-family": "var(--font-family--body)",
+        "font-size": "16px",
+        "font-weight": "400",
+        "line-height": "1.5em",
+        "letter-spacing": "0em"
+      },
+      "breakpoints": {
+        "main": {},
+        "medium": {},
+        "small": {},
+        "tiny": {}
+      },
+      "matchPolicy": {
+        "strategy": "property_similarity",
+        "requiredProperties": [
+          "font-size",
+          "font-weight",
+          "line-height"
+        ],
+        "optionalProperties": [
+          "font-family",
+          "letter-spacing",
+          "color"
+        ],
+        "minimumConfidence": 0.85
+      },
+      "name": "inherit-text-weight",
+      "figmaId": "VariableID:tpl-b0d7a6d5-a356-f321-9aee-f1774d2c9268:8",
+      "category": "text"
+    },
+    "text-size-large": {
+      "type": "text-style",
+      "figmaStyleName": "Text Size / Large",
+      "webflowClassName": "text-size-large",
+      "properties": {
+        "font-family": "var(--font-family--body)",
+        "font-size": "var(--_typography---font-size--large)",
+        "font-weight": "400",
+        "line-height": "1.5em",
+        "letter-spacing": "0em"
+      },
+      "breakpoints": {
+        "main": {},
+        "medium": {},
+        "small": {},
+        "tiny": {}
+      },
+      "matchPolicy": {
+        "strategy": "property_similarity",
+        "requiredProperties": [
+          "font-size",
+          "font-weight",
+          "line-height"
+        ],
+        "optionalProperties": [
+          "font-family",
+          "letter-spacing",
+          "color"
+        ],
+        "minimumConfidence": 0.85
+      },
+      "name": "text-size-large",
+      "figmaId": "VariableID:tpl-8483098a-5ecd-22da-82ac-6eadd7df7a34:9",
+      "category": "text"
+    },
+    "text-size-medium": {
+      "type": "text-style",
+      "figmaStyleName": "Text Size / Medium",
+      "webflowClassName": "text-size-medium",
+      "properties": {
+        "font-family": "var(--font-family--body)",
+        "font-size": "var(--_typography---font-size--medium)",
+        "font-weight": "400",
+        "line-height": "1.5em",
+        "letter-spacing": "0em"
+      },
+      "breakpoints": {
+        "main": {},
+        "medium": {},
+        "small": {},
+        "tiny": {}
+      },
+      "matchPolicy": {
+        "strategy": "property_similarity",
+        "requiredProperties": [
+          "font-size",
+          "font-weight",
+          "line-height"
+        ],
+        "optionalProperties": [
+          "font-family",
+          "letter-spacing",
+          "color"
+        ],
+        "minimumConfidence": 0.85
+      },
+      "name": "text-size-medium",
+      "figmaId": "VariableID:tpl-83b1d087-ee67-0b47-4551-0d1ab3685cce:10",
+      "category": "text"
+    },
+    "text-size-regular": {
+      "type": "text-style",
+      "figmaStyleName": "Text Size / Regular",
+      "webflowClassName": "text-size-regular",
+      "properties": {
+        "font-family": "var(--font-family--body)",
+        "font-size": "var(--_typography---font-size--regular)",
+        "font-weight": "400",
+        "line-height": "1.5em",
+        "letter-spacing": "0em"
+      },
+      "breakpoints": {
+        "main": {},
+        "medium": {},
+        "small": {},
+        "tiny": {}
+      },
+      "matchPolicy": {
+        "strategy": "property_similarity",
+        "requiredProperties": [
+          "font-size",
+          "font-weight",
+          "line-height"
+        ],
+        "optionalProperties": [
+          "font-family",
+          "letter-spacing",
+          "color"
+        ],
+        "minimumConfidence": 0.85
+      },
+      "name": "text-size-regular",
+      "figmaId": "VariableID:tpl-4807ed64-28f1-942d-a7c1-ae81bfb2e877:11",
+      "category": "text"
+    },
+    "text-size-small": {
+      "type": "text-style",
+      "figmaStyleName": "Text Size / Small",
+      "webflowClassName": "text-size-small",
+      "properties": {
+        "font-family": "var(--font-family--body)",
+        "font-size": "var(--_typography---font-size--small)",
+        "font-weight": "400",
+        "line-height": "1.5em",
+        "letter-spacing": "0em"
+      },
+      "breakpoints": {
+        "main": {},
+        "medium": {},
+        "small": {},
+        "tiny": {}
+      },
+      "matchPolicy": {
+        "strategy": "property_similarity",
+        "requiredProperties": [
+          "font-size",
+          "font-weight",
+          "line-height"
+        ],
+        "optionalProperties": [
+          "font-family",
+          "letter-spacing",
+          "color"
+        ],
+        "minimumConfidence": 0.85
+      },
+      "name": "text-size-small",
+      "figmaId": "VariableID:tpl-8f1b140c-30e6-7d78-6815-14af5ff2afc8:12",
+      "category": "text"
+    },
+    "text-size-tiny": {
+      "type": "text-style",
+      "figmaStyleName": "Text Size / Tiny",
+      "webflowClassName": "text-size-tiny",
+      "properties": {
+        "font-family": "var(--font-family--body)",
+        "font-size": "var(--_typography---font-size--tiny)",
+        "font-weight": "400",
+        "line-height": "1.5em",
+        "letter-spacing": "0em"
+      },
+      "breakpoints": {
+        "main": {},
+        "medium": {},
+        "small": {},
+        "tiny": {}
+      },
+      "matchPolicy": {
+        "strategy": "property_similarity",
+        "requiredProperties": [
+          "font-size",
+          "font-weight",
+          "line-height"
+        ],
+        "optionalProperties": [
+          "font-family",
+          "letter-spacing",
+          "color"
+        ],
+        "minimumConfidence": 0.85
+      },
+      "name": "text-size-tiny",
+      "figmaId": "VariableID:tpl-7838e498-b6cd-cf21-471f-ea267dae7ea6:13",
+      "category": "text"
+    },
+    "text-weight-bold": {
+      "type": "text-style",
+      "figmaStyleName": "Text Weight / Bold",
+      "webflowClassName": "text-weight-bold",
+      "properties": {
+        "font-family": "var(--font-family--body)",
+        "font-size": "16px",
+        "font-weight": "var(--font-weight--bold)",
+        "line-height": "1.5em",
+        "letter-spacing": "0em"
+      },
+      "breakpoints": {
+        "main": {},
+        "medium": {},
+        "small": {},
+        "tiny": {}
+      },
+      "matchPolicy": {
+        "strategy": "property_similarity",
+        "requiredProperties": [
+          "font-size",
+          "font-weight",
+          "line-height"
+        ],
+        "optionalProperties": [
+          "font-family",
+          "letter-spacing",
+          "color"
+        ],
+        "minimumConfidence": 0.85
+      },
+      "name": "text-weight-bold",
+      "figmaId": "VariableID:tpl-1423f718-054c-f73e-bede-325ed5997652:14",
+      "category": "text"
+    },
+    "text-weight-light": {
+      "type": "text-style",
+      "figmaStyleName": "Text Weight / Light",
+      "webflowClassName": "text-weight-light",
+      "properties": {
+        "font-family": "var(--font-family--body)",
+        "font-size": "16px",
+        "font-weight": "var(--font-weight--light)",
+        "line-height": "1.5em",
+        "letter-spacing": "0em"
+      },
+      "breakpoints": {
+        "main": {},
+        "medium": {},
+        "small": {},
+        "tiny": {}
+      },
+      "matchPolicy": {
+        "strategy": "property_similarity",
+        "requiredProperties": [
+          "font-size",
+          "font-weight",
+          "line-height"
+        ],
+        "optionalProperties": [
+          "font-family",
+          "letter-spacing",
+          "color"
+        ],
+        "minimumConfidence": 0.85
+      },
+      "name": "text-weight-light",
+      "figmaId": "VariableID:tpl-6c51207f-41aa-3163-3d80-8477f214fd14:15",
+      "category": "text"
+    },
+    "text-weight-medium": {
+      "type": "text-style",
+      "figmaStyleName": "Text Weight / Medium",
+      "webflowClassName": "text-weight-medium",
+      "properties": {
+        "font-family": "var(--font-family--body)",
+        "font-size": "16px",
+        "font-weight": "var(--font-weight--medium)",
+        "line-height": "1.5em",
+        "letter-spacing": "0em"
+      },
+      "breakpoints": {
+        "main": {},
+        "medium": {},
+        "small": {},
+        "tiny": {}
+      },
+      "matchPolicy": {
+        "strategy": "property_similarity",
+        "requiredProperties": [
+          "font-size",
+          "font-weight",
+          "line-height"
+        ],
+        "optionalProperties": [
+          "font-family",
+          "letter-spacing",
+          "color"
+        ],
+        "minimumConfidence": 0.85
+      },
+      "name": "text-weight-medium",
+      "figmaId": "VariableID:tpl-7d281e11-d6b2-e9b6-549c-4d27b8e2955b:16",
+      "category": "text"
+    },
+    "text-weight-normal": {
+      "type": "text-style",
+      "figmaStyleName": "Text Weight / Normal",
+      "webflowClassName": "text-weight-normal",
+      "properties": {
+        "font-family": "var(--font-family--body)",
+        "font-size": "16px",
+        "font-weight": "var(--font-weight--normal)",
+        "line-height": "1.5em",
+        "letter-spacing": "0em"
+      },
+      "breakpoints": {
+        "main": {},
+        "medium": {},
+        "small": {},
+        "tiny": {}
+      },
+      "matchPolicy": {
+        "strategy": "property_similarity",
+        "requiredProperties": [
+          "font-size",
+          "font-weight",
+          "line-height"
+        ],
+        "optionalProperties": [
+          "font-family",
+          "letter-spacing",
+          "color"
+        ],
+        "minimumConfidence": 0.85
+      },
+      "name": "text-weight-normal",
+      "figmaId": "VariableID:tpl-39448148-b61e-99fd-6fec-82247bc5be6e:17",
+      "category": "text"
+    },
+    "text-weight-semibold": {
+      "type": "text-style",
+      "figmaStyleName": "Text Weight / Semibold",
+      "webflowClassName": "text-weight-semibold",
+      "properties": {
+        "font-family": "var(--font-family--body)",
+        "font-size": "16px",
+        "font-weight": "var(--font-weight--semi-bold)",
+        "line-height": "1.5em",
+        "letter-spacing": "0em"
+      },
+      "breakpoints": {
+        "main": {},
+        "medium": {},
+        "small": {},
+        "tiny": {}
+      },
+      "matchPolicy": {
+        "strategy": "property_similarity",
+        "requiredProperties": [
+          "font-size",
+          "font-weight",
+          "line-height"
+        ],
+        "optionalProperties": [
+          "font-family",
+          "letter-spacing",
+          "color"
+        ],
+        "minimumConfidence": 0.85
+      },
+      "name": "text-weight-semibold",
+      "figmaId": "VariableID:tpl-417aba41-5215-0674-2aed-c1885571b725:18",
+      "category": "text"
+    },
+    "text-weight-xbold": {
+      "type": "text-style",
+      "figmaStyleName": "Text Weight / Xbold",
+      "webflowClassName": "text-weight-xbold",
+      "properties": {
+        "font-family": "var(--font-family--body)",
+        "font-size": "16px",
+        "font-weight": "400",
+        "line-height": "1.5em",
+        "letter-spacing": "0em"
+      },
+      "breakpoints": {
+        "main": {},
+        "medium": {},
+        "small": {},
+        "tiny": {}
+      },
+      "matchPolicy": {
+        "strategy": "property_similarity",
+        "requiredProperties": [
+          "font-size",
+          "font-weight",
+          "line-height"
+        ],
+        "optionalProperties": [
+          "font-family",
+          "letter-spacing",
+          "color"
+        ],
+        "minimumConfidence": 0.85
+      },
+      "name": "text-weight-xbold",
+      "figmaId": "VariableID:tpl-0dc243fc-0783-d515-087a-39fc0055f9b0:19",
+      "category": "text"
+    }
+  }
+}

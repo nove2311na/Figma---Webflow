@@ -111,7 +111,8 @@ def main(argv: list[str] | None = None) -> int:
             "system/validate_workspace_artifacts.py",
             # Pipeline gates in compiler order
             "pipeline/validate_css_contract.py",
-            "pipeline/validate_css_index.py"
+            "pipeline/validate_css_index.py",
+            "pipeline/validate_artifact_contracts.py"
         ]
         
         for gate in gates:

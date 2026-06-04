@@ -1,0 +1,100 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://figwebflow.local/schemas/_shared/style-entry.schema.json",
+  "title": "StyleEntry",
+  "description": "One Figma text style / Webflow class. Composed into figma-contract and webflow-contract via $ref.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["name", "type", "properties"],
+  "properties": {
+    "name": { "type": "string" },
+    "figmaId": { "type": "string" },
+    "webflowId": { "type": "string" },
+    "type": {
+      "type": "string",
+      "enum": ["text-style"]
+    },
+    "mode": {
+      "type": ["string", "null"],
+      "description": "Legacy: singular mode name. V3.1+ uses modes (plural) on variables. Kept for V3.0 backward compat."
+    },
+    "figmaStyleName": { "type": "string" },
+    "webflowClassName": { "type": "string" },
+    "category": {
+      "type": "string",
+      "enum": ["heading", "text", "utility", "combo", "custom"]
+    },
+    "properties": {
+      "type": "object",
+      "description": "Style properties. V3.1+ uses {value, unit} objects for sizes. V3.0 legacy templates used strings (often var() references). Both shapes accepted for backward compat.",
+      "additionalProperties": false,
+      "required": ["font-family", "font-size", "font-weight", "line-height"],
+      "properties": {
+        "font-family": { "type": "string" },
+        "font-size": {
+          "oneOf": [
+            { "type": "string", "description": "Legacy V3.0: raw value, often a var() reference like 'var(--_typography---font-size--tiny)'." },
+            {
+              "type": "object",
+              "additionalProperties": false,
+              "required": ["value", "unit"],
+              "properties": {
+                "value": { "type": "number" },
+                "unit": { "type": "string", "enum": ["rem", "px", "%"] }
+              }
+            }
+          ]
+        },
+        "font-weight": { "type": ["number", "string"] },
+        "line-height": {
+          "oneOf": [
+            { "type": "string", "description": "Legacy V3.0: raw value like '1.5em' or 'var(--_typography---font-height--xlarge)'." },
+            {
+              "type": "object",
+              "additionalProperties": false,
+              "required": ["value", "unit"],
+              "properties": {
+                "value": { "type": "number" },
+                "unit": { "type": "string", "enum": ["rem", "px", "%", "unitless", "em"] }
+              }
+            }
+          ]
+        },
+        "letter-spacing": {
+          "oneOf": [
+            { "type": "string", "description": "Legacy V3.0: raw value like '0em' or 'var(--_typography---letter-spacing--default)'." },
+            {
+              "type": "object",
+              "additionalProperties": false,
+              "properties": {
+                "value": { "type": "number" },
+                "unit": { "type": "string", "enum": ["rem", "px", "em"] }
+              }
+            }
+          ]
+        }
+      }
+    },
+    "breakpoints": {
+      "type": "object",
+      "description": "Per-breakpoint property overrides. Keys: 'main' (desktop), 'medium' (tablet), 'small' (mobile-landscape), 'tiny' (mobile-portrait).",
+      "additionalProperties": { "type": "object" }
+    },
+    "pseudoStates": {
+      "type": "object",
+      "description": "Per-pseudo-class overrides. Keys: 'hover', 'focus', 'focus-visible', 'active', 'disabled'."
+    },
+    "matchPolicy": {
+      "type": "object",
+      "description": "How the Webflow sync matches this style to a Figma source. Used by the validator.",
+      "additionalProperties": false,
+      "properties": {
+        "strategy": { "type": "string", "enum": ["property_similarity", "exact_name", "id"] },
+        "requiredProperties": { "type": "array", "items": { "type": "string" } },
+        "optionalProperties": { "type": "array", "items": { "type": "string" } },
+        "minimumConfidence": { "type": "number", "minimum": 0, "maximum": 1 }
+      }
+    },
+    "projectExtension": { "type": "boolean" }
+  }
+}

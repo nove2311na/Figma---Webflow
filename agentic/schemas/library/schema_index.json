@@ -1,0 +1,30 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Library Schemas Index",
+  "description": "Index of all schemas under agentic/schemas/library/. Skills grep this to find the right schema + example template. Format: (name, path, description, example_template_path, applicable_skill).",
+  "version": 1,
+  "domain": "library",
+  "schemas": [
+    {
+      "name": "ClientFirstLibrary",
+      "path": "agentic/schemas/library/client-first-library.schema.json",
+      "description": "Finsweet Client-First V2.2 class library source of truth. Generated from the V2.2 stylesheet. Used as a denylist/allowlist by validation gates.",
+      "example_template_path": "knowledge-base/generated/client-first-library-contract.json",
+      "applicable_skill": ["design-system-sync", "figma-to-html-architect", "figma-to-webflow-orchestrator"]
+    },
+    {
+      "name": "ProjectLibrary",
+      "path": "agentic/schemas/library/project-library.schema.json",
+      "description": "Per-project extension of the Client-First library. Tracks which baseline classes are in use + any project-only classes.",
+      "example_template_path": null,
+      "applicable_skill": ["design-system-sync"]
+    },
+    {
+      "name": "LibraryRegistry",
+      "path": "agentic/schemas/library/library-registry.schema.json",
+      "description": "Multi-library registry. Lists all known CF-compatible libraries (Client-First, Relume, etc.) with version + scope.",
+      "example_template_path": null,
+      "applicable_skill": ["design-system-sync", "figma-to-webflow-orchestrator"]
+    }
+  ]
+}

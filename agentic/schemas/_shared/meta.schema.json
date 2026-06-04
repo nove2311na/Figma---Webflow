@@ -1,0 +1,40 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://figwebflow.local/schemas/_shared/meta.schema.json",
+  "title": "Meta",
+  "description": "Provenance + identity for a contract envelope. Every contract carries a meta block.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schemaVersion", "source", "extractedAt"],
+  "properties": {
+    "schemaVersion": {
+      "type": "string",
+      "pattern": "^[0-9]+\\.[0-9]+(\\.[0-9]+)?$",
+      "description": "Contract schema version, semver."
+    },
+    "source": {
+      "type": "string",
+      "enum": ["figma", "webflow", "client-first-baseline", "synthesized"],
+      "description": "Where this contract's data originated."
+    },
+    "baseline": {
+      "type": "string",
+      "description": "Path to the baseline contract this was validated against, if any."
+    },
+    "projectName": { "type": "string" },
+    "workspaceName": { "type": "string" },
+    "extractedAt": {
+      "type": "string",
+      "format": "date-time",
+      "description": "ISO 8601 timestamp of when the data was extracted."
+    },
+    "extractedBy": {
+      "type": "string",
+      "description": "Who/what produced this. e.g. figma-mcp, design-system-sync/task-1, figma-to-html-architect/task-3."
+    },
+    "nodeId": {
+      "type": "string",
+      "description": "Figma node id if the contract was produced from a specific Figma node."
+    }
+  }
+}

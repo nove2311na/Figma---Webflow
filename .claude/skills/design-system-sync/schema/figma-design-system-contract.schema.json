@@ -1,0 +1,22 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://figwebflow.local/schemas/figma-design-system-contract.schema.json",
+  "title": "FigmaDesignSystemContract",
+  "description": "Figma extraction. Composes ref-envelope (meta + variables + styles). LLM-produced in Task 1 via figma-dev-mode-mcp get_variable_defs. BLOCK tier — must validate before Task 3.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["meta", "variables", "styles"],
+  "properties": {
+    "meta": { "$ref": "https://figwebflow.local/schemas/_shared/meta.schema.json" },
+    "variables": {
+      "type": "object",
+      "description": "Display name → variable entry. Key is the Figma variable's display name (drifts on rename). Use figmaId (in entry) for stable identity.",
+      "additionalProperties": { "$ref": "https://figwebflow.local/schemas/_shared/variable-entry.schema.json" }
+    },
+    "styles": {
+      "type": "object",
+      "description": "Display name → text style entry.",
+      "additionalProperties": { "$ref": "https://figwebflow.local/schemas/_shared/style-entry.schema.json" }
+    }
+  }
+}

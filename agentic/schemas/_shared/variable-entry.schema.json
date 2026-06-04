@@ -1,0 +1,119 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://figwebflow.local/schemas/_shared/variable-entry.schema.json",
+  "title": "VariableEntry",
+  "description": "One design-token variable. Used by Figma and Webflow contracts via $ref. Schema is Figma-first: the Webflow side uses the same shape with aliasOf pointing to the Figma source.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["name", "figmaId", "namespace", "type", "value", "modes"],
+  "properties": {
+    "name": {
+      "type": "string",
+      "description": "Display name. May change across renames. Do NOT use as sync key."
+    },
+    "figmaId": {
+      "type": "string",
+      "pattern": "^VariableID:[a-zA-Z0-9_-]+:[0-9]+$",
+      "description": "Figma variable id. Stable across renames, machines, people. REQUIRED for cross-machine sync. Pattern: VariableID:<id>:<index>. The id part can be a hex string, a UUID, 'tpl-<hash>' for templates, or 'example-<slug>' for documentation."
+    },
+    "webflowId": {
+      "type": "string",
+      "description": "Webflow variable id once synced. Set by the write step, not the producer."
+    },
+    "type": {
+      "type": "string",
+      "enum": [
+        "color",
+        "font-family",
+        "font-size",
+        "font-weight",
+        "line-height",
+        "letter-spacing",
+        "spacing",
+        "size",
+        "border-radius",
+        "border-width",
+        "alias",
+        "number",
+        "string",
+        "boolean"
+      ]
+    },
+    "namespace": {
+      "type": "string",
+      "enum": [
+        "_theme",
+        "_typography",
+        "_sizes",
+        "_layout",
+        "_focus",
+        "_brand",
+        "_neutral",
+        "_font-weight",
+        "other"
+      ],
+      "description": "Webflow CSS variable namespace. The user's CSS uses --_theme---*, --_typography---*, --_sizes---*, etc. Pick the closest match; use 'other' if no good fit."
+    },
+    "value": {
+      "description": "Primary mode value. Flattened from valuesByMode[default] in Figma. Type matches the 'type' field — string for colors, number for sizes, etc."
+    },
+    "modes": {
+      "type": "object",
+      "description": "mode_id → value. e.g. { 'default': '#000', 'dark': '#fff' }. Keys are normalized: 'default' for the primary mode, 'dark' for the dark theme, etc. Raw Figma keys like 'Mode 1:1' must be normalized before this point. At minimum, the 'default' key is required.",
+      "minProperties": 1,
+      "additionalProperties": { "type": "string" }
+    },
+    "unit": {
+      "type": ["string", "null"],
+      "description": "CSS unit if applicable. Allowed: 'rem', 'px' (1px borders only), '%'. Process rejects em/vh/vw/pt per CLAUDE.md."
+    },
+    "aliasOf": {
+      "type": ["string", "null"],
+      "description": "Figma variable id this aliases, if type='alias'. Required for alias chains like var(--_theme---text-color--primary) = var(--neutral--black)."
+    },
+    "mode": {
+      "type": ["string", "null"],
+      "description": "Legacy: singular mode name. V3.1+ uses `modes` (plural object). Kept for backward compat with V3.0 templates. New producers should emit `modes` and omit `mode`."
+    },
+    "figmaName": {
+      "type": ["string", "null"],
+      "description": "Legacy: Figma display name. The contract top-level key is the canonical name now. Kept for V3.0 round-trip templates."
+    },
+    "webflowName": {
+      "type": ["string", "null"],
+      "description": "Legacy: Webflow display name. The contract top-level key is the canonical name now. Kept for V3.0 round-trip templates."
+    },
+    "updatePolicy": {
+      "type": ["string", "null"],
+      "description": "Legacy: V3.0 update policy values. V3.1+ uses an enum {create, update, skip, delete}. Legacy values (update_value_only, etc.) are still accepted for backward compat."
+    },
+    "collection": {
+      "type": ["string", "null"],
+      "description": "Legacy: Figma collection name (e.g. 'Layout', 'Typography'). Kept for backward compat with V3.0 templates. New producers should derive from namespace instead."
+    },
+    "resolvedValue": {
+      "type": ["string", "number", "boolean", "null"],
+      "description": "Legacy: pre-computed value with units applied. Kept for V3.0 templates where value + unit were kept separate. New producers should put the resolved value in `value` and use `m.default` for the primary mode."
+    },
+    "source": {
+      "type": "object",
+      "description": "Provenance of this variable.",
+      "additionalProperties": false,
+      "properties": {
+        "selector": { "type": "string" },
+        "property": { "type": "string" },
+        "collection": { "type": "string" }
+      }
+    },
+    "editableInFigma": { "type": "boolean", "default": true },
+    "syncPolicy": {
+      "type": "string",
+      "enum": ["push", "pull", "manual", "ignore"],
+      "description": "How this variable should sync between Figma and Webflow."
+    },
+    "projectExtension": {
+      "type": "boolean",
+      "description": "True if this variable is project-specific (not from the Client-First baseline). Required for the baseline contract to allow non-baseline variables."
+    }
+  }
+}

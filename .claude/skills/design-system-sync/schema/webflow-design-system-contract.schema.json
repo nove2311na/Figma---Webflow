@@ -1,0 +1,47 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://figwebflow.local/schemas/webflow-design-system-contract.schema.json",
+  "title": "WebflowDesignSystemContract",
+  "description": "Webflow mapping. Composes ref-envelope (meta + variables + styles). LLM-produced in Task 3 via map_variables.py. BLOCK tier — must validate before Webflow write. Each variable carries figmaId (provenance) + modes + aliasOf.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["meta", "variables", "styles"],
+  "properties": {
+    "meta": { "$ref": "https://figwebflow.local/schemas/_shared/meta.schema.json" },
+    "variables": {
+      "type": "object",
+      "description": "Webflow variable name → variable entry. Entry carries figmaName + figmaId for round-trip traceability.",
+      "additionalProperties": {
+        "allOf": [
+          { "$ref": "https://figwebflow.local/schemas/_shared/variable-entry.schema.json" },
+          {
+            "type": "object",
+            "required": ["figmaName", "updatePolicy"],
+            "properties": {
+              "figmaName": { "type": "string" },
+              "webflowName": { "type": "string" },
+              "updatePolicy": { "type": "string" }
+            }
+          }
+        ]
+      }
+    },
+    "styles": {
+      "type": "object",
+      "description": "Webflow class name → style entry. Entry carries figmaStyleName + webflowClassName for round-trip.",
+      "additionalProperties": {
+        "allOf": [
+          { "$ref": "https://figwebflow.local/schemas/_shared/style-entry.schema.json" },
+          {
+            "type": "object",
+            "required": ["figmaStyleName", "webflowClassName"],
+            "properties": {
+              "figmaStyleName": { "type": "string" },
+              "webflowClassName": { "type": "string" }
+            }
+          }
+        ]
+      }
+    }
+  }
+}

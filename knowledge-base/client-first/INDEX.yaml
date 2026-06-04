@@ -1,0 +1,349 @@
+meta:
+  version: 1
+  schema_version: 2020-12
+  source: https://finsweet.com/client-first/docs
+  format: distilled-notes
+  max_lines_per_file: 300
+entries:
+- file_path: knowledge-base/client-first/concepts/00-overview.md
+  raw_url: https://finsweet.com/client-first/docs/overview
+  section: concepts
+  page: overview
+  topic_tags:
+  - intro
+  - philosophy
+  - naming-convention
+  applicable_skill:
+  - figma-to-webflow-orchestrator
+  - design-system-sync
+  token_estimate: 400
+  status: ready
+- file_path: knowledge-base/client-first/concepts/01-class-system.md
+  raw_url: https://finsweet.com/client-first/docs/concepts/class-system
+  section: concepts
+  page: class-system
+  topic_tags:
+  - naming
+  - utility
+  - combo
+  - custom
+  applicable_skill:
+  - design-system-sync
+  - figma-to-html-architect
+  token_estimate: 800
+  status: ready
+- file_path: knowledge-base/client-first/concepts/02-spacing.md
+  raw_url: https://finsweet.com/client-first/docs/concepts/spacing
+  section: concepts
+  page: spacing
+  topic_tags:
+  - spacing
+  - rem
+  - layout
+  applicable_skill:
+  - design-system-sync
+  - figma-to-html-architect
+  token_estimate: 700
+  status: ready
+- file_path: knowledge-base/client-first/concepts/03-typography.md
+  raw_url: https://finsweet.com/client-first/docs/concepts/typography
+  section: concepts
+  page: typography
+  topic_tags:
+  - typography
+  - headings
+  - body-text
+  - line-height
+  applicable_skill:
+  - design-system-sync
+  - figma-to-html-architect
+  token_estimate: 900
+  status: ready
+- file_path: knowledge-base/client-first/concepts/04-colors.md
+  raw_url: https://finsweet.com/client-first/docs/concepts/colors
+  section: concepts
+  page: colors
+  topic_tags:
+  - color
+  - theme
+  - alias-chains
+  applicable_skill:
+  - design-system-sync
+  - figma-to-html-architect
+  token_estimate: 800
+  status: ready
+- file_path: knowledge-base/client-first/concepts/05-sizing.md
+  raw_url: https://finsweet.com/client-first/docs/concepts/sizing
+  section: concepts
+  page: sizing
+  topic_tags:
+  - width
+  - height
+  - max-width
+  - container
+  applicable_skill:
+  - design-system-sync
+  - figma-to-html-architect
+  token_estimate: 600
+  status: ready
+- file_path: knowledge-base/client-first/concepts/06-utility-classes.md
+  raw_url: https://finsweet.com/client-first/docs/concepts/utility-classes
+  section: concepts
+  page: utility-classes
+  topic_tags:
+  - utility
+  - helpers
+  - hide
+  - margin
+  - padding
+  applicable_skill:
+  - figma-to-html-architect
+  token_estimate: 700
+  status: ready
+- file_path: knowledge-base/client-first/concepts/07-combo-classes.md
+  raw_url: https://finsweet.com/client-first/docs/concepts/combo-classes
+  section: concepts
+  page: combo-classes
+  topic_tags:
+  - combo
+  - state
+  - variants
+  applicable_skill:
+  - figma-to-html-architect
+  token_estimate: 600
+  status: ready
+- file_path: knowledge-base/client-first/concepts/08-layout-system.md
+  raw_url: https://finsweet.com/client-first/docs/concepts/layout-system
+  section: concepts
+  page: layout-system
+  topic_tags:
+  - grid
+  - flex
+  - container
+  - section
+  applicable_skill:
+  - figma-to-html-architect
+  - figma-to-webflow-orchestrator
+  token_estimate: 800
+  status: ready
+- file_path: knowledge-base/client-first/usability/01-responsive-design.md
+  raw_url: https://finsweet.com/client-first/docs/usability/responsive-design
+  section: usability
+  page: responsive-design
+  topic_tags:
+  - responsive
+  - breakpoint
+  - hide-on-breakpoint
+  applicable_skill:
+  - figma-to-html-architect
+  token_estimate: 900
+  status: ready
+- file_path: knowledge-base/client-first/usability/02-accessibility.md
+  raw_url: https://finsweet.com/client-first/docs/usability/accessibility
+  section: usability
+  page: accessibility
+  topic_tags:
+  - a11y
+  - aria
+  - focus
+  - semantic-html
+  applicable_skill:
+  - figma-to-html-architect
+  token_estimate: 700
+  status: ready
+- file_path: knowledge-base/client-first/usability/03-rtl-support.md
+  raw_url: https://finsweet.com/client-first/docs/usability/rtl
+  section: usability
+  page: rtl
+  topic_tags:
+  - rtl
+  - ltr
+  - direction
+  - locale
+  applicable_skill:
+  - figma-to-html-architect
+  token_estimate: 500
+  status: ready
+- file_path: knowledge-base/client-first/usability/04-dark-mode.md
+  raw_url: https://finsweet.com/client-first/docs/usability/dark-mode
+  section: usability
+  page: dark-mode
+  topic_tags:
+  - dark-mode
+  - theme
+  - mode-switching
+  - alias
+  applicable_skill:
+  - design-system-sync
+  - figma-to-html-architect
+  token_estimate: 800
+  status: ready
+- file_path: knowledge-base/client-first/usability/05-grids.md
+  raw_url: https://finsweet.com/client-first/docs/usability/grids
+  section: usability
+  page: grids
+  topic_tags:
+  - grid
+  - columns
+  - rows
+  - gap
+  applicable_skill:
+  - figma-to-html-architect
+  token_estimate: 600
+  status: ready
+- file_path: knowledge-base/client-first/usability/06-forms.md
+  raw_url: https://finsweet.com/client-first/docs/usability/forms
+  section: usability
+  page: forms
+  topic_tags:
+  - forms
+  - input
+  - label
+  - validation
+  applicable_skill:
+  - figma-to-html-architect
+  token_estimate: 700
+  status: ready
+- file_path: knowledge-base/client-first/concepts/09-figma-integration.md
+  raw_url: https://finsweet.com/client-first/docs/figma
+  section: supporting-content
+  page: figma
+  topic_tags:
+  - figma
+  - variables
+  - styles
+  - sync
+  applicable_skill:
+  - design-system-sync
+  token_estimate: 800
+  status: ready
+- file_path: knowledge-base/client-first/concepts/10-webflow-integration.md
+  raw_url: https://finsweet.com/client-first/docs/webflow
+  section: supporting-content
+  page: webflow
+  topic_tags:
+  - webflow
+  - variables
+  - classes
+  - cms
+  applicable_skill:
+  - design-system-sync
+  token_estimate: 800
+  status: ready
+- file_path: knowledge-base/client-first/concepts/11-components.md
+  raw_url: https://finsweet.com/client-first/docs/components
+  section: supporting-content
+  page: components
+  topic_tags:
+  - components
+  - symbols
+  - instances
+  - slots
+  applicable_skill:
+  - figma-to-html-architect
+  - figma-to-webflow-orchestrator
+  token_estimate: 600
+  status: ready
+- file_path: knowledge-base/client-first/gotchas/01-variable-modes-figma-webflow.md
+  section: gotchas
+  page: variable-modes-figma-webflow
+  topic_tags:
+  - modes
+  - figma
+  - webflow
+  - multi-mode
+  - adaptation
+  applicable_skill:
+  - design-system-sync
+  token_estimate: 800
+  status: ready
+- file_path: knowledge-base/client-first/gotchas/02-breakpoint-mismatch.md
+  section: gotchas
+  page: breakpoint-mismatch
+  topic_tags:
+  - breakpoint
+  - figma-frame
+  - webflow-viewport
+  - detection
+  applicable_skill:
+  - figma-to-html-architect
+  token_estimate: 600
+  status: ready
+- file_path: knowledge-base/client-first/gotchas/03-alias-chains.md
+  section: gotchas
+  page: alias-chains
+  topic_tags:
+  - alias
+  - variable-reference
+  - var
+  - chain
+  applicable_skill:
+  - design-system-sync
+  token_estimate: 700
+  status: ready
+- file_path: knowledge-base/client-first/gotchas/04-native-class-denylist.md
+  section: gotchas
+  page: native-class-denylist
+  topic_tags:
+  - w-prefix
+  - wf-prefix
+  - webflow-native
+  - denylist
+  applicable_skill:
+  - figma-to-html-architect
+  - design-system-sync
+  token_estimate: 600
+  status: ready
+- file_path: knowledge-base/client-first/gotchas/05-display-name-vs-stable-id.md
+  section: gotchas
+  page: display-name-vs-stable-id
+  topic_tags:
+  - stable-id
+  - figmaId
+  - name-drift
+  - cross-machine
+  - cross-person
+  applicable_skill:
+  - design-system-sync
+  - figma-to-webflow-orchestrator
+  token_estimate: 700
+  status: ready
+- file_path: knowledge-base/client-first/gotchas/06-multi-machine-sync-drift.md
+  section: gotchas
+  page: multi-machine-sync-drift
+  topic_tags:
+  - multi-machine
+  - sync
+  - drift
+  - detection
+  - prevention
+  applicable_skill:
+  - figma-to-webflow-orchestrator
+  token_estimate: 600
+  status: ready
+- file_path: knowledge-base/client-first/gotchas/07-css-unit-rem-mandate.md
+  section: gotchas
+  page: css-unit-rem-mandate
+  topic_tags:
+  - rem
+  - px
+  - unit-conversion
+  - claude-md
+  - mandate
+  applicable_skill:
+  - figma-to-html-architect
+  token_estimate: 500
+  status: ready
+- file_path: knowledge-base/client-first/gotchas/08-webflow-native-widget-conflict.md
+  section: gotchas
+  page: webflow-native-widget-conflict
+  topic_tags:
+  - w-nav
+  - w-slider
+  - w-tabs
+  - layer-name-conflict
+  - widget-conflict
+  applicable_skill:
+  - figma-to-html-architect
+  token_estimate: 700
+  status: ready

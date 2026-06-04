@@ -1,0 +1,23 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Webflow Schemas Index",
+  "description": "Index of all schemas under agentic/schemas/webflow/. Used for write audit + MCP sync reporting.",
+  "version": 1,
+  "domain": "webflow",
+  "schemas": [
+    {
+      "name": "WebflowWriteAuditLog",
+      "path": "agentic/schemas/webflow/webflow-write-audit-log.schema.json",
+      "description": "One entry per Webflow mutation. Append to write-audit-log.jsonl. BLOCK tier — required by CLAUDE.md audit trail rule.",
+      "example_template_path": null,
+      "applicable_skill": ["figma-to-webflow-orchestrator", "qa-gatekeeper"]
+    },
+    {
+      "name": "McpSyncReport",
+      "path": "agentic/schemas/webflow/mcp-sync-report.schema.json",
+      "description": "Result of a Webflow MCP sync operation. Block tier — used to confirm a sync completed before next phase.",
+      "example_template_path": null,
+      "applicable_skill": ["design-system-sync", "figma-to-webflow-orchestrator"]
+    }
+  ]
+}

@@ -1,0 +1,20 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://figwebflow.local/schemas/_shared/ref-envelope.schema.json",
+  "title": "RefEnvelope",
+  "description": "Minimal envelope: meta + data. The LLM fills data entries that match the $ref'd entry schema. additionalProperties:false at every level prevents shape invention.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["meta", "data"],
+  "properties": {
+    "meta": {
+      "$ref": "meta.schema.json"
+    },
+    "data": {
+      "type": "object",
+      "description": "Payload. Sub-shape defined by the contract that composes this envelope. The composing schema adds 'properties' to data, each $ref'd to a shared entry schema.",
+      "additionalProperties": false,
+      "properties": {}
+    }
+  }
+}
