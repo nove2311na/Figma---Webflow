@@ -3,10 +3,10 @@ import sys
 import argparse
 
 # Add root folder to sys.path to resolve tools imports
-root_dir = os.path.abspath(os.path.join(os.path.dirname(__file__), "..", ".."))
+root_dir = os.path.abspath(os.path.join(os.path.dirname(__file__), "..", "..", "..", ".."))
 sys.path.append(root_dir)
 
-from tools.css_indexer.contract_builder import ContractBuilder
+from css_indexer.contract_builder import ContractBuilder
 
 def main():
     parser = argparse.ArgumentParser(description="Client-First CSS Contract Indexer CLI")

@@ -7,29 +7,25 @@ import json
 import sys
 from pathlib import Path
 
-sys.path.insert(0, str(Path(__file__).resolve().parents[2]))
+sys.path.insert(0, str(Path(__file__).resolve().parents[3]))
 
 
 REQUIRED_TEXT = {
     "CLAUDE.md": ["Claude Code", "python", "Webflow", "client-first-library-contract.json"],
-    "agentic/memory/team-memory.md": ["Hard Invariants", "Agent Team", "standalone baseline"],
-    "agentic/policies/runtime-instructions.md": ["Claude Code", "Python", "Webflow", "approval"],
-    "agentic/orchestration/sop.md": ["Phase 0", "Phase 1", "Phase 2", "Phase 3", "approval"],
-    "agentic/orchestration/reflection-loop.md": ["reflection_review", "revise", "Stop Conditions"],
     "agentic/specs/system/agent-system-spec.md": ["Seed Input", "Agents", "MCP Servers", "Standalone Architecture Baseline"],
     "agentic/specs/contracts/figma-to-client-first-mapping.md": ["figma_property", "client_first_class", "class_strategy"],
-    "agentic/specs/contracts/visual-qa-evidence-contract.md": ["[APPROVED]", "[FIX]", "webflow_state_ref"],
-    "agentic/knowledge/client-first-library.md": ["client-first-class-map.json", "figma_property", "webflow_property"],
-    "agentic/policies/tool-risk-levels.md": ["R0", "R4", "risk_class"],
+    "agentic/specs/pipeline/html-first-pipeline.md": ["HTML-first Pipeline Specification"],
+    "agentic/knowledge/token-sync-architecture.md": ["Figma", "Repo", "Webflow"],
+    "knowledge-base/client-first/INDEX.yaml": ["applicable_skill", "file_path", "topic_tags"],
+    "knowledge-base/client-first-class-map.json": ["class_groups", "version"],
     "agentic/policies/approval-gates.md": ["Webflow writes", "logical blueprint rendered to physical HTML"],
+    "agentic/policies/validation-gates.md": ["block", "warn", "log"],
     ".user_versions/VERSION_HISTORY.md": ["v0.1.0", "v0.2.0", "v0.3.0"],
 }
 
 FORBIDDEN_TEXT = {
     "CLAUDE.md": ["n" + "pm run"],
     "README.md": ["n" + "pm ci", "Gemi" + "ni-native"],
-    "agentic/policies/runtime-instructions.md": ["." + "gemini/agents", "." + "gemini/skills"],
-    "agentic/orchestration/sop.md": ["Node" + ".js"],
 }
 
 
@@ -74,16 +70,11 @@ def validate(root: Path) -> list[str]:
 
 def run_sub_gate(gate_script: str) -> list[str]:
     import subprocess
-    # gate_script can be:
-    #   "pipeline/validate_foo.py"  -> resolves to scripts/gates/pipeline/validate_foo.py
-    #   "system/validate_foo.py"    -> resolves to scripts/gates/system/validate_foo.py
-    #   absolute or already-rooted path (contains os.sep or starts with scripts/)
-    if gate_script.startswith("scripts/"):
-        resolved = gate_script
-    else:
-        resolved = f"scripts/gates/{gate_script}"
+    # All sub-gates now live flat in .claude/skills/_shared/scripts/
+    here = Path(__file__).resolve().parent
+    resolved = here / gate_script
     res = subprocess.run(
-        [sys.executable, resolved],
+        [sys.executable, str(resolved)],
         capture_output=True,
         text=True,
         encoding="utf-8"
@@ -104,15 +95,13 @@ def main(argv: list[str] | None = None) -> int:
         print("Running HTML-first compiler validation profile...")
         failures = []
         
-        # List of gates to execute sequentially
+        # List of gates to execute sequentially (all live flat in _shared/scripts/)
         gates = [
-            # System gates first (structure must be valid before pipeline checks)
-            "system/validate_agentic_structure.py",
-            "system/validate_workspace_artifacts.py",
-            # Pipeline gates in compiler order
-            "pipeline/validate_css_contract.py",
-            "pipeline/validate_css_index.py",
-            "pipeline/validate_artifact_contracts.py"
+            "validate_agentic_structure.py",
+            "validate_workspace_artifacts.py",
+            "validate_css_contract.py",
+            "validate_css_index.py",
+            "validate_artifact_contracts.py",
         ]
         
         for gate in gates:

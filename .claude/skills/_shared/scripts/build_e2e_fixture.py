@@ -27,7 +27,7 @@ import sys
 from collections import OrderedDict
 from pathlib import Path
 
-REPO_ROOT = Path(__file__).resolve().parents[2]
+REPO_ROOT = Path(__file__).resolve().parents[3]
 TEMPLATE_FIGMA = REPO_ROOT / ".claude/skills/design-system-sync/template/figma-design-system-contract.json"
 TEMPLATE_WEBFLOW = REPO_ROOT / ".claude/skills/design-system-sync/template/webflow-design-system-contract.json"
 FIXTURE = REPO_ROOT / "workspace/_fixtures/finsweet-template"

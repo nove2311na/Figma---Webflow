@@ -11,8 +11,8 @@ from pathlib import Path
 from typing import Any
 
 # Ensure project root is in path
-sys.path.insert(0, str(Path(__file__).resolve().parents[2]))
-from tools.utils import parse_color, color_distance, slugify, to_rem
+sys.path.insert(0, str(Path(__file__).resolve().parents[3]))
+from utils import parse_color, color_distance, slugify, to_rem
 
 def load_json(path: Path) -> Any:
     if not path.exists():

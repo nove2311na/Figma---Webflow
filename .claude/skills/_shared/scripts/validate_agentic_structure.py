@@ -8,7 +8,7 @@ except ImportError:
     yaml = None
 
 def main():
-    root_dir = os.path.abspath(os.path.join(os.path.dirname(__file__), "..", "..", ".."))
+    root_dir = os.path.abspath(os.path.join(os.path.dirname(__file__), "..", "..", "..", ".."))
     print(f"Validating Agentic Structure from Root: {root_dir}")
     
     errors = []
@@ -31,13 +31,7 @@ def main():
     # 2. Specs validation
     specs = [
         "agentic/specs/pipeline/html-first-pipeline.md",
-        "agentic/specs/pipeline/webflow-mcp-sync.md",
-        "agentic/specs/pipeline/figma-extraction-contract.md",
-        "agentic/specs/pipeline/html-tag-resolution.md",
-        "agentic/specs/pipeline/asset-and-image-policy.md",
-        "agentic/specs/pipeline/webflow-branch-strategy.md",
-        "agentic/specs/contracts/client-first-library-contract.md",
-        "agentic/specs/contracts/visual-qa-evidence-contract.md",
+        "agentic/specs/contracts/figma-to-client-first-mapping.md",
         "agentic/specs/system/agent-system-spec.md",
         "agentic/specs/system/workspace-artifact-schemas.md"
     ]

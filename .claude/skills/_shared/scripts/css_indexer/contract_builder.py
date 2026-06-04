@@ -1,7 +1,7 @@
 import os
 import json
-from tools.css_indexer.parser import CSSParser
-from tools.css_indexer.classifier import CSSClassifier
+from css_indexer.parser import CSSParser
+from css_indexer.classifier import CSSClassifier
 
 class ContractBuilder:
     def __init__(self, normalize_path, webflow_path, client_first_path):

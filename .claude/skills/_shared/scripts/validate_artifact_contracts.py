@@ -17,8 +17,8 @@ import subprocess
 import sys
 from pathlib import Path
 
-REPO_ROOT = Path(__file__).resolve().parents[3]
-VALIDATE_SCRIPT = REPO_ROOT / "scripts/validation/validate_artifacts.py"
+REPO_ROOT = Path(__file__).resolve().parents[4]
+VALIDATE_SCRIPT = Path(__file__).resolve().parent / "validate_artifacts.py"
 
 
 def discover_workspaces(target: Path) -> list[str]:

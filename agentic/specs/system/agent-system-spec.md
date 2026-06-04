@@ -112,12 +112,8 @@ MAS-Figma-Webflow-khang is a standalone Claude-native, Python-first agentic fold
 
 | Path | kind | owner | promotion_rule |
 |---|---|---|---|
-| `agentic/knowledge/project-overview.md` | durable knowledge | pm | update when project architecture changes |
-| `agentic/knowledge/system-map.md` | durable knowledge | pm | update when workflow/files change |
-| `agentic/knowledge/client-first-library.md` | durable knowledge | architect | update when class mapping rules change |
+| `agentic/knowledge/token-sync-architecture.md` | durable knowledge | architect | update when Figma→Repo→Webflow token flow model changes |
 | `knowledge-base/client-first-class-map.json` | structured library | architect | update only with source and gate validation |
-| `agentic/memory/memory-candidates.md` | candidate memory | all agents | promote only with source, date, validation |
-| `agentic/memory/session-handoff.md` | operational memory | pm | update every phase boundary |
 | `workspace/state.json` | runtime log | operator | generated evidence, not durable memory |
 
 ## Gates

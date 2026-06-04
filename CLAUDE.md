@@ -8,41 +8,31 @@ The pipeline is backed by two infrastructure layers:
 
 ## Read First
 
-1. Read `agentic/memory/team-memory.md` for the current agent team, invariants, and operating boundaries.
-2. Read `agentic/policies/runtime-instructions.md` for the MAS V3 mandates adapted to Claude Code.
-3. Read `agentic/orchestration/sop.md` before starting any Figma-to-Webflow run.
-4. Read `agentic/specs/agent-system-spec.md` for the standalone agent-system contract.
-5. Read `agentic/orchestration/reflection-loop.md` and `agentic/orchestration/phase-state-machine.md` before closing or changing phases.
-6. Read `agentic/policies/approval-gates.md` before using Webflow, Figma, file writes, archiving and restoring, or any external connector.
-7. Read `knowledge-base/client-first/INDEX.yaml` before selecting or validating Client-First classes — filter by `applicable_skill` to pull only relevant files.
-8. Read `agentic/schemas/_shared/variable-entry.schema.json` before writing or transforming any design token — `figmaId` (format `VariableID:<id>:<index>`) is required on every entry.
+1. Read `agentic/knowledge/token-sync-architecture.md` for the Figma→Repo→Webflow token flow model.
+2. Read `agentic/specs/system/agent-system-spec.md` for the standalone agent-system contract.
+3. Read `agentic/policies/approval-gates.md` before using Webflow, Figma, file writes, archiving and restoring, or any external connector.
+4. Read `knowledge-base/client-first/INDEX.yaml` before selecting or validating Client-First classes — filter by `applicable_skill` to pull only relevant files.
+5. Read `agentic/schemas/_shared/variable-entry.schema.json` before writing or transforming any design token — `figmaId` (format `VariableID:<id>:<index>`) is required on every entry.
 
 ## Common Commands
 
-```cmd
-# 1. Parse CSS library to build contract
-python scripts/pipeline/index_css_library.py --normalize source-css/normalize.css --webflow source-css/webflow.css --client-first source-css/client-first-v2-2.webflow.css --out knowledge-base/generated
+```bash
+# 1. Parse CSS library and generate contracts/indexes
+python .claude/skills/_shared/scripts/index_css_library.py \
+  --normalize source-css/normalize.css \
+  --webflow source-css/webflow.css \
+  --client-first source-css/client-first-v2-2.webflow.css \
+  --out knowledge-base/generated
 
-# 2. Extract raw styling and layout blueprint from Figma
-python scripts/pipeline/extract_raw_styling.py --input workspace/figma/figma.raw-context.json
+# 2. Resolve Client-First classes (called by figma-to-html-architect skill)
+python .claude/skills/_shared/scripts/resolve_client_first.py \
+  --input workspace/semantic/tagged-blueprint.json
 
-# 3. Resolve Client-First classes and snap variables
-python scripts/pipeline/resolve_client_first.py --input workspace/figma/raw-layout-blueprint.json
+# 3. Validate workspace artifacts (block tier — must pass before any Webflow write)
+python .claude/skills/_shared/scripts/validate_artifacts.py --workspace <name> --tier block
 
-# 4. Render HTML from blueprint
-python scripts/pipeline/render_html_from_blueprint.py
-
-# 5. Slice page HTML into section chunks
-python scripts/pipeline/slice_html_into_chunks.py
-
-# 6. Compile native ops plan
-python scripts/pipeline/compile_native_ops_from_html.py
-
-# 7. Validate workspace artifacts (block tier must pass before Webflow write)
-python scripts/validation/validate_artifacts.py --workspace <workspace-name> --tier block
-
-# 8. Unified quality gate
-python scripts/gates/run_quality_gate.py --profile html-first
+# 4. Unified quality gate
+python .claude/skills/_shared/scripts/run_quality_gate.py --profile html-first
 ```
 
 ## Operating Rules
@@ -51,7 +41,7 @@ python scripts/gates/run_quality_gate.py --profile html-first
 - **Strict Class Selection**: Final HTML cannot use a class unless it exists in the contract, Webflow native classes, or approved structural conventions. Proposing or inventing new classes in strict mode blocks compilation.
 - **Knowledge Lookup Before Class Selection**: Before selecting or validating Client-First classes, load `knowledge-base/client-first/INDEX.yaml` and pull only the 1–3 files matching the task's `applicable_skill` tag. Do not load all files.
 - **figmaId is Mandatory**: Every design token/variable entry must carry a stable `figmaId` in `VariableID:<id>:<index>` format. Never use display names alone as cross-machine references — they drift on rename. Schema: `agentic/schemas/_shared/variable-entry.schema.json`.
-- **Schema Validation Before Webflow Write**: Run `python scripts/validation/validate_artifacts.py --workspace <name> --tier block` before any Webflow mutation. A non-zero exit on the block tier is a hard stop.
+- **Schema Validation Before Webflow Write**: Run `python .claude/skills/_shared/scripts/validate_artifacts.py --workspace <name> --tier block` before any Webflow mutation. A non-zero exit on the block tier is a hard stop.
 - **Branch-First Deployments**: All mutations to Webflow must operate on a temporary site branch, never directly on main/master setups.
 - **Single-Threaded Writes**: Webflow writes must be serialized to avoid database lockups. Concurrency policy enforces serial writes.
 - **Audit Trails**: Every Webflow mutation must write to `write-audit-log.jsonl` containing payloads and response codes.
@@ -65,14 +55,14 @@ python scripts/gates/run_quality_gate.py --profile html-first
 
 ## Workflow Summary
 
-1. `@pm` receives the user request and checks `agentic/memory/session-handoff.md`, `agentic/orchestration/sop.md`, and workspace state.
-2. `@operator` extracts Figma/raw data into `workspace/figma/` and `workspace/reports/`. Each variable entry must include `figmaId`.
-3. `@architect` normalizes nodes, resolves semantic roles/tags/classes using `knowledge-base/client-first/INDEX.yaml`, renders logical HTML blueprints, and slices chunks.
-4. `@pm` presents the logical build plan and stops for approval.
-5. `@operator` compiles native operations. Runs `validate_artifacts.py --tier block` before any Webflow write.
-6. `@operator` builds in Webflow using serialization and branching rules.
-7. `@gatekeeper` runs `run_quality_gate.py --profile html-first` (includes artifact contract validation) and checks audit logs.
-8. `@pm` updates `agentic/memory/session-handoff.md` and reports evidence-backed completion.
+1. User request enters via Claude Code chat. The orchestrator skill (`figma-to-webflow-orchestrator`) coordinates Branch A (design-system-sync) and Branch B (figma-to-html-architect).
+2. Branch A extracts Figma raw data into `workspace/figma/` and `workspace/reports/`. Each variable entry must include `figmaId`.
+3. Branch B normalizes nodes, resolves semantic roles/tags/classes using `knowledge-base/client-first/INDEX.yaml`, renders logical HTML blueprints, and slices chunks.
+4. Orchestrator presents the logical build plan and stops for user approval.
+5. Branch A compiles native operations. Runs `validate_artifacts.py --tier block` before any Webflow write.
+6. Branch A builds in Webflow using serialization and branching rules.
+7. Branch B runs `run_quality_gate.py --profile html-first` (includes artifact contract validation) and checks audit logs.
+8. Orchestrator reports evidence-backed completion.
 ## Code Intelligence & Context (GitNexus & Repomix)
 
 This repository is equipped with two tools to help you understand the codebase quickly:
@@ -93,7 +83,7 @@ A Git `pre-commit` hook is active in [.git/hooks/pre-commit](.git/hooks/pre-comm
 <!-- gitnexus:start -->
 # GitNexus — Code Intelligence
 
-This project is indexed by GitNexus as **Figma---Webflow** (1145 symbols, 1323 relationships, 16 execution flows). Use the GitNexus MCP tools to understand code, assess impact, and navigate safely.
+This project is indexed by GitNexus as **Figma---Webflow** (458 symbols, 448 relationships, 0 execution flows). Use the GitNexus MCP tools to understand code, assess impact, and navigate safely.
 
 > If any GitNexus tool warns the index is stale, run `npx gitnexus analyze` in terminal first.
 

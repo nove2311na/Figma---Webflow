@@ -3,7 +3,7 @@ import sys
 import json
 
 def main():
-    root_dir = os.path.abspath(os.path.join(os.path.dirname(__file__), "..", "..", ".."))
+    root_dir = os.path.abspath(os.path.join(os.path.dirname(__file__), "..", "..", "..", ".."))
     contract_path = os.path.join(root_dir, "knowledge-base", "generated", "client-first-library-contract.json")
     print(f"Validating CSS Contract at: {contract_path}")
     
