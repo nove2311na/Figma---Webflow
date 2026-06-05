@@ -28,7 +28,7 @@ from jsonschema import Draft202012Validator
 from referencing import Registry, Resource
 from referencing.jsonschema import DRAFT202012
 
-REPO_ROOT = Path(__file__).resolve().parent.parent.parent
+REPO_ROOT = Path(__file__).resolve().parents[4]
 
 # ---------------------------------------------------------------------------
 # Schema registry: $id → file path
@@ -58,6 +58,14 @@ SCHEMA_PATHS: dict[str, Path] = {
         REPO_ROOT / "agentic/schemas/workspace/page-structure.schema.json",
     "https://figwebflow.local/schemas/.claude/skills/design-system-sync/schema/client-first-baseline-contract.schema.json":
         REPO_ROOT / ".claude/skills/design-system-sync/schema/client-first-baseline-contract.schema.json",
+    "https://figwebflow.local/schemas/agentic/schemas/workspace/blueprint.schema.json":
+        REPO_ROOT / "agentic/schemas/workspace/blueprint.schema.json",
+    "https://figwebflow.local/schemas/agentic/schemas/workspace/subagent-task.schema.json":
+        REPO_ROOT / "agentic/schemas/workspace/subagent-task.schema.json",
+    "https://figwebflow.local/schemas/agentic/schemas/workspace/qa-report.schema.json":
+        REPO_ROOT / "agentic/schemas/workspace/qa-report.schema.json",
+    "https://figwebflow.local/schemas/agentic/schemas/workspace/error-log.schema.json":
+        REPO_ROOT / "agentic/schemas/workspace/error-log.schema.json",
 }
 
 # ---------------------------------------------------------------------------
@@ -89,11 +97,23 @@ TIER_MAP: dict[str, tuple[str, str]] = {
         "block",
     ),
     "qa-report.json": (
-        "https://figwebflow.local/schemas/agentic/schemas/webflow/mcp-sync-report.schema.json",
+        "https://figwebflow.local/schemas/agentic/schemas/workspace/qa-report.schema.json",
         "warn",
     ),
     "phase-state.json": (
         "https://figwebflow.local/schemas/agentic/schemas/workspace/page-structure.schema.json",
+        "log",
+    ),
+    "html/page.blueprint.json": (
+        "https://figwebflow.local/schemas/agentic/schemas/workspace/blueprint.schema.json",
+        "block",
+    ),
+    "subagent-task.json": (
+        "https://figwebflow.local/schemas/agentic/schemas/workspace/subagent-task.schema.json",
+        "block",
+    ),
+    "error-log.json": (
+        "https://figwebflow.local/schemas/agentic/schemas/workspace/error-log.schema.json",
         "log",
     ),
 }

@@ -67,7 +67,7 @@ def main():
     schema_path = Path(args.schema)
     
     baseline_path = Path(args.baseline) if args.baseline else Path(f"workspace/{args.workspace}/design-system/client-first-baseline-contract.json")
-    mapping_path = Path(args.mapping) if args.mapping else Path(f"workspace/{args.workspace}/design-system/figma-webflow-mapping.md")
+    mapping_path = Path(args.mapping) if args.mapping else Path(".claude/skills/design-system-sync/references/figma-webflow-mapping.md")
     
     report = {
         "status": "failed",
@@ -108,7 +108,11 @@ def main():
     if schema_path.exists():
         try:
             schema = json.loads(schema_path.read_text(encoding="utf-8"))
-            jsonschema.validate(instance=data, schema=schema)
+            from jsonschema import Draft202012Validator
+            from _shared.scripts.validate_artifacts import load_registry
+            registry = load_registry()
+            validator = Draft202012Validator(schema, registry=registry)
+            validator.validate(instance=data)
             report["summary"]["schemaValidation"] = "passed"
         except jsonschema.ValidationError as e:
             schema_ok = False

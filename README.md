@@ -17,8 +17,8 @@ Two compilation steps:
 | Layer | Path | Purpose |
 |---|---|---|
 | **Knowledge (Q1)** | `agentic/knowledge/client-first/` | Distilled Finsweet Client-First docs (concepts, usability, gotchas) indexed at `INDEX.yaml`. Skills pull 1–3 files at runtime. |
-| **Schema (Q2)** | `agentic/schemas/` | JSON Schema 2020-12 validations. Organised index at [schemas/README.md](file:///g:/My%20Drive/10_Learning/_Research/auto-research/.docs/source/MAS-Figma-Webflow-khang/agentic/schemas/README.md). Sub-indices: [Library Schemas](file:///g:/My%20Drive/10_Learning/_Research/auto-research/.docs/source/MAS-Figma-Webflow-khang/agentic/schemas/library/schema_index.json) & [Webflow Schemas](file:///g:/My%20Drive/10_Learning/_Research/auto-research/.docs/source/MAS-Figma-Webflow-khang/agentic/schemas/webflow/schema_index.json). |
-| **Specs & reading** | `agentic/specs/` | Pipeline specifications index: [specs/README.md](file:///g:/My%20Drive/10_Learning/_Research/auto-research/.docs/source/MAS-Figma-Webflow-khang/agentic/specs/README.md). |
+| **Schema (Q2)** | `agentic/schemas/` | JSON Schema 2020-12 validations. Organised index at [schemas/README.md](agentic/schemas/README.md). Sub-indices: [Library Schemas](agentic/schemas/library/schema_index.json) & [Webflow Schemas](agentic/schemas/webflow/schema_index.json). |
+| **Specs & reading** | `agentic/specs/` | Pipeline specifications index: [specs/README.md](agentic/specs/README.md). |
 | **Token flow** | `agentic/knowledge/token-sync-architecture.md` | 3-way ledger model: Figma = design SoT, Repo = git-versioned ledger, Webflow = build target. |
 
 ## Pipeline
@@ -38,9 +38,9 @@ Figma MCP
 
 The pipeline is driven by 3 Claude Code skills under `.claude/skills/`:
 
-- **`design-system-sync`** — Sync Figma variables + styles to Webflow. Extract Client-First baseline, validate Figma extraction, map variables, write to Webflow (approval-gated). Reference schema definitions via [Library Schemas](file:///g:/My%20Drive/10_Learning/_Research/auto-research/.docs/source/MAS-Figma-Webflow-khang/agentic/schemas/library/schema_index.json).
-- **`figma-to-html-architect`** — Turn a Figma node into Webflow-ready HTML with Client-First classes. Validates `data-name` conventions, resolves semantic tags, halts for review on failures. Reference policy rules: [class-selection](file:///g:/My%20Drive/10_Learning/_Research/auto-research/.docs/source/MAS-Figma-Webflow-khang/agentic/rules/class-selection.rules.yaml), [html-qa](file:///g:/My%20Drive/10_Learning/_Research/auto-research/.docs/source/MAS-Figma-Webflow-khang/agentic/rules/html-qa.rules.yaml), [asset-alt](file:///g:/My%20Drive/10_Learning/_Research/auto-research/.docs/source/MAS-Figma-Webflow-khang/agentic/rules/asset-alt.rules.yaml).
-- **`figma-to-webflow-orchestrator`** — Coordinate the two above in parallel. Branch A pushes variables; Branch B renders HTML. Consolidates evidence at end. Runs deterministic steps via `orchestrate.py`. Governed by [concurrency-policy.yaml](file:///g:/My%20Drive/10_Learning/_Research/auto-research/.docs/source/MAS-Figma-Webflow-khang/agentic/rules/concurrency-policy.yaml) and [retry-policy.yaml](file:///g:/My%20Drive/10_Learning/_Research/auto-research/.docs/source/MAS-Figma-Webflow-khang/agentic/rules/retry-policy.yaml).
+- **`design-system-sync`** — Sync Figma variables + styles to Webflow. Extract Client-First baseline, validate Figma extraction, map variables, write to Webflow (approval-gated). Reference schema definitions via [Library Schemas](agentic/schemas/library/schema_index.json).
+- **`figma-to-html-architect`** — Turn a Figma node into Webflow-ready HTML with Client-First classes. Validates `data-name` conventions, resolves semantic tags, halts for review on failures. Reference policy rules: [class-selection](agentic/rules/class-selection.rules.yaml), [html-qa](agentic/rules/html-qa.rules.yaml), [asset-alt](agentic/rules/asset-alt.rules.yaml).
+- **`figma-to-webflow-orchestrator`** — Coordinate the two above in parallel. Branch A pushes variables; Branch B renders HTML. Consolidates evidence at end. Runs deterministic steps via `orchestrate.py`. Governed by [concurrency-policy.yaml](agentic/rules/concurrency-policy.yaml) and [retry-policy.yaml](agentic/rules/retry-policy.yaml).
 
 ## Common Commands
 
@@ -73,13 +73,21 @@ python .claude/skills/_shared/scripts/validate_artifact_contracts.py
 python .claude/skills/figma-to-webflow-orchestrator/scripts/orchestrate.py \
   --workspace <name> --node-id <id>
 ```
+## Local Setup
+
+This repository must not track local configuration files such as `.claude/settings.local.json`.
+
+To configure your local environment:
+1. Copy `.claude/settings.example.json` to `.claude/settings.local.json`.
+2. Configure local-only values (e.g., specific permissions) in `.claude/settings.local.json`.
+3. Never commit `.claude/settings.local.json` to Git.
 
 ## Operating Rules
 
 - **CSS Contract is Binding** — `agentic/knowledge/generated/client-first-library-contract.json` is the source of truth. Cross-reference `agentic/knowledge/client-first/INDEX.yaml` for semantic context.
 - **Knowledge Lookup Before Class Selection** — Load `INDEX.yaml`, filter by `applicable_skill`, pull 1–3 files. Never full-dump.
 - **figmaId is Mandatory** — Every variable entry must carry `figmaId` in `VariableID:<id>:<index>` format. Display names drift; figmaIds don't.
-- **Schema Validation Before Webflow Write** — `validate_artifacts.py --tier block` exit 0 is required before any Webflow mutation. Refer to [Webflow Schemas](file:///g:/My%20Drive/10_Learning/_Research/auto-research/.docs/source/MAS-Figma-Webflow-khang/agentic/schemas/webflow/schema_index.json). Check against [concurrency-policy.yaml](file:///g:/My%20Drive/10_Learning/_Research/auto-research/.docs/source/MAS-Figma-Webflow-khang/agentic/rules/concurrency-policy.yaml), [retry-policy.yaml](file:///g:/My%20Drive/10_Learning/_Research/auto-research/.docs/source/MAS-Figma-Webflow-khang/agentic/rules/retry-policy.yaml), and [webflow-mcp.rules.yaml](file:///g:/My%20Drive/10_Learning/_Research/auto-research/.docs/source/MAS-Figma-Webflow-khang/agentic/rules/webflow-mcp.rules.yaml).
+- **Schema Validation Before Webflow Write** — `validate_artifacts.py --tier block` exit 0 is required before any Webflow mutation. Refer to [Webflow Schemas](agentic/schemas/webflow/schema_index.json). Check against [concurrency-policy.yaml](agentic/rules/concurrency-policy.yaml), [retry-policy.yaml](agentic/rules/retry-policy.yaml), and [webflow-mcp.rules.yaml](agentic/rules/webflow-mcp.rules.yaml).
 - **Branch-First Deployments** — All Webflow writes target temporary branches.
 - **Single-Threaded Writes** — Webflow writes serialized to avoid lockups.
 - **Audit Trails** — Every Webflow mutation logs to `write-audit-log.jsonl`.

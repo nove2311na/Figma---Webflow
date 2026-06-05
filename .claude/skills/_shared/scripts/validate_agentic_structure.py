@@ -15,13 +15,11 @@ def main():
     
     # 1. Folders validation
     folders = [
-        "agentic/knowledge/source-css",
         "agentic/knowledge/generated",
         "agentic/knowledge/client-first",
         "agentic/rules",
         "agentic/knowledge",
         "agentic/schemas/_shared",
-        "workspace/_fixtures",
     ]
     for folder in folders:
         full_path = os.path.join(root_dir, folder)

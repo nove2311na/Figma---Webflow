@@ -122,6 +122,12 @@ class TestDesignSystemSync(unittest.TestCase):
                 v_meta["value"] = 16
         self.figma_contract.write_text(json.dumps(data), encoding="utf-8")
 
+        # Copy template baseline to expected path in test workspace
+        shutil.copy(
+            BASE_DIR / "template" / "webflow-design-system-contract.json",
+            self.ds_dir / "client-first-baseline-contract.json"
+        )
+
         # 2. Run map_variables.py
         result = subprocess.run([
             "python", str(SCRIPTS_DIR / "map_variables.py"),

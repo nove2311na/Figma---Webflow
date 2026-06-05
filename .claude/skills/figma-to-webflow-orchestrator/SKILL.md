@@ -106,7 +106,7 @@ Once both **Branch A** (Webflow sync complete) and **Branch B** (Subagent report
 
 ## 🛡️ Policies & Constraints
 - Concurrency, retry-handling, and Webflow MCP limits are specified in:
-  - [concurrency-policy.yaml](file:///g:/My%20Drive/10_Learning/_Research/auto-research/.docs/source/MAS-Figma-Webflow-khang/agentic/rules/concurrency-policy.yaml) (Serial write lock and concurrency configurations)
-  - [retry-policy.yaml](file:///g:/My%20Drive/10_Learning/_Research/auto-research/.docs/source/MAS-Figma-Webflow-khang/agentic/rules/retry-policy.yaml) (API retry/backoff parameters)
-  - [webflow-mcp.rules.yaml](file:///g:/My%20Drive/10_Learning/_Research/auto-research/.docs/source/MAS-Figma-Webflow-khang/agentic/rules/webflow-mcp.rules.yaml) (Webflow MCP API usage limits)
-- Webflow JSON Schemas are indexed in [schema_index.json](file:///g:/My%20Drive/10_Learning/_Research/auto-research/.docs/source/MAS-Figma-Webflow-khang/agentic/schemas/webflow/schema_index.json).
+  - [concurrency-policy.yaml](agentic/rules/concurrency-policy.yaml) (Serial write lock and concurrency configurations)
+  - [retry-policy.yaml](agentic/rules/retry-policy.yaml) (API retry/backoff parameters)
+  - [webflow-mcp.rules.yaml](agentic/rules/webflow-mcp.rules.yaml) (Webflow MCP API usage limits)
+- Webflow JSON Schemas are indexed in [schema_index.json](agentic/schemas/webflow/schema_index.json).

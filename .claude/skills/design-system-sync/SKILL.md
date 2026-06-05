@@ -24,13 +24,13 @@ Synchronize the base design system (Colors, Typography, Spacing variables) from 
 
 ### Task 2: Validate Data
 - **Action**: Run the safety gate to ensure variables and styles map correctly to the extracted Client-First baseline contract and that no Webflow native elements or HTML tags are referenced.
-- **Command**: `python .claude/skills/design-system-sync/scripts/validate_figma_extraction.py --workspace <workspace-name> --baseline workspace/<workspace-name>/design-system/client-first-baseline-contract.json --mapping workspace/<workspace-name>/design-system/figma-webflow-mapping.md`
+- **Command**: `python .claude/skills/design-system-sync/scripts/validate_figma_extraction.py --workspace <workspace-name>`
 - **Output**: Saves `validation_report.json` and `validation_report.txt`.
 - **Halt Condition**: If validation fails (e.g., placeholder values exist, mapping references `.w-*` native classes or native HTML tag selectors, etc.), delete the invalid files, halt, and ask the user to fix the Figma designs.
 
 ### Task 3: Translate to Webflow Conventions
 - **Action**: Map Figma variables to Webflow (Finsweet) variables, validating targets against the baseline contract.
-- **Command**: `python .claude/skills/design-system-sync/scripts/map_variables.py --workspace <workspace-name> --input workspace/<workspace-name>/design-system/figma-contract.json --output workspace/<workspace-name>/design-system/webflow-contract.json --mapping workspace/<workspace-name>/design-system/figma-webflow-mapping.md --report workspace/<workspace-name>/design-system/validations/mapping-report.json --baseline workspace/<workspace-name>/design-system/client-first-baseline-contract.json --strict`
+- **Command**: `python .claude/skills/design-system-sync/scripts/map_variables.py --workspace <workspace-name> --strict`
 - **Output**: Outputs `webflow-contract.json` and `mapping-report.json`.
 - **Halt Condition**: If mapping fails (e.g. mapping to native `.w-*` classes or non-existent baseline selectors without `projectExtension: true`), halt and report errors.
 
@@ -89,4 +89,4 @@ for e in mine[:5]: print(f\"  - {e['file_path']}  [tags: {e['topic_tags']}]\")
 
 ### Schemas & Contracts
 - The schemas for design system contracts map to `agentic/schemas/library/schema_index.json`.
-- All design system data artifacts are verified against the JSON schemas indexed in [schema_index.json](file:///g:/My%20Drive/10_Learning/_Research/auto-research/.docs/source/MAS-Figma-Webflow-khang/agentic/schemas/library/schema_index.json).
+- All design system data artifacts are verified against the JSON schemas indexed in [schema_index.json](agentic/schemas/library/schema_index.json).

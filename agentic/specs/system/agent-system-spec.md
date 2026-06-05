@@ -69,12 +69,9 @@ MAS-Figma-Webflow-khang is a standalone Claude-native, Python-first agentic fold
 
 | Skill | Purpose | Validation |
 |---|---|---|
-| `figma-to-webflow-build` | Run the full MAS V3 workflow. | Gate results and handoff update. |
-| `client-first-blueprint` | Produce Client-First blueprints from Figma data. | Blueprint evidence and Client-First checks. |
-| `mcp-352-webflow-build` | Build in Webflow using native micro-chunks. | State log and QA evidence. |
-| `parallel-section-build` | Orchestrate Phase 2A class/container setup then Phase 2B per-section subagents. | Build-contract gate pass and aggregated section logs. |
-| `pixel-perfect-qa` | Validate Webflow output against Figma/blueprint. | `[APPROVED]` or `[FIX]` with evidence. |
-| `reflection-review` | Critique risky artifacts with a bounded reflection loop. | Pass, revise, or block with score and evidence. |
+| `design-system-sync` | Map Figma variables and class baselines to Webflow contracts. | CSS contract & mapping validation. |
+| `figma-to-html-architect` | Generate Client-First HTML layouts and blueprints from Figma. | Blueprint schema & layout validation. |
+| `figma-to-webflow-orchestrator` | Coordinate extraction, blueprint generation, and build steps. | Workspace artifact & state validation. |
 
 ## Tools
 
@@ -82,9 +79,7 @@ MAS-Figma-Webflow-khang is a standalone Claude-native, Python-first agentic fold
 |---|---|---|---|---|---|
 | `Read/Grep/Glob` | Local inspection. | R0 | allow | none | all agents |
 | `Write/Edit` | Create specs, workspace files, reports. | R1 | ask/create-only | none | pm, architect, operator, steward |
-| `python archive/deprecated-pipeline/scripts/workspace/init_workspace.py` | Initialize workspace. | R1 | ask | none | workspace-steward, pm |
-| `python archive/deprecated-pipeline/scripts/workspace/archive_workspace.py` | Archive and wipe workspace after zip validation. | R4 | explicit approval | none | workspace-steward |
-| `python archive/deprecated-pipeline/scripts/workspace/restore_workspace.py` | Restore archived workspace. | R4 | explicit approval | none | workspace-steward |
+| `python .claude/skills/_shared/scripts/validate_workspace_artifacts.py --workspace <name>` | Validate workspace folder artifacts. | R1 | ask | none | qa-gatekeeper, pm |
 | `python .claude/skills/_shared/scripts/*.py` | Deterministic validation. | R0 | allow | none | qa-gatekeeper, pm |
 | `agentic/knowledge/client-first-class-map.json` | Structured Figma property to Client-First class mapping. | R0 | allow read | none | architect, operator, gatekeeper |
 | `Figma API/MCP` | Extract design data. | R2 | ask | Figma token or approved connector | figma-webflow-operator |
@@ -130,7 +125,7 @@ MAS-Figma-Webflow-khang is a standalone Claude-native, Python-first agentic fold
 
 ## Scaffold Files
 
-See `agentic/specs/scaffold-file-plan.md`.
+(Planned / Under development)
 
 ## Standalone Architecture Baseline
 
@@ -138,7 +133,7 @@ This folder targets self-contained readiness:
 
 - Structure parity: `CLAUDE.md`, `.claude/`, `agentic/knowledge/token-sync-architecture.md`, `agentic/`, `agentic/knowledge/`, and `.claude/skills/_shared/scripts/` exist.
 - Quality target: 4.7.
-- Exceedance: agent system spec, tool/MCP matrix, workflow contracts, memory promotion, MCP risk map, scaffold file plan, reflection loop, ReAct trace, JSON schemas, visual QA evidence, and Client-First class library exist.
+- Exceedance: agent system spec, tool/MCP matrix, workflow contracts, memory promotion, MCP risk map, reflection loop, ReAct trace, JSON schemas, visual QA evidence, and Client-First class library exist.
 - Runtime specialization: Claude Code-only and Python-first.
 
 ## Validation Report
@@ -164,7 +159,7 @@ This folder targets self-contained readiness:
     "expected_structure_validator": "pass",
     "quality_target": 4.7,
     "parity_items": ["CLAUDE.md", "agentic/knowledge/token-sync-architecture.md", ".claude/agents", ".claude/skills", "agentic/policies", "agentic/specs", "agentic/knowledge", ".claude/skills/_shared/scripts"],
-    "exceedance_items": ["agent_system_spec", "tool_mcp_matrix", "workflow_contracts", "mcp_risk_auth_map", "scaffold_file_plan", "reflection_loop", "react_trace", "client_first_library", "json_schemas", "visual_qa_contract"],
+    "exceedance_items": ["agent_system_spec", "tool_mcp_matrix", "workflow_contracts", "mcp_risk_auth_map", "reflection_loop", "react_trace", "client_first_library", "json_schemas", "visual_qa_contract"],
     "documented_skips": ["Live .mcp.json is skipped until Webflow/Figma auth is configured"]
   },
   "revision_notes": []

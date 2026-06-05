@@ -77,22 +77,28 @@ def parse_markdown_mapping(path: Path) -> tuple[dict, dict, list]:
 def main():
     parser = argparse.ArgumentParser(description="Map Figma variables/styles to Webflow baseline")
     parser.add_argument("--workspace", required=True)
-    parser.add_argument("--input", required=True, help="Path to figma-contract.json")
-    parser.add_argument("--output", required=True, help="Path to write webflow-contract.json")
-    parser.add_argument("--mapping", required=True, help="Path to figma-webflow-mapping.md")
-    parser.add_argument("--report", required=True, help="Path to write mapping-report.json")
-    parser.add_argument("--baseline", default=".claude/skills/design-system-sync/template/webflow-design-system-contract.json")
+    parser.add_argument("--input", help="Path to figma-contract.json")
+    parser.add_argument("--output", help="Path to write webflow-contract.json")
+    parser.add_argument("--mapping", help="Path to figma-webflow-mapping.md")
+    parser.add_argument("--report", help="Path to write mapping-report.json")
+    parser.add_argument("--baseline", help="Path to client-first-baseline-contract.json")
     parser.add_argument("--strict", action="store_true", help="Fail on any errors/warnings")
     args = parser.parse_args()
 
-    in_path = Path(args.input)
-    out_path = Path(args.output)
-    mapping_path = Path(args.mapping)
-    report_json_path = Path(args.report)
+    workspace_root = Path("workspace") / args.workspace / "design-system"
+
+    in_path = Path(args.input) if args.input else workspace_root / "figma-contract.json"
+    out_path = Path(args.output) if args.output else workspace_root / "webflow-contract.json"
+    mapping_path = Path(args.mapping) if args.mapping else Path(".claude/skills/design-system-sync/references/figma-webflow-mapping.md")
+    report_json_path = Path(args.report) if args.report else workspace_root / "validations" / "mapping-report.json"
     report_md_path = report_json_path.with_suffix(".md")
-    baseline_path = Path(args.baseline)
+    baseline_path = Path(args.baseline) if args.baseline else workspace_root / "client-first-baseline-contract.json"
 
     # 1. Load baseline & Figma input
+    if not baseline_path.exists():
+        print(f"Error: [CLIENT_FIRST_BASELINE_NOT_FOUND] Expected baseline at {baseline_path}.")
+        print("Run extract_client_first_baseline.py first, or provide --baseline explicitly.")
+        sys.exit(1)
     baseline = load_json(baseline_path)
     figma_data = load_json(in_path)
 

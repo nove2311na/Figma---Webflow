@@ -17,13 +17,12 @@ Pipeline **Figma → Webflow** tự động theo chuẩn Finsweet Client-First V
 ## Pre-flight: đọc những file này TRƯỚC KHI bắt đầu bất kỳ task nào
 
 ```
-1. agentic/memory/session-handoff.md           ← trạng thái session trước
-2. agentic/memory/team-memory.md               ← team invariants, operating boundaries
-3. .claude/skills/figma-to-webflow-orchestrator/SKILL.mdsop.md                ← SOP phase hiện tại là gì
-4. workspace/meta.json                         ← project + site ID
-5. workspace/state.json                        ← pipeline đang ở đâu
-6. knowledge-base/libraries/{site_id}/         ← token library của project
-7. agentic/knowledge/client-first-class-map.json  ← global CF class catalog
+1. agentic/memory/README.md                    ← trạng thái session trước & invariants
+2. agentic/policies/validation-gates.md        ← SOP phase & validation gates
+3. workspace/meta.json                         ← project + site ID
+4. workspace/state.json                        ← pipeline đang ở đâu
+5. agentic/knowledge/libraries/{site_id}/      ← token library của project
+6. agentic/knowledge/client-first-class-map.json  ← global CF class catalog
 ```
 
 Không đọc pre-flight → không bắt đầu task.
@@ -66,9 +65,8 @@ Hard stops bắt buộc:
 > Subagents chỉ APPLY classes đã có — không bao giờ tạo class mới.
 
 Khi viết HTML contract:
-1. Đọc `.claude/skills/figma-to-webflow-orchestrator/SKILL.mdread-figma-data.md` → tạo design analysis JSON trước
-2. Đọc `archive/deprecated-workflows/write-html-contract.webflow-first.md` → decision framework 5-layer
-3. Mọi class phải trace về: CF library class HOẶC entry trong `new_classes` với Case 1-5
+1. Đọc `.claude/skills/figma-to-html-architect/SKILL.md` → tạo design analysis JSON trước
+2. Mọi class phải trace về: CF library class HOẶC entry trong `new_classes` với Case 1-5
 
 ---
 
@@ -88,8 +86,8 @@ Khi viết HTML contract:
 ## Forbidden actions (không bao giờ được làm)
 
 - `whtml_builder` — FORBIDDEN
-- Edit `knowledge-base/client-first-theory.md`
-- Edit `scripts/gates/validate_client_first_library.py`
+- Edit `agentic/knowledge/client-first/INDEX.yaml`
+- Edit `.claude/skills/_shared/scripts/validate_css_contract.py`
 - Edit `agentic/schemas/library/client-first-library.schema.json`
 - Edit bất kỳ file nào trong `workspace/` trừ khi được authorize rõ ràng
 - Tạo class mới trong Webflow khi đang ở role `section-builder` (apply-only)
@@ -103,7 +101,7 @@ Khi viết HTML contract:
 
 Thứ tự xử lý:
 1. Kiểm tra `workspace/error-logs.json` xem đã có error chưa
-2. Kiểm tra `.claude/skills/figma-to-webflow-orchestrator/SKILL.mdretry-and-stop-conditions.md` — có retry được không?
+2. Kiểm tra `agentic/rules/retry-policy.yaml` — có retry được không?
 3. Nếu vẫn blocked → STOP, escalate lên PM, log blocker vào `error-logs.json`
 4. Không tự đoán khi bị thiếu Figma data, thiếu page ID, thiếu token
 
@@ -137,11 +135,10 @@ Không báo cáo "xong" khi chưa có evidence:
 | Mục đích | File |
 |---|---|
 | CF class catalog | `agentic/knowledge/client-first-class-map.json` |
-| Project token library | `knowledge-base/libraries/{site_id}/client-first-library.json` |
-| Token → Figma map | `knowledge-base/libraries/{site_id}/figma-token-map.json` |
-| Figma analysis prompt | `.claude/skills/figma-to-webflow-orchestrator/SKILL.mdread-figma-data.md` |
-| HTML contract prompt | `archive/deprecated-workflows/write-html-contract.webflow-first.md` |
+| Project token library | `agentic/knowledge/libraries/{site_id}/client-first-library.json` |
+| Token → Figma map | `agentic/knowledge/libraries/{site_id}/figma-token-map.json` |
+| Figma analysis prompt | `.claude/skills/figma-to-html-architect/SKILL.md` |
 | Figma→CF mapping rules | `agentic/specs/contracts/figma-to-client-first-mapping.md` |
 | Token sync architecture | `agentic/knowledge/token-sync-architecture.md` |
 | Approval gate rules | `agentic/policies/approval-gates.md` |
-| MCP capabilities | `agentic/knowledge/webflow-mcp-capabilities.md` |
+| MCP capabilities | `agentic/rules/webflow-mcp.rules.yaml` |

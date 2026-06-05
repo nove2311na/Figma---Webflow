@@ -23,8 +23,8 @@ This policy defines which artifacts are schema-validated, at what severity, and 
 | `write-audit-log.jsonl` | `agentic/schemas/webflow/webflow-write-audit-log.schema.json` | `figma-to-webflow-orchestrator` (Branch A) | `.claude/skills/_shared/scripts/validate_artifacts.py` |
 | `figma-contract.json` | `.claude/skills/design-system-sync/schema/figma-design-system-contract.schema.json` | LLM via figma-dev-mode-mcp (Task 1) | `design-system-sync/scripts/validate_figma_extraction.py` |
 | `webflow-contract.json` | `.claude/skills/design-system-sync/schema/webflow-design-system-contract.schema.json` | `map_variables.py` (Task 3) | `design-system-sync/scripts/validate_figma_extraction.py` |
-| `blueprint.json` | `agentic/schemas/_shared/variable-entry.schema.json` | `figma-to-html-architect` (Task 3) | `.claude/skills/_shared/scripts/validate_artifacts.py` |
-| `subagent-task.json` | `agentic/schemas/_shared/meta.schema.json` | `figma-to-webflow-orchestrator` (Phase 2 fork) | `.claude/skills/_shared/scripts/validate_artifacts.py` |
+| `html/page.blueprint.json` | `agentic/schemas/workspace/blueprint.schema.json` | `figma-to-html-architect` (Task 3) | `.claude/skills/_shared/scripts/validate_artifacts.py` |
+| `subagent-task.json` | `agentic/schemas/workspace/subagent-task.schema.json` | `figma-to-webflow-orchestrator` (Phase 2 fork) | `.claude/skills/_shared/scripts/validate_artifacts.py` |
 | `mcp-sync-report.json` | `agentic/schemas/webflow/mcp-sync-report.schema.json` | Branch A (Webflow MCP) | `.claude/skills/_shared/scripts/validate_artifacts.py` |
 | `client-first-baseline-contract.json` | `.claude/skills/design-system-sync/schema/client-first-baseline-contract.schema.json` | `extract_client_first_baseline.py` (Task 0) | `.claude/skills/_shared/scripts/validate_artifacts.py` |
 
@@ -32,7 +32,7 @@ This policy defines which artifacts are schema-validated, at what severity, and 
 
 | Artifact | Schema | Producer | Validator |
 |---|---|---|---|
-| `qa-report.json` | `agentic/schemas/webflow/mcp-sync-report.schema.json` | `qa-gatekeeper` | `.claude/skills/_shared/scripts/validate_artifacts.py` |
+| `qa-report.json` | `agentic/schemas/workspace/qa-report.schema.json` | `qa-gatekeeper` | `.claude/skills/_shared/scripts/validate_artifacts.py` |
 | `page-structure.json` | `agentic/schemas/workspace/page-structure.schema.json` | `figma-to-html-architect` (Phase 2) | `.claude/skills/_shared/scripts/validate_artifacts.py` |
 
 ### Log tier (tracked, not gated)
@@ -40,7 +40,7 @@ This policy defines which artifacts are schema-validated, at what severity, and 
 | Artifact | Schema | Producer |
 |---|---|---|
 | `state.log` | (freeform) | orchestrator |
-| `error.log` | `agentic/schemas/_shared/ref-envelope.schema.json` | any |
+| `error-log.json` | `agentic/schemas/workspace/error-log.schema.json` | any |
 
 ## Cross-cutting rules
 

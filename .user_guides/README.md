@@ -38,11 +38,11 @@ FIGMA (design source)
   └── Components / Frames                                 │
                                                           ▼
 REPO (trung gian, git-versioned)                    TOKEN SYNC
-  ├── knowledge-base/       ← CF class catalog       (scripts/)
-  │   └── libraries/{id}/  ← per-project token library
+  ├── agentic/knowledge/    ← CF class catalog       (scripts/)
+  │   └── libraries/{id}/   ← per-project token library
   ├── workspace/            ← live project state (rawdata, blueprints)
   ├── agentic/              ← agent rules, prompts, specs, schemas
-  └── scripts/gates/        ← quality gates (CI-like checks)
+  └── .claude/skills/_shared/scripts/ ← quality gates (CI-like checks)
                                                           │
 WEBFLOW (build target)                                    │
   └── Variables panel  ◄─────────────────────────────────┘
@@ -53,10 +53,10 @@ WEBFLOW (build target)                                    │
 
 | Thư mục | Nội dung |
 |---|---|
-| `guides/` | Onboarding cho người đọc (bạn đang ở đây) |
+| `.user_guides/` | Onboarding cho người đọc (bạn đang ở đây) |
 | `agentic/knowledge/` | Kiến thức kỹ thuật nền: token sync, CF library, Webflow MCP |
 | `agentic/specs/` | Spec chi tiết: mapping rules, schemas, QA contract |
-| `.claude/skills/figma-to-webflow-orchestrator/SKILL.md` | Prompt guide cho LLM: phân tích Figma, viết HTML contract |
+| `.claude/skills/figma-to-html-architect/SKILL.md` | Prompt guide cho LLM: phân tích Figma, viết HTML contract |
 | `.claude/skills/figma-to-webflow-orchestrator/SKILL.md` | SOP, phase state machine, handoff contracts |
 | `.claude/agents/` | Định nghĩa vai trò từng AI agent |
 | `.claude/skills/` | Workflow skills: blueprint, build, QA, parallel sections |

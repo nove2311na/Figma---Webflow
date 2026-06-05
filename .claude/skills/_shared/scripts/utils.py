@@ -23,7 +23,7 @@ SPACING_SCALE = {
     "section-medium": 80,
     "section-large": 120,
 }
-CLIENT_FIRST_MAP_PATH = Path(__file__).resolve().parents[3] / "agentic" / "knowledge" / "client-first-class-map.json"
+CLIENT_FIRST_MAP_PATH = Path(__file__).resolve().parents[4] / "agentic" / "knowledge" / "client-first-class-map.json"
 
 
 @dataclass(frozen=True)
