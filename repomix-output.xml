@@ -63577,6 +63577,12 @@ if __name__ == "__main__":
     "figma-desktop": {
       "type": "http",
       "url": "http://127.0.0.1:3845/mcp"
+    },
+    "gitnexus": {
+      "command": "C:\\Users\\ADMIN\\AppData\\Roaming\\npm\\gitnexus.cmd",
+      "args": [
+        "mcp"
+      ]
     }
   }
 }
