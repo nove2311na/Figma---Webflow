@@ -20,11 +20,10 @@ The pipeline is backed by two infrastructure layers:
 
 ```bash
 # 1. Parse CSS library and generate contracts/indexes
-python .claude/skills/_shared/.claude/skills/_shared/scripts/index_css_library.py \
-  --normalize agentic/knowledge/source-css/normalize.css \
-  --webflow agentic/knowledge/source-css/webflow.css \
-  --client-first agentic/knowledge/source-css/client-first-v2-2.webflow.css \
-  --out agentic/knowledge/generated
+python .claude/skills/design-system-sync/scripts/validate_figma_extraction.py \
+  --workspace <name>
+python .claude/skills/design-system-sync/scripts/map_variables.py \
+  --workspace <name>
 
 # 2. Resolve Client-First classes (called by figma-to-html-architect skill)
 python .claude/skills/_shared/scripts/resolve_client_first.py \
@@ -58,7 +57,7 @@ To configure your local environment:
 
 ## Operating Rules
 
-- **CSS Contract is Binding**: Allowed CSS variables/classes defined by `agentic/knowledge/generated/client-first-library-contract.json` are the binding source of truth. Cross-reference with `agentic/knowledge/client-first/INDEX.yaml` for semantic context.
+- **Design-System Contract is Binding**: Allowed variables/classes defined by `workspace/<workspace-name>/design-system/webflow-design-system.json` are the binding source of truth. Cross-reference with `agentic/knowledge/client-first/INDEX.yaml` for semantic context.
 - **Strict Class Selection**: Final HTML cannot use a class unless it exists in the contract, Webflow native classes, or approved structural conventions. Proposing or inventing new classes in strict mode blocks compilation. Governed by [class-selection.rules.yaml](agentic/rules/class-selection.rules.yaml).
 - **Knowledge Lookup Before Class Selection**: Before selecting or validating Client-First classes, load `agentic/knowledge/client-first/INDEX.yaml` and pull only the 1–3 files matching the task's `applicable_skill` tag. Do not load all files.
 - **figmaId is Mandatory**: Every design token/variable entry must carry a stable `figmaId` in `VariableID:<id>:<index>` format. Never use display names alone as cross-machine references — they drift on rename. Schema: `agentic/schemas/_shared/variable-entry.schema.json`.
@@ -77,6 +76,8 @@ To configure your local environment:
 - **Mandatory Response Narration**: At the end of every response to the user, you MUST append a detailed narration explaining exactly what you did during the turn. List each step, the tool used, the specific action or command executed, and the output/result achieved in an `### Execution Log` markdown list.
 - **User personal folders are off-limits**: Never suggest deleting, moving, or modifying `.user_bugs-log/`, `.user_guides/`, or `.user_versions/`. These are user-owned notes and version history, not pipeline artifacts. Skip them during any cleanup, audit, or file filtering pass.
 - **Reference Integrity on Delete/Move**: Whenever you delete a file or modify a file path, you must check for any files referencing the old path. If the file path is modified, update the reference path in all occurrences. If the file is deleted, inspect and rewrite the referencing sections in those files, as deleting the file may impact their operation.
+- **Script Isolation and Schemas**: Any script written must be isolated in its own directory, accompanied by its input and output schemas. This ensures the LLM can find and match the exact information conforming to the input schema, preventing execution errors.
+
 
 ## Workflow Summary
 

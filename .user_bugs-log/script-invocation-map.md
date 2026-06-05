@@ -27,7 +27,7 @@ For each script under `.claude/skills/`, the following callsites were searched:
 | Script | Caller | Use case |
 |---|---|---|
 | `design-system-sync/scripts/extract_client_first_baseline.py` | `SKILL.md` Task 0 + `orchestrate.py` | Parse Finsweet CSS → baseline contract |
-| `design-system-sync/scripts/validate_figma_extraction.py` | `SKILL.md` Task 2 + `orchestrate.py` + `selector_guards.py` import | Validate figma-contract.json |
+| `design-system-sync/scripts/validate_figma_extraction.py` | `SKILL.md` Task 2 + `orchestrate.py` + `selector_guards.py` import | Validate figma-design-system.json |
 | `design-system-sync/scripts/map_variables.py` | `SKILL.md` Task 3 + `orchestrate.py` | Map Figma variables → Webflow contract |
 | `figma-to-html-architect/scripts/validate_figma_html.py` | `SKILL.md` Task 2 + `orchestrate.py` | Validate layer names |
 | `figma-to-html-architect/scripts/process_html.py` | `SKILL.md` Task 3 + `orchestrate.py` + `selector_guards.py` import | Process HTML → final-webflow.html |
@@ -44,7 +44,7 @@ For each script under `.claude/skills/`, the following callsites were searched:
 
 | Script | Caller | Use case |
 |---|---|---|
-| `index_css_library.py` | Manual CLI (one-time setup) | Parse `source-css/` → `knowledge-base/generated/` |
+| `validate_figma_extraction.py` | Manual CLI / Task 2 | Validate `figma-design-system.json` |
 | `resolve_client_first.py` | `.claude/agents/client-first-architect.md` (agent invokes) | Resolve inline styles → CF classes |
 | `validate_artifacts.py` | `CLAUDE.md` rule + `validate_artifact_contracts.py` subprocess | Schema validation block/warn/log |
 | `run_quality_gate.py` | Manual CLI | Run html-first profile |
@@ -54,7 +54,7 @@ For each script under `.claude/skills/`, the following callsites were searched:
 | `validate_css_index.py` | `run_quality_gate.py` (sub-gate) | CSS index gate |
 | `validate_artifact_contracts.py` | `run_quality_gate.py` (sub-gate) | Q2 schema wire-up |
 | `utils.py` | `resolve_client_first.py` (import) | `parse_color`, `slugify`, etc. |
-| `css_indexer/*.py` | `index_css_library.py` (import) | CSS parsing utilities |
+| `design-system-sync/scripts/contract_paths.py` | `map_variables.py` + `validate_figma_extraction.py` (import) | Canonical design-system path utilities |
 | `selector_guards.py` (at `_shared/`, not `_shared/scripts/`) | `process_html.py` + `validate_figma_extraction.py` (import) | Denylist guards |
 | `build_e2e_fixture.py` | (see D) | E2E fixture builder |
 

@@ -28,7 +28,9 @@ from jsonschema import Draft202012Validator
 from referencing import Registry, Resource
 from referencing.jsonschema import DRAFT202012
 
-REPO_ROOT = Path(__file__).resolve().parents[4]
+from repo_root import find_repo_root, resolve_repo_path
+
+REPO_ROOT = find_repo_root()
 
 # ---------------------------------------------------------------------------
 # Schema registry: $id → file path
@@ -56,8 +58,6 @@ SCHEMA_PATHS: dict[str, Path] = {
         REPO_ROOT / "agentic/schemas/library/client-first-library.schema.json",
     "https://figwebflow.local/schemas/agentic/schemas/workspace/page-structure.schema.json":
         REPO_ROOT / "agentic/schemas/workspace/page-structure.schema.json",
-    "https://figwebflow.local/schemas/.claude/skills/design-system-sync/schema/client-first-baseline-contract.schema.json":
-        REPO_ROOT / ".claude/skills/design-system-sync/schema/client-first-baseline-contract.schema.json",
     "https://figwebflow.local/schemas/agentic/schemas/workspace/blueprint.schema.json":
         REPO_ROOT / "agentic/schemas/workspace/blueprint.schema.json",
     "https://figwebflow.local/schemas/agentic/schemas/workspace/subagent-task.schema.json":
@@ -72,16 +72,12 @@ SCHEMA_PATHS: dict[str, Path] = {
 # Tier map: artifact filename (relative to workspace/) → (schema $id, tier)
 # ---------------------------------------------------------------------------
 TIER_MAP: dict[str, tuple[str, str]] = {
-    "design-system/webflow-contract.json": (
+    "design-system/webflow-design-system.json": (
         "https://figwebflow.local/schemas/webflow-design-system-contract.schema.json",
         "block",
     ),
-    "design-system/figma-contract.json": (
+    "design-system/figma-design-system.json": (
         "https://figwebflow.local/schemas/figma-design-system-contract.schema.json",
-        "block",
-    ),
-    "design-system/client-first-baseline-contract.json": (
-        "https://figwebflow.local/schemas/.claude/skills/design-system-sync/schema/client-first-baseline-contract.schema.json",
         "block",
     ),
     "design-system/validations/webflow-sync-preview.json": (
@@ -227,11 +223,15 @@ def main() -> int:
     if args.list_tiers:
         return list_tiers()
     if args.path:
-        path = Path(args.path)
-        if not path.is_absolute():
-            path = REPO_ROOT / path
+        path = resolve_repo_path(REPO_ROOT, args.path)
+        assert path is not None
         registry = load_registry()
-        schema_id = TIER_MAP.get(path.relative_to(REPO_ROOT).as_posix(), (None, None))[0] if path.relative_to(REPO_ROOT).as_posix() in TIER_MAP else None
+        try:
+            rel_path = path.relative_to(REPO_ROOT).as_posix()
+        except ValueError:
+            print(f"ERROR: path is outside repo root: {path}", file=sys.stderr)
+            return 1
+        schema_id = TIER_MAP.get(rel_path, (None, None))[0] if rel_path in TIER_MAP else None
         if schema_id is None:
             for rel, (sid, _) in TIER_MAP.items():
                 if path.match(f"**/{rel.split('/')[-1]}"):

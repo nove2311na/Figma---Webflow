@@ -1,5 +1,5 @@
 {
-  "_note": "Curated interpretation only. Generated client-first-library-contract.json is source of truth. If conflict, generated contract wins.",
+  "_note": "Curated interpretation only. Generated webflow-design-system.json is source of truth. If conflict, generated contract wins.",
   "version": "0.5.0",
   "source_notes": [
     "agentic/specs/contracts/figma-to-client-first-mapping.md",

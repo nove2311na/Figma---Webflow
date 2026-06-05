@@ -18,7 +18,7 @@ The V3 pipeline (V3.0) uses display name as the primary key. If a designer renam
 
 ## Detection
 
-In `figma-contract.json`, every variable entry must have `figmaId`:
+In `figma-design-system.json`, every variable entry must have `figmaId`:
 
 ```json
 {

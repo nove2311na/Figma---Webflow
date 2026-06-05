@@ -1,0 +1,42 @@
+{
+  "meta": {
+    "source": "figma-mcp",
+    "operation": "get_variable_defs",
+    "fileKey": "<figma-file-key>",
+    "nodeId": "<optional-node-id-or-file-scope>",
+    "normalizedAt": "<iso-8601>"
+  },
+  "variables": {
+    "Brand / Primary": {
+      "name": "Brand / Primary",
+      "figmaId": "VariableID:<real-variable-id>:<index>",
+      "type": "color",
+      "value": "#112233",
+      "resolvedValue": "#112233",
+      "unit": null,
+      "mode": "default",
+      "modes": {
+        "default": "#112233"
+      },
+      "collection": "Brand"
+    }
+  },
+  "styles": {
+    "Heading Style / H1": {
+      "name": "Heading Style / H1",
+      "figmaStyleName": "Heading Style / H1",
+      "figmaId": "StyleID:<real-style-id>",
+      "type": "text-style",
+      "properties": {
+        "font-size": {
+          "value": 64,
+          "unit": "px"
+        },
+        "font-weight": "700",
+        "line-height": "1.1em"
+      },
+      "mode": "default",
+      "category": "heading"
+    }
+  }
+}

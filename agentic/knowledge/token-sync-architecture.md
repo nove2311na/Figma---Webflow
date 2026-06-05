@@ -45,10 +45,10 @@ Each sync round appends to `write-audit-log.jsonl` — the audit trail.
 | | Figma | Repo | Webflow |
 |---|---|---|---|
 | **Key (fixed)** | `Font Weight/bold` | `figmaId` mapping | `--font-weight--bold` |
-| **Value (synced)** | 700 | `client-first-library-contract.json` | variable value |
+| **Value (synced)** | 700 | `webflow-design-system.json` | variable value |
 
 Designer changes `Font Weight/bold` from 700 → 900 in Figma
-→ `design-system-sync` skill Task 2 (validate extraction) + Task 3 (map variables) re-generates `webflow-contract.json`
+→ `design-system-sync` skill Task 2 (validate extraction) + Task 3 (map variables) re-generates `webflow-design-system.json`
 → LLM calls Webflow `variable_tool` to push value to Webflow (approval-gated, branch-first)
 → **class `text-weight-bold` does not change one character.**
 
@@ -74,7 +74,7 @@ This is a technical requirement, not a recommendation.
 
 ```
 Step 1  design-system-sync     ← TOKEN SYNC (this document)
-          │ Figma vars → repo (figma-contract.json) → Webflow vars + drift gate + untokenized gate
+          │ Figma vars → repo (figma-design-system.json) → Webflow vars + drift gate + untokenized gate
           │
 Step 2  figma-to-html-architect  ← Figma node → HTML with CF classes
           │ Uses agentic/knowledge/generated/* for class selection
@@ -92,15 +92,15 @@ Step 1 is the foundation. If the token layer is correct, Steps 2-3 are determini
 
 | Script | Owner | Role |
 |---|---|---|
-| `design-system-sync/scripts/extract_client_first_baseline.py` | design-system-sync | Task 0: Parse Webflow CSS → baseline contract |
-| `design-system-sync/scripts/validate_figma_extraction.py` | design-system-sync | Task 2: Validate figma-contract.json against baseline |
+| `design-system-sync/scripts/build_figma_design_system.py` | design-system-sync | Task 1: Build figma-design-system.json from saved Figma MCP payload + template |
+| `design-system-sync/scripts/validate_figma_extraction.py` | design-system-sync | Task 2: Validate figma-design-system.json against mapping and Webflow template |
 | `design-system-sync/scripts/map_variables.py` | design-system-sync | Task 3: Map Figma variables → Webflow contract |
 
 **Shared (cross-skill):**
 
 | Script | Role |
 |---|---|
-| `.claude/skills/_shared/.claude/skills/_shared/scripts/index_css_library.py` | One-time setup: parse `agentic/knowledge/source-css/` → `agentic/knowledge/generated/` |
+| `.claude/skills/design-system-sync/scripts/map_variables.py` | Generate `webflow-design-system.json` from `figma-design-system.json` and mapping rules |
 | `.claude/skills/_shared/scripts/validate_artifacts.py` | Q2 schema validation block/warn/log |
 | `.claude/skills/_shared/scripts/run_quality_gate.py` | Full quality gate |
 
@@ -116,12 +116,12 @@ Step 1 is the foundation. If the token layer is correct, Steps 2-3 are determini
 
 ### Operator / Developer
 1. After designer updates Figma tokens → run `validate_figma_extraction.py` + `map_variables.py`
-2. Review `webflow-contract.json` diff
+2. Review `webflow-design-system.json` diff
 3. Run `validate_artifacts.py --tier block` to ensure schema compliance
 4. Push to Webflow via `variable_tool` (approval-gated)
 
 ### LLM / Agent (build side)
-- Before writing HTML contract → read `agentic/knowledge/generated/client-first-library-contract.json` for allowed classes
+- Before writing HTML contract → read `workspace/<workspace-name>/design-system/webflow-design-system.json` for allowed classes
 - Every color must trace back to a token class — no hardcoded hex
 - Every spacing picks a token — no `px/16` computation
 - If Figma node has raw value without token → flag `untokenized` in design analysis, STOP
@@ -133,7 +133,7 @@ Step 1 is the foundation. If the token layer is correct, Steps 2-3 are determini
 | File | Content |
 |---|---|
 | `agentic/knowledge/client-first-class-map.json` | Global utility class catalog |
-| `agentic/knowledge/generated/client-first-library-contract.json` | Generated contract (CF V2.2 + class allowlist + breakpoint policy) |
+| `workspace/<workspace-name>/design-system/webflow-design-system.json` | Generated contract (design-system output + class allowlist + breakpoint policy) |
 | `agentic/schemas/_shared/variable-entry.schema.json` | Q2 schema for variable entries (requires `figmaId` + `modes`) |
 | `agentic/specs/contracts/figma-to-client-first-mapping.md` | Figma node → CF class rules (Sections A–G) |
 | `.claude/skills/_shared/scripts/validate_artifacts.py` | Q2 schema validation gate |

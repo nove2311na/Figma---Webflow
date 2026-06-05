@@ -13,20 +13,20 @@
 
 ### Scripts called (in order)
 
-#### Task 0: `extract_client_first_baseline.py`
-- **Called by:** SKILL.md Task 0
-- **When:** Step 1 of any sync run — must complete before Task 1
-- **Purpose:** Parse Webflow-exported CSS → isolate Client-First classes/variables, reject native (`.w-*`, `.wf-*`, default tags)
-- **Input:** Webflow CSS path
+#### Task 1: Figma MCP extraction + `figma-design-system.json` seed
+- **Called by:** SKILL.md Task 1
+- **When:** Step 1 of any sync run — must complete before Task 2
+- **Purpose:** Pull Figma variables/styles into the canonical design-system contract from template + MCP data
+- **Input:** Figma MCP variable/style payload
 - **Output:**
-  - `workspace/<workspace-name>/design-system/client-first-baseline-contract.json` — the contract
+  - `workspace/<workspace-name>/design-system/figma-design-system.json` — the contract
   - `workspace/<workspace-name>/design-system/validations/client-first-extraction-report.json` — report
 - **Halts if:** No Client-First classes/variables found (exit 1, error `NO_CLIENT_FIRST_BASELINE_FOUND`)
 - **Triggers:** Nothing (leaf script)
 
 #### Task 2: `validate_figma_extraction.py`
 - **Called by:** SKILL.md Task 2
-- **When:** After LLM fills `figma-contract.json` (Task 1) from Figma MCP `get_variable_defs`
+- **When:** After LLM fills `figma-design-system.json` (Task 1) from Figma MCP `get_variable_defs`
 - **Imports:** `_shared/selector_guards.py` (denylist check)
 - **Purpose:** Safety gate — verify Figma extraction maps to baseline; flag `.w-*` native references, placeholder values, missing attributes
 - **Input:** workspace name + baseline contract + figma-webflow-mapping.md
@@ -38,9 +38,9 @@
 - **Called by:** SKILL.md Task 3
 - **When:** After Task 2 passes
 - **Purpose:** Map Figma variables → Webflow (Finsweet) variables, validate against baseline
-- **Input:** `figma-contract.json` + baseline + mapping.md
+- **Input:** `figma-design-system.json` + baseline + mapping.md
 - **Output:**
-  - `workspace/<workspace-name>/design-system/webflow-contract.json`
+  - `workspace/<workspace-name>/design-system/webflow-design-system.json`
   - `workspace/<workspace-name>/design-system/validations/mapping-report.json`
 - **Halts if:** Mapping to native `.w-*` classes or non-existent baseline selectors without `projectExtension: true`
 - **Triggers:** Nothing (leaf script)
@@ -53,7 +53,7 @@
 ### Script chain summary
 
 ```
-SKILL.md Task 0 → extract_client_first_baseline.py (leaf)
+SKILL.md Task 1 → Figma MCP seed `figma-design-system.json` (leaf)
 SKILL.md Task 2 → validate_figma_extraction.py → selector_guards.py (import)
 SKILL.md Task 3 → map_variables.py (leaf)
 SKILL.md Task 4 → Webflow MCP tools (LLM in-loop, approval-gated)
@@ -90,7 +90,7 @@ SKILL.md Task 4 → Webflow MCP tools (LLM in-loop, approval-gated)
 - **Called by:** SKILL.md Task 3
 - **When:** After Task 2 passes
 - **Imports:** `_shared/selector_guards.py` (denylist)
-- **Reads:** `client-first-baseline-contract.json` + `webflow-contract.json` (do not hardcode class matching)
+- **Reads:** `figma-design-system.json` + `webflow-design-system.json` (do not hardcode class matching)
 - **Reads:** `html-semantic-mapping.json` for rule objects (not substring matching)
 - **Purpose:** Map raw HTML → final Webflow HTML
   - Map `data-name` → semantic tags
@@ -104,7 +104,7 @@ SKILL.md Task 4 → Webflow MCP tools (LLM in-loop, approval-gated)
 ```
 SKILL.md Task 1 → Figma MCP get_design_context (LLM)
 SKILL.md Task 2 → validate_figma_html.py → selector_guards.py (import) + html-semantic-mapping.json
-SKILL.md Task 3 → process_html.py → selector_guards.py (import) + baseline + webflow-contract
+SKILL.md Task 3 → process_html.py → selector_guards.py (import) + baseline + webflow-design-system.json
                     → diff preview + audit log → STOP for user approval
 ```
 
@@ -120,8 +120,8 @@ SKILL.md Task 3 → process_html.py → selector_guards.py (import) + baseline +
 
 #### Phase 1: Sequential contract init
 
-1. **Triggers Skill 1, Task 0** — `extract_client_first_baseline.py` (described in Skill 1 above)
-2. **Triggers Skill 1, Task 1** — Figma MCP `get_variable_defs` (LLM)
+1. **Triggers Skill 1, Task 1** — Figma MCP `get_variable_defs` (LLM)
+2. **Triggers Skill 1, Task 1 output** — seed `figma-design-system.json` (described in Skill 1 above)
 3. **Run safety gate:**
    ```bash
    python .claude/skills/design-system-sync/scripts/validate_figma_extraction.py --workspace <workspace-name>
@@ -133,7 +133,7 @@ SKILL.md Task 3 → process_html.py → selector_guards.py (import) + baseline +
    python .claude/skills/design-system-sync/scripts/map_variables.py --workspace <workspace-name>
    ```
    - **Called by:** Orchestrator SKILL.md Phase 1 step 4
-   - **Output:** `webflow-contract.json`
+   - **Output:** `webflow-design-system.json`
 
 #### Phase 2: Parallel processing
 
@@ -155,8 +155,8 @@ SKILL.md Task 3 → process_html.py → selector_guards.py (import) + baseline +
 
 ```
 Orchestrator Phase 1:
-  Trigger Skill 1 Task 0 → extract_client_first_baseline.py
   Trigger Skill 1 Task 1 → Figma MCP get_variable_defs (LLM)
+  Seed figma-design-system.json from template + MCP payload
   Run safety gate       → validate_figma_extraction.py (re-called by orchestrator)
   Run variable mapping  → map_variables.py (re-called by orchestrator)
 
@@ -178,12 +178,12 @@ These are NOT called by any SKILL.md. They are infrastructure invoked manually o
 
 | Script | Called by | Use case |
 |---|---|---|
-| `_shared/scripts/index_css_library.py` | Manual CLI | One-time setup: parse `source-css/` → `knowledge-base/generated/` |
+| `design-system-sync/scripts/validate_figma_extraction.py` | Manual CLI | Validate `figma-design-system.json` |
 | `_shared/scripts/resolve_client_first.py` | Agent `client-first-architect` | Figma inline styles → CF classes (used when agent runs the architect skill manually, not via orchestrator) |
 | `_shared/scripts/run_quality_gate.py` | Manual CLI | Full html-first quality gate |
 | `_shared/scripts/validate_artifacts.py` | `validate_artifact_contracts.py` subprocess + CLAUDE.md rule | Q2 schema validation block/warn/log |
 | `_shared/scripts/utils.py` | `resolve_client_first.py` import | `parse_color`, `slugify`, `to_rem`, `color_distance` |
-| `_shared/scripts/css_indexer/*.py` | `index_css_library.py` import | CSS parsing |
+| `design-system-sync/scripts/contract_paths.py` | `map_variables.py` + `validate_figma_extraction.py` import | Canonical path resolution |
 | `_shared/selector_guards.py` | `process_html.py` + `validate_figma_extraction.py` imports | Native class denylist |
 
 ---

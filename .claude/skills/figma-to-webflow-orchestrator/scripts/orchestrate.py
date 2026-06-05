@@ -3,19 +3,17 @@
 
 This script automates the deterministic steps of the Figma→Webflow migration
 flow that can run without an LLM in the loop. Steps that require Figma MCP or
-Webflow MCP (Tasks 1 and 4 of design-system-sync, plus the Figma HTML extract
-of the architect skill) are intentionally left to the LLM — see the parent
-SKILL.md for the in-loop protocol.
+Webflow MCP (Task 1 and Task 4 of design-system-sync, plus the Figma HTML
+extract of the architect skill) are intentionally left to the LLM — see the
+parent SKILL.md for the in-loop protocol.
 
 Sequence (matches SKILL.md Phase 1 → Phase 2 Branch B → Phase 3):
 
   Phase 1 (sequential):
-    0. design-system-sync/scripts/extract_client_first_baseline.py
-       (Task 0 — Client-First CSS baseline; hard prerequisite for both branches)
-    1. design-system-sync/scripts/validate_figma_extraction.py
-       (Task 2 — runs against the LLM-produced figma-contract.json)
-    2. design-system-sync/scripts/map_variables.py
-       (Task 3 — produces webflow-contract.json)
+    0. design-system-sync/scripts/validate_figma_extraction.py
+       (Task 2 — runs against the Figma-produced figma-design-system.json)
+    1. design-system-sync/scripts/map_variables.py
+       (Task 3 — produces webflow-design-system.json)
 
   Phase 2 (parallel):
     Branch A: Webflow MCP sync (LLM in-loop, 🛑 APPROVAL GATE before any write)
@@ -45,15 +43,15 @@ import sys
 from pathlib import Path
 
 SKILLS_DIR = Path(__file__).resolve().parent.parent.parent
+if str(SKILLS_DIR) not in sys.path:
+    sys.path.insert(0, str(SKILLS_DIR))
+from _shared.scripts.repo_root import find_repo_root  # noqa: E402
+
+REPO_ROOT = find_repo_root()
 SYNC_DIR = SKILLS_DIR / "design-system-sync" / "scripts"
 ARCH_DIR = SKILLS_DIR / "figma-to-html-architect" / "scripts"
 
 PHASE_1_STEPS = [
-    ("Task 0  extract_client_first_baseline", SYNC_DIR / "extract_client_first_baseline.py",
-     ["--input-css", "agentic/knowledge/source-css/client-first-v2-2.webflow.css",
-      "--output-contract", "workspace/{ws}/design-system/client-first-baseline-contract.json",
-      "--report", "workspace/{ws}/design-system/validations/client-first-extraction-report.json",
-      "--strict"]),
     ("Task 2  validate_figma_extraction", SYNC_DIR / "validate_figma_extraction.py",
      ["--workspace", "{ws}"]),
     ("Task 3  map_variables", SYNC_DIR / "map_variables.py",
@@ -65,7 +63,7 @@ PHASE_2_BRANCH_B_STEPS = [
      ["--workspace", "{ws}", "--node-id", "{node}", "--mode", "warn"]),
     ("Task 3  process_html", ARCH_DIR / "process_html.py",
      ["--workspace", "{ws}", "--node-id", "{node}",
-      "--baseline", "workspace/{ws}/design-system/client-first-baseline-contract.json"]),
+      "--webflow-design-system", str(REPO_ROOT / "workspace" / "{ws}" / "design-system" / "webflow-design-system.json")]),
 ]
 
 
@@ -126,7 +124,7 @@ def main() -> int:
                         help="Directory to run scripts from (default: current dir).")
     args = parser.parse_args()
 
-    cwd = Path(args.cwd).resolve()
+    cwd = REPO_ROOT if args.cwd == "." else Path(args.cwd).resolve()
 
     for script in [s for _, s, _ in PHASE_1_STEPS + PHASE_2_BRANCH_B_STEPS]:
         if not script.exists():

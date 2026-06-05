@@ -25,8 +25,8 @@ Two compilation steps:
 
 ```
 Figma MCP
-  → index_css_library.py (parse agentic/knowledge/source-css/ → agentic/knowledge/generated/)
-  → design-system-sync skill (extract + validate + map variables to Webflow)
+  → design-system-sync (figma-design-system.json → webflow-design-system.json)
+  → validate_artifacts.py --tier block
   → .claude/skills/_shared/scripts/validate_artifacts.py --tier block  (block-tier gate)
   → figma-to-html-architect skill (Figma node → semantic HTML with CF classes)
   → User approval
@@ -45,12 +45,11 @@ The pipeline is driven by 3 Claude Code skills under `.claude/skills/`:
 ## Common Commands
 
 ```bash
-# 1. Parse CSS library and generate contracts/indexes
-python .claude/skills/_shared/.claude/skills/_shared/scripts/index_css_library.py \
-  --normalize agentic/knowledge/source-css/normalize.css \
-  --webflow agentic/knowledge/source-css/webflow.css \
-  --client-first agentic/knowledge/source-css/client-first-v2-2.webflow.css \
-  --out agentic/knowledge/generated
+# 1. Build the design-system contracts
+python .claude/skills/design-system-sync/scripts/validate_figma_extraction.py \
+  --workspace <name>
+python .claude/skills/design-system-sync/scripts/map_variables.py \
+  --workspace <name>
 
 # 2. Resolve Client-First classes (called by figma-to-html-architect skill)
 python .claude/skills/_shared/scripts/resolve_client_first.py \
@@ -84,7 +83,7 @@ To configure your local environment:
 
 ## Operating Rules
 
-- **CSS Contract is Binding** — `agentic/knowledge/generated/client-first-library-contract.json` is the source of truth. Cross-reference `agentic/knowledge/client-first/INDEX.yaml` for semantic context.
+- **Design-System Contract is Binding** — `workspace/<workspace-name>/design-system/webflow-design-system.json` is the source of truth. Cross-reference `agentic/knowledge/client-first/INDEX.yaml` for semantic context.
 - **Knowledge Lookup Before Class Selection** — Load `INDEX.yaml`, filter by `applicable_skill`, pull 1–3 files. Never full-dump.
 - **figmaId is Mandatory** — Every variable entry must carry `figmaId` in `VariableID:<id>:<index>` format. Display names drift; figmaIds don't.
 - **Schema Validation Before Webflow Write** — `validate_artifacts.py --tier block` exit 0 is required before any Webflow mutation. Refer to [Webflow Schemas](agentic/schemas/webflow/schema_index.json). Check against [concurrency-policy.yaml](agentic/rules/concurrency-policy.yaml), [retry-policy.yaml](agentic/rules/retry-policy.yaml), and [webflow-mcp.rules.yaml](agentic/rules/webflow-mcp.rules.yaml).
@@ -107,8 +106,8 @@ FigWebflow/
 │   ├── knowledge/
 │   │   ├── client-first/              # Q1: distilled Client-First docs + INDEX.yaml
 │   │   ├── client-first-class-map.json # Structured CF class library
-│   │   ├── generated/                 # Output of index_css_library.py
-│   │   ├── source-css/                # Input: Finsweet + Webflow + normalize CSS
+│   │   ├── generated/                 # Output of design-system sync and legacy client-first indexing
+│   │   ├── source-css/                # Legacy input for old client-first indexing
 │   │   └── token-sync-architecture.md # Figma→Repo→Webflow ledger model
 │   ├── schemas/                       # Q2: canonical JSON Schema 2020-12
 │   ├── specs/                         # Pipeline + system specs

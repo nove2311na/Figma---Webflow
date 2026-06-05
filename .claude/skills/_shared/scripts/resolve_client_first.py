@@ -10,9 +10,11 @@ from datetime import datetime, timezone
 from pathlib import Path
 from typing import Any
 
-# Ensure project root is in path
-sys.path.insert(0, str(Path(__file__).resolve().parent))
+from repo_root import find_repo_root, resolve_repo_path
 from utils import parse_color, color_distance, slugify, to_rem
+
+
+REPO_ROOT = find_repo_root()
 
 def load_json(path: Path) -> Any:
     if not path.exists():
@@ -255,13 +257,16 @@ def main():
     parser.add_argument("--reports-dir", default="workspace/reports")
     args = parser.parse_args()
     
-    input_path = Path(args.input)
-    output_path = Path(args.output)
-    tag_rules_path = Path(args.tag_rules)
-    class_rules_path = Path(args.class_rules)
-    contract_path = Path(args.contract)
-    var_index_path = Path(args.var_index)
-    reports_dir = Path(args.reports_dir)
+    input_path = resolve_repo_path(REPO_ROOT, args.input)
+    output_path = resolve_repo_path(REPO_ROOT, args.output)
+    tag_rules_path = resolve_repo_path(REPO_ROOT, args.tag_rules)
+    class_rules_path = resolve_repo_path(REPO_ROOT, args.class_rules)
+    contract_path = resolve_repo_path(REPO_ROOT, args.contract)
+    var_index_path = resolve_repo_path(REPO_ROOT, args.var_index)
+    reports_dir = resolve_repo_path(REPO_ROOT, args.reports_dir)
+    assert input_path is not None and output_path is not None and tag_rules_path is not None
+    assert class_rules_path is not None and contract_path is not None and var_index_path is not None
+    assert reports_dir is not None
     
     raw_blueprint = load_json(input_path)
     if not raw_blueprint:

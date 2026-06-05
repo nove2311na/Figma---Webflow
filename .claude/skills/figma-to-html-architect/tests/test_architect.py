@@ -14,16 +14,16 @@ class TestHTMLArchitect(unittest.TestCase):
     def setUp(self):
         # Create fresh test workspace
         WORKSPACE_DIR.mkdir(parents=True, exist_ok=True)
-        self.comp_dir = WORKSPACE_DIR / "components" / "test-node"
-        self.comp_dir.mkdir(parents=True, exist_ok=True)
-        self.raw_html_path = self.comp_dir / "raw-figma.html"
-        self.val_dir = self.comp_dir / "validations"
+        self.node_dir = WORKSPACE_DIR / "html-nodes" / "test-node"
+        self.node_dir.mkdir(parents=True, exist_ok=True)
+        self.raw_html_path = self.node_dir / "raw-figma.html"
+        self.val_dir = self.node_dir / "validations"
         self.val_dir.mkdir(parents=True, exist_ok=True)
         
         # We need a webflow contract for process_html to match classes
         self.ds_dir = WORKSPACE_DIR / "design-system"
         self.ds_dir.mkdir(parents=True, exist_ok=True)
-        self.wf_contract_path = self.ds_dir / "webflow-contract.json"
+        self.wf_contract_path = self.ds_dir / "webflow-design-system.json"
         
         # Populate dummy webflow contract variables & styles for matching
         wf_contract = {
@@ -127,7 +127,7 @@ class TestHTMLArchitect(unittest.TestCase):
 
         self.assertEqual(result.returncode, 0, f"Stdout: {result.stdout}\nStderr: {result.stderr}")
         
-        final_html_path = self.comp_dir / "final-webflow.html"
+        final_html_path = self.node_dir / "final-webflow.html"
         self.assertTrue(final_html_path.exists())
         
         final_html = final_html_path.read_text(encoding="utf-8")
@@ -149,7 +149,7 @@ class TestHTMLArchitect(unittest.TestCase):
 
         self.assertEqual(result.returncode, 0)
         
-        final_html = (self.comp_dir / "final-webflow.html").read_text(encoding="utf-8")
+        final_html = (self.node_dir / "final-webflow.html").read_text(encoding="utf-8")
         self.assertIn('<img data-name="image" src="logo.png" alt="">', final_html)
         self.assertNotIn("</img>", final_html)
 
@@ -172,9 +172,9 @@ class TestHTMLArchitect(unittest.TestCase):
         self.assertIn("implies native Webflow widget behavior", report["criticalIssues"][0]["reason"])
 
     def test_processing_no_native_auto_injection(self):
-        # Prepare baseline with excluded w-button and h1 tag selectors
-        baseline_data = {
-            "meta": {"schemaVersion": "1.0.0", "source": "test", "baseline": "test", "scope": "client-first-only", "generatedAt": "2026-06-04T00:00:00Z"},
+        # Prepare Webflow design-system file with excluded w-button and h1 tag selectors
+        design_system_data = {
+            "meta": {"schemaVersion": "1.0.0", "source": "test", "scope": "client-first-only", "generatedAt": "2026-06-04T00:00:00Z"},
             "variables": {},
             "classes": {
                 "w-button": {
@@ -196,8 +196,8 @@ class TestHTMLArchitect(unittest.TestCase):
                 "unsupportedSelectors": []
             }
         }
-        baseline_file = self.ds_dir / "test-baseline.json"
-        baseline_file.write_text(json.dumps(baseline_data), encoding="utf-8")
+        design_system_file = self.ds_dir / "test-webflow-design-system.json"
+        design_system_file.write_text(json.dumps(design_system_data), encoding="utf-8")
 
         # Also add them to the Webflow contract to simulate them being in the stylesheet
         wf_contract = {
@@ -227,12 +227,12 @@ class TestHTMLArchitect(unittest.TestCase):
             "python", str(SCRIPTS_DIR / "process_html.py"),
             "--workspace", "test-arch-workspace",
             "--node-id", "test-node",
-            "--baseline", str(baseline_file)
+            "--webflow-design-system", str(design_system_file)
         ], capture_output=True, text=True)
 
         self.assertEqual(result.returncode, 0, f"Stdout: {result.stdout}\nStderr: {result.stderr}")
         
-        final_html = (self.comp_dir / "final-webflow.html").read_text(encoding="utf-8")
+        final_html = (self.node_dir / "final-webflow.html").read_text(encoding="utf-8")
         # Should NOT automatically match w-button class or h1 class since they are native/excluded
         self.assertNotIn("w-button", final_html)
         self.assertNotIn("h1", final_html)

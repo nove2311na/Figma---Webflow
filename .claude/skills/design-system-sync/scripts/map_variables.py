@@ -6,6 +6,19 @@ import re
 from pathlib import Path
 from datetime import datetime
 
+_SHARED_DIR = Path(__file__).resolve().parents[2] / "_shared" / "scripts"
+if str(_SHARED_DIR) not in sys.path:
+    sys.path.insert(0, str(_SHARED_DIR))
+from repo_root import find_repo_root, resolve_repo_path
+from contract_paths import (
+    figma_contract_paths,
+    webflow_contract_paths,
+    webflow_template_path,
+    workspace_design_system_dir,
+)
+
+REPO_ROOT = find_repo_root()
+
 def load_json(path: Path) -> dict:
     if not path.exists():
         print(f"Error: File not found at {path}")
@@ -75,31 +88,35 @@ def parse_markdown_mapping(path: Path) -> tuple[dict, dict, list]:
     return var_map, style_map, errors
 
 def main():
-    parser = argparse.ArgumentParser(description="Map Figma variables/styles to Webflow baseline")
+    parser = argparse.ArgumentParser(description="Map Figma variables/styles to the Webflow design-system template")
     parser.add_argument("--workspace", required=True)
-    parser.add_argument("--input", help="Path to figma-contract.json")
-    parser.add_argument("--output", help="Path to write webflow-contract.json")
+    parser.add_argument("--input", help="Path to figma-design-system.json")
+    parser.add_argument("--output", help="Path to write webflow-design-system.json")
     parser.add_argument("--mapping", help="Path to figma-webflow-mapping.md")
     parser.add_argument("--report", help="Path to write mapping-report.json")
-    parser.add_argument("--baseline", help="Path to client-first-baseline-contract.json")
+    parser.add_argument("--webflow-template", help="Path to webflow-design-system-contract.json")
     parser.add_argument("--strict", action="store_true", help="Fail on any errors/warnings")
     args = parser.parse_args()
 
-    workspace_root = Path("workspace") / args.workspace / "design-system"
+    workspace_root = workspace_design_system_dir(REPO_ROOT, args.workspace)
 
-    in_path = Path(args.input) if args.input else workspace_root / "figma-contract.json"
-    out_path = Path(args.output) if args.output else workspace_root / "webflow-contract.json"
-    mapping_path = Path(args.mapping) if args.mapping else Path(".claude/skills/design-system-sync/references/figma-webflow-mapping.md")
-    report_json_path = Path(args.report) if args.report else workspace_root / "validations" / "mapping-report.json"
+    canonical_figma_path, _ = figma_contract_paths(REPO_ROOT, args.workspace)
+    canonical_webflow_path, _ = webflow_contract_paths(REPO_ROOT, args.workspace)
+
+    in_path = resolve_repo_path(REPO_ROOT, args.input) if args.input else canonical_figma_path
+    out_path = resolve_repo_path(REPO_ROOT, args.output) if args.output else canonical_webflow_path
+    mapping_path = resolve_repo_path(REPO_ROOT, args.mapping) if args.mapping else REPO_ROOT / ".claude/skills/design-system-sync/references/figma-webflow-mapping.md"
+    report_json_path = resolve_repo_path(REPO_ROOT, args.report) if args.report else workspace_root / "validations" / "mapping-report.json"
     report_md_path = report_json_path.with_suffix(".md")
-    baseline_path = Path(args.baseline) if args.baseline else workspace_root / "client-first-baseline-contract.json"
+    template_path = resolve_repo_path(REPO_ROOT, args.webflow_template) if args.webflow_template else webflow_template_path(REPO_ROOT)
+    assert in_path is not None and out_path is not None and mapping_path is not None and report_json_path is not None and template_path is not None
 
-    # 1. Load baseline & Figma input
-    if not baseline_path.exists():
-        print(f"Error: [CLIENT_FIRST_BASELINE_NOT_FOUND] Expected baseline at {baseline_path}.")
-        print("Run extract_client_first_baseline.py first, or provide --baseline explicitly.")
+    # 1. Load Webflow template & Figma input
+    if not template_path.exists():
+        print(f"Error: [WEBFLOW_TEMPLATE_NOT_FOUND] Expected Webflow design-system template at {template_path}.")
+        print("Provide --webflow-template or restore .claude/skills/design-system-sync/template/webflow-design-system-contract.json.")
         sys.exit(1)
-    baseline = load_json(baseline_path)
+    template = load_json(template_path)
     figma_data = load_json(in_path)
 
     # 2. Parse Markdown mapping table
@@ -117,7 +134,7 @@ def main():
             "unmappedStyles": 0,
             "typeMismatches": 0,
             "missingValues": 0,
-            "baselineViolations": 0,
+            "templateViolations": 0,
             "mappingErrors": len(mapping_errors)
         },
         "mapped": [],
@@ -130,7 +147,7 @@ def main():
         "meta": {
             "schemaVersion": "1.0.0",
             "source": "mapped-from-figma",
-            "baseline": "finsweet-client-first-2.2",
+            "webflowTemplate": str(template_path),
             "generatedAt": datetime.utcnow().isoformat() + "Z"
         },
         "variables": {},
@@ -138,11 +155,11 @@ def main():
     }
 
     # 5. Map Variables
-    baseline_vars = baseline.get("variables", {})
+    template_vars = template.get("variables", {})
     figma_vars = figma_data.get("variables", {})
-    baseline_excluded = baseline.get("excluded", {})
-    webflow_native = set(baseline_excluded.get("webflowNativeSelectors", []))
-    native_elements = set(baseline_excluded.get("nativeElementSelectors", []))
+    template_excluded = template.get("excluded", {})
+    webflow_native = set(template_excluded.get("webflowNativeSelectors", []))
+    native_elements = set(template_excluded.get("nativeElementSelectors", []))
 
     def is_native_wf(name):
         clean = name.strip()
@@ -166,31 +183,31 @@ def main():
         
         w_var = var_map[f_var]
         
-        # Check baseline native violations
+        # Check Webflow template native violations
         if is_native_wf(w_var) or w_var.startswith("--w-") or w_var.startswith("--wf-"):
-            report["summary"]["baselineViolations"] += 1
-            report["errors"].append(f"Baseline Violation: Figma variable '{f_var}' maps to Webflow native variable '{w_var}'.")
+            report["summary"]["templateViolations"] += 1
+            report["errors"].append(f"Template Violation: Figma variable '{f_var}' maps to Webflow native variable '{w_var}'.")
             continue
         if is_html_tag(w_var):
-            report["summary"]["baselineViolations"] += 1
-            report["errors"].append(f"Baseline Violation: Figma variable '{f_var}' maps to HTML native tag variable '{w_var}'.")
+            report["summary"]["templateViolations"] += 1
+            report["errors"].append(f"Template Violation: Figma variable '{f_var}' maps to HTML native tag variable '{w_var}'.")
             continue
 
-        # Check baseline existence
+        # Check Webflow template existence
         is_extension = f_meta.get("projectExtension", False)
-        if w_var not in baseline_vars:
+        if w_var not in template_vars:
             if is_extension:
-                report["warnings"].append(f"Figma Variable '{f_var}' maps to Webflow Variable '{w_var}' which is not in the baseline (permitted as projectExtension).")
+                report["warnings"].append(f"Figma Variable '{f_var}' maps to Webflow Variable '{w_var}' which is not in the Webflow template (permitted as projectExtension).")
                 b_meta = {
                     "type": f_meta.get("type"),
                     "updatePolicy": "update_value_only"
                 }
             else:
-                report["summary"]["baselineViolations"] += 1
-                report["errors"].append(f"Baseline Violation: Webflow Variable '{w_var}' is mapped but does not exist in Webflow baseline template (missing projectExtension: true).")
+                report["summary"]["templateViolations"] += 1
+                report["errors"].append(f"Template Violation: Webflow Variable '{w_var}' is mapped but does not exist in Webflow design-system template (missing projectExtension: true).")
                 continue
         else:
-            b_meta = baseline_vars[w_var]
+            b_meta = template_vars[w_var]
         
         # Check type mismatch
         f_type = f_meta.get("type")
@@ -228,7 +245,7 @@ def main():
         })
 
     # 6. Map Styles/Classes
-    baseline_styles = baseline.get("styles", baseline.get("classes", {}))
+    template_styles = template.get("styles", template.get("classes", {}))
     figma_styles = figma_data.get("styles", {})
 
     for f_style, f_meta in figma_styles.items():
@@ -239,23 +256,23 @@ def main():
         
         w_class = style_map[f_style]
         
-        # Check baseline native violations
+        # Check Webflow template native violations
         if is_native_wf(w_class):
-            report["summary"]["baselineViolations"] += 1
-            report["errors"].append(f"Baseline Violation: Figma style '{f_style}' maps to Webflow native selector '{w_class}'.")
+            report["summary"]["templateViolations"] += 1
+            report["errors"].append(f"Template Violation: Figma style '{f_style}' maps to Webflow native selector '{w_class}'.")
             continue
         if is_html_tag(w_class):
-            report["summary"]["baselineViolations"] += 1
-            report["errors"].append(f"Baseline Violation: Figma style '{f_style}' maps to HTML native tag selector '{w_class}'.")
+            report["summary"]["templateViolations"] += 1
+            report["errors"].append(f"Template Violation: Figma style '{f_style}' maps to HTML native tag selector '{w_class}'.")
             continue
 
-        # Check baseline existence
+        # Check Webflow template existence
         is_extension = f_meta.get("projectExtension", False)
-        baseline_keys = set(baseline_styles.keys())
+        template_keys = set(template_styles.keys())
         clean_w_class = w_class[1:] if w_class.startswith(".") else w_class
         
         found_key = None
-        for bk in baseline_keys:
+        for bk in template_keys:
             clean_bk = bk[1:] if bk.startswith(".") else bk
             if clean_bk == clean_w_class:
                 found_key = bk
@@ -263,7 +280,7 @@ def main():
                 
         if not found_key:
             if is_extension:
-                report["warnings"].append(f"Figma Style '{f_style}' maps to Webflow Class '{w_class}' which is not in the baseline (permitted as projectExtension).")
+                report["warnings"].append(f"Figma Style '{f_style}' maps to Webflow Class '{w_class}' which is not in the Webflow template (permitted as projectExtension).")
                 b_style = {
                     "properties": {},
                     "breakpoints": {
@@ -275,11 +292,11 @@ def main():
                     "matchPolicy": {}
                 }
             else:
-                report["summary"]["baselineViolations"] += 1
-                report["errors"].append(f"Baseline Violation: Webflow Class '{w_class}' is mapped but does not exist in Webflow baseline template (missing projectExtension: true).")
+                report["summary"]["templateViolations"] += 1
+                report["errors"].append(f"Template Violation: Webflow Class '{w_class}' is mapped but does not exist in Webflow design-system template (missing projectExtension: true).")
                 continue
         else:
-            b_style = baseline_styles[found_key]
+            b_style = template_styles[found_key]
         
         # Process properties - resolve Figma values to strings
         f_props = f_meta.get("properties", {})
@@ -321,11 +338,11 @@ def main():
         report["summary"]["mappedStyles"] += 1
 
     # 7. Check for unmapped required items (warnings/errors depending on strict)
-    # Check if there are variables/styles in the baseline template that are NOT mapped
-    unmapped_baseline_vars = set(baseline_vars.keys()) - set(var_map.values())
-    if unmapped_baseline_vars:
-        for uv in sorted(unmapped_baseline_vars):
-            msg = f"Webflow baseline variable '{uv}' is not covered by any Figma mapping."
+    # Check if there are variables/styles in the Webflow template that are NOT mapped
+    unmapped_template_vars = set(template_vars.keys()) - set(var_map.values())
+    if unmapped_template_vars:
+        for uv in sorted(unmapped_template_vars):
+            msg = f"Webflow template variable '{uv}' is not covered by any Figma mapping."
             if args.strict:
                 report["errors"].append(msg)
             else:
@@ -346,7 +363,7 @@ def main():
     # Save Webflow Contract if passed or non-strict
     if report["status"] == "passed" or not args.strict:
         with open(out_path, "w", encoding="utf-8") as f:
-            json.dump(webflow_contract, f, indent=2)
+            json.dump(webflow_contract, f, indent=2, ensure_ascii=False)
             
     # Save Report JSON
     with open(report_json_path, "w", encoding="utf-8") as f:

@@ -10,7 +10,17 @@ from html.parser import HTMLParser
 _SKILLS_DIR = Path(__file__).resolve().parent.parent.parent
 if str(_SKILLS_DIR) not in sys.path:
     sys.path.insert(0, str(_SKILLS_DIR))
+_DS_SYNC_SCRIPTS_DIR = _SKILLS_DIR / "design-system-sync" / "scripts"
+if str(_DS_SYNC_SCRIPTS_DIR) not in sys.path:
+    sys.path.insert(0, str(_DS_SYNC_SCRIPTS_DIR))
+from _shared.scripts.repo_root import find_repo_root, resolve_repo_path  # noqa: E402
 from _shared.selector_guards import is_native_selector, is_html_tag_selector  # noqa: E402
+from contract_paths import (
+    webflow_contract_paths,
+    workspace_design_system_dir,
+)  # noqa: E402
+
+REPO_ROOT = find_repo_root()
 
 PIXELS_PER_REM = 16
 _ALLOWED_UNITS = ("PIXELS", "PX", "REM", "PERCENT", "%")
@@ -105,7 +115,7 @@ def values_match(html_val, contract_val, variables):
     return False
 
 class FigmaHTMLRewriter(HTMLParser):
-    def __init__(self, semantic_rules, webflow_contract, baseline_contract=None):
+    def __init__(self, semantic_rules, webflow_contract, design_system_contract=None):
         super().__init__()
         self.rules = semantic_rules.get("rules", {})
         self.allowed_generic = semantic_rules.get("allowedGenericKeywords", [])
@@ -113,12 +123,12 @@ class FigmaHTMLRewriter(HTMLParser):
         
         self.variables = webflow_contract.get("variables", {})
         
-        # Load baseline classes if available
+        # Load approved classes/exclusions from the Webflow design system if available.
         self.classes = {}
-        baseline_excluded = {}
-        if baseline_contract:
-            baseline_excluded = baseline_contract.get("excluded", {})
-            for cname, c_meta in baseline_contract.get("classes", {}).items():
+        design_system_excluded = {}
+        if design_system_contract:
+            design_system_excluded = design_system_contract.get("excluded", {})
+            for cname, c_meta in design_system_contract.get("classes", {}).items():
                 clean_name = cname[1:] if cname.startswith(".") else cname
                 # Ensure we have a default matchPolicy if not provided
                 if "matchPolicy" not in c_meta:
@@ -135,8 +145,8 @@ class FigmaHTMLRewriter(HTMLParser):
             clean_name = cname[1:] if cname.startswith(".") else cname
             self.classes[clean_name] = c_meta
 
-        self.webflow_native = set(baseline_excluded.get("webflowNativeSelectors", []))
-        self.native_elements = set(baseline_excluded.get("nativeElementSelectors", []))
+        self.webflow_native = set(design_system_excluded.get("webflowNativeSelectors", []))
+        self.native_elements = set(design_system_excluded.get("nativeElementSelectors", []))
         
         self.result = []
         self.tag_stack = []
@@ -367,19 +377,21 @@ def main():
     parser = argparse.ArgumentParser()
     parser.add_argument("--workspace", required=True)
     parser.add_argument("--node-id", required=True)
-    parser.add_argument("--baseline", help="Path to client-first-baseline-contract.json")
+    parser.add_argument("--webflow-design-system", help="Path to webflow-design-system.json")
     args = parser.parse_args()
 
     # Paths
-    raw_html_path = Path(f"workspace/{args.workspace}/components/{args.node_id}/raw-figma.html")
-    out_html_path = Path(f"workspace/{args.workspace}/components/{args.node_id}/final-webflow.html")
-    val_dir = Path(f"workspace/{args.workspace}/components/{args.node_id}/validations")
+    workspace_root = REPO_ROOT / "workspace" / args.workspace
+    raw_html_path = workspace_root / "html-nodes" / args.node_id / "raw-figma.html"
+    out_html_path = workspace_root / "html-nodes" / args.node_id / "final-webflow.html"
+    val_dir = workspace_root / "html-nodes" / args.node_id / "validations"
     val_dir.mkdir(parents=True, exist_ok=True)
     report_json_path = val_dir / "html_processing_report.json"
 
-    mapping_path = Path(".claude/skills/figma-to-html-architect/references/html-semantic-mapping.json")
-    css_contract_path = Path(f"workspace/{args.workspace}/design-system/webflow-contract.json")
-    baseline_path = Path(args.baseline) if args.baseline else Path(f"workspace/{args.workspace}/design-system/client-first-baseline-contract.json")
+    mapping_path = resolve_repo_path(REPO_ROOT, ".claude/skills/figma-to-html-architect/references/html-semantic-mapping.json")
+    css_contract_path, _ = webflow_contract_paths(REPO_ROOT, args.workspace)
+    design_system_path = resolve_repo_path(REPO_ROOT, args.webflow_design_system) if args.webflow_design_system else workspace_design_system_dir(REPO_ROOT, args.workspace) / "webflow-design-system.json"
+    assert mapping_path is not None and design_system_path is not None
 
     if not raw_html_path.exists():
         print(f"Error: Raw HTML not found at {raw_html_path}")
@@ -403,17 +415,17 @@ def main():
         print(f"Warning: Webflow contract not found or invalid ({e}). Proceeding without CSS mapping.")
         webflow_contract = {}
 
-    # Load baseline contract
-    baseline_contract = None
-    if baseline_path.exists():
+    # Load the same Webflow design system as the approved style/class source.
+    design_system_contract = None
+    if design_system_path.exists():
         try:
-            with open(baseline_path, "r", encoding="utf-8") as f:
-                baseline_contract = json.load(f)
+            with open(design_system_path, "r", encoding="utf-8") as f:
+                design_system_contract = json.load(f)
         except Exception as e:
-            print(f"Warning: Baseline contract at {baseline_path} could not be loaded ({e}).")
+            print(f"Warning: Webflow design system at {design_system_path} could not be loaded ({e}).")
 
     # Run Parser
-    rewriter = FigmaHTMLRewriter(semantic_rules, webflow_contract, baseline_contract)
+    rewriter = FigmaHTMLRewriter(semantic_rules, webflow_contract, design_system_contract)
     rewriter.feed(html_content)
     
     final_html = "".join(rewriter.result)

@@ -1,0 +1,94 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://mas-figma-webflow.local/schemas/design-system-sync/figma-mcp-variable-defs.schema.json",
+  "title": "Normalized Figma MCP Variable Definitions",
+  "description": "Normalized input saved from Figma MCP get_variable_defs before building figma-design-system.json. The agent may normalize the MCP response into this shape, but must not invent missing variables, styles, ids, or values.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["variables", "styles"],
+  "properties": {
+    "meta": {
+      "type": "object",
+      "additionalProperties": true,
+      "properties": {
+        "source": { "const": "figma-mcp" },
+        "operation": { "const": "get_variable_defs" },
+        "fileKey": { "type": "string", "minLength": 1 },
+        "nodeId": { "type": "string", "minLength": 1 },
+        "normalizedAt": { "type": "string", "minLength": 1 },
+        "notes": { "type": "string" }
+      }
+    },
+    "variables": {
+      "type": "object",
+      "minProperties": 1,
+      "additionalProperties": { "$ref": "#/$defs/variable" }
+    },
+    "styles": {
+      "type": "object",
+      "minProperties": 1,
+      "additionalProperties": { "$ref": "#/$defs/style" }
+    }
+  },
+  "$defs": {
+    "figmaId": {
+      "type": "string",
+      "minLength": 1,
+      "pattern": "^(VariableID|StyleID|S):.+"
+    },
+    "modeMap": {
+      "type": "object",
+      "minProperties": 1,
+      "additionalProperties": true
+    },
+    "variable": {
+      "type": "object",
+      "additionalProperties": true,
+      "required": ["name", "figmaId"],
+      "anyOf": [
+        { "required": ["value"] },
+        { "required": ["resolvedValue"] },
+        { "required": ["modes"] }
+      ],
+      "properties": {
+        "name": { "type": "string", "minLength": 1 },
+        "displayName": { "type": "string", "minLength": 1 },
+        "figmaId": { "$ref": "#/$defs/figmaId" },
+        "type": { "type": "string", "minLength": 1 },
+        "value": true,
+        "resolvedValue": true,
+        "unit": { "type": ["string", "null"] },
+        "mode": { "type": ["string", "null"] },
+        "modes": { "$ref": "#/$defs/modeMap" },
+        "collection": { "type": ["string", "null"] },
+        "aliasOf": { "type": ["string", "null"] },
+        "description": { "type": ["string", "null"] }
+      }
+    },
+    "style": {
+      "type": "object",
+      "additionalProperties": true,
+      "required": ["name", "figmaId"],
+      "anyOf": [
+        { "required": ["properties"] },
+        { "required": ["style"] },
+        { "required": ["typeStyle"] },
+        { "required": ["textStyle"] }
+      ],
+      "properties": {
+        "name": { "type": "string", "minLength": 1 },
+        "displayName": { "type": "string", "minLength": 1 },
+        "figmaStyleName": { "type": "string", "minLength": 1 },
+        "figmaId": { "$ref": "#/$defs/figmaId" },
+        "type": { "type": "string", "minLength": 1 },
+        "properties": { "type": "object", "additionalProperties": true },
+        "style": { "type": "object", "additionalProperties": true },
+        "typeStyle": { "type": "object", "additionalProperties": true },
+        "textStyle": { "type": "object", "additionalProperties": true },
+        "mode": { "type": ["string", "null"] },
+        "category": { "type": ["string", "null"] },
+        "description": { "type": ["string", "null"] }
+      }
+    }
+  }
+}

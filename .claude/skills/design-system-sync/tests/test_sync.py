@@ -1,341 +1,307 @@
-#!/usr/bin/env python3
 import json
-import subprocess
 import shutil
+import subprocess
 import unittest
 from pathlib import Path
 
-# Paths
-BASE_DIR = Path(__file__).parent.parent
+
+BASE_DIR = Path(__file__).resolve().parents[1]
+REPO_ROOT = BASE_DIR.parents[2]
 SCRIPTS_DIR = BASE_DIR / "scripts"
-WORKSPACE_DIR = Path("workspace/test-sync-workspace")
+WORKSPACE_NAME = "test-sync-workspace"
+WORKSPACE_DIR = REPO_ROOT / "workspace" / WORKSPACE_NAME
+
 
 class TestDesignSystemSync(unittest.TestCase):
     def setUp(self):
-        # Create fresh test workspace
-        WORKSPACE_DIR.mkdir(parents=True, exist_ok=True)
+        if WORKSPACE_DIR.exists():
+            shutil.rmtree(WORKSPACE_DIR)
         self.ds_dir = WORKSPACE_DIR / "design-system"
-        self.ds_dir.mkdir(parents=True, exist_ok=True)
-        self.figma_contract = self.ds_dir / "figma-contract.json"
-        
-        # Load correct template as base
-        self.template_path = BASE_DIR / "template" / "figma-design-system-contract.json"
-        with open(self.template_path, "r", encoding="utf-8") as f:
-            self.valid_template = json.load(f)
+        self.raw_dir = self.ds_dir / "raw"
+        self.raw_dir.mkdir(parents=True, exist_ok=True)
+
+        self.figma_template_path = BASE_DIR / "template" / "figma-design-system-contract.json"
+        self.webflow_template_path = BASE_DIR / "template" / "webflow-design-system-contract.json"
+        self.figma_template = json.loads(self.figma_template_path.read_text(encoding="utf-8"))
 
     def tearDown(self):
-        # Clean up test workspace
         if WORKSPACE_DIR.exists():
             shutil.rmtree(WORKSPACE_DIR)
 
-    def test_validation_passed_happy_path(self):
-        # Save valid figma contract
-        data = json.loads(json.dumps(self.valid_template))
-        # Remove placeholders recursively and fill realistic types
-        for v_name, v_meta in data.get("variables", {}).items():
-            v_type = v_meta.get("type")
-            if v_type == "color":
-                v_meta["value"] = "#ffffff"
-                v_meta["resolvedValue"] = "#ffffff"
-            elif v_type in ["size", "number", "font-weight", "letter-spacing"]:
-                v_meta["value"] = 16
-                v_meta["resolvedValue"] = 16
-            elif v_type == "font-family":
-                v_meta["value"] = "Inter"
-                v_meta["resolvedValue"] = "Inter"
-                
-        self.figma_contract.write_text(json.dumps(data), encoding="utf-8")
+    def write_complete_mcp_payload(self) -> Path:
+        variables = {}
+        for index, (name, entry) in enumerate(self.figma_template["variables"].items(), start=1):
+            item = dict(entry)
+            item["name"] = name
+            item["figmaId"] = f"VariableID:real-variable-{index}:1"
+            item["value"] = entry.get("value")
+            item["resolvedValue"] = entry.get("resolvedValue", entry.get("value"))
+            variables[name] = item
 
-        # Run validate_figma_extraction.py
-        result = subprocess.run([
-            "python", str(SCRIPTS_DIR / "validate_figma_extraction.py"),
-            "--workspace", "test-sync-workspace",
-            "--guide", str(BASE_DIR / "references" / ".user-figma-setup.md"),
-            "--schema", str(BASE_DIR / "schema" / "figma-design-system-contract.schema.json")
-        ], capture_output=True, text=True)
+        styles = {}
+        for index, (name, entry) in enumerate(self.figma_template["styles"].items(), start=1):
+            item = dict(entry)
+            item["name"] = name
+            item["figmaId"] = f"VariableID:real-style-{index}:1"
+            styles[name] = item
 
-        self.assertEqual(result.returncode, 0, f"Stdout: {result.stdout}\nStderr: {result.stderr}")
-        
-        # Verify JSON report was created
-        report_path = self.ds_dir / "validations" / "validation_report.json"
-        self.assertTrue(report_path.exists())
-        report = json.loads(report_path.read_text(encoding="utf-8"))
-        self.assertEqual(report["status"], "passed")
+        payload_path = self.raw_dir / "figma-mcp-variable-defs.json"
+        payload_path.write_text(json.dumps({"variables": variables, "styles": styles}), encoding="utf-8")
+        return payload_path
 
-    def test_validation_failed_missing_required(self):
-        # Missing variables
-        data = {
-            "meta": self.valid_template["meta"],
-            "variables": {},
-            "styles": {}
-        }
-        self.figma_contract.write_text(json.dumps(data), encoding="utf-8")
+    def test_build_figma_design_system_from_complete_mcp_payload(self):
+        payload_path = self.write_complete_mcp_payload()
 
-        result = subprocess.run([
-            "python", str(SCRIPTS_DIR / "validate_figma_extraction.py"),
-            "--workspace", "test-sync-workspace"
-        ], capture_output=True, text=True)
-
-        self.assertEqual(result.returncode, 1)
-        
-        report_path = self.ds_dir / "validations" / "validation_report.json"
-        report = json.loads(report_path.read_text(encoding="utf-8"))
-        self.assertEqual(report["status"], "failed")
-        self.assertGreater(report["summary"]["missingRequiredVariables"], 0)
-
-    def test_validation_failed_placeholder_value(self):
-        # Fill variables but inject one "[VALUE]" placeholder
-        data = json.loads(json.dumps(self.valid_template))
-        for v_name, v_meta in data.get("variables", {}).items():
-            v_type = v_meta.get("type")
-            if v_type == "color":
-                v_meta["value"] = "#ffffff"
-            else:
-                v_meta["value"] = 16
-        
-        # Inject placeholder
-        first_var = list(data["variables"].keys())[0]
-        data["variables"][first_var]["value"] = "[VALUE]"
-        
-        self.figma_contract.write_text(json.dumps(data), encoding="utf-8")
-
-        result = subprocess.run([
-            "python", str(SCRIPTS_DIR / "validate_figma_extraction.py"),
-            "--workspace", "test-sync-workspace"
-        ], capture_output=True, text=True)
-
-        self.assertEqual(result.returncode, 1)
-        
-        report_path = self.ds_dir / "validations" / "validation_report.json"
-        report = json.loads(report_path.read_text(encoding="utf-8"))
-        self.assertEqual(report["status"], "failed")
-        self.assertGreater(report["summary"]["placeholdersFound"], 0)
-
-    def test_map_variables_happy_path(self):
-        # 1. Prepare valid figma contract
-        data = json.loads(json.dumps(self.valid_template))
-        for v_name, v_meta in data.get("variables", {}).items():
-            v_type = v_meta.get("type")
-            if v_type == "color":
-                v_meta["value"] = "#ffffff"
-            else:
-                v_meta["value"] = 16
-        self.figma_contract.write_text(json.dumps(data), encoding="utf-8")
-
-        # Copy template baseline to expected path in test workspace
-        shutil.copy(
-            BASE_DIR / "template" / "webflow-design-system-contract.json",
-            self.ds_dir / "client-first-baseline-contract.json"
+        result = subprocess.run(
+            [
+                "python",
+                str(SCRIPTS_DIR / "build_figma_design_system.py"),
+                "--workspace",
+                WORKSPACE_NAME,
+                "--input",
+                str(payload_path),
+            ],
+            cwd=REPO_ROOT,
+            capture_output=True,
+            text=True,
         )
 
-        # 2. Run map_variables.py
-        result = subprocess.run([
-            "python", str(SCRIPTS_DIR / "map_variables.py"),
-            "--workspace", "test-sync-workspace",
-            "--input", str(self.figma_contract),
-            "--output", str(self.ds_dir / "webflow-contract.json"),
-            "--mapping", str(BASE_DIR / "references" / "figma-webflow-mapping.md"),
-            "--report", str(self.ds_dir / "validations" / "mapping-report.json")
-        ], capture_output=True, text=True)
-
         self.assertEqual(result.returncode, 0, f"Stdout: {result.stdout}\nStderr: {result.stderr}")
-        
-        # Verify Webflow contract is generated
-        wf_contract_path = self.ds_dir / "webflow-contract.json"
-        self.assertTrue(wf_contract_path.exists())
-        
-        wf_data = json.loads(wf_contract_path.read_text(encoding="utf-8"))
-        self.assertIn("--_layout---gaps--large", wf_data["variables"])
-        self.assertIn("heading-style-h1", wf_data["styles"])
+        output_path = self.ds_dir / "figma-design-system.json"
+        report_path = self.ds_dir / "validations" / "build-figma-design-system-report.json"
+        self.assertTrue(output_path.exists())
+        self.assertTrue(report_path.exists())
 
-    def test_extract_baseline_pure_native_fails(self):
-        # Pure native Webflow CSS
-        native_css = """
-        .w-button { color: red; }
-        .w-nav { display: block; }
-        html { margin: 0; }
-        """
-        css_file = self.ds_dir / "native.css"
-        css_file.write_text(native_css, encoding="utf-8")
-        out_contract = self.ds_dir / "native-baseline.json"
-        out_report = self.ds_dir / "validations" / "native-report.json"
+        report = json.loads(report_path.read_text(encoding="utf-8"))
+        self.assertEqual(report["status"], "passed")
+        built = json.loads(output_path.read_text(encoding="utf-8"))
+        first_var = next(iter(built["variables"].values()))
+        self.assertNotIn(":tpl-", first_var["figmaId"])
 
-        result = subprocess.run([
-            "python", str(SCRIPTS_DIR / "extract_client_first_baseline.py"),
-            "--input-css", str(css_file),
-            "--output-contract", str(out_contract),
-            "--report", str(out_report),
-            "--strict"
-        ], capture_output=True, text=True)
-
-        self.assertEqual(result.returncode, 1)
-        self.assertIn("NO_CLIENT_FIRST_BASELINE_FOUND", result.stdout)
-
-    def test_extract_baseline_happy_path_passes(self):
-        # Client-first baseline CSS
-        cf_css = """
-        :root {
-            --brand--blue: #0000ff;
-            --_layout---gaps--large: 24px;
-        }
-        .heading-style-h1 {
-            font-size: 3rem;
-            line-height: 1.2;
-        }
-        .w-button {
-            background-color: blue;
-        }
-        """
-        css_file = self.ds_dir / "cf.css"
-        css_file.write_text(cf_css, encoding="utf-8")
-        out_contract = self.ds_dir / "cf-baseline.json"
-        out_report = self.ds_dir / "validations" / "cf-report.json"
-
-        result = subprocess.run([
-            "python", str(SCRIPTS_DIR / "extract_client_first_baseline.py"),
-            "--input-css", str(css_file),
-            "--output-contract", str(out_contract),
-            "--report", str(out_report),
-            "--strict"
-        ], capture_output=True, text=True)
-
-        self.assertEqual(result.returncode, 0, f"Stdout: {result.stdout}\nStderr: {result.stderr}")
-        self.assertTrue(out_contract.exists())
-        
-        contract_data = json.loads(out_contract.read_text(encoding="utf-8"))
-        self.assertIn("--brand--blue", contract_data["variables"])
-        self.assertIn("heading-style-h1", contract_data["classes"])
-        # w-button should be in excluded
-        self.assertIn(".w-button", contract_data["excluded"]["webflowNativeSelectors"])
-
-    def test_mapping_native_webflow_fails(self):
-        # Create baseline with excluded w-button
-        baseline_data = {
-            "meta": {"schemaVersion": "1.0.0", "source": "test", "baseline": "test", "scope": "client-first-only", "generatedAt": "2026-06-04T00:00:00Z"},
-            "variables": {},
-            "classes": {},
-            "excluded": {
-                "webflowNativeSelectors": [".w-button"],
-                "nativeElementSelectors": ["h1"],
-                "unsupportedSelectors": []
-            }
-        }
-        baseline_file = self.ds_dir / "test-baseline.json"
-        baseline_file.write_text(json.dumps(baseline_data), encoding="utf-8")
-
-        # Figma contract mapping a style to w-button
-        figma_data = {
-            "meta": self.valid_template["meta"],
-            "variables": {},
-            "styles": {
-                "Heading 1": {
-                    "type": "text-style",
-                    "mode": "default",
-                    "properties": {
-                        "font-family": "Inter",
-                        "font-size": {"value": 32, "unit": "px"},
-                        "font-weight": 700,
-                        "line-height": {"value": 40, "unit": "px"}
-                    }
-                }
-            }
-        }
-        self.figma_contract.write_text(json.dumps(figma_data), encoding="utf-8")
-
-        # Mapping file mapping Heading 1 to .w-button
-        mapping_content = """
-        ## Class Mapping
-        | Figma Style | Webflow Class |
-        | `Heading 1` | `w-button` |
-        """
-        mapping_file = self.ds_dir / "test-mapping.md"
-        mapping_file.write_text(mapping_content, encoding="utf-8")
-
-        # Run map_variables.py and expect failure
-        result = subprocess.run([
-            "python", str(SCRIPTS_DIR / "map_variables.py"),
-            "--workspace", "test-sync-workspace",
-            "--input", str(self.figma_contract),
-            "--output", str(self.ds_dir / "webflow-contract.json"),
-            "--mapping", str(mapping_file),
-            "--report", str(self.ds_dir / "validations" / "mapping-report.json"),
-            "--baseline", str(baseline_file),
-            "--strict"
-        ], capture_output=True, text=True)
-
-        self.assertEqual(result.returncode, 1)
-        self.assertIn("maps to Webflow native selector", result.stdout)
-
-    def test_mapping_valid_class_passes(self):
-        # Create baseline with heading-style-h1
-        baseline_data = {
-            "meta": {"schemaVersion": "1.0.0", "source": "test", "baseline": "test", "scope": "client-first-only", "generatedAt": "2026-06-04T00:00:00Z"},
-            "variables": {},
-            "classes": {
-                "heading-style-h1": {
-                    "selector": ".heading-style-h1",
-                    "type": "text-style",
-                    "category": "typography",
-                    "properties": {
-                        "font-size": "32px"
+    def test_build_figma_design_system_fails_when_template_key_missing(self):
+        payload_path = self.raw_dir / "figma-mcp-variable-defs.json"
+        first_variable_name, first_variable = next(iter(self.figma_template["variables"].items()))
+        first_style_name, first_style = next(iter(self.figma_template["styles"].items()))
+        payload_path.write_text(
+            json.dumps(
+                {
+                    "variables": {
+                        first_variable_name: {
+                            "name": first_variable_name,
+                            "figmaId": "VariableID:partial-variable:1",
+                            "value": first_variable.get("value"),
+                            "resolvedValue": first_variable.get("resolvedValue", first_variable.get("value")),
+                        }
                     },
-                    "breakpoints": {"main": {}, "medium": {}, "small": {}, "tiny": {}},
-                    "pseudoStates": {},
+                    "styles": {
+                        first_style_name: {
+                            "name": first_style_name,
+                            "figmaId": "StyleID:partial-style",
+                            "properties": first_style.get("properties", {}),
+                        }
+                    },
+                }
+            ),
+            encoding="utf-8",
+        )
+
+        result = subprocess.run(
+            [
+                "python",
+                str(SCRIPTS_DIR / "build_figma_design_system.py"),
+                "--workspace",
+                WORKSPACE_NAME,
+                "--input",
+                str(payload_path),
+            ],
+            cwd=REPO_ROOT,
+            capture_output=True,
+            text=True,
+        )
+
+        self.assertNotEqual(result.returncode, 0)
+        report = json.loads((self.ds_dir / "validations" / "build-figma-design-system-report.json").read_text(encoding="utf-8"))
+        self.assertEqual(report["status"], "failed")
+        self.assertGreater(report["summary"]["missingVariables"], 0)
+        self.assertFalse((self.ds_dir / "figma-design-system.json").exists())
+
+    def test_build_figma_design_system_fails_when_mcp_input_shape_invalid(self):
+        payload_path = self.raw_dir / "figma-mcp-variable-defs.json"
+        payload_path.write_text(json.dumps({"variableCollections": []}), encoding="utf-8")
+
+        result = subprocess.run(
+            [
+                "python",
+                str(SCRIPTS_DIR / "build_figma_design_system.py"),
+                "--workspace",
+                WORKSPACE_NAME,
+                "--input",
+                str(payload_path),
+            ],
+            cwd=REPO_ROOT,
+            capture_output=True,
+            text=True,
+        )
+
+        self.assertNotEqual(result.returncode, 0)
+        report = json.loads((self.ds_dir / "validations" / "build-figma-design-system-report.json").read_text(encoding="utf-8"))
+        self.assertEqual(report["status"], "failed")
+        self.assertGreater(report["summary"]["inputSchemaErrors"], 0)
+        self.assertIn("inputSchemaErrors", report)
+        self.assertFalse((self.ds_dir / "figma-design-system.json").exists())
+
+    def test_validate_built_figma_design_system_passes(self):
+        payload_path = self.write_complete_mcp_payload()
+        build = subprocess.run(
+            [
+                "python",
+                str(SCRIPTS_DIR / "build_figma_design_system.py"),
+                "--workspace",
+                WORKSPACE_NAME,
+                "--input",
+                str(payload_path),
+            ],
+            cwd=REPO_ROOT,
+            capture_output=True,
+            text=True,
+        )
+        self.assertEqual(build.returncode, 0, build.stdout + build.stderr)
+
+        result = subprocess.run(
+            [
+                "python",
+                str(SCRIPTS_DIR / "validate_figma_extraction.py"),
+                "--workspace",
+                WORKSPACE_NAME,
+            ],
+            cwd=REPO_ROOT,
+            capture_output=True,
+            text=True,
+        )
+
+        self.assertEqual(result.returncode, 0, f"Stdout: {result.stdout}\nStderr: {result.stderr}")
+        report = json.loads((self.ds_dir / "validations" / "validation_report.json").read_text(encoding="utf-8"))
+        self.assertEqual(report["status"], "passed")
+
+    def test_map_variables_with_small_template_passes(self):
+        figma_data = {
+            "meta": self.figma_template["meta"],
+            "variables": {
+                "Brand / Primary": {
+                    "type": "color",
+                    "value": "#112233",
+                    "resolvedValue": "#112233",
+                    "unit": None,
+                    "mode": "default",
+                    "collection": "Brand",
+                    "aliasOf": None,
+                    "name": "Brand / Primary",
+                    "figmaId": "VariableID:brand-primary:1",
+                    "namespace": "brand",
+                    "modes": {"default": "#112233"},
                     "editableInFigma": True,
-                    "syncPolicy": "figma"
+                    "projectExtension": False,
                 }
             },
-            "excluded": {
-                "webflowNativeSelectors": [],
-                "nativeElementSelectors": [],
-                "unsupportedSelectors": []
-            }
-        }
-        baseline_file = self.ds_dir / "test-baseline.json"
-        baseline_file.write_text(json.dumps(baseline_data), encoding="utf-8")
-
-        # Figma contract mapping a style to heading-style-h1
-        figma_data = {
-            "meta": self.valid_template["meta"],
-            "variables": {},
             "styles": {
-                "Heading 1": {
+                "Heading Style / H1": {
                     "type": "text-style",
+                    "properties": {"font-size": {"value": 64, "unit": "px"}},
                     "mode": "default",
-                    "properties": {
-                        "font-family": "Inter",
-                        "font-size": {"value": 32, "unit": "px"},
-                        "font-weight": 700,
-                        "line-height": {"value": 40, "unit": "px"}
-                    }
+                    "name": "Heading Style / H1",
+                    "figmaId": "VariableID:style-h1:1",
+                    "figmaStyleName": "Heading Style / H1",
+                    "category": "heading",
                 }
-            }
+            },
         }
-        self.figma_contract.write_text(json.dumps(figma_data), encoding="utf-8")
+        self.ds_dir.mkdir(parents=True, exist_ok=True)
+        figma_path = self.ds_dir / "figma-design-system.json"
+        figma_path.write_text(json.dumps(figma_data), encoding="utf-8")
 
-        # Mapping file mapping Heading 1 to heading-style-h1
-        mapping_content = """
-        ## Class Mapping
-        | Figma Style | Webflow Class |
-        | `Heading 1` | `heading-style-h1` |
-        """
-        mapping_file = self.ds_dir / "test-mapping.md"
-        mapping_file.write_text(mapping_content, encoding="utf-8")
+        webflow_template = {
+            "meta": {"schemaVersion": "1.0.0", "source": "webflow"},
+            "variables": {
+                "--brand--primary": {
+                    "figmaName": "Brand / Primary",
+                    "webflowName": "--brand--primary",
+                    "type": "color",
+                    "value": "#000000",
+                    "resolvedValue": "#000000",
+                    "unit": None,
+                    "mode": "default",
+                    "updatePolicy": "update_value_only",
+                    "name": "--brand--primary",
+                    "figmaId": "VariableID:tpl-brand-primary:1",
+                    "namespace": "brand",
+                    "modes": {"default": "#000000"},
+                    "editableInFigma": True,
+                    "projectExtension": False,
+                }
+            },
+            "styles": {
+                "heading-style-h1": {
+                    "type": "text-style",
+                    "figmaStyleName": "Heading Style / H1",
+                    "webflowClassName": "heading-style-h1",
+                    "properties": {"font-size": "64px"},
+                    "breakpoints": {"main": {}},
+                    "matchPolicy": {},
+                    "name": "heading-style-h1",
+                    "figmaId": "VariableID:tpl-style-h1:1",
+                    "category": "heading",
+                }
+            },
+        }
+        webflow_template_path = self.ds_dir / "webflow-template.json"
+        webflow_template_path.write_text(json.dumps(webflow_template), encoding="utf-8")
 
-        # Run map_variables.py and expect success
-        result = subprocess.run([
-            "python", str(SCRIPTS_DIR / "map_variables.py"),
-            "--workspace", "test-sync-workspace",
-            "--input", str(self.figma_contract),
-            "--output", str(self.ds_dir / "webflow-contract.json"),
-            "--mapping", str(mapping_file),
-            "--report", str(self.ds_dir / "validations" / "mapping-report.json"),
-            "--baseline", str(baseline_file),
-            "--strict"
-        ], capture_output=True, text=True)
+        mapping_path = self.ds_dir / "mapping.md"
+        mapping_path.write_text(
+            "\n".join(
+                [
+                    "# Test Mapping",
+                    "## Variable Mapping",
+                    "| Figma Variable | Webflow Variable |",
+                    "|---|---|",
+                    "| `Brand / Primary` | `--brand--primary` |",
+                    "## Class Mapping",
+                    "| Figma Style | Webflow Class |",
+                    "|---|---|",
+                    "| `Heading Style / H1` | `heading-style-h1` |",
+                ]
+            ),
+            encoding="utf-8",
+        )
+
+        result = subprocess.run(
+            [
+                "python",
+                str(SCRIPTS_DIR / "map_variables.py"),
+                "--workspace",
+                WORKSPACE_NAME,
+                "--input",
+                str(figma_path),
+                "--output",
+                str(self.ds_dir / "webflow-design-system.json"),
+                "--mapping",
+                str(mapping_path),
+                "--report",
+                str(self.ds_dir / "validations" / "mapping-report.json"),
+                "--webflow-template",
+                str(webflow_template_path),
+                "--strict",
+            ],
+            cwd=REPO_ROOT,
+            capture_output=True,
+            text=True,
+        )
 
         self.assertEqual(result.returncode, 0, f"Stdout: {result.stdout}\nStderr: {result.stderr}")
-        self.assertTrue((self.ds_dir / "webflow-contract.json").exists())
+        webflow_data = json.loads((self.ds_dir / "webflow-design-system.json").read_text(encoding="utf-8"))
+        self.assertEqual(webflow_data["variables"]["--brand--primary"]["value"], "#112233")
+        self.assertIn("heading-style-h1", webflow_data["styles"])
+
 
 if __name__ == "__main__":
     unittest.main()

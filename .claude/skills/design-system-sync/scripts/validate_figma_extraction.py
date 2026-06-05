@@ -9,7 +9,14 @@ import jsonschema
 _SKILLS_DIR = Path(__file__).resolve().parent.parent.parent
 if str(_SKILLS_DIR) not in sys.path:
     sys.path.insert(0, str(_SKILLS_DIR))
+_SHARED_SCRIPTS_DIR = _SKILLS_DIR / "_shared" / "scripts"
+if str(_SHARED_SCRIPTS_DIR) not in sys.path:
+    sys.path.insert(0, str(_SHARED_SCRIPTS_DIR))
+from _shared.scripts.repo_root import find_repo_root, resolve_repo_path  # noqa: E402
 from _shared.selector_guards import is_native_selector, is_html_tag_selector  # noqa: E402
+from contract_paths import figma_contract_paths, webflow_template_path, workspace_design_system_dir  # noqa: E402
+
+REPO_ROOT = find_repo_root()
 
 def load_required_items(guide_path: Path) -> tuple[set, set]:
     if not guide_path.exists():
@@ -51,23 +58,24 @@ def check_for_placeholders(data, path=""):
 def main():
     parser = argparse.ArgumentParser(description="Validate Figma JSON contract")
     parser.add_argument("--workspace", required=True, help="Workspace name")
-    parser.add_argument("--guide", default=".claude/skills/design-system-sync/references/.user-figma-setup.md")
+    parser.add_argument("--guide", default=".claude/skills/design-system-sync/references/figma-webflow-mapping.md")
     parser.add_argument("--schema", default=".claude/skills/design-system-sync/schema/figma-design-system-contract.schema.json")
-    parser.add_argument("--baseline", help="Path to client-first-baseline-contract.json")
+    parser.add_argument("--webflow-template", help="Path to webflow-design-system-contract.json")
     parser.add_argument("--mapping", help="Path to figma-webflow-mapping.md")
     args = parser.parse_args()
 
-    contract_path = Path(f"workspace/{args.workspace}/design-system/figma-contract.json")
-    val_dir = Path(f"workspace/{args.workspace}/design-system/validations")
+    contract_path, _ = figma_contract_paths(REPO_ROOT, args.workspace)
+    val_dir = workspace_design_system_dir(REPO_ROOT, args.workspace) / "validations"
     val_dir.mkdir(parents=True, exist_ok=True)
     report_json_path = val_dir / "validation_report.json"
     report_txt_path = val_dir / "validation_report.txt"
 
-    guide_path = Path(args.guide)
-    schema_path = Path(args.schema)
+    guide_path = resolve_repo_path(REPO_ROOT, args.guide)
+    schema_path = resolve_repo_path(REPO_ROOT, args.schema)
     
-    baseline_path = Path(args.baseline) if args.baseline else Path(f"workspace/{args.workspace}/design-system/client-first-baseline-contract.json")
-    mapping_path = Path(args.mapping) if args.mapping else Path(".claude/skills/design-system-sync/references/figma-webflow-mapping.md")
+    template_path = resolve_repo_path(REPO_ROOT, args.webflow_template) if args.webflow_template else webflow_template_path(REPO_ROOT)
+    mapping_path = resolve_repo_path(REPO_ROOT, args.mapping) if args.mapping else REPO_ROOT / ".claude/skills/design-system-sync/references/figma-webflow-mapping.md"
+    assert guide_path is not None and schema_path is not None and template_path is not None and mapping_path is not None
     
     report = {
         "status": "failed",
@@ -78,7 +86,7 @@ def main():
             "missingRequiredVariables": 0,
             "missingRequiredStyles": 0,
             "placeholdersFound": 0,
-            "baselineViolations": 0
+            "templateViolations": 0
         }
     }
 
@@ -149,9 +157,9 @@ def main():
     for p in placeholders:
         report["errors"].append(f"Placeholder '[VALUE]' found at: '{p}'")
 
-    # 5. Check mapping targets against baseline contract if baseline and mapping exist
-    baseline_ok = True
-    if mapping_path.exists() and baseline_path.exists():
+    # 5. Check mapping targets against the Webflow template if template and mapping exist
+    template_ok = True
+    if mapping_path.exists() and template_path.exists():
         try:
             # Parse mapping
             import re
@@ -178,9 +186,9 @@ def main():
                             if mode == "vars": var_map[f_name] = w_name
                             elif mode == "styles": style_map[f_name] = w_name
 
-            # Load baseline
-            baseline_data = json.loads(baseline_path.read_text(encoding="utf-8"))
-            excluded_data = baseline_data.get("excluded", {})
+            # Load Webflow template
+            template_data = json.loads(template_path.read_text(encoding="utf-8"))
+            excluded_data = template_data.get("excluded", {})
             webflow_native = set(excluded_data.get("webflowNativeSelectors", []))
             native_elements = set(excluded_data.get("nativeElementSelectors", []))
             unsupported = set(excluded_data.get("unsupportedSelectors", []))
@@ -190,28 +198,28 @@ def main():
             for f_var, w_var in var_map.items():
                 # Variables are prefixed with --, we check their names
                 if is_native_selector(w_var, webflow_native) or w_var.startswith("--w-") or w_var.startswith("--wf-"):
-                    report["errors"].append(f"Baseline Violation: Figma variable '{f_var}' maps to Webflow native variable '{w_var}'.")
+                    report["errors"].append(f"Template Violation: Figma variable '{f_var}' maps to Webflow native variable '{w_var}'.")
                     violations += 1
                 if is_html_tag_selector(w_var, native_elements):
-                    report["errors"].append(f"Baseline Violation: Figma variable '{f_var}' maps to HTML native tag variable '{w_var}'.")
+                    report["errors"].append(f"Template Violation: Figma variable '{f_var}' maps to HTML native tag variable '{w_var}'.")
                     violations += 1
 
             for f_style, w_class in style_map.items():
                 if is_native_selector(w_class, webflow_native):
-                    report["errors"].append(f"Baseline Violation: Figma style '{f_style}' maps to Webflow native selector '{w_class}'.")
+                    report["errors"].append(f"Template Violation: Figma style '{f_style}' maps to Webflow native selector '{w_class}'.")
                     violations += 1
                 if is_html_tag_selector(w_class, native_elements):
-                    report["errors"].append(f"Baseline Violation: Figma style '{f_style}' maps to HTML native tag selector '{w_class}'.")
+                    report["errors"].append(f"Template Violation: Figma style '{f_style}' maps to HTML native tag selector '{w_class}'.")
                     violations += 1
                     
-            report["summary"]["baselineViolations"] = violations
+            report["summary"]["templateViolations"] = violations
             if violations > 0:
-                baseline_ok = False
+                template_ok = False
         except Exception as e:
-            report["warnings"].append(f"Error parsing mapping or baseline contract: {e}")
+            report["warnings"].append(f"Error parsing mapping or Webflow template: {e}")
 
     # Final verdict
-    if schema_ok and not missing_vars and not missing_styles and not placeholders and baseline_ok:
+    if schema_ok and not missing_vars and not missing_styles and not placeholders and template_ok:
         report["status"] = "passed"
         txt_msg = "Validation PASSED: All required variables, styles, and schemas are valid and fully populated."
     else:

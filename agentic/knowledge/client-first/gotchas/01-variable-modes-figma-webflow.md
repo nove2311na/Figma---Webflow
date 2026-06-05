@@ -17,7 +17,7 @@ Figma MCP `get_variable_defs` returns modes with raw keys like `Mode 1:1`. The V
 ## Detection
 
 ```python
-# In figma-contract.json, look for:
+# In figma-design-system.json, look for:
 "modes": { "Mode 1:1": "...", "Mode 2:1": "..." }   ← bad: raw Figma mode ids leaked
 "modes": { "default": "...", "dark": "..." }       ← good: normalized
 ```

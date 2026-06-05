@@ -14,7 +14,7 @@ Schemas are grouped by pipeline stage. Each sub-folder contains JSON Schema defi
 | `component/` | (Planned) Component registry and matching report schemas |
 
 > [!NOTE]
-> Design-system sync schema files (e.g. `figma-design-system-contract.schema.json`, `webflow-design-system-contract.schema.json`, and `client-first-baseline-contract.schema.json`) are stored within the skill directory at `.claude/skills/design-system-sync/schema/`.
+> Design-system sync schema files (e.g. `figma-design-system-contract.schema.json` and `webflow-design-system-contract.schema.json`) are stored within the skill directory at `.claude/skills/design-system-sync/schema/`.
 
 ## Schema ↔ Pipeline Stage Mapping
 

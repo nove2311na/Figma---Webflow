@@ -9,7 +9,7 @@
       "name": "ClientFirstLibrary",
       "path": "agentic/schemas/library/client-first-library.schema.json",
       "description": "Finsweet Client-First V2.2 class library source of truth. Generated from the V2.2 stylesheet. Used as a denylist/allowlist by validation gates.",
-      "example_template_path": "agentic/knowledge/generated/client-first-library-contract.json",
+      "example_template_path": "workspace/<workspace-name>/design-system/webflow-design-system.json",
       "applicable_skill": ["design-system-sync", "figma-to-html-architect", "figma-to-webflow-orchestrator"]
     },
     {

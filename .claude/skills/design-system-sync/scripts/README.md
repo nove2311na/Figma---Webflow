@@ -1,37 +1,71 @@
 # Design System Sync Scripts
 
-This directory contains the core Python scripts that power the `design-system-sync` skill. These scripts act as the "Fast Path" and the "Safety Net" for the Agent, saving LLM tokens and ensuring strict data integrity when migrating variables and styles from Figma to Webflow.
+These scripts support the `design-system-sync` skill from saved Figma MCP data to workspace artifacts.
 
-## 1. `validate_figma_extraction.py` (The Safety Gate)
+The canonical outputs are:
 
-**Purpose:** 
-Ensures that the designer has properly set up the design system in Figma before the Agent attempts to sync it to Webflow.
+- `workspace/<workspace-name>/design-system/figma-design-system.json`
+- `workspace/<workspace-name>/design-system/webflow-design-system.json`
 
-**How it works:**
-- It reads the `.user-figma-setup.md` file (which contains the exhaustive list of required Figma Variables and Styles based on the Finsweet V2.2 Source of Truth).
-- It compares that list against the data just extracted from Figma (usually saved to `workspace/<workspace-name>/design-system/figma-contract.json`).
-- If any variables are missing, it halts the pipeline, throwing a clear error listing exactly what the designer forgot to add in Figma.
-- If everything is present, it returns a `PASSED` status, allowing the pipeline to proceed to the translation phase.
+## 1. `build_figma_design_system.py`
 
-**Usage:**
+Builds `figma-design-system.json` from a normalized Figma MCP payload and the Figma template.
+
+The agent should save the untouched Figma MCP response to `raw/figma-mcp-variable-defs.original.json` if the server returns a non-canonical shape, then normalize it into:
+
+- `workspace/<workspace-name>/design-system/raw/figma-mcp-variable-defs.json`
+
+The normalized input must validate against:
+
+- `.claude/skills/design-system-sync/schema/figma-mcp-variable-defs.schema.json`
+
+Then run:
+
 ```bash
-python validate_figma_extraction.py --contract <path/to/extracted/file> --guide <path/to/user/guide>
+python .claude/skills/design-system-sync/scripts/build_figma_design_system.py \
+  --workspace <workspace-name> \
+  --input workspace/<workspace-name>/design-system/raw/figma-mcp-variable-defs.json
 ```
 
----
+Output:
 
-## 2. `map_variables.py` (The Fast Path Translator)
+- `workspace/<workspace-name>/design-system/figma-design-system.json`
+- `workspace/<workspace-name>/design-system/validations/build-figma-design-system-report.json`
 
-**Purpose:**
-Translates the Figma-formatted design system contract into a Webflow-formatted (Finsweet V2.2) design system contract instantly, bypassing the need for the LLM to manually translate hundreds of lines.
+This script fails if the normalized MCP payload is schema-invalid or does not cover every variable/style key required by `.claude/skills/design-system-sync/template/figma-design-system-contract.json`.
 
-**How it works:**
-- It reads `workspace/<workspace-name>/design-system/figma-contract.json`.
-- It applies deterministic string manipulation rules (e.g., converting `Theme / Background / Primary` ➔ `--_theme---background--primary` by converting to lowercase, replacing slashes with triple-hyphens, etc.).
-- It outputs the results directly into `workspace/<workspace-name>/design-system/webflow-contract.json`.
-- **Note:** Mapping logic is fully implemented; see `map_variables.py` for rule precedence and edge cases.
+## 2. `validate_figma_extraction.py`
 
-**Usage:**
+Validates `figma-design-system.json` before mapping.
+
 ```bash
-python map_variables.py --input <path/to/figma/contract> --output <path/to/webflow/contract> --mapping <path/to/mapping/rules>
+python .claude/skills/design-system-sync/scripts/validate_figma_extraction.py --workspace <workspace-name>
 ```
+
+Output:
+
+- `workspace/<workspace-name>/design-system/validations/validation_report.json`
+- `workspace/<workspace-name>/design-system/validations/validation_report.txt`
+
+## 3. `map_variables.py`
+
+Maps the validated Figma artifact into Webflow's design-system contract.
+
+```bash
+python .claude/skills/design-system-sync/scripts/map_variables.py --workspace <workspace-name> --strict
+```
+
+Input:
+
+- `workspace/<workspace-name>/design-system/figma-design-system.json`
+- `.claude/skills/design-system-sync/references/figma-webflow-mapping.md`
+- `.claude/skills/design-system-sync/template/webflow-design-system-contract.json`
+
+Output:
+
+- `workspace/<workspace-name>/design-system/webflow-design-system.json`
+- `workspace/<workspace-name>/design-system/validations/mapping-report.json`
+
+## Shared Path Helper
+
+`contract_paths.py` centralizes canonical artifact and template paths. Use it when adding new design-system sync scripts.

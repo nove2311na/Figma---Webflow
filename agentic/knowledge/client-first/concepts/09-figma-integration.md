@@ -68,10 +68,10 @@ A component variant in Figma = a combo class in Webflow:
 ```
 Figma file (Variables + Styles + Components)
   ↓ get_variable_defs, get_design_context (MCP)
-figma-contract.json (LLM-produced)
+figma-design-system.json (LLM-produced)
   ↓ validate_figma_extraction.py
   ↓ map_variables.py
-webflow-contract.json (LLM-produced)
+webflow-design-system.json (LLM-produced)
   ↓ validate + user approval
 Webflow Designer (variable_tool, style_tool)
 ```

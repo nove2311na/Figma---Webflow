@@ -5,6 +5,13 @@ import re
 import json
 from pathlib import Path
 
+_SHARED_DIR = Path(__file__).resolve().parents[2] / "_shared" / "scripts"
+if str(_SHARED_DIR) not in sys.path:
+    sys.path.insert(0, str(_SHARED_DIR))
+from repo_root import find_repo_root, resolve_repo_path
+
+REPO_ROOT = find_repo_root()
+
 def main():
     parser = argparse.ArgumentParser(description="Validate Figma HTML layer naming compliance")
     parser.add_argument("--workspace", required=True)
@@ -12,13 +19,14 @@ def main():
     parser.add_argument("--mode", default="warn", choices=["strict", "warn", "ignore"], help="Validation mode")
     args = parser.parse_args()
 
-    raw_html_path = Path(f"workspace/{args.workspace}/components/{args.node_id}/raw-figma.html")
-    val_dir = Path(f"workspace/{args.workspace}/components/{args.node_id}/validations")
+    raw_html_path = REPO_ROOT / "workspace" / args.workspace / "html-nodes" / args.node_id / "raw-figma.html"
+    val_dir = REPO_ROOT / "workspace" / args.workspace / "html-nodes" / args.node_id / "validations"
     val_dir.mkdir(parents=True, exist_ok=True)
     report_json_path = val_dir / "html_validation_report.json"
     report_txt_path = val_dir / "html_validation_report.txt"
 
-    mapping_path = Path(".claude/skills/figma-to-html-architect/references/html-semantic-mapping.json")
+    mapping_path = resolve_repo_path(REPO_ROOT, ".claude/skills/figma-to-html-architect/references/html-semantic-mapping.json")
+    assert mapping_path is not None
 
     report = {
         "status": "passed",
@@ -95,7 +103,7 @@ def main():
         if is_native_widget:
             issue = {
                 "dataName": name,
-                "reason": f"Figma layer name implies native Webflow widget behavior '{matched_widget}' which is not allowed in Client-First baseline.",
+                "reason": f"Figma layer name implies native Webflow widget behavior '{matched_widget}' which is not allowed in this semantic HTML pass.",
                 "suggestedRename": name.replace(matched_widget, matched_widget.replace("w-", ""))
             }
             if args.mode == "strict":

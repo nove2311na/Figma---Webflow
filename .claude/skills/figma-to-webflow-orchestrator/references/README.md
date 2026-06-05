@@ -1,6 +1,10 @@
 # Figma to Webflow Orchestrator References
 
-The orchestrator is a coordinator — it does not own its own contract formats or rules. It delegates everything to the two specialized skills.
+The orchestrator is a coordinator. It owns only the workspace bootstrap input schema; design-system and HTML contracts stay in their specialist skills.
+
+Workspace bootstrap schema:
+
+- `../schema/webflow-site-data.schema.json` validates `init_workspace.py --site-data` and `--site-data-file`.
 
 When the orchestrator needs to understand a phase in detail, load the corresponding skill's SKILL.md or its references/ on demand:
 

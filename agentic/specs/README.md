@@ -15,4 +15,4 @@ Specs are grouped by topic area.
 3. `system/agent-system-spec.md` — agent system coordination architecture.
 4. `system/workspace-artifact-schemas.md` — workspace directory structure and schemas.
 
-*Note: Refer to the generated library contract at [client-first-library-contract.json](../knowledge/generated/client-first-library-contract.json) for the active CSS library contract definition.*
+*Note: Refer to the generated design-system output at [webflow-design-system.json](../../workspace/<workspace-name>/design-system/webflow-design-system.json) for the active contract definition.*

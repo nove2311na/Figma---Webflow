@@ -25,7 +25,19 @@ def discover_workspaces(target: Path) -> list[str]:
     workspaces_dir = target / "workspace"
     if not workspaces_dir.exists():
         return []
-    return sorted(p.name for p in workspaces_dir.iterdir() if p.is_dir() and not p.name.startswith("_"))
+    names = []
+    for p in workspaces_dir.iterdir():
+        if p.is_dir() and not p.name.startswith("_"):
+            # Only validate workspaces that have started execution (have design system or HTML artifacts)
+            if (
+                (p / "design-system" / "figma-design-system.json").exists()
+                or (p / "design-system" / "webflow-design-system.json").exists()
+                or (p / "write-audit-log.jsonl").exists()
+                or (p / "html" / "page.blueprint.json").exists()
+            ):
+                names.append(p.name)
+    return sorted(names)
+
 
 
 def validate_workspace(name: str) -> tuple[int, str]:

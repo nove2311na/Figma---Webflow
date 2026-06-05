@@ -1,0 +1,348 @@
+{
+  "meta": {
+    "schemaVersion": "1.0.0",
+    "purpose": "Resolve a Figma layer/data-name to a semantic HTML tag + Client-First class hints. Three resolution tiers: exact match, type heuristic, unmapped fallback.",
+    "matchingStrategy": "exact_keyword_then_longest_wins",
+    "caseInsensitive": true
+  },
+  "exact": [
+    {
+      "keyword": "section",
+      "category": "landmark",
+      "tag": "section",
+      "attributes": {},
+      "classHints": ["section"],
+      "confidence": 0.95,
+      "priority": 90
+    },
+    {
+      "keyword": "header",
+      "category": "landmark",
+      "tag": "header",
+      "attributes": {},
+      "classHints": [],
+      "confidence": 0.95,
+      "priority": 90
+    },
+    {
+      "keyword": "footer",
+      "category": "landmark",
+      "tag": "footer",
+      "attributes": {},
+      "classHints": [],
+      "confidence": 0.95,
+      "priority": 90
+    },
+    {
+      "keyword": "main",
+      "category": "landmark",
+      "tag": "main",
+      "attributes": {},
+      "classHints": [],
+      "confidence": 0.95,
+      "priority": 90
+    },
+    {
+      "keyword": "article",
+      "category": "landmark",
+      "tag": "article",
+      "attributes": {},
+      "classHints": [],
+      "confidence": 0.95,
+      "priority": 90
+    },
+    {
+      "keyword": "nav_menu",
+      "category": "landmark",
+      "tag": "nav",
+      "attributes": {},
+      "classHints": ["nav"],
+      "confidence": 0.95,
+      "priority": 90
+    },
+    {
+      "keyword": "form_wrapper",
+      "category": "form",
+      "tag": "form",
+      "attributes": {},
+      "classHints": ["form"],
+      "confidence": 0.95,
+      "priority": 90
+    },
+    {
+      "keyword": "form_submit",
+      "category": "form",
+      "tag": "button",
+      "attributes": { "type": "submit" },
+      "classHints": ["button"],
+      "confidence": 0.98,
+      "priority": 100
+    },
+    {
+      "keyword": "form_textarea",
+      "category": "form",
+      "tag": "textarea",
+      "attributes": {},
+      "classHints": [],
+      "confidence": 0.95,
+      "priority": 90,
+      "requiredAttributes": ["name"]
+    },
+    {
+      "keyword": "form_input",
+      "category": "form",
+      "tag": "input",
+      "attributes": { "type": "text" },
+      "classHints": ["form_input"],
+      "confidence": 0.95,
+      "priority": 90,
+      "requiredAttributes": ["name"]
+    },
+    {
+      "keyword": "button_group",
+      "category": "layout",
+      "tag": "div",
+      "attributes": {},
+      "classHints": ["button-group"],
+      "confidence": 0.90,
+      "priority": 80
+    },
+    {
+      "keyword": "button_wrapper",
+      "category": "layout",
+      "tag": "div",
+      "attributes": {},
+      "classHints": ["button-wrapper"],
+      "confidence": 0.85,
+      "priority": 80
+    },
+    {
+      "keyword": "button_link",
+      "category": "interactive",
+      "tag": "a",
+      "attributes": { "href": "#" },
+      "classHints": ["button"],
+      "confidence": 0.95,
+      "priority": 95
+    },
+    {
+      "keyword": "button",
+      "category": "interactive",
+      "tag": "button",
+      "attributes": { "type": "button" },
+      "classHints": ["button"],
+      "confidence": 0.95,
+      "priority": 90
+    },
+    {
+      "keyword": "list_item",
+      "category": "layout",
+      "tag": "li",
+      "attributes": {},
+      "classHints": [],
+      "confidence": 0.95,
+      "priority": 90
+    },
+    {
+      "keyword": "list_wrapper",
+      "category": "layout",
+      "tag": "ul",
+      "attributes": {},
+      "classHints": [],
+      "confidence": 0.95,
+      "priority": 90
+    },
+    {
+      "keyword": "image",
+      "category": "media",
+      "tag": "img",
+      "attributes": {},
+      "classHints": [],
+      "confidence": 0.90,
+      "priority": 90,
+      "requiredAttributes": ["alt"]
+    },
+    {
+      "keyword": "heading_h1",
+      "category": "typography",
+      "tag": "h1",
+      "attributes": {},
+      "classHints": ["heading-style-h1"],
+      "confidence": 0.95,
+      "priority": 90
+    },
+    {
+      "keyword": "heading_h2",
+      "category": "typography",
+      "tag": "h2",
+      "attributes": {},
+      "classHints": ["heading-style-h2"],
+      "confidence": 0.95,
+      "priority": 90
+    },
+    {
+      "keyword": "heading_h3",
+      "category": "typography",
+      "tag": "h3",
+      "attributes": {},
+      "classHints": ["heading-style-h3"],
+      "confidence": 0.95,
+      "priority": 90
+    },
+    {
+      "keyword": "heading_h4",
+      "category": "typography",
+      "tag": "h4",
+      "attributes": {},
+      "classHints": ["heading-style-h4"],
+      "confidence": 0.95,
+      "priority": 90
+    },
+    {
+      "keyword": "heading_h5",
+      "category": "typography",
+      "tag": "h5",
+      "attributes": {},
+      "classHints": ["heading-style-h5"],
+      "confidence": 0.95,
+      "priority": 90
+    },
+    {
+      "keyword": "heading_h6",
+      "category": "typography",
+      "tag": "h6",
+      "attributes": {},
+      "classHints": ["heading-style-h6"],
+      "confidence": 0.95,
+      "priority": 90
+    },
+    {
+      "keyword": "paragraph",
+      "category": "typography",
+      "tag": "p",
+      "attributes": {},
+      "classHints": ["text-size-regular"],
+      "confidence": 0.90,
+      "priority": 80
+    },
+    {
+      "keyword": "container",
+      "category": "layout",
+      "tag": "div",
+      "attributes": {},
+      "classHints": ["container"],
+      "confidence": 0.90,
+      "priority": 70
+    }
+  ],
+  "heuristics": [
+    {
+      "figma_type": "TEXT",
+      "font_size_gte": 48,
+      "tag": "h1",
+      "classHints": ["heading-style-h1"],
+      "warning": "inferred_heading_h1_from_font_size",
+      "confidence": 0.65
+    },
+    {
+      "figma_type": "TEXT",
+      "font_size_gte": 36,
+      "font_size_lt": 48,
+      "tag": "h2",
+      "classHints": ["heading-style-h2"],
+      "warning": "inferred_heading_h2_from_font_size",
+      "confidence": 0.65
+    },
+    {
+      "figma_type": "TEXT",
+      "font_size_gte": 28,
+      "font_size_lt": 36,
+      "tag": "h3",
+      "classHints": ["heading-style-h3"],
+      "warning": "inferred_heading_h3_from_font_size",
+      "confidence": 0.60
+    },
+    {
+      "figma_type": "TEXT",
+      "font_size_gte": 22,
+      "font_size_lt": 28,
+      "tag": "h4",
+      "classHints": ["heading-style-h4"],
+      "warning": "inferred_heading_h4_from_font_size",
+      "confidence": 0.55
+    },
+    {
+      "figma_type": "TEXT",
+      "font_size_lt": 14,
+      "tag": "small",
+      "classHints": ["text-size-tiny"],
+      "warning": "inferred_small_from_font_size",
+      "confidence": 0.50
+    },
+    {
+      "figma_type": "TEXT",
+      "tag": "p",
+      "classHints": ["text-size-regular"],
+      "warning": "inferred_paragraph_from_text_node",
+      "confidence": 0.50
+    },
+    {
+      "figma_type": "INSTANCE",
+      "tag": "div",
+      "classHints": ["unresolved-instance"],
+      "warning": "figma_instance_unresolved_check_component_registry",
+      "confidence": 0.40
+    },
+    {
+      "figma_type": "RECTANGLE",
+      "has_image_fill": true,
+      "tag": "img",
+      "classHints": [],
+      "warning": "inferred_image_from_image_fill",
+      "confidence": 0.70,
+      "requiredAttributes": ["alt"]
+    },
+    {
+      "figma_type": "RECTANGLE",
+      "has_image_fill": false,
+      "tag": "div",
+      "classHints": ["bg-shape"],
+      "warning": "inferred_decorative_div",
+      "confidence": 0.40
+    },
+    {
+      "figma_type": "ELLIPSE",
+      "tag": "div",
+      "classHints": ["bg-shape"],
+      "warning": "inferred_decorative_div",
+      "confidence": 0.40
+    },
+    {
+      "figma_type": "FRAME",
+      "child_count": 1,
+      "tag": "div",
+      "classHints": ["wrapper"],
+      "warning": "inferred_wrapper_single_child",
+      "confidence": 0.45
+    },
+    {
+      "figma_type": "FRAME",
+      "child_count_gte": 2,
+      "tag": "div",
+      "classHints": ["container"],
+      "warning": "inferred_container_multi_child",
+      "confidence": 0.50
+    }
+  ],
+  "fallback": {
+    "tag": "div",
+    "classHints": ["unresolved"],
+    "warning": "figma_node_unmapped_check_convention",
+    "confidence": 0.20
+  },
+  "warningCategories": {
+    "inferred_*": "Designer should rename the layer to match the exact convention.",
+    "figma_instance_unresolved_*": "Layer is a Figma component instance with no registry match.",
+    "figma_node_unmapped_*": "No convention match and no heuristic. Manual review required."
+  }
+}

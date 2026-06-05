@@ -10,6 +10,8 @@ from datetime import datetime, timezone
 from pathlib import Path
 from typing import Any
 
+from repo_root import find_repo_root, resolve_repo_path
+
 
 BASE_FONT_SIZE = 16
 COLOR_THRESHOLD = 15
@@ -23,7 +25,8 @@ SPACING_SCALE = {
     "section-medium": 80,
     "section-large": 120,
 }
-CLIENT_FIRST_MAP_PATH = Path(__file__).resolve().parents[4] / "agentic" / "knowledge" / "client-first-class-map.json"
+REPO_ROOT = find_repo_root()
+CLIENT_FIRST_MAP_PATH = REPO_ROOT / "agentic" / "knowledge" / "client-first-class-map.json"
 
 
 @dataclass(frozen=True)
@@ -134,7 +137,7 @@ def log_entry(agent: str, entry_type: str, message: str, context: dict[str, Any]
 
 def load_client_first_class_map(path: Path | None = None) -> dict[str, Any]:
     """Load the structured Client-First class map."""
-    class_map_path = path or CLIENT_FIRST_MAP_PATH
+    class_map_path = resolve_repo_path(REPO_ROOT, path) or CLIENT_FIRST_MAP_PATH
     return json.loads(class_map_path.read_text(encoding="utf-8"))
 
 

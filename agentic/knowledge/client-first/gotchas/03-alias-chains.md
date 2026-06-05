@@ -23,7 +23,7 @@ Worse: the Webflow side has a hard limit on alias depth (max 5 levels). Figma ha
 
 ## Detection
 
-In `webflow-contract.json`, check for `aliasOf` field:
+In `webflow-design-system.json`, check for `aliasOf` field:
 
 ```json
 {
